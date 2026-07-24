@@ -362,14 +362,17 @@ def assemble(m, oas, br, errors, backfill: bool = False) -> dict:
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     hist = load_history()
 
-    # Backfill when asked, and automatically whenever history is too thin to
-    # be worth looking at -- a curve that starts the day you installed this
-    # tells you nothing about whether today is unusual.
-    if backfill or len(hist) < 30:
-        computed = historical_scores(m, oas, br)
-        if computed:
-            hist = computed
-            notes.append(f"score history rebuilt from {len(computed)} sessions")
+    # The history is ALWAYS recomputed from source rather than accumulated.
+    # Accumulating meant any bad entry -- notably the fabricated points in the
+    # shipped sample file -- stayed in the curve forever, and nothing in the
+    # stored record showed it was fake. Recomputing is cheap, deterministic,
+    # and self-healing: a wrong past reading can only survive one run.
+    computed = historical_scores(m, oas, br)
+    if computed:
+        hist = computed
+        notes.append(f"score history rebuilt from {len(computed)} sessions")
+    elif backfill:
+        notes.append("history rebuild produced nothing -- kept stored readings")
 
     hist = [h for h in hist if h.get("date") != today]
     hist.append({"date": today, "score": score, "regime": regime["name"]})
