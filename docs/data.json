@@ -1,130 +1,130 @@
 {
- "updated": "2026-07-24T20:30:35+00:00",
- "score": 49.0,
+ "updated": "2026-07-24T22:04:07+00:00",
+ "score": 47.8,
  "band": "ELEVATED",
  "regime": {
-  "name": "BEAR",
-  "description": "trend and participation both broken",
-  "trend_up": false,
-  "breadth_ok": false
+  "name": "BULL",
+  "description": "trend and participation both intact",
+  "trend_up": true,
+  "breadth_ok": true
  },
  "indicators": [
   {
+   "id": "corr_spy_tlt",
+   "label": "Stock/bond correlation, 63d",
+   "value": 0.3834,
+   "display": "+0.38",
+   "percentile": 91.1,
+   "weight": 6,
+   "note": "above zero means bonds stop cushioning equities"
+  },
+  {
    "id": "vix",
    "label": "VIX level",
-   "value": 28.3504,
-   "display": "28.35",
-   "percentile": 97.0,
-   "weight": 8,
-   "note": ""
-  },
-  {
-   "id": "pct_above_20",
-   "label": "% of S&P 500 above 20-day average",
-   "value": 28.9304,
-   "display": "29%",
-   "percentile": 96.4,
-   "weight": 8,
-   "note": ""
-  },
-  {
-   "id": "breadth_ad_z",
-   "label": "Advance/decline line, 63d z-score",
-   "value": -1.9273,
-   "display": "-1.93",
-   "percentile": 89.3,
-   "weight": 12,
-   "note": "low = participation narrowing under the surface"
-  },
-  {
-   "id": "hy_oas_chg",
-   "label": "HY OAS, 20-day change",
-   "value": 0.0,
-   "display": "+0.00",
-   "percentile": 73.3,
+   "value": 18.58,
+   "display": "18.58",
+   "percentile": 73.4,
    "weight": 8,
    "note": ""
   },
   {
    "id": "vvix",
    "label": "VVIX (vol of vol)",
-   "value": 72.6052,
-   "display": "72.6",
-   "percentile": 58.2,
+   "value": 100.73,
+   "display": "100.7",
+   "percentile": 68.8,
    "weight": 8,
    "note": "rises when people start paying up for tail protection"
   },
   {
-   "id": "nh_nl",
-   "label": "New 52w highs minus new lows",
-   "value": 39.1483,
-   "display": "+39",
-   "percentile": 52.2,
-   "weight": 6,
-   "note": ""
-  },
-  {
-   "id": "concentration",
-   "label": "Cap-weight vs equal-weight, 63d",
-   "value": -0.7594,
-   "display": "-0.8%",
-   "percentile": 40.5,
-   "weight": 8,
-   "note": "rising = the index is being carried by fewer names"
-  },
-  {
    "id": "ts_vix_vix3m",
    "label": "VIX / VIX3M term structure",
-   "value": 1.2277,
-   "display": "1.228",
-   "percentile": 40.2,
+   "value": 0.9059,
+   "display": "0.906",
+   "percentile": 64.0,
    "weight": 12,
    "note": "above 1.00 = backwardation, the classic risk-off trigger"
   },
   {
-   "id": "corr_spy_tlt",
-   "label": "Stock/bond correlation, 63d",
-   "value": 0.0237,
-   "display": "+0.02",
-   "percentile": 33.7,
-   "weight": 6,
-   "note": "above zero means bonds stop cushioning equities"
-  },
-  {
-   "id": "hy_oas",
-   "label": "High yield OAS",
-   "value": 1.68,
-   "display": "1.68",
-   "percentile": 24.9,
-   "weight": 12,
-   "note": "credit is usually early to price real trouble"
-  },
-  {
-   "id": "vvix_vix",
-   "label": "VVIX / VIX",
-   "value": 2.561,
-   "display": "2.56",
-   "percentile": 13.5,
-   "weight": 6,
+   "id": "hy_oas_chg",
+   "label": "HY OAS, 20-day change",
+   "value": -0.01,
+   "display": "-0.01",
+   "percentile": 59.5,
+   "weight": 8,
    "note": ""
   },
   {
    "id": "ts_vix9d_vix",
    "label": "VIX9D / VIX near-term stress",
-   "value": 0.6246,
-   "display": "0.625",
-   "percentile": 1.5,
+   "value": 0.9483,
+   "display": "0.948",
+   "percentile": 58.3,
    "weight": 8,
+   "note": ""
+  },
+  {
+   "id": "pct_above_20",
+   "label": "% of S&P 500 above 20-day average",
+   "value": 55.2894,
+   "display": "55%",
+   "percentile": 53.2,
+   "weight": 8,
+   "note": ""
+  },
+  {
+   "id": "nh_nl",
+   "label": "New 52w highs minus new lows",
+   "value": 23.0,
+   "display": "+23",
+   "percentile": 41.7,
+   "weight": 6,
+   "note": ""
+  },
+  {
+   "id": "breadth_ad_z",
+   "label": "Advance/decline line, 63d z-score",
+   "value": 1.3289,
+   "display": "+1.33",
+   "percentile": 41.1,
+   "weight": 12,
+   "note": "low = participation narrowing under the surface"
+  },
+  {
+   "id": "vvix_vix",
+   "label": "VVIX / VIX",
+   "value": 5.4214,
+   "display": "5.42",
+   "percentile": 27.2,
+   "weight": 6,
    "note": ""
   },
   {
    "id": "move",
    "label": "MOVE (rates volatility)",
-   "value": 97.2661,
-   "display": "97.3",
-   "percentile": 0.9,
+   "value": 76.8175,
+   "display": "76.8",
+   "percentile": 21.4,
    "weight": 8,
    "note": ""
+  },
+  {
+   "id": "concentration",
+   "label": "Cap-weight vs equal-weight, 63d",
+   "value": -1.1284,
+   "display": "-1.1%",
+   "percentile": 18.5,
+   "weight": 8,
+   "note": "rising = the index is being carried by fewer names"
+  },
+  {
+   "id": "hy_oas",
+   "label": "High yield OAS",
+   "value": 2.77,
+   "display": "2.77",
+   "percentile": 17.5,
+   "weight": 12,
+   "note": "credit is usually early to price real trouble"
   }
  ],
  "signals": [
@@ -132,13 +132,13 @@
    "id": "ts_swing_low",
    "label": "Volatility term structure reset",
    "fired": false,
-   "meaning": "panic priced in and now unwinding \u2014 historically a buy window"
+   "meaning": "panic priced in and now unwinding — historically a buy window"
   },
   {
    "id": "ts_swing_high",
    "label": "Term structure inverted",
-   "fired": true,
-   "meaning": "near-term risk priced above 3-month \u2014 risk-off trigger"
+   "fired": false,
+   "meaning": "near-term risk priced above 3-month — risk-off trigger"
   },
   {
    "id": "washout_buy",
@@ -150,7 +150,7 @@
    "id": "zweig_thrust",
    "label": "Breadth thrust",
    "fired": false,
-   "meaning": "rare, powerful buying surge \u2014 strongly bullish"
+   "meaning": "rare, powerful buying surge — strongly bullish"
   },
   {
    "id": "major_top",
@@ -160,8 +160,8 @@
   }
  ],
  "spx_proxy": {
-  "last": 691.18,
-  "pct_from_high": -10.18
+  "last": 738.93,
+  "pct_from_high": -2.72
  },
  "history": [
   {
@@ -882,9 +882,9 @@
   },
   {
    "date": "2026-07-24",
-   "score": 49.0
+   "score": 47.8,
+   "regime": "BULL"
   }
  ],
- "errors": [],
- "demo": true
+ "errors": []
 }
