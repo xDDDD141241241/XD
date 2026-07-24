@@ -1,0 +1,28 @@
+name: Daily Risk Monitor
+
+on:
+  schedule:
+    # 22:30 UTC Mo-Fr = after the US close (00:30 German time)
+    - cron: "30 22 * * 1-5"
+  workflow_dispatch:        # lets you run it by hand from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install yfinance pandas numpy
+      - run: python risk_monitor.py
+      - name: Save the readings
+        run: |
+          git config user.name  "github-actions"
+          git config user.email "actions@github.com"
+          git add docs/data.json
+          git diff --staged --quiet || git commit -m "readings $(date -u +%F)"
+          git push

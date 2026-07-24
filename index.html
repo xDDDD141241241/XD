@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Risk Monitor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ground:#E9ECF1; --panel:#FBFCFD; --ink:#0E141B; --muted:#63748A;
+    --rule:#C4CEDA; --track:#D8DFE8;
+    --calm:#2A7F62; --caution:#C07A1E; --danger:#B02A24; --acute:#7B1E1A;
+    --display:'IBM Plex Sans Condensed',system-ui,sans-serif;
+    --body:'IBM Plex Sans',system-ui,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--body);
+       font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:940px;margin:0 auto;padding:28px 20px 72px}
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+  header{display:flex;justify-content:space-between;align-items:baseline;
+         gap:16px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:10px}
+  h1{font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:.14em;
+     text-transform:uppercase;margin:0}
+  .stamp{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+
+  /* ---- headline reading ---- */
+  .read{background:var(--panel);border:1px solid var(--rule);border-top:none;
+        padding:22px;display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center}
+  .score{font-family:var(--display);font-weight:700;font-size:76px;line-height:.85;
+         letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .score small{display:block;font-family:var(--mono);font-size:11px;font-weight:500;
+               letter-spacing:.16em;margin-top:10px;text-transform:uppercase}
+  .plain{font-size:17px;max-width:52ch}
+  .plain strong{font-weight:600}
+  .regime{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--muted);
+          margin-top:10px;display:block;text-transform:uppercase}
+  .spark{margin-top:14px}
+
+  /* ---- signature: the percentile ladder stack ---- */
+  section{margin-top:34px}
+  h2{font-family:var(--display);font-size:12.5px;letter-spacing:.16em;
+     text-transform:uppercase;color:var(--muted);margin:0 0 4px;font-weight:600}
+  .lede{font-size:13.5px;color:var(--muted);margin:0 0 16px;max-width:62ch}
+
+  .ladder{list-style:none;margin:0;padding:0}
+  .rung{display:grid;grid-template-columns:1fr 168px 62px;gap:14px;align-items:center;
+        padding:11px 0;border-bottom:1px solid var(--rule)}
+  .rung:first-child{border-top:1px solid var(--rule)}
+  .name{font-size:14px}
+  .note{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+  .track{position:relative;height:16px;background:var(--track);border-radius:1px}
+  .track i{position:absolute;top:-3px;width:3px;height:22px;background:var(--ink);
+           transform:translateX(-1.5px)}
+  .track b{position:absolute;top:0;bottom:0;left:0;opacity:.30}
+  .track u{position:absolute;top:0;bottom:0;left:50%;width:1px;background:#fff;opacity:.7}
+  .figs{font-family:var(--mono);font-size:12.5px;text-align:right;font-variant-numeric:tabular-nums}
+  .figs em{display:block;font-style:normal;font-size:11px;color:var(--muted)}
+
+  /* ---- signals ---- */
+  .sig{display:grid;grid-template-columns:14px 1fr;gap:12px;align-items:start;
+       padding:11px 0;border-bottom:1px solid var(--rule)}
+  .sig:first-child{border-top:1px solid var(--rule)}
+  .dot{width:10px;height:10px;border-radius:50%;background:var(--track);margin-top:6px}
+  .sig.on .dot{background:var(--danger)}
+  .sig.on.good .dot{background:var(--calm)}
+  .sig .lbl{font-weight:600;font-size:14px}
+  .sig.off{color:var(--muted)}
+  .sig.off .lbl{font-weight:400}
+  .sig .mean{font-size:12.5px;color:var(--muted)}
+
+  .foot{margin-top:34px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--rule);
+        padding-top:14px}
+  .warn{background:#F6E9E7;border:1px solid #E0BDB8;padding:12px 14px;font-size:13px;
+        margin-top:16px}
+  .empty{background:var(--panel);border:1px solid var(--rule);padding:28px;margin-top:20px}
+  code{font-family:var(--mono);font-size:12.5px;background:var(--track);padding:1px 5px}
+
+  @media (max-width:620px){
+    .read{grid-template-columns:1fr;gap:16px}
+    .score{font-size:62px}
+    .rung{grid-template-columns:1fr 84px;grid-template-areas:"n f" "t t";gap:6px 12px}
+    .name{grid-area:n}.figs{grid-area:f}.track{grid-area:t}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .rung,.sig{animation:in .4s ease both}
+  }
+  @keyframes in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Risk Monitor</h1>
+    <span class="stamp" id="stamp">loading…</span>
+  </header>
+  <div id="app"></div>
+</div>
+
+<script>
+const BANDS = [
+  {max:35, key:'CALM',      color:'var(--calm)',    say:'Nothing in the complex is flashing. Normal conditions.'},
+  {max:60, key:'ELEVATED',  color:'var(--caution)', say:'Some gauges are running warm. Worth a look, not a reaction.'},
+  {max:80, key:'STRESSED',  color:'var(--danger)',  say:'Several gauges are stretched at once. This is when position size matters.'},
+  {max:101,key:'ACUTE',     color:'var(--acute)',   say:'Broad, simultaneous stress. Historically the tail of the distribution.'}
+];
+const band = s => BANDS.find(b => s < b.max) || BANDS[3];
+const colorFor = p => p >= 80 ? 'var(--danger)' : p >= 60 ? 'var(--caution)' : 'var(--calm)';
+
+const REGIME = {
+  BULL:          'Price above trend and participation is broad.',
+  DETERIORATING: 'Price is still holding up, but fewer stocks are carrying it.',
+  CORRECTION:    'Price has broken trend, though breadth has not confirmed real damage.',
+  BEAR:          'Both price trend and participation are broken.'
+};
+
+function sparkline(hist){
+  if(!hist || hist.length < 3) return '';
+  const v = hist.map(h => h.score).filter(Number.isFinite);
+  const w = 300, h = 44, lo = Math.min(...v), hi = Math.max(...v), rng = (hi-lo)||1;
+  const pts = v.map((s,i) => [i/(v.length-1)*w, h - (s-lo)/rng*(h-6) - 3]);
+  const d = pts.map((p,i) => (i?'L':'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+  const last = pts[pts.length-1];
+  return `<svg class="spark" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"
+            role="img" aria-label="Risk score over the last ${v.length} sessions">
+      <path d="${d}" fill="none" stroke="var(--muted)" stroke-width="1.4"/>
+      <circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="3" fill="var(--ink)"/>
+    </svg>
+    <div class="stamp">risk score, last ${v.length} sessions</div>`;
+}
+
+function rung(i){
+  const c = colorFor(i.percentile);
+  return `<li class="rung">
+    <div class="name">${i.label}${i.note ? `<span class="note">${i.note}</span>` : ''}</div>
+    <div class="track" role="img" aria-label="${i.percentile} out of 100">
+      <b style="width:${i.percentile}%;background:${c}"></b>
+      <u></u><i style="left:${i.percentile}%;background:${c}"></i>
+    </div>
+    <div class="figs">${i.display}<em>${i.percentile}</em></div>
+  </li>`;
+}
+
+function render(d){
+  const b = band(d.score);
+  const hot = d.indicators.filter(i => i.percentile >= 70).length;
+  const fired = d.signals.filter(s => s.fired);
+  const good = new Set(['ts_swing_low','washout_buy','zweig_thrust']);
+
+  document.getElementById('stamp').textContent =
+    'updated ' + String(d.updated).replace('T',' ').replace('+00:00',' UTC');
+
+  document.getElementById('app').innerHTML = `
+    <div class="read">
+      <div class="score" style="color:${b.color}">${d.score}<small>${b.key}</small></div>
+      <div>
+        <p class="plain"><strong>${b.say}</strong>
+          ${hot ? `${hot} of ${d.indicators.length} gauges are in the top third of their own three-year range.`
+                : 'No individual gauge is stretched.'}</p>
+        <span class="regime">${d.regime.name} — ${REGIME[d.regime.name] || d.regime.description}</span>
+        ${sparkline(d.history)}
+      </div>
+    </div>
+
+    <section>
+      <h2>What is loud right now</h2>
+      <p class="lede">Each bar is that gauge's position within its own last three years —
+        far right means today is near the most extreme reading it has produced in that window.
+        Sorted loudest first.</p>
+      <ul class="ladder">${d.indicators.map(rung).join('')}</ul>
+    </section>
+
+    <section>
+      <h2>Signals</h2>
+      <p class="lede">These are yes/no conditions, not opinions. One firing alone is noise;
+        several at once is the thing to notice.</p>
+      <div>${d.signals.map(s => `
+        <div class="sig ${s.fired?'on':'off'} ${good.has(s.id)?'good':''}">
+          <span class="dot"></span>
+          <div><span class="lbl">${s.label}</span>
+            <div class="mean">${s.meaning}</div></div>
+        </div>`).join('')}</div>
+      ${fired.length ? '' : '<p class="lede" style="margin-top:14px">Nothing is firing today.</p>'}
+    </section>
+
+    ${d.demo ? `<div class="warn"><strong>This is sample data.</strong>
+        It ships with the repo so the page has something to show. Your first real
+        run overwrites it.</div>` : ''}
+
+    ${d.errors && d.errors.length ? `<div class="warn"><strong>Some feeds did not report.</strong>
+        The score was rebalanced across what did arrive, so it is still readable, but it is
+        built on fewer inputs than usual.<br>${d.errors.map(e=>`<code>${e}</code>`).join(' ')}</div>` : ''}
+
+    <p class="foot">Every gauge is ranked against its own history rather than a fixed threshold,
+      so the score answers “how unusual is this?”, not “how bad is this?”.
+      A high reading is a statement about conditions, not a forecast.</p>`;
+}
+
+fetch('data.json', {cache:'no-store'})
+  .then(r => r.ok ? r.json() : Promise.reject(r.status))
+  .then(render)
+  .catch(() => {
+    document.getElementById('stamp').textContent = 'no data yet';
+    document.getElementById('app').innerHTML = `<div class="empty">
+      <h2>No readings yet</h2>
+      <p class="lede">This page shows whatever is in <code>data.json</code> next to it.
+        Run <code>python risk_monitor.py</code> once, or trigger the
+        <strong>Daily Risk Monitor</strong> action on GitHub, and this fills in.</p></div>`;
+  });
+</script>
+</body>
+</html>

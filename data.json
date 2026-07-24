@@ -1,0 +1,890 @@
+{
+ "updated": "2026-07-24T20:30:35+00:00",
+ "score": 49.0,
+ "band": "ELEVATED",
+ "regime": {
+  "name": "BEAR",
+  "description": "trend and participation both broken",
+  "trend_up": false,
+  "breadth_ok": false
+ },
+ "indicators": [
+  {
+   "id": "vix",
+   "label": "VIX level",
+   "value": 28.3504,
+   "display": "28.35",
+   "percentile": 97.0,
+   "weight": 8,
+   "note": ""
+  },
+  {
+   "id": "pct_above_20",
+   "label": "% of S&P 500 above 20-day average",
+   "value": 28.9304,
+   "display": "29%",
+   "percentile": 96.4,
+   "weight": 8,
+   "note": ""
+  },
+  {
+   "id": "breadth_ad_z",
+   "label": "Advance/decline line, 63d z-score",
+   "value": -1.9273,
+   "display": "-1.93",
+   "percentile": 89.3,
+   "weight": 12,
+   "note": "low = participation narrowing under the surface"
+  },
+  {
+   "id": "hy_oas_chg",
+   "label": "HY OAS, 20-day change",
+   "value": 0.0,
+   "display": "+0.00",
+   "percentile": 73.3,
+   "weight": 8,
+   "note": ""
+  },
+  {
+   "id": "vvix",
+   "label": "VVIX (vol of vol)",
+   "value": 72.6052,
+   "display": "72.6",
+   "percentile": 58.2,
+   "weight": 8,
+   "note": "rises when people start paying up for tail protection"
+  },
+  {
+   "id": "nh_nl",
+   "label": "New 52w highs minus new lows",
+   "value": 39.1483,
+   "display": "+39",
+   "percentile": 52.2,
+   "weight": 6,
+   "note": ""
+  },
+  {
+   "id": "concentration",
+   "label": "Cap-weight vs equal-weight, 63d",
+   "value": -0.7594,
+   "display": "-0.8%",
+   "percentile": 40.5,
+   "weight": 8,
+   "note": "rising = the index is being carried by fewer names"
+  },
+  {
+   "id": "ts_vix_vix3m",
+   "label": "VIX / VIX3M term structure",
+   "value": 1.2277,
+   "display": "1.228",
+   "percentile": 40.2,
+   "weight": 12,
+   "note": "above 1.00 = backwardation, the classic risk-off trigger"
+  },
+  {
+   "id": "corr_spy_tlt",
+   "label": "Stock/bond correlation, 63d",
+   "value": 0.0237,
+   "display": "+0.02",
+   "percentile": 33.7,
+   "weight": 6,
+   "note": "above zero means bonds stop cushioning equities"
+  },
+  {
+   "id": "hy_oas",
+   "label": "High yield OAS",
+   "value": 1.68,
+   "display": "1.68",
+   "percentile": 24.9,
+   "weight": 12,
+   "note": "credit is usually early to price real trouble"
+  },
+  {
+   "id": "vvix_vix",
+   "label": "VVIX / VIX",
+   "value": 2.561,
+   "display": "2.56",
+   "percentile": 13.5,
+   "weight": 6,
+   "note": ""
+  },
+  {
+   "id": "ts_vix9d_vix",
+   "label": "VIX9D / VIX near-term stress",
+   "value": 0.6246,
+   "display": "0.625",
+   "percentile": 1.5,
+   "weight": 8,
+   "note": ""
+  },
+  {
+   "id": "move",
+   "label": "MOVE (rates volatility)",
+   "value": 97.2661,
+   "display": "97.3",
+   "percentile": 0.9,
+   "weight": 8,
+   "note": ""
+  }
+ ],
+ "signals": [
+  {
+   "id": "ts_swing_low",
+   "label": "Volatility term structure reset",
+   "fired": false,
+   "meaning": "panic priced in and now unwinding \u2014 historically a buy window"
+  },
+  {
+   "id": "ts_swing_high",
+   "label": "Term structure inverted",
+   "fired": true,
+   "meaning": "near-term risk priced above 3-month \u2014 risk-off trigger"
+  },
+  {
+   "id": "washout_buy",
+   "label": "Breadth washout",
+   "fired": false,
+   "meaning": "selling exhausted, breadth turning up off the floor"
+  },
+  {
+   "id": "zweig_thrust",
+   "label": "Breadth thrust",
+   "fired": false,
+   "meaning": "rare, powerful buying surge \u2014 strongly bullish"
+  },
+  {
+   "id": "major_top",
+   "label": "Major top cluster",
+   "fired": false,
+   "meaning": "tail hedging bid, bonds no longer cushioning, price at highs"
+  }
+ ],
+ "spx_proxy": {
+  "last": 691.18,
+  "pct_from_high": -10.18
+ },
+ "history": [
+  {
+   "date": "2025-11-17",
+   "score": 41.4
+  },
+  {
+   "date": "2025-11-18",
+   "score": 38.7
+  },
+  {
+   "date": "2025-11-19",
+   "score": 38.3
+  },
+  {
+   "date": "2025-11-20",
+   "score": 39.1
+  },
+  {
+   "date": "2025-11-21",
+   "score": 41.4
+  },
+  {
+   "date": "2025-11-24",
+   "score": 41.6
+  },
+  {
+   "date": "2025-11-25",
+   "score": 40.5
+  },
+  {
+   "date": "2025-11-26",
+   "score": 38.9
+  },
+  {
+   "date": "2025-11-27",
+   "score": 40.4
+  },
+  {
+   "date": "2025-11-28",
+   "score": 43.7
+  },
+  {
+   "date": "2025-12-01",
+   "score": 44.2
+  },
+  {
+   "date": "2025-12-02",
+   "score": 41.8
+  },
+  {
+   "date": "2025-12-03",
+   "score": 39.8
+  },
+  {
+   "date": "2025-12-04",
+   "score": 43.0
+  },
+  {
+   "date": "2025-12-05",
+   "score": 43.4
+  },
+  {
+   "date": "2025-12-08",
+   "score": 40.0
+  },
+  {
+   "date": "2025-12-09",
+   "score": 39.8
+  },
+  {
+   "date": "2025-12-10",
+   "score": 37.5
+  },
+  {
+   "date": "2025-12-11",
+   "score": 36.2
+  },
+  {
+   "date": "2025-12-12",
+   "score": 35.3
+  },
+  {
+   "date": "2025-12-15",
+   "score": 33.8
+  },
+  {
+   "date": "2025-12-16",
+   "score": 34.9
+  },
+  {
+   "date": "2025-12-17",
+   "score": 34.8
+  },
+  {
+   "date": "2025-12-18",
+   "score": 33.6
+  },
+  {
+   "date": "2025-12-19",
+   "score": 34.4
+  },
+  {
+   "date": "2025-12-22",
+   "score": 36.1
+  },
+  {
+   "date": "2025-12-23",
+   "score": 32.8
+  },
+  {
+   "date": "2025-12-24",
+   "score": 32.3
+  },
+  {
+   "date": "2025-12-25",
+   "score": 30.3
+  },
+  {
+   "date": "2025-12-26",
+   "score": 30.0
+  },
+  {
+   "date": "2025-12-29",
+   "score": 27.4
+  },
+  {
+   "date": "2025-12-30",
+   "score": 27.5
+  },
+  {
+   "date": "2025-12-31",
+   "score": 27.4
+  },
+  {
+   "date": "2026-01-01",
+   "score": 26.8
+  },
+  {
+   "date": "2026-01-02",
+   "score": 24.7
+  },
+  {
+   "date": "2026-01-05",
+   "score": 23.9
+  },
+  {
+   "date": "2026-01-06",
+   "score": 21.7
+  },
+  {
+   "date": "2026-01-07",
+   "score": 19.0
+  },
+  {
+   "date": "2026-01-08",
+   "score": 19.4
+  },
+  {
+   "date": "2026-01-09",
+   "score": 17.2
+  },
+  {
+   "date": "2026-01-12",
+   "score": 19.6
+  },
+  {
+   "date": "2026-01-13",
+   "score": 21.0
+  },
+  {
+   "date": "2026-01-14",
+   "score": 17.0
+  },
+  {
+   "date": "2026-01-15",
+   "score": 17.5
+  },
+  {
+   "date": "2026-01-16",
+   "score": 15.3
+  },
+  {
+   "date": "2026-01-19",
+   "score": 15.4
+  },
+  {
+   "date": "2026-01-20",
+   "score": 15.5
+  },
+  {
+   "date": "2026-01-21",
+   "score": 11.5
+  },
+  {
+   "date": "2026-01-22",
+   "score": 11.1
+  },
+  {
+   "date": "2026-01-23",
+   "score": 10.5
+  },
+  {
+   "date": "2026-01-26",
+   "score": 12.5
+  },
+  {
+   "date": "2026-01-27",
+   "score": 10.1
+  },
+  {
+   "date": "2026-01-28",
+   "score": 11.6
+  },
+  {
+   "date": "2026-01-29",
+   "score": 9.4
+  },
+  {
+   "date": "2026-01-30",
+   "score": 8.7
+  },
+  {
+   "date": "2026-02-02",
+   "score": 7.0
+  },
+  {
+   "date": "2026-02-03",
+   "score": 9.9
+  },
+  {
+   "date": "2026-02-04",
+   "score": 11.1
+  },
+  {
+   "date": "2026-02-05",
+   "score": 15.9
+  },
+  {
+   "date": "2026-02-06",
+   "score": 17.2
+  },
+  {
+   "date": "2026-02-09",
+   "score": 18.9
+  },
+  {
+   "date": "2026-02-10",
+   "score": 20.6
+  },
+  {
+   "date": "2026-02-11",
+   "score": 19.4
+  },
+  {
+   "date": "2026-02-12",
+   "score": 19.2
+  },
+  {
+   "date": "2026-02-13",
+   "score": 21.9
+  },
+  {
+   "date": "2026-02-16",
+   "score": 21.1
+  },
+  {
+   "date": "2026-02-17",
+   "score": 21.5
+  },
+  {
+   "date": "2026-02-18",
+   "score": 21.5
+  },
+  {
+   "date": "2026-02-19",
+   "score": 22.7
+  },
+  {
+   "date": "2026-02-20",
+   "score": 22.0
+  },
+  {
+   "date": "2026-02-23",
+   "score": 21.7
+  },
+  {
+   "date": "2026-02-24",
+   "score": 22.1
+  },
+  {
+   "date": "2026-02-25",
+   "score": 22.4
+  },
+  {
+   "date": "2026-02-26",
+   "score": 20.6
+  },
+  {
+   "date": "2026-02-27",
+   "score": 22.4
+  },
+  {
+   "date": "2026-03-02",
+   "score": 19.8
+  },
+  {
+   "date": "2026-03-03",
+   "score": 17.4
+  },
+  {
+   "date": "2026-03-04",
+   "score": 14.9
+  },
+  {
+   "date": "2026-03-05",
+   "score": 16.8
+  },
+  {
+   "date": "2026-03-06",
+   "score": 16.1
+  },
+  {
+   "date": "2026-03-09",
+   "score": 14.1
+  },
+  {
+   "date": "2026-03-10",
+   "score": 11.9
+  },
+  {
+   "date": "2026-03-11",
+   "score": 12.7
+  },
+  {
+   "date": "2026-03-12",
+   "score": 10.6
+  },
+  {
+   "date": "2026-03-13",
+   "score": 8.0
+  },
+  {
+   "date": "2026-03-16",
+   "score": 9.3
+  },
+  {
+   "date": "2026-03-17",
+   "score": 6.9
+  },
+  {
+   "date": "2026-03-18",
+   "score": 6.2
+  },
+  {
+   "date": "2026-03-19",
+   "score": 6.2
+  },
+  {
+   "date": "2026-03-20",
+   "score": 5.3
+  },
+  {
+   "date": "2026-03-23",
+   "score": 5.2
+  },
+  {
+   "date": "2026-03-24",
+   "score": 7.9
+  },
+  {
+   "date": "2026-03-25",
+   "score": 6.9
+  },
+  {
+   "date": "2026-03-26",
+   "score": 5.0
+  },
+  {
+   "date": "2026-03-27",
+   "score": 5.0
+  },
+  {
+   "date": "2026-03-30",
+   "score": 5.0
+  },
+  {
+   "date": "2026-03-31",
+   "score": 5.0
+  },
+  {
+   "date": "2026-04-01",
+   "score": 5.0
+  },
+  {
+   "date": "2026-04-02",
+   "score": 5.0
+  },
+  {
+   "date": "2026-04-03",
+   "score": 5.0
+  },
+  {
+   "date": "2026-04-06",
+   "score": 5.0
+  },
+  {
+   "date": "2026-04-07",
+   "score": 5.0
+  },
+  {
+   "date": "2026-04-08",
+   "score": 5.0
+  },
+  {
+   "date": "2026-04-09",
+   "score": 5.0
+  },
+  {
+   "date": "2026-04-10",
+   "score": 5.0
+  },
+  {
+   "date": "2026-04-13",
+   "score": 5.0
+  },
+  {
+   "date": "2026-04-14",
+   "score": 5.0
+  },
+  {
+   "date": "2026-04-15",
+   "score": 5.0
+  },
+  {
+   "date": "2026-04-16",
+   "score": 5.0
+  },
+  {
+   "date": "2026-04-17",
+   "score": 5.0
+  },
+  {
+   "date": "2026-04-20",
+   "score": 5.0
+  },
+  {
+   "date": "2026-04-21",
+   "score": 5.0
+  },
+  {
+   "date": "2026-04-22",
+   "score": 5.0
+  },
+  {
+   "date": "2026-04-23",
+   "score": 5.0
+  },
+  {
+   "date": "2026-04-24",
+   "score": 5.0
+  },
+  {
+   "date": "2026-04-27",
+   "score": 5.0
+  },
+  {
+   "date": "2026-04-28",
+   "score": 5.0
+  },
+  {
+   "date": "2026-04-29",
+   "score": 5.0
+  },
+  {
+   "date": "2026-04-30",
+   "score": 5.0
+  },
+  {
+   "date": "2026-05-01",
+   "score": 5.0
+  },
+  {
+   "date": "2026-05-04",
+   "score": 5.0
+  },
+  {
+   "date": "2026-05-05",
+   "score": 5.0
+  },
+  {
+   "date": "2026-05-06",
+   "score": 5.0
+  },
+  {
+   "date": "2026-05-07",
+   "score": 5.0
+  },
+  {
+   "date": "2026-05-08",
+   "score": 5.0
+  },
+  {
+   "date": "2026-05-11",
+   "score": 5.0
+  },
+  {
+   "date": "2026-05-12",
+   "score": 5.0
+  },
+  {
+   "date": "2026-05-13",
+   "score": 5.0
+  },
+  {
+   "date": "2026-05-14",
+   "score": 5.0
+  },
+  {
+   "date": "2026-05-15",
+   "score": 5.0
+  },
+  {
+   "date": "2026-05-18",
+   "score": 5.0
+  },
+  {
+   "date": "2026-05-19",
+   "score": 5.0
+  },
+  {
+   "date": "2026-05-20",
+   "score": 5.0
+  },
+  {
+   "date": "2026-05-21",
+   "score": 5.0
+  },
+  {
+   "date": "2026-05-22",
+   "score": 5.0
+  },
+  {
+   "date": "2026-05-25",
+   "score": 5.4
+  },
+  {
+   "date": "2026-05-26",
+   "score": 6.7
+  },
+  {
+   "date": "2026-05-27",
+   "score": 6.9
+  },
+  {
+   "date": "2026-05-28",
+   "score": 8.3
+  },
+  {
+   "date": "2026-05-29",
+   "score": 6.5
+  },
+  {
+   "date": "2026-06-01",
+   "score": 5.8
+  },
+  {
+   "date": "2026-06-02",
+   "score": 7.4
+  },
+  {
+   "date": "2026-06-03",
+   "score": 8.7
+  },
+  {
+   "date": "2026-06-04",
+   "score": 11.8
+  },
+  {
+   "date": "2026-06-05",
+   "score": 11.8
+  },
+  {
+   "date": "2026-06-08",
+   "score": 8.9
+  },
+  {
+   "date": "2026-06-09",
+   "score": 12.8
+  },
+  {
+   "date": "2026-06-10",
+   "score": 15.0
+  },
+  {
+   "date": "2026-06-11",
+   "score": 12.8
+  },
+  {
+   "date": "2026-06-12",
+   "score": 15.6
+  },
+  {
+   "date": "2026-06-15",
+   "score": 15.7
+  },
+  {
+   "date": "2026-06-16",
+   "score": 12.0
+  },
+  {
+   "date": "2026-06-17",
+   "score": 11.2
+  },
+  {
+   "date": "2026-06-18",
+   "score": 10.2
+  },
+  {
+   "date": "2026-06-19",
+   "score": 13.3
+  },
+  {
+   "date": "2026-06-22",
+   "score": 11.8
+  },
+  {
+   "date": "2026-06-23",
+   "score": 11.3
+  },
+  {
+   "date": "2026-06-24",
+   "score": 10.7
+  },
+  {
+   "date": "2026-06-25",
+   "score": 9.9
+  },
+  {
+   "date": "2026-06-26",
+   "score": 8.1
+  },
+  {
+   "date": "2026-06-29",
+   "score": 8.6
+  },
+  {
+   "date": "2026-06-30",
+   "score": 10.7
+  },
+  {
+   "date": "2026-07-01",
+   "score": 12.0
+  },
+  {
+   "date": "2026-07-02",
+   "score": 10.1
+  },
+  {
+   "date": "2026-07-03",
+   "score": 7.8
+  },
+  {
+   "date": "2026-07-06",
+   "score": 8.0
+  },
+  {
+   "date": "2026-07-07",
+   "score": 6.6
+  },
+  {
+   "date": "2026-07-08",
+   "score": 5.4
+  },
+  {
+   "date": "2026-07-09",
+   "score": 5.0
+  },
+  {
+   "date": "2026-07-10",
+   "score": 5.9
+  },
+  {
+   "date": "2026-07-13",
+   "score": 7.7
+  },
+  {
+   "date": "2026-07-14",
+   "score": 5.8
+  },
+  {
+   "date": "2026-07-15",
+   "score": 7.6
+  },
+  {
+   "date": "2026-07-16",
+   "score": 10.3
+  },
+  {
+   "date": "2026-07-17",
+   "score": 5.5
+  },
+  {
+   "date": "2026-07-20",
+   "score": 5.0
+  },
+  {
+   "date": "2026-07-21",
+   "score": 5.0
+  },
+  {
+   "date": "2026-07-22",
+   "score": 5.0
+  },
+  {
+   "date": "2026-07-23",
+   "score": 5.0
+  },
+  {
+   "date": "2026-07-24",
+   "score": 49.0
+  }
+ ],
+ "errors": [],
+ "demo": true
+}
