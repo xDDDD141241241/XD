@@ -41,7 +41,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DATA_PATH = os.path.join(HERE, "docs", "data.json")
 
 PCTL_WINDOW = 756        # ~3 years of sessions for percentile ranking
-HISTORY_MAX = 750
+HISTORY_MAX = 1300
 SP500_LIST = ("https://raw.githubusercontent.com/Ate329/top-us-stock-tickers"
               "/main/tickers/sp500.csv")
 FRED_HY_OAS = ("https://fred.stlouisfed.org/graph/fredgraph.csv"
@@ -139,68 +139,126 @@ def pctl(series: pd.Series, window: int = PCTL_WINDOW) -> float:
     return round(float((s <= s.iloc[-1]).mean() * 100), 1)
 
 
-def _ind(out, key, label, series, weight, invert=False, fmt="{:.2f}", note=""):
-    if series is None or series.dropna().empty:
+def _spec(out, key, label, series, weight, invert=False, fmt="{:.2f}", note=""):
+    if series is None:
         return
-    p = pctl(series)
-    if p != p:
+    s = series.dropna()
+    if s.empty:
         return
-    out.append({
-        "id": key, "label": label,
-        "value": round(float(series.dropna().iloc[-1]), 4),
-        "display": fmt.format(float(series.dropna().iloc[-1])),
-        "percentile": round(100 - p, 1) if invert else p,
-        "weight": weight, "note": note,
-    })
+    out.append({"id": key, "label": label, "series": s, "weight": weight,
+                "invert": invert, "fmt": fmt, "note": note})
 
 
-def build_indicators(m: dict, oas: pd.Series | None, br: dict) -> list[dict]:
+def indicator_specs(m: dict, oas: pd.Series | None, br: dict) -> list[dict]:
+    """
+    Single source of truth for what a gauge IS. Both the daily reading and the
+    historical backfill consume this, so the number on the page and the number
+    in the history curve can never be computed two different ways.
+    """
     out: list[dict] = []
     g = m.get
 
     if g("vix") is not None and g("vix3m") is not None:
-        ts = (m["vix"] / m["vix3m"]).dropna()
-        _ind(out, "ts_vix_vix3m", "VIX / VIX3M term structure", ts, 12,
-             fmt="{:.3f}", note="above 1.00 = backwardation, the classic risk-off trigger")
+        _spec(out, "ts_vix_vix3m", "VIX / VIX3M term structure",
+              (m["vix"] / m["vix3m"]), 12, fmt="{:.3f}",
+              note="above 1.00 = backwardation, the classic risk-off trigger")
     if g("vix9d") is not None and g("vix") is not None:
-        _ind(out, "ts_vix9d_vix", "VIX9D / VIX near-term stress",
-             (m["vix9d"] / m["vix"]).dropna(), 8, fmt="{:.3f}")
-    _ind(out, "vix", "VIX level", g("vix"), 8)
-    _ind(out, "vvix", "VVIX (vol of vol)", g("vvix"), 8, fmt="{:.1f}",
-         note="rises when people start paying up for tail protection")
+        _spec(out, "ts_vix9d_vix", "VIX9D / VIX near-term stress",
+              (m["vix9d"] / m["vix"]), 8, fmt="{:.3f}")
+    _spec(out, "vix", "VIX level", g("vix"), 8)
+    _spec(out, "vvix", "VVIX (vol of vol)", g("vvix"), 8, fmt="{:.1f}",
+          note="rises when people start paying up for tail protection")
     if g("vvix") is not None and g("vix") is not None:
-        _ind(out, "vvix_vix", "VVIX / VIX", (m["vvix"] / m["vix"]).dropna(), 6,
-             fmt="{:.2f}")
-    _ind(out, "move", "MOVE (rates volatility)", g("move"), 8, fmt="{:.1f}")
+        _spec(out, "vvix_vix", "VVIX / VIX", (m["vvix"] / m["vix"]), 6, fmt="{:.2f}")
+    _spec(out, "move", "MOVE (rates volatility)", g("move"), 8, fmt="{:.1f}")
 
     if oas is not None:
-        _ind(out, "hy_oas", "High yield OAS", oas, 12, fmt="{:.2f}",
-             note="credit is usually early to price real trouble")
-        _ind(out, "hy_oas_chg", "HY OAS, 20-day change",
-             oas.diff(20).dropna(), 8, fmt="{:+.2f}")
+        _spec(out, "hy_oas", "High yield OAS", oas, 12, fmt="{:.2f}",
+              note="credit is usually early to price real trouble")
+        _spec(out, "hy_oas_chg", "HY OAS, 20-day change", oas.diff(20), 8,
+              fmt="{:+.2f}")
 
     if g("spy") is not None and g("rsp") is not None:
-        conc = (m["spy"] / m["rsp"]).dropna()
-        _ind(out, "concentration", "Cap-weight vs equal-weight, 63d",
-             conc.pct_change(63).dropna() * 100, 8, fmt="{:+.1f}%",
-             note="rising = the index is being carried by fewer names")
+        _spec(out, "concentration", "Cap-weight vs equal-weight, 63d",
+              (m["spy"] / m["rsp"]).pct_change(63) * 100, 8, fmt="{:+.1f}%",
+              note="rising = the index is being carried by fewer names")
     if g("spy") is not None and g("tlt") is not None:
-        rs, rt = m["spy"].pct_change(), m["tlt"].pct_change()
-        corr = rs.rolling(63).corr(rt).dropna()
-        _ind(out, "corr_spy_tlt", "Stock/bond correlation, 63d", corr, 6,
-             fmt="{:+.2f}", note="above zero means bonds stop cushioning equities")
+        _spec(out, "corr_spy_tlt", "Stock/bond correlation, 63d",
+              m["spy"].pct_change().rolling(63).corr(m["tlt"].pct_change()), 6,
+              fmt="{:+.2f}", note="above zero means bonds stop cushioning equities")
 
     if br:
         ad = br["ad_line"]
-        z = ((ad - ad.rolling(63).mean()) / ad.rolling(63).std()).dropna()
-        _ind(out, "breadth_ad_z", "Advance/decline line, 63d z-score", z, 12,
-             invert=True, fmt="{:+.2f}",
-             note="low = participation narrowing under the surface")
-        _ind(out, "pct_above_20", "% of S&P 500 above 20-day average",
-             br["pct_above_20"], 8, invert=True, fmt="{:.0f}%")
-        _ind(out, "nh_nl", "New 52w highs minus new lows", br["nh_nl"], 6,
-             invert=True, fmt="{:+.0f}")
+        _spec(out, "breadth_ad_z", "Advance/decline line, 63d z-score",
+              (ad - ad.rolling(63).mean()) / ad.rolling(63).std(), 12,
+              invert=True, fmt="{:+.2f}",
+              note="low = participation narrowing under the surface")
+        _spec(out, "pct_above_20", "% of S&P 500 above 20-day average",
+              br["pct_above_20"], 8, invert=True, fmt="{:.0f}%")
+        _spec(out, "nh_nl", "New 52w highs minus new lows", br["nh_nl"], 6,
+              invert=True, fmt="{:+.0f}")
     return out
+
+
+def build_indicators(m: dict, oas: pd.Series | None, br: dict) -> list[dict]:
+    """Today's reading for each gauge, with a freshness stamp."""
+    specs = indicator_specs(m, oas, br)
+    if not specs:
+        return []
+    newest = max(sp["series"].index[-1] for sp in specs)
+
+    out = []
+    for sp in specs:
+        s = sp["series"]
+        p = pctl(s)
+        if p != p:
+            continue
+        as_of = s.index[-1]
+        out.append({
+            "id": sp["id"], "label": sp["label"],
+            "value": round(float(s.iloc[-1]), 4),
+            "display": sp["fmt"].format(float(s.iloc[-1])),
+            "percentile": round(100 - p, 1) if sp["invert"] else p,
+            "weight": sp["weight"], "note": sp["note"],
+            "as_of": str(as_of.date()),
+            # a feed that has quietly stopped updating still returns a number;
+            # this is what stops that number being read as current
+            "stale": bool((newest - as_of).days > 4),
+        })
+    return out
+
+
+def historical_scores(m: dict, oas: pd.Series | None, br: dict,
+                      window: int = PCTL_WINDOW) -> list[dict]:
+    """
+    Recompute the composite for every day in the past, using only the
+    information available on that day: each gauge is ranked inside its own
+    trailing window as it stood then. No lookahead.
+    """
+    specs = indicator_specs(m, oas, br)
+    if not specs:
+        return []
+
+    ranks, weights = {}, {}
+    for sp in specs:
+        s = sp["series"].dropna()
+        if len(s) < window // 4:
+            continue
+        r = s.rolling(window, min_periods=120).rank(pct=True) * 100
+        ranks[sp["id"]] = (100 - r) if sp["invert"] else r
+        weights[sp["id"]] = sp["weight"]
+    if not ranks:
+        return []
+
+    R = pd.DataFrame(ranks).dropna(how="all")
+    W = pd.Series(weights)
+    present = R.notna()
+    num = (R.fillna(0) * W).sum(axis=1)
+    den = (present * W).sum(axis=1).replace(0, np.nan)
+    score = (num / den).dropna()
+
+    return [{"date": str(d.date()), "score": round(float(v), 1)}
+            for d, v in score.items()]
 
 
 def composite_score(indicators: list[dict]) -> float:
@@ -279,21 +337,41 @@ def build_signals(m: dict, br: dict) -> list[dict]:
 # ---------------------------------------------------------------------------
 
 def load_history() -> list:
+    """
+    Previous readings, unless the file still holds the shipped sample. That
+    sample carries 180 fabricated points; inheriting them would have drawn a
+    curve of invented history under a real reading.
+    """
     try:
         with open(DATA_PATH, encoding="utf-8") as f:
-            return json.load(f).get("history", [])
+            prev = json.load(f)
+        if prev.get("demo"):
+            return []
+        return prev.get("history", [])
     except Exception:
         return []
 
 
-def assemble(m, oas, br, errors) -> dict:
+def assemble(m, oas, br, errors, backfill: bool = False) -> dict:
+    notes: list = []
     ind = build_indicators(m, oas, br)
     score = composite_score(ind)
     regime = classify_regime(m.get("spy"), br)
     sigs = build_signals(m, br)
 
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    hist = [h for h in load_history() if h.get("date") != today]
+    hist = load_history()
+
+    # Backfill when asked, and automatically whenever history is too thin to
+    # be worth looking at -- a curve that starts the day you installed this
+    # tells you nothing about whether today is unusual.
+    if backfill or len(hist) < 30:
+        computed = historical_scores(m, oas, br)
+        if computed:
+            hist = computed
+            notes.append(f"score history rebuilt from {len(computed)} sessions")
+
+    hist = [h for h in hist if h.get("date") != today]
     hist.append({"date": today, "score": score, "regime": regime["name"]})
 
     spy = m.get("spy")
@@ -310,6 +388,7 @@ def assemble(m, oas, br, errors) -> dict:
             "pct_from_high": round(float(spy.iloc[-1] / spy.cummax().iloc[-1] - 1) * 100, 2),
         },
         "history": hist[-HISTORY_MAX:],
+        "notes": notes,
         "errors": errors,
     }
 
@@ -324,6 +403,8 @@ def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--no-breadth", action="store_true")
     p.add_argument("--selftest", action="store_true")
+    p.add_argument("--backfill", action="store_true",
+                   help="recompute the whole score history from scratch")
     a = p.parse_args()
 
     if a.selftest:
@@ -339,7 +420,7 @@ def main() -> int:
         print("no market data at all — aborting", file=sys.stderr)
         return 1
 
-    payload = assemble(m, oas, br, errors)
+    payload = assemble(m, oas, br, errors, backfill=a.backfill)
     write(payload)
 
     print(f"score {payload['score']}  band {payload['band']}  "
