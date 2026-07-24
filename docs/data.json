@@ -1,5 +1,5 @@
 {
- "updated": "2026-07-24T22:04:07+00:00",
+ "updated": "2026-07-24T22:34:13+00:00",
  "score": 47.8,
  "band": "ELEVATED",
  "regime": {
@@ -16,7 +16,9 @@
    "display": "+0.38",
    "percentile": 91.1,
    "weight": 6,
-   "note": "above zero means bonds stop cushioning equities"
+   "note": "above zero means bonds stop cushioning equities",
+   "as_of": "2026-07-24",
+   "stale": false
   },
   {
    "id": "vix",
@@ -25,7 +27,9 @@
    "display": "18.58",
    "percentile": 73.4,
    "weight": 8,
-   "note": ""
+   "note": "",
+   "as_of": "2026-07-24",
+   "stale": false
   },
   {
    "id": "vvix",
@@ -34,7 +38,9 @@
    "display": "100.7",
    "percentile": 68.8,
    "weight": 8,
-   "note": "rises when people start paying up for tail protection"
+   "note": "rises when people start paying up for tail protection",
+   "as_of": "2026-07-24",
+   "stale": false
   },
   {
    "id": "ts_vix_vix3m",
@@ -43,7 +49,9 @@
    "display": "0.906",
    "percentile": 64.0,
    "weight": 12,
-   "note": "above 1.00 = backwardation, the classic risk-off trigger"
+   "note": "above 1.00 = backwardation, the classic risk-off trigger",
+   "as_of": "2026-07-24",
+   "stale": false
   },
   {
    "id": "hy_oas_chg",
@@ -52,7 +60,9 @@
    "display": "-0.01",
    "percentile": 59.5,
    "weight": 8,
-   "note": ""
+   "note": "",
+   "as_of": "2026-07-23",
+   "stale": false
   },
   {
    "id": "ts_vix9d_vix",
@@ -61,7 +71,9 @@
    "display": "0.948",
    "percentile": 58.3,
    "weight": 8,
-   "note": ""
+   "note": "",
+   "as_of": "2026-07-24",
+   "stale": false
   },
   {
    "id": "pct_above_20",
@@ -70,7 +82,9 @@
    "display": "55%",
    "percentile": 53.2,
    "weight": 8,
-   "note": ""
+   "note": "",
+   "as_of": "2026-07-24",
+   "stale": false
   },
   {
    "id": "nh_nl",
@@ -79,7 +93,9 @@
    "display": "+23",
    "percentile": 41.7,
    "weight": 6,
-   "note": ""
+   "note": "",
+   "as_of": "2026-07-24",
+   "stale": false
   },
   {
    "id": "breadth_ad_z",
@@ -88,7 +104,9 @@
    "display": "+1.33",
    "percentile": 41.1,
    "weight": 12,
-   "note": "low = participation narrowing under the surface"
+   "note": "low = participation narrowing under the surface",
+   "as_of": "2026-07-24",
+   "stale": false
   },
   {
    "id": "vvix_vix",
@@ -97,7 +115,9 @@
    "display": "5.42",
    "percentile": 27.2,
    "weight": 6,
-   "note": ""
+   "note": "",
+   "as_of": "2026-07-24",
+   "stale": false
   },
   {
    "id": "move",
@@ -106,7 +126,9 @@
    "display": "76.8",
    "percentile": 21.4,
    "weight": 8,
-   "note": ""
+   "note": "",
+   "as_of": "2026-07-24",
+   "stale": false
   },
   {
    "id": "concentration",
@@ -115,7 +137,9 @@
    "display": "-1.1%",
    "percentile": 18.5,
    "weight": 8,
-   "note": "rising = the index is being carried by fewer names"
+   "note": "rising = the index is being carried by fewer names",
+   "as_of": "2026-07-24",
+   "stale": false
   },
   {
    "id": "hy_oas",
@@ -124,7 +148,9 @@
    "display": "2.77",
    "percentile": 17.5,
    "weight": 12,
-   "note": "credit is usually early to price real trouble"
+   "note": "credit is usually early to price real trouble",
+   "as_of": "2026-07-23",
+   "stale": false
   }
  ],
  "signals": [
@@ -886,5 +912,6 @@
    "regime": "BULL"
   }
  ],
+ "notes": [],
  "errors": []
 }
