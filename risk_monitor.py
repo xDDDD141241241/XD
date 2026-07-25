@@ -46,12 +46,21 @@ PCTL_WINDOW = 756        # ~3 years of sessions for percentile ranking
 HISTORY_MAX = 1300
 SP500_LIST = ("https://raw.githubusercontent.com/Ate329/top-us-stock-tickers"
               "/main/tickers/sp500.csv")
-FRED_HY_OAS = ("https://fred.stlouisfed.org/graph/fredgraph.csv"
-               "?id=BAMLH0A0HYM2")
+FRED = "https://fred.stlouisfed.org/graph/fredgraph.csv?id={}"
+FRED_SERIES = {
+    "hy_oas": "BAMLH0A0HYM2",      # high yield spread
+    "ccc_oas": "BAMLH0A3HYC",      # CCC and lower -- the junk end
+    "bb_oas": "BAMLH0A1HYBB",      # BB -- the quality end of junk
+    "nfci": "NFCI",                # Chicago Fed financial conditions, weekly
+    "fed_assets": "WALCL",         # balance sheet, weekly
+    "tga": "WTREGEN",              # Treasury General Account
+    "rrp": "RRPONTSYD",            # overnight reverse repo
+}
 
 YAHOO_SERIES = {
     "vix9d": "^VIX9D", "vix": "^VIX", "vix3m": "^VIX3M", "vvix": "^VVIX",
     "move": "^MOVE", "spy": "SPY", "rsp": "RSP", "tlt": "TLT",
+    "xlu": "XLU", "xlp": "XLP",
 }
 
 
@@ -81,9 +90,9 @@ def fetch_market(errors: list) -> dict[str, pd.Series]:
     return out
 
 
-def fetch_hy_oas(errors: list) -> pd.Series | None:
+def _fred(series_id: str, errors: list) -> pd.Series | None:
     try:
-        with urllib.request.urlopen(FRED_HY_OAS, timeout=30) as r:
+        with urllib.request.urlopen(FRED.format(series_id), timeout=30) as r:
             raw = r.read().decode()
         df = pd.read_csv(io.StringIO(raw))
         df.columns = ["date", "value"]
@@ -91,8 +100,15 @@ def fetch_hy_oas(errors: list) -> pd.Series | None:
                       index=pd.to_datetime(df["date"]))
         return s.dropna()
     except Exception as exc:
-        errors.append(f"fred hy oas failed: {exc}")
+        errors.append(f"fred {series_id} failed: {exc}")
         return None
+
+
+def fetch_fred(errors: list) -> dict[str, pd.Series]:
+    """Every FRED series in one place. A miss drops that gauge, nothing more."""
+    return {k: v for k, v in
+            ((k, _fred(sid, errors)) for k, sid in FRED_SERIES.items())
+            if v is not None}
 
 
 def fetch_breadth(errors: list) -> dict[str, pd.Series]:
@@ -156,68 +172,169 @@ def pctl(series: pd.Series, window: int = PCTL_WINDOW) -> float:
     return round(float((s <= s.iloc[-1]).mean() * 100), 1)
 
 
-def _spec(out, key, label, series, weight, invert=False, fmt="{:.2f}", note=""):
+def _spec(out, key, label, series, weight, invert=False, fmt="{:.2f}",
+          note="", check=""):
     if series is None:
         return
-    s = series.dropna()
-    if s.empty:
+    ser = series.dropna()
+    if ser.empty:
         return
-    out.append({"id": key, "label": label, "series": s, "weight": weight,
-                "invert": invert, "fmt": fmt, "note": note})
+    out.append({"id": key, "label": label, "series": ser, "weight": weight,
+                "invert": invert, "fmt": fmt, "note": note, "check": check})
 
 
-def indicator_specs(m: dict, oas: pd.Series | None, br: dict) -> list[dict]:
+def _near_high(spy: pd.Series, lookback: int = 63, tol: float = 0.01) -> pd.Series:
+    """True on days the index sat within tol of its own recent high."""
+    return spy >= spy.rolling(lookback).max() * (1 - tol)
+
+
+def indicator_specs(m: dict, fr: dict, br: dict) -> list[dict]:
     """
     Single source of truth for what a gauge IS. Both the daily reading and the
     historical backfill consume this, so the number on the page and the number
     in the history curve can never be computed two different ways.
-    """
-    out: list[dict] = []
-    g = m.get
 
+    Every gauge carries a `check`: what to compare it against on the chart.
+    A number with no stated comparison is decoration.
+    """
+    if fr is None:                        # every FRED series failed
+        fr = {}
+    elif isinstance(fr, pd.Series):       # tolerate the old single-series call
+        fr = {"hy_oas": fr}
+    out: list[dict] = []
+    g, f = m.get, fr.get
+    spy = g("spy")
+
+    # ---- volatility -------------------------------------------------------
     if g("vix") is not None and g("vix3m") is not None:
         _spec(out, "ts_vix_vix3m", "VIX / VIX3M term structure",
               (m["vix"] / m["vix3m"]), 12, fmt="{:.3f}",
-              note="above 1.00 = backwardation, the classic risk-off trigger")
+              note="above 1.00 = backwardation, the classic risk-off trigger",
+              check="Crossing 1.00 while the index is still near its highs is the "
+                    "meaningful case. Above 1.00 during an active selloff is normal "
+                    "and usually marks the panic, not the start of one.")
     if g("vix9d") is not None and g("vix") is not None:
         _spec(out, "ts_vix9d_vix", "VIX9D / VIX near-term stress",
-              (m["vix9d"] / m["vix"]), 8, fmt="{:.3f}")
-    _spec(out, "vix", "VIX level", g("vix"), 8)
+              (m["vix9d"] / m["vix"]), 8, fmt="{:.3f}",
+              check="Rising while price is flat means a dated event is being priced "
+                    "-- look for what is on the calendar rather than on the chart.")
+    _spec(out, "vix", "VIX level", g("vix"), 8,
+          check="Direction against price is what counts. VIX rising while the index "
+                "also rises is rare and is worth stopping on.")
     _spec(out, "vvix", "VVIX (vol of vol)", g("vvix"), 8, fmt="{:.1f}",
-          note="rises when people start paying up for tail protection")
+          note="rises when people start paying up for tail protection",
+          check="Rising VVIX with a flat VIX means someone is buying protection "
+                "before any move shows in price. This leads more often than VIX does.")
     if g("vvix") is not None and g("vix") is not None:
-        _spec(out, "vvix_vix", "VVIX / VIX", (m["vvix"] / m["vix"]), 6, fmt="{:.2f}")
-    _spec(out, "move", "MOVE (rates volatility)", g("move"), 8, fmt="{:.1f}")
+        _spec(out, "vvix_vix", "VVIX / VIX", (m["vvix"] / m["vix"]), 6, fmt="{:.2f}",
+              check="High ratio with a low VIX = complacent spot, expensive tails. "
+                    "Protection is cheapest to own exactly here.")
+    _spec(out, "move", "MOVE (rates volatility)", g("move"), 8, fmt="{:.1f}",
+          check="If this leads VIX higher, the shock is coming from bonds or policy "
+                "rather than from equities -- a different playbook.")
 
-    if oas is not None:
-        _spec(out, "hy_oas", "High yield OAS", oas, 12, fmt="{:.2f}",
-              note="credit is usually early to price real trouble")
-        _spec(out, "hy_oas_chg", "HY OAS, 20-day change", oas.diff(20), 8,
-              fmt="{:+.2f}")
+    # ---- credit -----------------------------------------------------------
+    if f("hy_oas") is not None:
+        _spec(out, "hy_oas", "High yield OAS", fr["hy_oas"], 12, fmt="{:.2f}",
+              note="credit is usually early to price real trouble",
+              check="The level matters less than the direction. Check it every time "
+                    "the index prints a new high.")
+        _spec(out, "hy_oas_chg", "HY OAS, 20-day change", fr["hy_oas"].diff(20), 8,
+              fmt="{:+.2f}",
+              check="Positive while the index makes new highs is the single most "
+                    "reliable non-confirmation in this whole panel.")
+    if f("ccc_oas") is not None and f("bb_oas") is not None:
+        _spec(out, "quality_spread", "Quality spread (CCC minus BB)",
+              (fr["ccc_oas"] - fr["bb_oas"]), 8, fmt="{:.2f}",
+              note="the junk end versus the decent end of high yield",
+              check="Widening while equities hold up means risk appetite is leaving "
+                    "from the bottom. The weakest borrowers crack first, and this "
+                    "gap opens before the index-level spread does.")
 
-    if g("spy") is not None and g("rsp") is not None:
+    # ---- financial conditions and liquidity -------------------------------
+    if f("nfci") is not None:
+        _spec(out, "nfci", "Financial conditions (NFCI)", fr["nfci"], 6, fmt="{:+.2f}",
+              note="above zero = tighter than average",
+              check="Tightening while the index is at highs is a warning. Loosening "
+                    "during a selloff usually marks the end of it. Weekly, so treat "
+                    "it as background rather than a trigger.")
+    if all(f(k) is not None for k in ("fed_assets", "tga", "rrp")):
+        # Forward-fill only as far as the slowest component actually reports.
+        # Filling to today would stamp weekly data with today's date, making
+        # this gauge look the freshest on the page and every other feed look
+        # stale against it.
+        last = min(fr[k].index[-1] for k in ("fed_assets", "tga", "rrp"))
+        idx = pd.date_range(fr["fed_assets"].index[0], last, freq="D")
+        parts = [fr[k].reindex(idx).ffill() for k in ("fed_assets", "tga", "rrp")]
+        netliq = (parts[0] - parts[1] / 1000 - parts[2] / 1000).dropna()
+        _spec(out, "net_liquidity", "Fed net liquidity, 63d change",
+              netliq.pct_change(63) * 100, 4, invert=True, fmt="{:+.1f}%",
+              note="reserves less the Treasury account less reverse repo",
+              check="Falling while the index makes highs means the advance is running "
+                    "on positioning rather than on new money. Short history and "
+                    "contested -- treat as supporting evidence, never as a trigger.")
+
+    # ---- structure --------------------------------------------------------
+    if spy is not None and g("rsp") is not None:
         _spec(out, "concentration", "Cap-weight vs equal-weight, 63d",
               (m["spy"] / m["rsp"]).pct_change(63) * 100, 8, fmt="{:+.1f}%",
-              note="rising = the index is being carried by fewer names")
-    if g("spy") is not None and g("tlt") is not None:
+              note="rising = the index is being carried by fewer names",
+              check="Compare directly with the index. Both rising together means the "
+                    "gain is narrowing into a handful of names.")
+    if spy is not None and g("tlt") is not None:
         _spec(out, "corr_spy_tlt", "Stock/bond correlation, 63d",
               m["spy"].pct_change().rolling(63).corr(m["tlt"].pct_change()), 6,
-              fmt="{:+.2f}", note="above zero means bonds stop cushioning equities")
+              fmt="{:+.2f}", note="above zero means bonds stop cushioning equities",
+              check="Check this before you need the hedge, not after. It says nothing "
+                    "about whether a drawdown is coming, only what it will cost you.")
+    if spy is not None and g("xlu") is not None and g("xlp") is not None:
+        defens = ((m["xlu"] / m["xlu"].iloc[0] + m["xlp"] / m["xlp"].iloc[0]) / 2)
+        _spec(out, "defensive_rotation", "Defensives vs index, 63d",
+              (defens / (m["spy"] / m["spy"].iloc[0])).pct_change(63) * 100, 4,
+              fmt="{:+.1f}%", note="utilities and staples relative to the index",
+              check="Rising while the index makes highs means money is moving to "
+                    "safety inside the rally. Confirms more often than it leads.")
 
+    # ---- breadth ----------------------------------------------------------
     if br:
         ad = br["ad_line"]
-        _spec(out, "breadth_ad_z", "Advance/decline line, 63d z-score",
-              (ad - ad.rolling(63).mean()) / ad.rolling(63).std(), 12,
+        adz = (ad - ad.rolling(63).mean()) / ad.rolling(63).std()
+        _spec(out, "breadth_ad_z", "Advance/decline line, 63d z-score", adz, 12,
               invert=True, fmt="{:+.2f}",
-              note="low = participation narrowing under the surface")
+              note="low = participation narrowing under the surface",
+              check="Negative while the index sits at highs is the divergence that "
+                    "matters. Negative during a pullback is just a pullback.")
         _spec(out, "pct_above_20", "% of S&P 500 above 20-day average",
-              br["pct_above_20"], 8, invert=True, fmt="{:.0f}%")
+              br["pct_above_20"], 8, invert=True, fmt="{:.0f}%",
+              check="Short-horizon. Under 15% is washout territory -- check whether "
+                    "price has actually broken structure or merely dipped.")
         _spec(out, "nh_nl", "New 52w highs minus new lows", br["nh_nl"], 6,
-              invert=True, fmt="{:+.0f}")
+              invert=True, fmt="{:+.0f}",
+              check="Negative while the index is at a new high is the textbook "
+                    "non-confirmation. It was present at 1972, 2000, 2007 and 2021.")
+
+        # ---- the divergence constructs: price and internals disagreeing ----
+        if spy is not None:
+            hi = _near_high(spy)
+            a = adz.reindex(hi.index).ffill()
+            _spec(out, "breadth_divergence", "Breadth non-confirmation, 63d count",
+                  (hi & (a < 0)).rolling(63).sum(), 10, fmt="{:.0f}",
+                  note="days near a high with breadth already negative",
+                  check="This IS the price comparison, counted for you. A rising "
+                        "count is the November 2021 pattern: index still making "
+                        "highs, participation already gone. Zero is healthy.")
+            if f("hy_oas") is not None:
+                oc = fr["hy_oas"].diff(20).reindex(hi.index).ffill()
+                _spec(out, "credit_divergence", "Credit non-confirmation, 63d count",
+                      (hi & (oc > 0)).rolling(63).sum(), 10, fmt="{:.0f}",
+                      note="days near a high with credit spreads widening",
+                      check="Counts the days equities made highs while credit "
+                            "disagreed. This led 2000, 2007, 2018 and 2021-22. "
+                            "A count climbing off zero is the thing to watch.")
     return out
 
 
-def build_indicators(m: dict, oas: pd.Series | None, br: dict) -> list[dict]:
+def build_indicators(m: dict, oas, br: dict) -> list[dict]:
     """Today's reading for each gauge, with a freshness stamp."""
     specs = indicator_specs(m, oas, br)
     if not specs:
@@ -242,6 +359,7 @@ def build_indicators(m: dict, oas: pd.Series | None, br: dict) -> list[dict]:
             "display": sp["fmt"].format(float(s.iloc[-1])),
             "percentile": round(100 - p, 1) if sp["invert"] else p,
             "weight": sp["weight"], "note": sp["note"],
+            "check": sp["check"],
             "as_of": str(as_of.date()),
             # a feed that has quietly stopped updating still returns a number;
             # this is what stops that number being read as current
@@ -253,7 +371,7 @@ def build_indicators(m: dict, oas: pd.Series | None, br: dict) -> list[dict]:
     return out
 
 
-def historical_scores(m: dict, oas: pd.Series | None, br: dict,
+def historical_scores(m: dict, oas, br: dict,
                       window: int = PCTL_WINDOW) -> list[dict]:
     """
     Recompute the composite for every day in the past, using only the
@@ -486,7 +604,7 @@ def main() -> int:
 
     errors: list = []
     m = fetch_market(errors)
-    oas = fetch_hy_oas(errors)
+    oas = fetch_fred(errors)
     br = {} if a.no_breadth else fetch_breadth(errors)
 
     if not m:
