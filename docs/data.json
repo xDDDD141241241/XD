@@ -1,6 +1,6 @@
 {
- "updated": "2026-07-24T22:42:57+00:00",
- "score": 47.8,
+ "updated": "2026-07-25T06:39:19+00:00",
+ "score": 55.1,
  "band": "ELEVATED",
  "regime": {
   "name": "BULL",
@@ -10,46 +10,79 @@
  },
  "indicators": [
   {
-   "id": "corr_spy_tlt",
-   "label": "Stock/bond correlation, 63d",
-   "value": 0.3834,
-   "display": "+0.38",
-   "percentile": 91.1,
-   "weight": 6,
-   "note": "above zero means bonds stop cushioning equities",
-   "as_of": "2026-07-24",
-   "stale": false
-  },
-  {
-   "id": "vix",
-   "label": "VIX level",
-   "value": 18.58,
-   "display": "18.58",
-   "percentile": 73.4,
+   "id": "pct_above_20",
+   "label": "% of S&P 500 above 20-day average",
+   "value": 0.0,
+   "display": "0%",
+   "percentile": 99.9,
    "weight": 8,
    "note": "",
    "as_of": "2026-07-24",
    "stale": false
   },
   {
+   "id": "corr_spy_tlt",
+   "label": "Stock/bond correlation, 63d",
+   "value": 0.3847,
+   "display": "+0.38",
+   "percentile": 91.7,
+   "weight": 6,
+   "note": "above zero means bonds stop cushioning equities",
+   "as_of": "2026-07-23",
+   "stale": false
+  },
+  {
+   "id": "nh_nl",
+   "label": "New 52w highs minus new lows",
+   "value": 0.0,
+   "display": "+0",
+   "percentile": 81.9,
+   "weight": 6,
+   "note": "",
+   "as_of": "2026-07-24",
+   "stale": false
+  },
+  {
+   "id": "vix",
+   "label": "VIX level",
+   "value": 18.7,
+   "display": "18.70",
+   "percentile": 74.7,
+   "weight": 8,
+   "note": "",
+   "as_of": "2026-07-23",
+   "stale": false
+  },
+  {
    "id": "vvix",
    "label": "VVIX (vol of vol)",
-   "value": 100.73,
-   "display": "100.7",
-   "percentile": 68.8,
+   "value": 102.17,
+   "display": "102.2",
+   "percentile": 72.9,
    "weight": 8,
    "note": "rises when people start paying up for tail protection",
-   "as_of": "2026-07-24",
+   "as_of": "2026-07-23",
    "stale": false
   },
   {
    "id": "ts_vix_vix3m",
    "label": "VIX / VIX3M term structure",
-   "value": 0.9059,
-   "display": "0.906",
-   "percentile": 64.0,
+   "value": 0.9138,
+   "display": "0.914",
+   "percentile": 67.7,
    "weight": 12,
    "note": "above 1.00 = backwardation, the classic risk-off trigger",
+   "as_of": "2026-07-17",
+   "stale": true
+  },
+  {
+   "id": "breadth_ad_z",
+   "label": "Advance/decline line, 63d z-score",
+   "value": 0.6947,
+   "display": "+0.69",
+   "percentile": 66.4,
+   "weight": 12,
+   "note": "low = participation narrowing under the surface",
    "as_of": "2026-07-24",
    "stale": false
   },
@@ -67,78 +100,34 @@
   {
    "id": "ts_vix9d_vix",
    "label": "VIX9D / VIX near-term stress",
-   "value": 0.9483,
-   "display": "0.948",
-   "percentile": 58.3,
+   "value": 0.8977,
+   "display": "0.898",
+   "percentile": 36.1,
    "weight": 8,
    "note": "",
-   "as_of": "2026-07-24",
-   "stale": false
-  },
-  {
-   "id": "pct_above_20",
-   "label": "% of S&P 500 above 20-day average",
-   "value": 55.2894,
-   "display": "55%",
-   "percentile": 53.2,
-   "weight": 8,
-   "note": "",
-   "as_of": "2026-07-24",
-   "stale": false
-  },
-  {
-   "id": "nh_nl",
-   "label": "New 52w highs minus new lows",
-   "value": 23.0,
-   "display": "+23",
-   "percentile": 41.7,
-   "weight": 6,
-   "note": "",
-   "as_of": "2026-07-24",
-   "stale": false
-  },
-  {
-   "id": "breadth_ad_z",
-   "label": "Advance/decline line, 63d z-score",
-   "value": 1.3289,
-   "display": "+1.33",
-   "percentile": 41.1,
-   "weight": 12,
-   "note": "low = participation narrowing under the surface",
-   "as_of": "2026-07-24",
-   "stale": false
+   "as_of": "2026-07-17",
+   "stale": true
   },
   {
    "id": "vvix_vix",
    "label": "VVIX / VIX",
-   "value": 5.4214,
-   "display": "5.42",
-   "percentile": 27.2,
+   "value": 5.4636,
+   "display": "5.46",
+   "percentile": 30.3,
    "weight": 6,
    "note": "",
-   "as_of": "2026-07-24",
-   "stale": false
-  },
-  {
-   "id": "move",
-   "label": "MOVE (rates volatility)",
-   "value": 76.8175,
-   "display": "76.8",
-   "percentile": 21.4,
-   "weight": 8,
-   "note": "",
-   "as_of": "2026-07-24",
+   "as_of": "2026-07-23",
    "stale": false
   },
   {
    "id": "concentration",
    "label": "Cap-weight vs equal-weight, 63d",
-   "value": -1.1284,
-   "display": "-1.1%",
-   "percentile": 18.5,
+   "value": -0.8411,
+   "display": "-0.8%",
+   "percentile": 20.1,
    "weight": 8,
    "note": "rising = the index is being carried by fewer names",
-   "as_of": "2026-07-24",
+   "as_of": "2026-07-23",
    "stale": false
   },
   {
@@ -151,6 +140,17 @@
    "note": "credit is usually early to price real trouble",
    "as_of": "2026-07-23",
    "stale": false
+  },
+  {
+   "id": "move",
+   "label": "MOVE (rates volatility)",
+   "value": 70.88,
+   "display": "70.9",
+   "percentile": 14.0,
+   "weight": 8,
+   "note": "",
+   "as_of": "2026-07-17",
+   "stale": true
   }
  ],
  "signals": [
@@ -186,14 +186,10 @@
   }
  ],
  "spx_proxy": {
-  "last": 738.93,
-  "pct_from_high": -2.72
+  "last": 738.18,
+  "pct_from_high": -2.82
  },
  "history": [
-  {
-   "date": "2021-07-06",
-   "score": 48.2
-  },
   {
    "date": "2021-07-07",
    "score": 43.5
@@ -5388,7 +5384,11 @@
   },
   {
    "date": "2026-07-24",
-   "score": 47.8,
+   "score": 80.5
+  },
+  {
+   "date": "2026-07-25",
+   "score": 55.1,
    "regime": "BULL"
   }
  ],
