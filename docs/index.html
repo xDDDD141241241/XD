@@ -56,11 +56,13 @@
   .lede{font-size:13.5px;color:var(--muted);margin:0 0 16px;max-width:62ch}
 
   .ladder{list-style:none;margin:0;padding:0}
-  .rung{display:grid;grid-template-columns:1fr 168px 62px;gap:14px;align-items:center;
+  .rung{display:grid;grid-template-columns:1fr 168px 62px;gap:14px;align-items:start;
         padding:11px 0;border-bottom:1px solid var(--rule)}
   .rung:first-child{border-top:1px solid var(--rule)}
   .name{font-size:14px}
   .note{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+  .check{display:block;font-size:12px;color:var(--ink);opacity:.72;margin-top:5px;
+         padding-left:9px;border-left:2px solid var(--rule);max-width:58ch}
   .track{position:relative;height:16px;background:var(--track);border-radius:1px}
   .track i{position:absolute;top:-3px;width:3px;height:22px;background:var(--ink);
            transform:translateX(-1.5px)}
@@ -217,7 +219,7 @@ function sparkline(hist){
 function rung(i){
   const c = colorFor(i.percentile);
   return `<li class="rung">
-    <div class="name">${i.label}${i.stale ? ' <span class="stale">stale</span>' : ''}${i.note ? `<span class="note">${i.note}</span>` : ''}</div>
+    <div class="name">${i.label}${i.stale ? ' <span class="stale">stale</span>' : ''}${i.note ? `<span class="note">${i.note}</span>` : ''}${i.check ? `<span class="check">${i.check}</span>` : ''}</div>
     <div class="track" role="img" aria-label="${i.percentile} out of 100">
       <b style="width:${i.percentile}%;background:${c}"></b>
       <u></u><i style="left:${i.percentile}%;background:${c}"></i>
@@ -269,7 +271,8 @@ function render(d){
       <h2>What is loud right now</h2>
       <p class="lede">Each bar is that gauge's position within its own last three years —
         far right means today is near the most extreme reading it has produced in that window.
-        Sorted loudest first.</p>
+        Sorted loudest first. Under each one is what to compare it against on your chart —
+        the reading on its own is only half of the information.</p>
       <ul class="ladder">${d.indicators.map(rung).join('')}</ul>
     </section>
 
