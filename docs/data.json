@@ -1,5 +1,5 @@
 {
- "updated": "2026-07-25T13:41:57+00:00",
+ "updated": "2026-07-25T13:51:24+00:00",
  "score": 46.0,
  "band": "ELEVATED",
  "regime": {
@@ -45,7 +45,8 @@
    "weight": 6,
    "note": "above zero means bonds stop cushioning equities",
    "as_of": "2026-07-24",
-   "stale": false
+   "stale": false,
+   "excluded": false
   },
   {
    "id": "vix",
@@ -56,7 +57,8 @@
    "weight": 8,
    "note": "",
    "as_of": "2026-07-24",
-   "stale": false
+   "stale": false,
+   "excluded": false
   },
   {
    "id": "vvix",
@@ -67,7 +69,8 @@
    "weight": 8,
    "note": "rises when people start paying up for tail protection",
    "as_of": "2026-07-24",
-   "stale": false
+   "stale": false,
+   "excluded": false
   },
   {
    "id": "ts_vix_vix3m",
@@ -78,7 +81,8 @@
    "weight": 12,
    "note": "above 1.00 = backwardation, the classic risk-off trigger",
    "as_of": "2026-07-17",
-   "stale": true
+   "stale": true,
+   "excluded": false
   },
   {
    "id": "hy_oas_chg",
@@ -89,7 +93,8 @@
    "weight": 8,
    "note": "",
    "as_of": "2026-07-23",
-   "stale": false
+   "stale": false,
+   "excluded": false
   },
   {
    "id": "pct_above_20",
@@ -100,7 +105,8 @@
    "weight": 8,
    "note": "",
    "as_of": "2026-07-24",
-   "stale": false
+   "stale": false,
+   "excluded": false
   },
   {
    "id": "nh_nl",
@@ -111,7 +117,8 @@
    "weight": 6,
    "note": "",
    "as_of": "2026-07-24",
-   "stale": false
+   "stale": false,
+   "excluded": false
   },
   {
    "id": "breadth_ad_z",
@@ -122,7 +129,8 @@
    "weight": 12,
    "note": "low = participation narrowing under the surface",
    "as_of": "2026-07-24",
-   "stale": false
+   "stale": false,
+   "excluded": false
   },
   {
    "id": "ts_vix9d_vix",
@@ -133,7 +141,8 @@
    "weight": 8,
    "note": "",
    "as_of": "2026-07-17",
-   "stale": true
+   "stale": true,
+   "excluded": false
   },
   {
    "id": "vvix_vix",
@@ -144,7 +153,8 @@
    "weight": 6,
    "note": "",
    "as_of": "2026-07-24",
-   "stale": false
+   "stale": false,
+   "excluded": false
   },
   {
    "id": "concentration",
@@ -155,7 +165,8 @@
    "weight": 8,
    "note": "rising = the index is being carried by fewer names",
    "as_of": "2026-07-24",
-   "stale": false
+   "stale": false,
+   "excluded": false
   },
   {
    "id": "hy_oas",
@@ -166,7 +177,8 @@
    "weight": 12,
    "note": "credit is usually early to price real trouble",
    "as_of": "2026-07-23",
-   "stale": false
+   "stale": false,
+   "excluded": false
   },
   {
    "id": "move",
@@ -177,7 +189,8 @@
    "weight": 8,
    "note": "",
    "as_of": "2026-07-17",
-   "stale": true
+   "stale": true,
+   "excluded": false
   }
  ],
  "signals": [
@@ -5527,5 +5540,87 @@
   "high_days": 130,
   "high_days_away_from_stress": 49,
   "false_alarm_share": 0.38
- }
+ },
+ "pivots": {
+  "status": "ok",
+  "history_from": "2021-07-07",
+  "lows_tested": 4,
+  "lows_useful": 4,
+  "tops_tested": 3,
+  "tops_useful": 0,
+  "pivots": [
+   {
+    "date": "2022-10-12",
+    "name": "Oct 2022 bear low",
+    "kind": "low",
+    "score": 71.6,
+    "percentile": 89.4,
+    "change_before": 1.0,
+    "useful": true,
+    "verdict": "pegged high at the low"
+   },
+   {
+    "date": "2023-03-13",
+    "name": "SVB low",
+    "kind": "low",
+    "score": 74.6,
+    "percentile": 92.6,
+    "change_before": 21.9,
+    "useful": true,
+    "verdict": "pegged high at the low"
+   },
+   {
+    "date": "2024-08-05",
+    "name": "Yen carry low",
+    "kind": "low",
+    "score": 62.2,
+    "percentile": 76.8,
+    "change_before": 17.7,
+    "useful": true,
+    "verdict": "pegged high at the low"
+   },
+   {
+    "date": "2025-04-08",
+    "name": "Tariff low",
+    "kind": "low",
+    "score": 76.6,
+    "percentile": 94.7,
+    "change_before": 14.8,
+    "useful": true,
+    "verdict": "pegged high at the low"
+   },
+   {
+    "date": "2021-11-08",
+    "name": "Nov 2021 breadth top",
+    "kind": "top",
+    "score": 42.5,
+    "percentile": 35.7,
+    "change_before": -9.5,
+    "useful": false,
+    "verdict": "asleep at the top"
+   },
+   {
+    "date": "2022-01-03",
+    "name": "Jan 2022 index top",
+    "kind": "top",
+    "score": 45.3,
+    "percentile": 43.1,
+    "change_before": -21.1,
+    "useful": false,
+    "verdict": "asleep at the top"
+   },
+   {
+    "date": "2025-02-19",
+    "name": "Feb 2025 top",
+    "kind": "top",
+    "score": 45.8,
+    "percentile": 44.7,
+    "change_before": 2.0,
+    "useful": false,
+    "verdict": "asleep at the top"
+   }
+  ],
+  "note": "Lows are the easy test and should be near-perfect. Tops are the hard test — judge the tool on that column."
+ },
+ "score_percentile": 45.6
 }
