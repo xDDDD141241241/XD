@@ -30,6 +30,9 @@ HARD_BANDS = {
     "pct_above_20": (0, 100), "nh_nl": (-505, 505),
     "breadth_ad_z": (-8, 8), "corr_spy_tlt": (-1.0, 1.0),
     "concentration": (-60, 60),
+    "quality_spread": (0.0, 25.0), "nfci": (-3.0, 8.0),
+    "net_liquidity": (-40, 40), "defensive_rotation": (-40, 40),
+    "breadth_divergence": (0, 63), "credit_divergence": (0, 63),
 }
 
 # Known stress episodes. Deliberately chosen BEFORE looking at any output,
