@@ -23,6 +23,22 @@ def synth(n=1400, seed=3, crisis=False):
     m["rsp"] = pd.Series(140 * np.exp(np.cumsum(rng.normal(0.0003, 0.010, n))), index=idx)
     m["tlt"] = pd.Series(100 * np.exp(np.cumsum(rng.normal(0.0000, 0.008, n))), index=idx)
     oas = walk(4.0, 0.04, floor=1.5)
+    m["xlu"] = pd.Series(70*np.exp(np.cumsum(rng.normal(0.0002,0.008,n))), index=idx)
+    m["xlp"] = pd.Series(75*np.exp(np.cumsum(rng.normal(0.0002,0.007,n))), index=idx)
+    fred = {"hy_oas": oas,
+            "ccc_oas": walk(9.0, 0.09, floor=3.0),
+            "bb_oas": walk(2.6, 0.03, floor=1.0),
+            "nfci": walk(-0.4, 0.01, floor=-2.0),
+            "fed_assets": walk(7.5e6, 4000.0, floor=1e6),
+            "tga": walk(6.0e5, 8000.0, floor=1e4),
+            "rrp": walk(4.0e5, 6000.0, floor=1.0)}
+
+    br = {
+        "ad_line": pd.Series(np.cumsum(rng.normal(2, 45, n)), index=idx),
+        "pct_above_20": pd.Series(np.clip(rng.normal(58, 14, n), 0, 100), index=idx),
+        "nh_nl": pd.Series(rng.normal(40, 45, n), index=idx),
+        "adv_ratio": pd.Series(np.clip(rng.normal(0.53, 0.11, n), 0, 1), index=idx),
+    }
 
     if crisis:
         tail = slice(n - 30, n)
@@ -33,13 +49,13 @@ def synth(n=1400, seed=3, crisis=False):
         m["move"].iloc[tail] *= 1.5
         oas.iloc[tail] *= 2.2
         m["spy"].iloc[tail] *= np.linspace(1.0, 0.74, 30)
-
-    br = {
-        "ad_line": pd.Series(np.cumsum(rng.normal(2, 45, n)), index=idx),
-        "pct_above_20": pd.Series(np.clip(rng.normal(58, 14, n), 0, 100), index=idx),
-        "nh_nl": pd.Series(rng.normal(40, 45, n), index=idx),
-        "adv_ratio": pd.Series(np.clip(rng.normal(0.53, 0.11, n), 0, 1), index=idx),
-    }
+        # a real crisis hits credit quality, conditions and liquidity too --
+        # leaving them calm made the synthetic crisis milder than any real one
+        fred["ccc_oas"].iloc[tail] *= 2.6
+        fred["nfci"].iloc[tail] += 1.8
+        fred["fed_assets"].iloc[tail] *= 0.97
+        m["xlu"].iloc[tail] *= 1.04
+        m["xlp"].iloc[tail] *= 1.03
 
     if crisis:
         # Degrade only the tail. Percentiles rank the latest value against its
@@ -52,7 +68,7 @@ def synth(n=1400, seed=3, crisis=False):
         br["nh_nl"].iloc[t] = rng.normal(-230, 50, 30)
         br["adv_ratio"].iloc[t] = np.clip(rng.normal(0.28, 0.08, 30), 0, 1)
 
-    return m, oas, br
+    return m, fred, br
 
 
 def run_selftest() -> int:
