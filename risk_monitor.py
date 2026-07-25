@@ -246,6 +246,9 @@ def build_indicators(m: dict, oas: pd.Series | None, br: dict) -> list[dict]:
             # a feed that has quietly stopped updating still returns a number;
             # this is what stops that number being read as current
             "stale": bool((newest - as_of).days > 4),
+            # A gauge that stopped updating a fortnight ago is not a reading,
+            # it is a fossil. Keep showing it, but stop it voting.
+            "excluded": bool((newest - as_of).days > 14),
         })
     return out
 
@@ -285,7 +288,8 @@ def historical_scores(m: dict, oas: pd.Series | None, br: dict,
 
 def composite_score(indicators: list[dict]) -> float:
     """Weighted mean of percentiles, renormalised over surviving inputs."""
-    ok = [i for i in indicators if i["percentile"] == i["percentile"]]
+    ok = [i for i in indicators
+          if i["percentile"] == i["percentile"] and not i.get("excluded")]
     if not ok:
         return float("nan")
     w = sum(i["weight"] for i in ok)
@@ -453,6 +457,12 @@ def assemble(m, oas, br, errors, backfill: bool = False) -> dict:
     }
     payload["quality"] = V.quality_report(payload, prev_payload())
     payload["events"] = V.event_report(payload["history"])
+    payload["pivots"] = V.pivot_report(payload["history"])
+    _h = [x["score"] for x in payload["history"]
+          if isinstance(x.get("score"), (int, float))]
+    payload["score_percentile"] = (
+        round(float(np.mean([v <= payload["score"] for v in _h]) * 100), 1)
+        if _h else None)
     return payload
 
 
