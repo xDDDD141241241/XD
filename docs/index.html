@@ -199,7 +199,7 @@ function sparkline(hist){
   const pts = v.map((s,i) => [i/(v.length-1)*w, y(s)]);
   const d = pts.map((p,i) => (i?'L':'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
   const last = pts[pts.length-1];
-  const yrs = (pts0.length/252).toFixed(1);
+  const yrs = ((new Date(pts0[pts0.length-1].date)-new Date(pts0[0].date))/31557600000).toFixed(1);
   return `<svg class="spark" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"
             role="img" aria-label="Risk score over ${pts0.length} sessions">
       <line x1="0" y1="${y(hi).toFixed(1)}" x2="${w}" y2="${y(hi).toFixed(1)}"
