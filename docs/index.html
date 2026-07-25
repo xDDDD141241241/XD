@@ -144,6 +144,50 @@ function trendStrip(t){
     <div class="stamp" style="margin-top:6px">price vs each horizon — short and long can disagree, and usually do in a pullback</div></div>`;
 }
 
+
+function historyPanel(d){
+  const h = (d.history||[]).filter(x => Number.isFinite(x.score));
+  if(h.length < 60) return '';
+  const W=880, H=230, PL=34, PR=10, PT=10, PB=26;
+  const iw=W-PL-PR, ih=H-PT-PB;
+  const t0=new Date(h[0].date).getTime(), t1=new Date(h[h.length-1].date).getTime();
+  const X = ms => PL + (ms-t0)/(t1-t0)*iw;
+  const Y = v  => PT + (100-v)/100*ih;
+  const band = (a,b,c) => `<rect x="${PL}" y="${Y(b)}" width="${iw}" height="${Y(a)-Y(b)}" fill="${c}"/>`;
+  const d3 = h.map((x,i)=>(i?'L':'M')+X(new Date(x.date).getTime()).toFixed(1)+' '+Y(x.score).toFixed(1)).join(' ');
+  const last = h[h.length-1];
+  const piv = ((d.pivots&&d.pivots.pivots)||[]).filter(p=>{
+    const ms=new Date(p.date).getTime(); return ms>=t0 && ms<=t1; });
+  const yrs=[]; for(let y=new Date(t0).getFullYear(); y<=new Date(t1).getFullYear(); y++){
+    const ms=new Date(y+'-01-01').getTime(); if(ms>=t0&&ms<=t1) yrs.push([y,ms]); }
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img"
+      aria-label="Risk score history with turning points marked">
+    ${band(0,35,'#E4EFE9')}${band(35,60,'#F5EEE0')}${band(60,80,'#F7E4E1')}${band(80,100,'#EFD3D0')}
+    ${[0,35,60,80,100].map(v=>`<line x1="${PL}" y1="${Y(v)}" x2="${W-PR}" y2="${Y(v)}"
+        stroke="var(--rule)" stroke-width=".6"/>
+      <text x="${PL-5}" y="${Y(v)+3}" text-anchor="end" font-size="9"
+        font-family="var(--mono)" fill="var(--muted)">${v}</text>`).join('')}
+    ${yrs.map(([y,ms])=>`<line x1="${X(ms)}" y1="${PT}" x2="${X(ms)}" y2="${PT+ih}"
+        stroke="var(--rule)" stroke-width=".6" stroke-dasharray="2 3"/>
+      <text x="${X(ms)}" y="${H-8}" text-anchor="middle" font-size="9"
+        font-family="var(--mono)" fill="var(--muted)">${y}</text>`).join('')}
+    <path d="${d3}" fill="none" stroke="#41505F" stroke-width="1.1"/>
+    ${piv.map(p=>{const x=X(new Date(p.date).getTime()); const low=p.kind==='low';
+      return `<line x1="${x}" y1="${PT}" x2="${x}" y2="${PT+ih}" stroke="${low?'var(--calm)':'var(--danger)'}"
+          stroke-width=".8" stroke-dasharray="3 3" opacity=".55"/>
+        <path d="${low?`M${x-4} ${PT+ih} L${x+4} ${PT+ih} L${x} ${PT+ih-7} Z`
+                      :`M${x-4} ${PT} L${x+4} ${PT} L${x} ${PT+7} Z`}"
+          fill="${low?'var(--calm)':'var(--danger)'}"><title>${p.name} — ${p.verdict}</title></path>`;}).join('')}
+    <line x1="${PL}" y1="${Y(last.score)}" x2="${W-PR}" y2="${Y(last.score)}"
+      stroke="var(--ink)" stroke-width=".7" stroke-dasharray="4 3"/>
+    <circle cx="${X(new Date(last.date).getTime())}" cy="${Y(last.score)}" r="3.6" fill="var(--ink)"/>
+  </svg>
+  <p class="lede" style="margin-top:8px">
+    Green triangles are confirmed lows, red are confirmed tops.
+    ${d.score_percentile!=null?`Today reads higher than <strong>${d.score_percentile}%</strong>
+    of all sessions since ${h[0].date}.`:''}</p>`;
+}
+
 function sparkline(hist){
   if(!hist || hist.length < 3) return '<div class="stamp">history builds from here</div>';
   const pts0 = hist.filter(h => Number.isFinite(h.score));
@@ -214,6 +258,14 @@ function render(d){
     </div>
 
     <section>
+      <h2>Where this sits historically</h2>
+      <p class="lede">The whole record, with the bands the score is read against.
+        Turning points are marked so you can see what the monitor was doing when
+        price actually changed direction.</p>
+      ${historyPanel(d)}
+    </section>
+
+    <section>
       <h2>What is loud right now</h2>
       <p class="lede">Each bar is that gauge's position within its own last three years —
         far right means today is near the most extreme reading it has produced in that window.
@@ -233,6 +285,21 @@ function render(d){
         </div>`).join('')}</div>
       ${fired.length ? '' : '<p class="lede" style="margin-top:14px">Nothing is firing today.</p>'}
     </section>
+
+    ${d.pivots && d.pivots.status === 'ok' ? `<section>
+      <h2>Behaviour at turning points</h2>
+      <p class="lede">${d.pivots.note}</p>
+      <div>${d.pivots.pivots.map(p=>`<div class="sig ${p.useful?(p.kind==='low'?'on good':'on'):'off'}">
+          <span class="dot"></span>
+          <div><span class="lbl">${p.name}</span>
+            <div class="mean">${p.kind==='low'?'LOW':'TOP'} ${p.date} —
+              score ${p.score} (${p.percentile} pctl)${p.change_before!=null?
+              `, ${p.change_before>0?'+':''}${p.change_before} vs the six weeks before`:''} — ${p.verdict}</div></div>
+        </div>`).join('')}</div>
+      <p class="foot" style="margin-top:14px">Lows caught:
+        ${d.pivots.lows_useful}/${d.pivots.lows_tested}.
+        Tops caught: <strong>${d.pivots.tops_useful}/${d.pivots.tops_tested}</strong> — the number that matters.</p>
+    </section>` : ''}
 
     ${d.events && d.events.status === 'ok' ? `<section>
       <h2>Track record</h2>
