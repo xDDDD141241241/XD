@@ -37,6 +37,8 @@ from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
 
+import validate as V
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA_PATH = os.path.join(HERE, "docs", "data.json")
 
@@ -103,7 +105,7 @@ def fetch_breadth(errors: list) -> dict[str, pd.Series]:
             tickers = pd.read_csv(io.StringIO(r.read().decode()))["symbol"]
         tickers = [t for t in tickers.dropna().astype(str)
                    if t.isalpha() or "." in t][:505]
-        px = _yahoo(tickers, start="2018-01-01").dropna(how="all", axis=1)
+        px = _yahoo(tickers, start="2016-01-01").dropna(how="all", axis=1)
         if px.shape[1] < 100:
             raise RuntimeError(f"only {px.shape[1]} constituents returned")
 
@@ -381,6 +383,15 @@ def build_signals(m: dict, br: dict) -> list[dict]:
 
 # ---------------------------------------------------------------------------
 
+def prev_payload() -> dict | None:
+    try:
+        with open(DATA_PATH, encoding="utf-8") as f:
+            p = json.load(f)
+        return None if p.get("demo") else p
+    except Exception:
+        return None
+
+
 def load_history() -> list:
     """
     Previous readings, unless the file still holds the shipped sample. That
@@ -423,7 +434,7 @@ def assemble(m, oas, br, errors, backfill: bool = False) -> dict:
     hist.append({"date": today, "score": score, "regime": regime["name"]})
 
     spy = m.get("spy")
-    return {
+    payload = {
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "score": score,
         "band": ("CALM" if score < 35 else "ELEVATED" if score < 60
@@ -440,6 +451,9 @@ def assemble(m, oas, br, errors, backfill: bool = False) -> dict:
         "notes": notes,
         "errors": errors,
     }
+    payload["quality"] = V.quality_report(payload, prev_payload())
+    payload["events"] = V.event_report(payload["history"])
+    return payload
 
 
 def write(payload: dict) -> None:
