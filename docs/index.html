@@ -81,6 +81,13 @@
   .sig.off .lbl{font-weight:400}
   .sig .mean{font-size:12.5px;color:var(--muted)}
 
+  .trust{border:1px solid var(--rule);border-bottom:none;background:var(--panel);
+         padding:12px 22px;font-size:13.5px}
+  .trust.ok{color:var(--calm)}
+  .trust.warn{background:#FBF1DF;border-color:#E4CDA0;color:#7A5210}
+  .trust.fail{background:#F6E4E2;border-color:#DFB3AE;color:#8C201A}
+  .trust .ck{font-size:12.5px;color:inherit;opacity:.85;margin-top:3px}
+  .read.dim{opacity:.45}
   .foot{margin-top:34px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--rule);
         padding-top:14px}
   .warn{background:#F6E9E7;border:1px solid #E0BDB8;padding:12px 14px;font-size:13px;
@@ -184,8 +191,17 @@ function render(d){
   document.getElementById('stamp').textContent =
     'updated ' + String(d.updated).replace('T',' ').replace('+00:00',' UTC');
 
+  const q = d.quality || {status:'OK', checks:[], headline:''};
+  const untrusted = q.status === 'FAIL';
+
   document.getElementById('app').innerHTML = `
-    <div class="read">
+    ${q.status !== 'OK' ? `<div class="trust ${q.status.toLowerCase()}">
+        <strong>${q.status === 'FAIL' ? 'Do not trust tonight’s score.' : 'Check before trusting this.'}</strong>
+        ${q.checks.filter(c=>c.status!=='pass').map(c=>`<div class="ck">${c.name} — ${c.detail}</div>`).join('')}
+      </div>` : `<div class="trust ok"><strong>Self-checks passed.</strong>
+        <span class="ck">${q.checks.length} checks — values possible, feeds current, gauges agree.</span></div>`}
+
+    <div class="read${untrusted?' dim':''}">
       <div class="score" style="color:${b.color}">${d.score}<small>${b.key}</small></div>
       <div>
         <p class="plain"><strong>${b.say}</strong>
@@ -217,6 +233,24 @@ function render(d){
         </div>`).join('')}</div>
       ${fired.length ? '' : '<p class="lede" style="margin-top:14px">Nothing is firing today.</p>'}
     </section>
+
+    ${d.events && d.events.status === 'ok' ? `<section>
+      <h2>Track record</h2>
+      <p class="lede">Did the score actually rise during known stress? Tested against
+        episodes chosen in advance, not picked to flatter the result.
+        Flagged means it reached its own top fifth.</p>
+      <div>${d.events.episodes.map(e=>`<div class="sig ${e.flagged?'on good':'off'}">
+          <span class="dot"></span>
+          <div><span class="lbl">${e.name}</span>
+            <div class="mean">${e.date} — peak score ${e.peak_score}
+              (${e.percentile} percentile)${e.flagged?'':' — missed'}</div></div>
+        </div>`).join('')}</div>
+      <p class="foot" style="margin-top:14px">${d.events.episodes_flagged} of
+        ${d.events.episodes_testable} episodes flagged.
+        ${d.events.false_alarm_share !== null ? `Of all days in the top tenth,
+        ${Math.round(d.events.false_alarm_share*100)}% came outside any of these episodes —
+        that is the false-alarm rate, and it is the number that keeps this honest.` : ''}</p>
+    </section>` : ''}
 
     ${d.notes && d.notes.length ? `<p class="foot" style="margin-top:22px">${d.notes.join(' · ')}</p>` : ''}
 
