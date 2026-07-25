@@ -41,6 +41,13 @@
   .regime{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--muted);
           margin-top:10px;display:block;text-transform:uppercase}
   .spark{margin-top:14px}
+  .trend{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
+  .tf{font-family:var(--mono);font-size:10.5px;letter-spacing:.03em;padding:3px 7px;
+      border:1px solid var(--rule);background:#fff;display:inline-flex;gap:5px;align-items:baseline}
+  .tf b{font-weight:600}
+  .tf i{font-style:normal;color:var(--muted)}
+  .tf.up{border-left:3px solid var(--calm)}
+  .tf.dn{border-left:3px solid var(--caution)}
 
   /* ---- signature: the percentile ladder stack ---- */
   section{margin-top:34px}
@@ -60,7 +67,7 @@
   .track b{position:absolute;top:0;bottom:0;left:0;opacity:.30}
   .track u{position:absolute;top:0;bottom:0;left:50%;width:1px;background:#fff;opacity:.7}
   .figs{font-family:var(--mono);font-size:12.5px;text-align:right;font-variant-numeric:tabular-nums}
-  .figs em{display:block;font-style:normal;font-size:11px;color:var(--muted)}
+  .figs em{display:block;font-style:normal;font-size:10px;color:var(--muted);letter-spacing:.03em}
 
   /* ---- signals ---- */
   .sig{display:grid;grid-template-columns:14px 1fr;gap:12px;align-items:start;
@@ -121,6 +128,15 @@ const REGIME = {
   BEAR:          'Both price trend and participation are broken.'
 };
 
+function trendStrip(t){
+  if(!t || !t.length) return '';
+  return `<div class="trend">${t.map(x => `
+    <span class="tf ${x.above?'up':'dn'}">
+      <b>${x.span}${x.kind}</b>${x.above?'above':'below'}
+      <i>${x.dist_pct>0?'+':''}${x.dist_pct}%</i></span>`).join('')}
+    <div class="stamp" style="margin-top:6px">price vs each horizon — short and long can disagree, and usually do in a pullback</div></div>`;
+}
+
 function sparkline(hist){
   if(!hist || hist.length < 3) return '<div class="stamp">history builds from here</div>';
   const pts0 = hist.filter(h => Number.isFinite(h.score));
@@ -155,7 +171,7 @@ function rung(i){
       <b style="width:${i.percentile}%;background:${c}"></b>
       <u></u><i style="left:${i.percentile}%;background:${c}"></i>
     </div>
-    <div class="figs">${i.display}<em>${i.percentile}</em></div>
+    <div class="figs">${i.display}<em>rank ${i.percentile}</em></div>
   </li>`;
 }
 
@@ -175,7 +191,8 @@ function render(d){
         <p class="plain"><strong>${b.say}</strong>
           ${hot ? `${hot} of ${d.indicators.length} gauges are in the top third of their own three-year range.`
                 : 'No individual gauge is stretched.'}</p>
-        <span class="regime">${d.regime.name} — ${REGIME[d.regime.name] || d.regime.description}</span>
+        <span class="regime">${d.regime.name} — ${d.regime.description || ''}</span>
+        ${trendStrip(d.trend)}
         ${sparkline(d.history)}
       </div>
     </div>
