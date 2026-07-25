@@ -107,6 +107,21 @@ def fetch_breadth(errors: list) -> dict[str, pd.Series]:
         if px.shape[1] < 100:
             raise RuntimeError(f"only {px.shape[1]} constituents returned")
 
+        # A batch pull can end on a partial row -- a handful of names printed,
+        # the rest still empty. Every breadth measure then divides by that
+        # handful and returns nonsense (0% above the 20-day, exactly zero net
+        # new highs) which looks like a market event rather than a gap in the
+        # data. Drop any date without broad coverage before computing anything.
+        cov = px.notna().sum(axis=1)
+        keep = cov >= max(100, int(cov.median() * 0.8))
+        dropped = int((~keep).sum())
+        px = px[keep]
+        if px.empty:
+            raise RuntimeError("no dates with sufficient constituent coverage")
+        if dropped:
+            errors.append(f"breadth: skipped {dropped} thinly-covered date(s), "
+                          f"latest good {px.index[-1].date()}")
+
         ret = px.pct_change()
         adv = (ret > 0).sum(axis=1)
         dec = (ret < 0).sum(axis=1)
@@ -214,6 +229,11 @@ def build_indicators(m: dict, oas: pd.Series | None, br: dict) -> list[dict]:
         if p != p:
             continue
         as_of = s.index[-1]
+        val = float(s.iloc[-1])
+        # A pinned 0% / 100% breadth print alongside a calm VIX is a data
+        # artifact, not a market state. Drop it rather than let it dominate.
+        if sp["id"] == "pct_above_20" and val in (0.0, 100.0):
+            continue
         out.append({
             "id": sp["id"], "label": sp["label"],
             "value": round(float(s.iloc[-1]), 4),
@@ -274,6 +294,26 @@ def composite_score(indicators: list[dict]) -> float:
 # Regime and signals -- kept separate from the score on purpose
 # ---------------------------------------------------------------------------
 
+def trend_table(spy: pd.Series | None) -> list[dict]:
+    """
+    Price against several horizons rather than one. 'Above trend' is
+    meaningless without saying which trend -- a market can sit above its
+    200-day and below its 9-day at the same time, and usually does during
+    an ordinary pullback.
+    """
+    if spy is None or len(spy) < 210:
+        return []
+    last = float(spy.iloc[-1])
+    out = []
+    for span, kind in ((9, "ema"), (21, "ema"), (50, "sma"), (200, "sma")):
+        ref = (spy.ewm(span=span, adjust=False).mean() if kind == "ema"
+               else spy.rolling(span).mean())
+        r = float(ref.iloc[-1])
+        out.append({"span": span, "kind": kind, "above": bool(last > r),
+                    "dist_pct": round((last / r - 1) * 100, 2)})
+    return out
+
+
 def classify_regime(spy: pd.Series | None, br: dict) -> dict:
     trend_up = ad_ok = True
     if spy is not None and len(spy) > 200:
@@ -284,15 +324,20 @@ def classify_regime(spy: pd.Series | None, br: dict) -> dict:
         ad_ok = bool(z.iloc[-1] > -0.5) if len(z) else True
 
     if trend_up and ad_ok:
-        name, desc = "BULL", "trend and participation both intact"
+        name = "BULL"
+        desc = "above the 200-day and participation is broad"
     elif trend_up and not ad_ok:
-        name, desc = "DETERIORATING", "price still up, participation narrowing"
+        name = "DETERIORATING"
+        desc = "above the 200-day, but participation is narrowing"
     elif not trend_up and ad_ok:
-        name, desc = "CORRECTION", "price below trend, breadth not confirming damage"
+        name = "CORRECTION"
+        desc = "below the 200-day, breadth not confirming damage"
     else:
-        name, desc = "BEAR", "trend and participation both broken"
+        name = "BEAR"
+        desc = "below the 200-day and participation is broken"
     return {"name": name, "description": desc,
-            "trend_up": trend_up, "breadth_ok": ad_ok}
+            "trend_up": trend_up, "breadth_ok": ad_ok,
+            "horizon": "200-day"}
 
 
 def build_signals(m: dict, br: dict) -> list[dict]:
@@ -384,6 +429,7 @@ def assemble(m, oas, br, errors, backfill: bool = False) -> dict:
         "band": ("CALM" if score < 35 else "ELEVATED" if score < 60
                  else "STRESSED" if score < 80 else "ACUTE"),
         "regime": regime,
+        "trend": trend_table(m.get("spy")),
         "indicators": sorted(ind, key=lambda i: -i["percentile"]),
         "signals": sigs,
         "spx_proxy": None if spy is None else {
