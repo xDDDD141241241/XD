@@ -196,3 +196,93 @@ def event_report(history: list, episodes=EPISODES, window: int = 10) -> dict:
         "high_days_away_from_stress": false_days,
         "false_alarm_share": round(false_days / high_days, 2) if high_days else None,
     }
+
+
+# ---------------------------------------------------------------------------
+# Turning points
+# ---------------------------------------------------------------------------
+# Confirmed pivots, fixed in advance. Lows and tops are judged by DIFFERENT
+# standards on purpose: at a low, a stress gauge is supposed to be pegged high
+# (vol spikes at lows almost mechanically -- an easy test it should never
+# fail). At a top it is supposed to be rising, or at least not asleep, which
+# is genuinely hard and is where this kind of tool usually fails. Reporting
+# them together, with tops judged on lead behaviour rather than level, is what
+# stops the easy half flattering the hard half.
+
+PIVOT_LOWS = [
+    ("2018-12-24", "Q4 2018 low"),
+    ("2020-03-23", "Covid low"),
+    ("2022-10-12", "Oct 2022 bear low"),
+    ("2023-03-13", "SVB low"),
+    ("2024-08-05", "Yen carry low"),
+    ("2025-04-08", "Tariff low"),
+]
+
+PIVOT_TOPS = [
+    ("2018-09-20", "Sep 2018 top"),
+    ("2020-02-19", "Pre-Covid top"),
+    ("2021-11-08", "Nov 2021 breadth top"),
+    ("2022-01-03", "Jan 2022 index top"),
+    ("2025-02-19", "Feb 2025 top"),
+]
+
+
+def pivot_report(history: list, lead: int = 42) -> dict:
+    """
+    For each confirmed turning point: where was the score, and had it been
+    moving beforehand? The second question is the one that matters -- a gauge
+    that only reacts after the fact tells you nothing you could have traded.
+    """
+    if not history or len(history) < 250:
+        return {"status": "insufficient history"}
+
+    s = pd.Series({pd.Timestamp(h["date"]): h["score"] for h in history
+                   if isinstance(h.get("score"), (int, float))}).sort_index()
+    if s.empty:
+        return {"status": "no usable history"}
+
+    def rank(v):
+        return round(float((s <= v).mean() * 100), 1)
+
+    def at(date, name, kind):
+        d = pd.Timestamp(date)
+        if d < s.index[0] or d > s.index[-1]:
+            return None
+        w = s.loc[d - pd.Timedelta(days=7): d + pd.Timedelta(days=7)]
+        if w.empty:
+            return None
+        here = float(w.mean())
+        before = s.loc[d - pd.Timedelta(days=lead): d - pd.Timedelta(days=7)]
+        prior = float(before.mean()) if not before.empty else float("nan")
+        chg = here - prior if prior == prior else float("nan")
+
+        if kind == "low":
+            # a stress gauge should be near its extreme when price bottoms
+            useful = rank(here) >= 75
+            verdict = "pegged high at the low" if useful else "did not register the low"
+        else:
+            # at a top, level is not the test -- direction is
+            useful = bool(chg == chg and chg > 4) or rank(here) >= 60
+            verdict = ("rising into the top" if chg == chg and chg > 4
+                       else "elevated at the top" if rank(here) >= 60
+                       else "asleep at the top")
+        return {"date": date, "name": name, "kind": kind,
+                "score": round(here, 1), "percentile": rank(here),
+                "change_before": None if chg != chg else round(chg, 1),
+                "useful": bool(useful), "verdict": verdict}
+
+    rows = [r for r in (
+        [at(d, n, "low") for d, n in PIVOT_LOWS] +
+        [at(d, n, "top") for d, n in PIVOT_TOPS]) if r]
+
+    lows = [r for r in rows if r["kind"] == "low"]
+    tops = [r for r in rows if r["kind"] == "top"]
+    return {
+        "status": "ok",
+        "history_from": str(s.index[0].date()),
+        "lows_tested": len(lows), "lows_useful": sum(r["useful"] for r in lows),
+        "tops_tested": len(tops), "tops_useful": sum(r["useful"] for r in tops),
+        "pivots": rows,
+        "note": ("Lows are the easy test and should be near-perfect. Tops are the "
+                 "hard test — judge the tool on that column."),
+    }
