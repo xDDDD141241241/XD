@@ -169,7 +169,13 @@ def pctl(series: pd.Series, window: int = PCTL_WINDOW) -> float:
     s = series.dropna().iloc[-window:]
     if len(s) < 60:
         return float("nan")
-    return round(float((s <= s.iloc[-1]).mean() * 100), 1)
+    v = s.iloc[-1]
+    # Midrank: the average of the strict and inclusive ranks. Matters for the
+    # count gauges, which are mostly zero -- an inclusive rank would score a
+    # perfectly healthy zero at the 90th percentile of danger. This also
+    # matches pandas' rolling rank, so today's dot sits on the same scale as
+    # the history curve behind it.
+    return round(float(((s < v).mean() + (s <= v).mean()) / 2 * 100), 1)
 
 
 def _spec(out, key, label, series, weight, invert=False, fmt="{:.2f}",
@@ -393,11 +399,20 @@ def historical_scores(m: dict, oas, br: dict,
     if not ranks:
         return []
 
-    R = pd.DataFrame(ranks).dropna(how="all")
+    R = pd.DataFrame(ranks)
+    # Score only on real trading days. One gauge (net liquidity) is built on a
+    # calendar index, and its weekend rows were producing scores computed from
+    # a single input -- which is what turned the history curve into noise.
+    if m.get("spy") is not None:
+        R = R.reindex(m["spy"].index.intersection(R.index))
+    R = R.dropna(how="all")
+
     W = pd.Series(weights)
     present = R.notna()
+    den = (present * W).sum(axis=1)
+    # and never publish a score built on a thin slice of the panel
+    den = den.where(den >= 0.6 * W.sum())
     num = (R.fillna(0) * W).sum(axis=1)
-    den = (present * W).sum(axis=1).replace(0, np.nan)
     score = (num / den).dropna()
 
     return [{"date": str(d.date()), "score": round(float(v), 1)}
