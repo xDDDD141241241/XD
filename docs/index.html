@@ -95,6 +95,9 @@
   .warn{background:#F6E9E7;border:1px solid #E0BDB8;padding:12px 14px;font-size:13px;
         margin-top:16px}
   .empty{background:var(--panel);border:1px solid var(--rule);padding:28px;margin-top:20px}
+  .stale.thin{background:#6B7A8C}
+  .inv{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;
+       color:var(--muted);border:1px solid var(--rule);padding:1px 4px;vertical-align:2px}
   .stale{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
          background:var(--caution);color:#fff;padding:1px 5px;border-radius:2px;vertical-align:2px}
   code{font-family:var(--mono);font-size:12.5px;background:var(--track);padding:1px 5px}
@@ -219,12 +222,12 @@ function sparkline(hist){
 function rung(i){
   const c = colorFor(i.percentile);
   return `<li class="rung">
-    <div class="name">${i.label}${i.stale ? ' <span class="stale">stale</span>' : ''}${i.note ? `<span class="note">${i.note}</span>` : ''}${i.check ? `<span class="check">${i.check}</span>` : ''}</div>
+    <div class="name">${i.label}${i.stale ? ' <span class="stale">stale</span>' : ''}${i.thin_history ? ' <span class="stale thin">thin history</span>' : ''}${i.inverted ? ' <span class="inv" title="the raw number runs the other way: lower readings mean more concern">lower = worse</span>' : ''}${i.note ? `<span class="note">${i.note}</span>` : ''}${i.check ? `<span class="check">${i.check}</span>` : ''}</div>
     <div class="track" role="img" aria-label="${i.percentile} out of 100">
       <b style="width:${i.percentile}%;background:${c}"></b>
       <u></u><i style="left:${i.percentile}%;background:${c}"></i>
     </div>
-    <div class="figs">${i.display}<em>rank ${i.percentile}</em></div>
+    <div class="figs">${i.display}<em>${i.basis==='absolute scale'?'scale':'rank'} ${i.percentile}</em></div>
   </li>`;
 }
 
@@ -272,7 +275,9 @@ function render(d){
       <p class="lede">Each bar is that gauge's position within its own last three years —
         far right means today is near the most extreme reading it has produced in that window.
         Sorted loudest first. Under each one is what to compare it against on your chart —
-        the reading on its own is only half of the information.</p>
+        the reading on its own is only half of the information.
+        A <span class="stale thin">thin history</span> tag means that gauge is ranked against
+        less than two years of data, so its percentile carries little weight.</p>
       <ul class="ladder">${d.indicators.map(rung).join('')}</ul>
     </section>
 
