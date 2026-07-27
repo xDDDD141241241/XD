@@ -179,14 +179,22 @@ def pctl(series: pd.Series, window: int = PCTL_WINDOW) -> float:
 
 
 def _spec(out, key, label, series, weight, invert=False, fmt="{:.2f}",
-          note="", check=""):
+          note="", check="", scale=None):
+    """
+    `scale=(lo, hi)` reads the gauge on a fixed absolute scale rather than a
+    percentile. Percentiles are wrong for two shapes: a mostly-zero count
+    (where any non-zero value ranks near the top) and a trending series
+    (where the newest value ranks near the top by construction). Both produce
+    an alarming number from an unremarkable reading.
+    """
     if series is None:
         return
     ser = series.dropna()
     if ser.empty:
         return
     out.append({"id": key, "label": label, "series": ser, "weight": weight,
-                "invert": invert, "fmt": fmt, "note": note, "check": check})
+                "invert": invert, "fmt": fmt, "note": note, "check": check,
+                "scale": scale})
 
 
 def _near_high(spy: pd.Series, lookback: int = 63, tol: float = 0.01) -> pd.Series:
@@ -214,14 +222,14 @@ def indicator_specs(m: dict, fr: dict, br: dict) -> list[dict]:
     # ---- volatility -------------------------------------------------------
     if g("vix") is not None and g("vix3m") is not None:
         _spec(out, "ts_vix_vix3m", "VIX / VIX3M term structure",
-              (m["vix"] / m["vix3m"]), 12, fmt="{:.3f}",
+              (m["vix"] / m["vix3m"]), 12, fmt="{:.3f}", scale=(0.85, 1.10),
               note="above 1.00 = backwardation, the classic risk-off trigger",
               check="Crossing 1.00 while the index is still near its highs is the "
                     "meaningful case. Above 1.00 during an active selloff is normal "
                     "and usually marks the panic, not the start of one.")
     if g("vix9d") is not None and g("vix") is not None:
         _spec(out, "ts_vix9d_vix", "VIX9D / VIX near-term stress",
-              (m["vix9d"] / m["vix"]), 8, fmt="{:.3f}",
+              (m["vix9d"] / m["vix"]), 8, fmt="{:.3f}", scale=(0.85, 1.15),
               check="Rising while price is flat means a dated event is being priced "
                     "-- look for what is on the calendar rather than on the chart.")
     _spec(out, "vix", "VIX level", g("vix"), 8,
@@ -290,7 +298,7 @@ def indicator_specs(m: dict, fr: dict, br: dict) -> list[dict]:
     if spy is not None and g("tlt") is not None:
         _spec(out, "corr_spy_tlt", "Stock/bond correlation, 63d",
               m["spy"].pct_change().rolling(63).corr(m["tlt"].pct_change()), 6,
-              fmt="{:+.2f}", note="above zero means bonds stop cushioning equities",
+              fmt="{:+.2f}", scale=(-1.0, 1.0), note="above zero means bonds stop cushioning equities",
               check="Check this before you need the hedge, not after. It says nothing "
                     "about whether a drawdown is coming, only what it will cost you.")
     if spy is not None and g("xlu") is not None and g("xlp") is not None:
@@ -306,16 +314,16 @@ def indicator_specs(m: dict, fr: dict, br: dict) -> list[dict]:
         ad = br["ad_line"]
         adz = (ad - ad.rolling(63).mean()) / ad.rolling(63).std()
         _spec(out, "breadth_ad_z", "Advance/decline line, 63d z-score", adz, 12,
-              invert=True, fmt="{:+.2f}",
+              invert=True, fmt="{:+.2f}", scale=(-2.5, 2.5),
               note="low = participation narrowing under the surface",
               check="Negative while the index sits at highs is the divergence that "
                     "matters. Negative during a pullback is just a pullback.")
         _spec(out, "pct_above_20", "% of S&P 500 above 20-day average",
-              br["pct_above_20"], 8, invert=True, fmt="{:.0f}%",
+              br["pct_above_20"], 8, invert=True, fmt="{:.0f}%", scale=(0, 100),
               check="Short-horizon. Under 15% is washout territory -- check whether "
                     "price has actually broken structure or merely dipped.")
         _spec(out, "nh_nl", "New 52w highs minus new lows", br["nh_nl"], 6,
-              invert=True, fmt="{:+.0f}",
+              invert=True, fmt="{:+.0f}", scale=(-150, 150),
               check="Negative while the index is at a new high is the textbook "
                     "non-confirmation. It was present at 1972, 2000, 2007 and 2021.")
 
@@ -325,6 +333,7 @@ def indicator_specs(m: dict, fr: dict, br: dict) -> list[dict]:
             a = adz.reindex(hi.index).ffill()
             _spec(out, "breadth_divergence", "Breadth non-confirmation, 63d count",
                   (hi & (a < 0)).rolling(63).sum(), 10, fmt="{:.0f}",
+                  scale=(0, 25),
                   note="days near a high with breadth already negative",
                   check="This IS the price comparison, counted for you. A rising "
                         "count is the November 2021 pattern: index still making "
@@ -333,6 +342,7 @@ def indicator_specs(m: dict, fr: dict, br: dict) -> list[dict]:
                 oc = fr["hy_oas"].diff(20).reindex(hi.index).ffill()
                 _spec(out, "credit_divergence", "Credit non-confirmation, 63d count",
                       (hi & (oc > 0)).rolling(63).sum(), 10, fmt="{:.0f}",
+                      scale=(0, 25),
                       note="days near a high with credit spreads widening",
                       check="Counts the days equities made highs while credit "
                             "disagreed. This led 2000, 2007, 2018 and 2021-22. "
@@ -350,7 +360,11 @@ def build_indicators(m: dict, oas, br: dict) -> list[dict]:
     out = []
     for sp in specs:
         s = sp["series"]
-        p = pctl(s)
+        if sp.get("scale"):
+            lo, hi = sp["scale"]
+            p = float(np.clip((float(s.iloc[-1]) - lo) / (hi - lo), 0, 1) * 100)
+        else:
+            p = pctl(s)
         if p != p:
             continue
         as_of = s.index[-1]
@@ -363,10 +377,15 @@ def build_indicators(m: dict, oas, br: dict) -> list[dict]:
             "id": sp["id"], "label": sp["label"],
             "value": round(float(s.iloc[-1]), 4),
             "display": sp["fmt"].format(float(s.iloc[-1])),
-            "percentile": round(100 - p, 1) if sp["invert"] else p,
+            "percentile": round(100 - p, 1) if sp["invert"] else round(p, 1),
             "weight": sp["weight"], "note": sp["note"],
             "check": sp["check"],
             "as_of": str(as_of.date()),
+            "basis": ("absolute scale" if sp.get("scale")
+                      else f"ranked vs {min(len(s), PCTL_WINDOW)} sessions"),
+            "inverted": bool(sp["invert"]),
+            "thin_history": bool(not sp.get("scale")
+                                 and len(s) < 500),
             # a feed that has quietly stopped updating still returns a number;
             # this is what stops that number being read as current
             "stale": bool((newest - as_of).days > 4),
@@ -393,7 +412,11 @@ def historical_scores(m: dict, oas, br: dict,
         s = sp["series"].dropna()
         if len(s) < window // 4:
             continue
-        r = s.rolling(window, min_periods=120).rank(pct=True) * 100
+        if sp.get("scale"):
+            lo, hi = sp["scale"]
+            r = ((s - lo) / (hi - lo)).clip(0, 1) * 100
+        else:
+            r = s.rolling(window, min_periods=120).rank(pct=True) * 100
         ranks[sp["id"]] = (100 - r) if sp["invert"] else r
         weights[sp["id"]] = sp["weight"]
     if not ranks:
@@ -415,7 +438,9 @@ def historical_scores(m: dict, oas, br: dict,
     num = (R.fillna(0) * W).sum(axis=1)
     score = (num / den).dropna()
 
-    return [{"date": str(d.date()), "score": round(float(v), 1)}
+    n_live = present.sum(axis=1).reindex(score.index)
+    return [{"date": str(d.date()), "score": round(float(v), 1),
+             "n": int(n_live.loc[d])}
             for d, v in score.items()]
 
 
@@ -551,6 +576,15 @@ def assemble(m, oas, br, errors, backfill: bool = False) -> dict:
     score = composite_score(ind)
     regime = classify_regime(m.get("spy"), br)
     sigs = build_signals(m, br)
+
+    # The coverage gate firing is the system working, not a feed failing.
+    # Leaving it in `errors` painted a red banner over a routine, correct
+    # outcome -- and a warning that cries wolf daily gets ignored when it
+    # matters.
+    routine = [e for e in errors if e.startswith("breadth: skipped")]
+    for e in routine:
+        errors.remove(e)
+        notes.append(e.replace("breadth: skipped", "breadth data lagged by"))
 
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     hist = load_history()
