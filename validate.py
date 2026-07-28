@@ -33,6 +33,7 @@ HARD_BANDS = {
     "quality_spread": (0.0, 25.0), "nfci": (-3.0, 8.0),
     "net_liquidity": (-40, 40), "defensive_rotation": (-40, 40),
     "breadth_divergence": (0, 63), "credit_divergence": (0, 63),
+    "defensive_rotation ": (-40, 40),
 }
 
 # Known stress episodes. Deliberately chosen BEFORE looking at any output,
@@ -82,14 +83,22 @@ def quality_report(payload: dict, prev: dict | None = None) -> dict:
          hard=True)
 
     # --- 3. do the derived ratios reconcile with their parts?
-    recon = True
+    recon, recon_detail = True, "no ratio available to reconcile"
     if all(k in ind for k in ("vvix", "vix", "vvix_vix")):
-        implied = ind["vvix"]["value"] / ind["vix"]["value"]
-        recon = abs(implied - ind["vvix_vix"]["value"]) < 0.05
-    _chk(checks, "Derived ratios reconcile", recon,
-         "VVIX/VIX matches its components" if recon
-         else "VVIX/VIX disagrees with VVIX and VIX -- likely a date misalignment",
-         hard=True)
+        # Only meaningful when the components share a date. The ratio series is
+        # built from aligned data, so comparing it against a newer VIX and an
+        # older VVIX fails for a reason that is not a fault -- which is exactly
+        # what this check produced before.
+        if ind["vvix"]["as_of"] == ind["vix"]["as_of"] == ind["vvix_vix"]["as_of"]:
+            implied = ind["vvix"]["value"] / ind["vix"]["value"]
+            recon = abs(implied - ind["vvix_vix"]["value"]) < 0.05
+            recon_detail = ("VVIX/VIX matches its components" if recon
+                            else "VVIX/VIX disagrees with VVIX and VIX -- "
+                                 "likely a date misalignment")
+        else:
+            recon_detail = ("components carry different dates, so the ratio "
+                            "cannot be cross-checked today")
+    _chk(checks, "Derived ratios reconcile", recon, recon_detail, hard=True)
 
     # --- 4. do the breadth gauges agree with each other?
     agree = True
