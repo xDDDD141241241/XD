@@ -179,7 +179,7 @@ def pctl(series: pd.Series, window: int = PCTL_WINDOW) -> float:
 
 
 def _spec(out, key, label, series, weight, invert=False, fmt="{:.2f}",
-          note="", check="", scale=None):
+          note="", check="", scale=None, max_lag=4):
     """
     `scale=(lo, hi)` reads the gauge on a fixed absolute scale rather than a
     percentile. Percentiles are wrong for two shapes: a mostly-zero count
@@ -194,7 +194,7 @@ def _spec(out, key, label, series, weight, invert=False, fmt="{:.2f}",
         return
     out.append({"id": key, "label": label, "series": ser, "weight": weight,
                 "invert": invert, "fmt": fmt, "note": note, "check": check,
-                "scale": scale})
+                "scale": scale, "max_lag": max_lag})
 
 
 def _near_high(spy: pd.Series, lookback: int = 63, tol: float = 0.01) -> pd.Series:
@@ -250,16 +250,22 @@ def indicator_specs(m: dict, fr: dict, br: dict) -> list[dict]:
     # ---- credit -----------------------------------------------------------
     if f("hy_oas") is not None:
         _spec(out, "hy_oas", "High yield OAS", fr["hy_oas"], 12, fmt="{:.2f}",
+              max_lag=6,
               note="credit is usually early to price real trouble",
               check="The level matters less than the direction. Check it every time "
                     "the index prints a new high.")
         _spec(out, "hy_oas_chg", "HY OAS, 20-day change", fr["hy_oas"].diff(20), 8,
-              fmt="{:+.2f}",
+              fmt="{:+.2f}", max_lag=6,
               check="Positive while the index makes new highs is the single most "
                     "reliable non-confirmation in this whole panel.")
     if f("ccc_oas") is not None and f("bb_oas") is not None:
         _spec(out, "quality_spread", "Quality spread (CCC minus BB)",
               (fr["ccc_oas"] - fr["bb_oas"]), 8, fmt="{:.2f}",
+              # FRED truncated these series to three years in April 2026, so a
+              # percentile here is ranked against a window that cannot see 2022
+              # -- every drift wider reads as a record. Anchored instead:
+              # ~3-5 is normal, 8+ is genuinely wide, 15+ is crisis.
+              scale=(2.0, 14.0), max_lag=6,
               note="the junk end versus the decent end of high yield",
               check="Widening while equities hold up means risk appetite is leaving "
                     "from the bottom. The weakest borrowers crack first, and this "
@@ -268,6 +274,7 @@ def indicator_specs(m: dict, fr: dict, br: dict) -> list[dict]:
     # ---- financial conditions and liquidity -------------------------------
     if f("nfci") is not None:
         _spec(out, "nfci", "Financial conditions (NFCI)", fr["nfci"], 6, fmt="{:+.2f}",
+              max_lag=10,
               note="above zero = tighter than average",
               check="Tightening while the index is at highs is a warning. Loosening "
                     "during a selloff usually marks the end of it. Weekly, so treat "
@@ -283,6 +290,7 @@ def indicator_specs(m: dict, fr: dict, br: dict) -> list[dict]:
         netliq = (parts[0] - parts[1] / 1000 - parts[2] / 1000).dropna()
         _spec(out, "net_liquidity", "Fed net liquidity, 63d change",
               netliq.pct_change(63) * 100, 4, invert=True, fmt="{:+.1f}%",
+              max_lag=12,
               note="reserves less the Treasury account less reverse repo",
               check="Falling while the index makes highs means the advance is running "
                     "on positioning rather than on new money. Short history and "
@@ -385,13 +393,17 @@ def build_indicators(m: dict, oas, br: dict) -> list[dict]:
                       else f"ranked vs {min(len(s), PCTL_WINDOW)} sessions"),
             "inverted": bool(sp["invert"]),
             "thin_history": bool(not sp.get("scale")
-                                 and len(s) < 500),
+                                 and len(s) < PCTL_WINDOW),
             # a feed that has quietly stopped updating still returns a number;
             # this is what stops that number being read as current
-            "stale": bool((newest - as_of).days > 4),
+            # Staleness is judged against each gauge's OWN update cadence.
+            # A weekly series is not stale at six days -- it is weekly. A flat
+            # daily rule flagged NFCI and net liquidity every single run, and
+            # a warning that fires every day gets ignored on the day it counts.
+            "stale": bool((newest - as_of).days > sp["max_lag"]),
             # A gauge that stopped updating a fortnight ago is not a reading,
             # it is a fossil. Keep showing it, but stop it voting.
-            "excluded": bool((newest - as_of).days > 14),
+            "excluded": bool((newest - as_of).days > 3 * sp["max_lag"]),
         })
     return out
 
