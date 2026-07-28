@@ -27,6 +27,7 @@ Run:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import io
 import json
 import os
@@ -43,7 +44,10 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DATA_PATH = os.path.join(HERE, "docs", "data.json")
 
 PCTL_WINDOW = 756        # ~3 years of sessions for percentile ranking
-HISTORY_MAX = 1300
+# Retention has to outlive the oldest turning point we test against, or the
+# pivot report silently loses the cases that matter most. 1300 sessions was
+# ~5.2 years, which quietly dropped Covid and both 2018 pivots off the end.
+HISTORY_MAX = 4200
 SP500_LIST = ("https://raw.githubusercontent.com/Ate329/top-us-stock-tickers"
               "/main/tickers/sp500.csv")
 FRED = "https://fred.stlouisfed.org/graph/fredgraph.csv?id={}"
@@ -557,6 +561,23 @@ def build_signals(m: dict, br: dict) -> list[dict]:
 
 # ---------------------------------------------------------------------------
 
+def code_fingerprint() -> str:
+    """
+    Short hash of the code that produced this run. Pasting a file into GitHub
+    and forgetting to trigger the workflow -- or updating one file and not its
+    pair -- produces a page that looks current and is not. This makes that
+    visible instead of leaving it to be inferred from behaviour.
+    """
+    h = hashlib.sha256()
+    for fn in ("risk_monitor.py", "validate.py"):
+        try:
+            with open(os.path.join(HERE, fn), "rb") as f:
+                h.update(f.read())
+        except OSError:
+            h.update(b"<missing>")
+    return h.hexdigest()[:8]
+
+
 def prev_payload() -> dict | None:
     try:
         with open(DATA_PATH, encoding="utf-8") as f:
@@ -619,6 +640,7 @@ def assemble(m, oas, br, errors, backfill: bool = False) -> dict:
     spy = m.get("spy")
     payload = {
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "build": code_fingerprint(),
         "score": score,
         "band": ("CALM" if score < 35 else "ELEVATED" if score < 60
                  else "STRESSED" if score < 80 else "ACUTE"),
