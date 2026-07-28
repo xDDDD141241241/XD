@@ -240,7 +240,8 @@ function render(d){
   const good = new Set(['ts_swing_low','washout_buy','zweig_thrust']);
 
   document.getElementById('stamp').textContent =
-    'updated ' + String(d.updated).replace('T',' ').replace('+00:00',' UTC');
+    'updated ' + String(d.updated).replace('T',' ').replace('+00:00',' UTC')
+    + (d.build ? '  ·  build ' + d.build : '  ·  build unknown (old code)');
 
   const q = d.quality || {status:'OK', checks:[], headline:''};
   const untrusted = q.status === 'FAIL';
@@ -345,7 +346,7 @@ function render(d){
       A high reading is a statement about conditions, not a forecast.</p>`;
 }
 
-fetch('data.json', {cache:'no-store'})
+fetch('data.json?t=' + Date.now(), {cache:'no-store'})
   .then(r => r.ok ? r.json() : Promise.reject(r.status))
   .then(render)
   .catch(() => {
