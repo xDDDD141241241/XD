@@ -89,7 +89,9 @@
   .trust.warn{background:#FBF1DF;border-color:#E4CDA0;color:#7A5210}
   .trust.fail{background:#F6E4E2;border-color:#DFB3AE;color:#8C201A}
   .trust .ck{font-size:12.5px;color:inherit;opacity:.85;margin-top:3px}
-  .read.dim{opacity:.45}
+  .read.dim{opacity:.5}
+  .score .muted-note{font-size:9.5px;letter-spacing:.06em;color:var(--danger);
+                     margin-top:6px;max-width:150px;line-height:1.35}
   .foot{margin-top:34px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--rule);
         padding-top:14px}
   .warn{background:#F6E9E7;border:1px solid #E0BDB8;padding:12px 14px;font-size:13px;
@@ -251,7 +253,8 @@ function render(d){
         <span class="ck">${q.checks.length} checks — values possible, feeds current, gauges agree.</span></div>`}
 
     <div class="read${untrusted?' dim':''}">
-      <div class="score" style="color:${b.color}">${d.score}<small>${b.key}</small></div>
+      <div class="score" style="color:${b.color}">${d.score}<small>${b.key}</small>
+        ${untrusted?'<small class="muted-note">greyed out — failed a self-check above</small>':''}</div>
       <div>
         <p class="plain"><strong>${b.say}</strong>
           ${hot ? `${hot} of ${d.indicators.length} gauges are in the top third of their own three-year range.`
