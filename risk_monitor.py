@@ -247,6 +247,13 @@ def indicator_specs(m: dict, fr: dict, br: dict) -> list[dict]:
         _spec(out, "vvix_vix", "VVIX / VIX", (m["vvix"] / m["vix"]), 6, fmt="{:.2f}",
               check="High ratio with a low VIX = complacent spot, expensive tails. "
                     "Protection is cheapest to own exactly here.")
+    if g("vix") is not None:
+        _spec(out, "vol_floor", "Volatility floor, 126d change",
+              m["vix"].rolling(63).min().diff(126), 6, fmt="{:+.1f}",
+              note="the calmest VIX of the last quarter, versus six months ago",
+              check="A rising floor while the index makes highs is the classic "
+                    "late-cycle tell: the market is no longer able to get as "
+                    "quiet as it used to, even as price goes up.")
     _spec(out, "move", "MOVE (rates volatility)", g("move"), 8, fmt="{:.1f}",
           check="If this leads VIX higher, the shock is coming from bonds or policy "
                 "rather than from equities -- a different playbook.")
@@ -460,6 +467,37 @@ def historical_scores(m: dict, oas, br: dict,
             for d, v in score.items()]
 
 
+# Which family each gauge belongs to. Stress gauges measure the surface and
+# peak at LOWS. Internal gauges measure whether price and its own internals
+# agree, and are the only things that can move before a top.
+SURFACE_IDS = ("vix", "vvix", "move", "hy_oas", "hy_oas_chg",
+               "ts_vix_vix3m", "ts_vix9d_vix", "vvix_vix", "nfci")
+INTERNAL_IDS = ("breadth_divergence", "credit_divergence", "concentration",
+                "quality_spread", "defensive_rotation", "vol_floor",
+                "breadth_ad_z", "nh_nl", "net_liquidity")
+
+
+def _topping(surface: pd.Series, internals: pd.DataFrame) -> pd.Series:
+    """
+    Topping risk = deteriorating internals WHILE the surface is calm.
+
+    It has to be a product, not a sum. A top is not a stressed market; it is a
+    quiet market whose internals have already turned. Averaging everything into
+    one number cannot express that -- the calm majority outvotes the few gauges
+    that are trying to say something, so the composite reads mid-range at every
+    top in the record. That is a property of the mean, not of the data, and no
+    amount of reweighting fixes it.
+
+    Internals are taken as the mean of the top two rather than the max, so one
+    flaky series cannot manufacture a signal on its own.
+    """
+    top2 = internals.apply(
+        lambda r: np.nan if r.dropna().empty
+        else float(np.mean(sorted(r.dropna())[-2:])), axis=1)
+    calm = ((70.0 - surface) / 50.0).clip(0.0, 1.0)
+    return (top2 * calm).rename("top_risk")
+
+
 def composite_score(indicators: list[dict]) -> float:
     """Weighted mean of percentiles, renormalised over surviving inputs."""
     ok = [i for i in indicators
@@ -492,6 +530,58 @@ def trend_table(spy: pd.Series | None) -> list[dict]:
         out.append({"span": span, "kind": kind, "above": bool(last > r),
                     "dist_pct": round((last / r - 1) * 100, 2)})
     return out
+
+
+def topping_now(indicators: list[dict]) -> dict:
+    """Today's topping risk, plus which internals are driving it."""
+    live = {i["id"]: i for i in indicators if not i.get("excluded")}
+    surf = [live[k] for k in SURFACE_IDS if k in live]
+    inte = [live[k] for k in INTERNAL_IDS if k in live]
+    if not surf or len(inte) < 2:
+        return {"score": None}
+    sw = sum(i["weight"] for i in surf)
+    surface = sum(i["percentile"] * i["weight"] for i in surf) / sw
+    ranked = sorted(inte, key=lambda i: -i["percentile"])
+    top2 = float(np.mean([r["percentile"] for r in ranked[:2]]))
+    calm = float(np.clip((70.0 - surface) / 50.0, 0.0, 1.0))
+    return {
+        "score": round(top2 * calm, 1),
+        "surface": round(surface, 1),
+        "internals": round(top2, 1),
+        "calm_factor": round(calm, 2),
+        "drivers": [{"label": r["label"], "percentile": r["percentile"]}
+                    for r in ranked[:3]],
+    }
+
+
+def topping_series(m: dict, fr, br: dict, window: int = PCTL_WINDOW) -> list[dict]:
+    """The same construct, recomputed for every past session."""
+    specs = indicator_specs(m, fr, br)
+    ranks, weights = {}, {}
+    for sp in specs:
+        ser = sp["series"].dropna()
+        if len(ser) < window // 4:
+            continue
+        if sp.get("scale"):
+            lo, hi = sp["scale"]
+            r = ((ser - lo) / (hi - lo)).clip(0, 1) * 100
+        else:
+            r = ser.rolling(window, min_periods=120).rank(pct=True) * 100
+        ranks[sp["id"]] = (100 - r) if sp["invert"] else r
+        weights[sp["id"]] = sp["weight"]
+    if not ranks:
+        return []
+    R_ = pd.DataFrame(ranks)
+    if m.get("spy") is not None:
+        R_ = R_.reindex(m["spy"].index.intersection(R_.index))
+    sc = [c for c in SURFACE_IDS if c in R_]
+    ic = [c for c in INTERNAL_IDS if c in R_]
+    if not sc or len(ic) < 2:
+        return []
+    W_ = pd.Series({c: weights[c] for c in sc})
+    surface = (R_[sc].fillna(0) * W_).sum(axis=1) / (R_[sc].notna() * W_).sum(axis=1)
+    t = _topping(surface, R_[ic]).dropna()
+    return [{"date": str(d.date()), "top": round(float(v), 1)} for d, v in t.items()]
 
 
 def classify_regime(spy: pd.Series | None, br: dict) -> dict:
@@ -656,9 +746,17 @@ def assemble(m, oas, br, errors, backfill: bool = False) -> dict:
         "notes": notes,
         "errors": errors,
     }
+    payload["topping"] = topping_now(ind)
+    payload["top_history"] = topping_series(m, oas, br)[-HISTORY_MAX:]
+    _t = [x["top"] for x in payload["top_history"]
+          if isinstance(x.get("top"), (int, float))]
+    if _t and payload["topping"].get("score") is not None:
+        payload["topping"]["percentile"] = round(
+            float(np.mean([v <= payload["topping"]["score"] for v in _t]) * 100), 1)
     payload["quality"] = V.quality_report(payload, prev_payload())
     payload["events"] = V.event_report(payload["history"])
-    payload["pivots"] = V.pivot_report(payload["history"])
+    payload["pivots"] = V.pivot_report(payload["history"],
+                                       top_history=payload["top_history"])
     _h = [x["score"] for x in payload["history"]
           if isinstance(x.get("score"), (int, float))]
     payload["score_percentile"] = (
