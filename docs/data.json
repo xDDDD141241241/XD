@@ -1,7 +1,7 @@
 {
- "updated": "2026-07-29T00:13:22+00:00",
+ "updated": "2026-07-29T08:09:40+00:00",
  "build": "c5db3b4c",
- "score": 34.4,
+ "score": 32.6,
  "band": "CALM",
  "regime": {
   "name": "BULL",
@@ -42,11 +42,11 @@
    "label": "Volatility floor, 126d change",
    "value": 1.56,
    "display": "+1.6",
-   "percentile": 78.3,
+   "percentile": 78.2,
    "weight": 6,
    "note": "the calmest VIX of the last quarter, versus six months ago",
    "check": "A rising floor while the index makes highs is the classic late-cycle tell: the market is no longer able to get as quiet as it used to, even as price goes up.",
-   "as_of": "2026-07-28",
+   "as_of": "2026-07-29",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
    "thin_history": false,
@@ -56,13 +56,13 @@
   {
    "id": "vix",
    "label": "VIX level",
-   "value": 18.21,
-   "display": "18.21",
-   "percentile": 70.2,
+   "value": 18.25,
+   "display": "18.25",
+   "percentile": 70.7,
    "weight": 8,
    "note": "",
    "check": "Direction against price is what counts. VIX rising while the index also rises is rare and is worth stopping on.",
-   "as_of": "2026-07-28",
+   "as_of": "2026-07-29",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
    "thin_history": false,
@@ -122,7 +122,7 @@
    "label": "VVIX (vol of vol)",
    "value": 98.51,
    "display": "98.5",
-   "percentile": 61.7,
+   "percentile": 61.6,
    "weight": 8,
    "note": "rises when people start paying up for tail protection",
    "check": "Rising VVIX with a flat VIX means someone is buying protection before any move shows in price. This leads more often than VIX does.",
@@ -166,27 +166,11 @@
    "excluded": false
   },
   {
-   "id": "ts_vix9d_vix",
-   "label": "VIX9D / VIX near-term stress",
-   "value": 0.9473,
-   "display": "0.947",
-   "percentile": 32.4,
-   "weight": 8,
-   "note": "",
-   "check": "Rising while price is flat means a dated event is being priced -- look for what is on the calendar rather than on the chart.",
-   "as_of": "2026-07-28",
-   "basis": "absolute scale",
-   "inverted": false,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false
-  },
-  {
    "id": "nh_nl",
    "label": "New 52w highs minus new lows",
-   "value": 55.0,
-   "display": "+55",
-   "percentile": 31.7,
+   "value": 54.0,
+   "display": "+54",
+   "percentile": 32.0,
    "weight": 6,
    "note": "",
    "check": "Negative while the index is at a new high is the textbook non-confirmation. It was present at 1972, 2000, 2007 and 2021.",
@@ -214,22 +198,6 @@
    "excluded": false
   },
   {
-   "id": "ts_vix_vix3m",
-   "label": "VIX / VIX3M term structure",
-   "value": 0.9169,
-   "display": "0.917",
-   "percentile": 26.8,
-   "weight": 12,
-   "note": "above 1.00 = backwardation, the classic risk-off trigger",
-   "check": "Crossing 1.00 while the index is still near its highs is the meaningful case. Above 1.00 during an active selloff is normal and usually marks the panic, not the start of one.",
-   "as_of": "2026-07-28",
-   "basis": "absolute scale",
-   "inverted": false,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false
-  },
-  {
    "id": "vvix_vix",
    "label": "VVIX / VIX",
    "value": 5.4097,
@@ -246,6 +214,22 @@
    "excluded": false
   },
   {
+   "id": "ts_vix_vix3m",
+   "label": "VIX / VIX3M term structure",
+   "value": 0.9138,
+   "display": "0.914",
+   "percentile": 25.5,
+   "weight": 12,
+   "note": "above 1.00 = backwardation, the classic risk-off trigger",
+   "check": "Crossing 1.00 while the index is still near its highs is the meaningful case. Above 1.00 during an active selloff is normal and usually marks the panic, not the start of one.",
+   "as_of": "2026-07-17",
+   "basis": "absolute scale",
+   "inverted": false,
+   "thin_history": false,
+   "stale": true,
+   "excluded": false
+  },
+  {
    "id": "hy_oas",
    "label": "High yield OAS",
    "value": 2.81,
@@ -255,22 +239,6 @@
    "note": "credit is usually early to price real trouble",
    "check": "The level matters less than the direction. Check it every time the index prints a new high.",
    "as_of": "2026-07-27",
-   "basis": "ranked vs 756 sessions",
-   "inverted": false,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false
-  },
-  {
-   "id": "move",
-   "label": "MOVE (rates volatility)",
-   "value": 76.0938,
-   "display": "76.1",
-   "percentile": 20.8,
-   "weight": 8,
-   "note": "",
-   "check": "If this leads VIX higher, the shock is coming from bonds or policy rather than from equities -- a different playbook.",
-   "as_of": "2026-07-28",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
    "thin_history": false,
@@ -310,11 +278,43 @@
    "excluded": false
   },
   {
+   "id": "ts_vix9d_vix",
+   "label": "VIX9D / VIX near-term stress",
+   "value": 0.8977,
+   "display": "0.898",
+   "percentile": 15.9,
+   "weight": 8,
+   "note": "",
+   "check": "Rising while price is flat means a dated event is being priced -- look for what is on the calendar rather than on the chart.",
+   "as_of": "2026-07-17",
+   "basis": "absolute scale",
+   "inverted": false,
+   "thin_history": false,
+   "stale": true,
+   "excluded": false
+  },
+  {
+   "id": "move",
+   "label": "MOVE (rates volatility)",
+   "value": 70.88,
+   "display": "70.9",
+   "percentile": 14.0,
+   "weight": 8,
+   "note": "",
+   "check": "If this leads VIX higher, the shock is coming from bonds or policy rather than from equities -- a different playbook.",
+   "as_of": "2026-07-17",
+   "basis": "ranked vs 756 sessions",
+   "inverted": false,
+   "thin_history": false,
+   "stale": true,
+   "excluded": false
+  },
+  {
    "id": "breadth_ad_z",
    "label": "Advance/decline line, 63d z-score",
-   "value": 1.7835,
-   "display": "+1.78",
-   "percentile": 14.3,
+   "value": 2.1697,
+   "display": "+2.17",
+   "percentile": 6.6,
    "weight": 12,
    "note": "low = participation narrowing under the surface",
    "check": "Negative while the index sits at highs is the divergence that matters. Negative during a pullback is just a pullback.",
@@ -13726,35 +13726,34 @@
    "n": 15
   },
   {
-   "date": "2026-07-27",
-   "score": 39.4,
+   "date": "2026-07-24",
+   "score": 39.3,
    "n": 15
   },
   {
-   "date": "2026-07-28",
-   "score": 33.0,
+   "date": "2026-07-27",
+   "score": 38.5,
    "n": 15
   },
   {
    "date": "2026-07-29",
-   "score": 34.4,
+   "score": 32.6,
    "regime": "BULL"
   }
  ],
  "notes": [
-  "breadth data lagged by 1 thinly-covered date(s), latest good 2026-07-28",
   "score history rebuilt from 2668 sessions"
  ],
  "errors": [],
  "topping": {
-  "score": 44.3,
-  "surface": 38.8,
-  "internals": 71.0,
-  "calm_factor": 0.62,
+  "score": 47.9,
+  "surface": 36.2,
+  "internals": 70.9,
+  "calm_factor": 0.68,
   "drivers": [
    {
     "label": "Volatility floor, 126d change",
-    "percentile": 78.3
+    "percentile": 78.2
    },
    {
     "label": "Defensives vs index, 63d",
@@ -13765,7 +13764,7 @@
     "percentile": 52.6
    }
   ],
-  "percentile": 45.0
+  "percentile": 52.2
  },
  "top_history": [
   {
@@ -25390,7 +25389,7 @@
   },
   {
    "date": "2026-07-24",
-   "top": 26.2
+   "top": 30.6
   },
   {
    "date": "2026-07-27",
@@ -25398,7 +25397,7 @@
   },
   {
    "date": "2026-07-28",
-   "top": 43.6
+   "top": 21.0
   }
  ],
  "quality": {
@@ -25418,7 +25417,7 @@
    {
     "name": "Derived ratios reconcile",
     "status": "pass",
-    "detail": "VVIX/VIX matches its components"
+    "detail": "components carry different dates, so the ratio cannot be cross-checked today"
    },
    {
     "name": "Breadth gauges agree",
@@ -25428,12 +25427,12 @@
    {
     "name": "Feeds current",
     "status": "warn",
-    "detail": "1 stale: nfci"
+    "detail": "4 stale: nfci, ts_vix_vix3m, ts_vix9d_vix, move"
    },
    {
     "name": "Score change explainable",
     "status": "pass",
-    "detail": "score moved +2.3 overnight"
+    "detail": "score moved -1.8 overnight"
    },
    {
     "name": "Enough gauges reporting",
@@ -25660,5 +25659,5 @@
   ],
   "note": "Lows are the easy test and should be near-perfect. Tops are the hard test — judge the tool on that column."
  },
- "score_percentile": 52.9
+ "score_percentile": 45.3
 }
