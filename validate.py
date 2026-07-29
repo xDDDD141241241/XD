@@ -197,8 +197,15 @@ def event_report(history: list, episodes=EPISODES, window: int = 10) -> dict:
     else:
         false_days = high_days = 0
 
+    # A false-alarm share means nothing without the base rate it is beating.
+    # If the tested episodes cover 30% of the record, then a gauge firing at
+    # random would land outside them 70% of the time -- so 47% is only
+    # meaningful next to that 70%.
+    away_share = float((~near).mean()) if covered else None
+
     return {
         "status": "ok",
+        "baseline_away_share": None if away_share is None else round(away_share, 2),
         "window_days": window,
         "history_from": str(s.index[0].date()), "history_to": str(s.index[-1].date()),
         "threshold_p80": round(float(p80), 1), "threshold_p90": round(float(p90), 1),
@@ -239,7 +246,7 @@ PIVOT_TOPS = [
 ]
 
 
-def pivot_report(history: list, lead: int = 42) -> dict:
+def pivot_report(history: list, lead: int = 42, top_history: list | None = None) -> dict:
     """
     For each confirmed turning point: where was the score, and had it been
     moving beforehand? The second question is the one that matters -- a gauge
@@ -253,33 +260,45 @@ def pivot_report(history: list, lead: int = 42) -> dict:
     if s.empty:
         return {"status": "no usable history"}
 
-    def rank(v):
-        return round(float((s <= v).mean() * 100), 1)
+    # Tops are judged against the topping score, not the stress score. Judging
+    # a top by a stress composite asks the wrong question -- a top IS a calm
+    # market, so the stress reading is supposed to be low there.
+    t = None
+    if top_history:
+        t = pd.Series({pd.Timestamp(h["date"]): h["top"] for h in top_history
+                       if isinstance(h.get("top"), (int, float))}).sort_index()
+        if t.empty:
+            t = None
+
+    def rank(v, ser=None):
+        ser = s if ser is None else ser
+        return round(float((ser <= v).mean() * 100), 1)
 
     def at(date, name, kind):
+        ser = s if (kind == "low" or t is None) else t
         d = pd.Timestamp(date)
-        if d < s.index[0] or d > s.index[-1]:
+        if d < ser.index[0] or d > ser.index[-1]:
             return None
-        w = s.loc[d - pd.Timedelta(days=7): d + pd.Timedelta(days=7)]
+        w = ser.loc[d - pd.Timedelta(days=7): d + pd.Timedelta(days=7)]
         if w.empty:
             return None
         here = float(w.mean())
-        before = s.loc[d - pd.Timedelta(days=lead): d - pd.Timedelta(days=7)]
+        before = ser.loc[d - pd.Timedelta(days=lead): d - pd.Timedelta(days=7)]
         prior = float(before.mean()) if not before.empty else float("nan")
         chg = here - prior if prior == prior else float("nan")
 
         if kind == "low":
-            # a stress gauge should be near its extreme when price bottoms
-            useful = rank(here) >= 75
+            useful = rank(here, ser) >= 75
             verdict = "pegged high at the low" if useful else "did not register the low"
         else:
-            # at a top, level is not the test -- direction is
-            useful = bool(chg == chg and chg > 4) or rank(here) >= 60
+            useful = bool(chg == chg and chg > 4) or rank(here, ser) >= 65
             verdict = ("rising into the top" if chg == chg and chg > 4
-                       else "elevated at the top" if rank(here) >= 60
+                       else "elevated at the top" if rank(here, ser) >= 65
                        else "asleep at the top")
         return {"date": date, "name": name, "kind": kind,
-                "score": round(here, 1), "percentile": rank(here),
+                "measure": "stress" if kind == "low" else
+                           ("topping" if t is not None else "stress"),
+                "score": round(here, 1), "percentile": rank(here, ser),
                 "change_before": None if chg != chg else round(chg, 1),
                 "useful": bool(useful), "verdict": verdict}
 
