@@ -34,6 +34,8 @@
         padding:22px;display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center}
   .score{font-family:var(--display);font-weight:700;font-size:76px;line-height:.85;
          letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .score .pctl{font-size:9.5px;letter-spacing:.05em;color:var(--muted);margin-top:4px;
+               text-transform:none}
   .score small{display:block;font-family:var(--mono);font-size:11px;font-weight:500;
                letter-spacing:.16em;margin-top:10px;text-transform:uppercase}
   .plain{font-size:17px;max-width:52ch}
@@ -42,6 +44,11 @@
           margin-top:10px;display:block;text-transform:uppercase}
   .spark{margin-top:14px}
   .trend{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
+  .topbox{margin-top:14px;display:grid;grid-template-columns:auto 1fr;gap:14px;
+          align-items:center;border-top:1px solid var(--rule);padding-top:12px;
+          font-size:13px;max-width:56ch}
+  .topnum{font-family:var(--display);font-weight:700;font-size:38px;line-height:1;
+          font-variant-numeric:tabular-nums}
   .tf{font-family:var(--mono);font-size:10.5px;letter-spacing:.03em;padding:3px 7px;
       border:1px solid var(--rule);background:#fff;display:inline-flex;gap:5px;align-items:baseline}
   .tf b{font-weight:600}
@@ -142,6 +149,21 @@ const REGIME = {
   BEAR:          'Both price trend and participation are broken.'
 };
 
+function toppingStrip(t){
+  if(!t || t.score==null) return '';
+  const c = t.score>=60?'var(--danger)':t.score>=40?'var(--caution)':'var(--calm)';
+  return `<div class="topbox">
+    <div><div class="topnum" style="color:${c}">${t.score}</div>
+      ${t.percentile!=null?`<div class="stamp" style="text-align:center">${t.percentile} pctl</div>`:''}</div>
+    <div><b>Topping risk</b> — internals deteriorating while the surface stays calm.
+      Separate from the score above, which measures stress and is meant to be low at a top.
+      <div class="stamp" style="margin-top:4px">surface ${t.surface} · internals ${t.internals}
+        · calm factor ${t.calm_factor}</div>
+      ${t.drivers&&t.drivers.length?`<div class="stamp">driven by: ${
+        t.drivers.map(x=>`${x.label} (${x.percentile})`).join(' · ')}</div>`:''}
+    </div></div>`;
+}
+
 function trendStrip(t){
   if(!t || !t.length) return '';
   return `<div class="trend">${t.map(x => `
@@ -178,6 +200,13 @@ function historyPanel(d){
         stroke="var(--rule)" stroke-width=".6" stroke-dasharray="2 3"/>
       <text x="${X(ms)}" y="${H-8}" text-anchor="middle" font-size="9"
         font-family="var(--mono)" fill="var(--muted)">${y}</text>`).join('')}
+    ${(()=>{const th=(d.top_history||[]).filter(x=>Number.isFinite(x.top));
+      if(th.length<60) return '';
+      const p=th.filter(x=>{const ms=new Date(x.date).getTime();return ms>=t0&&ms<=t1;});
+      if(p.length<10) return '';
+      return `<path d="${p.map((x,i)=>(i?'L':'M')+X(new Date(x.date).getTime()).toFixed(1)
+        +' '+Y(x.top).toFixed(1)).join(' ')}" fill="none" stroke="var(--danger)"
+        stroke-width="1" opacity=".65" stroke-dasharray="4 2"/>`;})()}
     <path d="${d3}" fill="none" stroke="#41505F" stroke-width="1.1"/>
     ${piv.map(p=>{const x=X(new Date(p.date).getTime()); const low=p.kind==='low';
       return `<line x1="${x}" y1="${PT}" x2="${x}" y2="${PT+ih}" stroke="${low?'var(--calm)':'var(--danger)'}"
@@ -190,6 +219,7 @@ function historyPanel(d){
     <circle cx="${X(new Date(last.date).getTime())}" cy="${Y(last.score)}" r="3.6" fill="var(--ink)"/>
   </svg>
   <p class="lede" style="margin-top:8px">
+    Solid line is the stress score, dashed red is topping risk.
     Green triangles are confirmed lows, red are confirmed tops.
     ${d.score_percentile!=null?`Today reads higher than <strong>${d.score_percentile}%</strong>
     of all sessions since ${h[0].date}.`:''}</p>`;
@@ -255,6 +285,7 @@ function render(d){
 
     <div class="read${untrusted?' dim':''}">
       <div class="score" style="color:${b.color}">${d.score}<small>${b.key}</small>
+        ${d.score_percentile!=null?`<small class="pctl">${d.score_percentile} pctl of record</small>`:''}
         ${untrusted?'<small class="muted-note">greyed out — failed a self-check above</small>':''}</div>
       <div>
         <p class="plain"><strong>${b.say}</strong>
@@ -262,6 +293,7 @@ function render(d){
                 : 'No individual gauge is stretched.'}</p>
         <span class="regime">${d.regime.name} — ${d.regime.description || ''}</span>
         ${trendStrip(d.trend)}
+        ${toppingStrip(d.topping)}
         ${sparkline(d.history)}
       </div>
     </div>
@@ -304,7 +336,7 @@ function render(d){
       <div>${d.pivots.pivots.map(p=>`<div class="sig ${p.useful?(p.kind==='low'?'on good':'on'):'off'}">
           <span class="dot"></span>
           <div><span class="lbl">${p.name}</span>
-            <div class="mean">${p.kind==='low'?'LOW':'TOP'} ${p.date} —
+            <div class="mean">${p.kind==='low'?'LOW':'TOP'} ${p.date} — <em>${p.measure} score</em> —
               score ${p.score} (${p.percentile} pctl)${p.change_before!=null?
               `, ${p.change_before>0?'+':''}${p.change_before} vs the six weeks before`:''} — ${p.verdict}</div></div>
         </div>`).join('')}</div>
@@ -327,8 +359,12 @@ function render(d){
       <p class="foot" style="margin-top:14px">${d.events.episodes_flagged} of
         ${d.events.episodes_testable} episodes flagged.
         ${d.events.false_alarm_share !== null ? `Of all days in the top tenth,
-        ${Math.round(d.events.false_alarm_share*100)}% came outside any of these episodes —
-        that is the false-alarm rate, and it is the number that keeps this honest.` : ''}</p>
+        ${Math.round(d.events.false_alarm_share*100)}% came outside any of these episodes.
+        ${d.events.baseline_away_share!=null?`Firing at random would put
+        ${Math.round(d.events.baseline_away_share*100)}% outside, so the gauge is
+        ${d.events.false_alarm_share < d.events.baseline_away_share ? 'better than chance' : 'no better than chance'}
+        — but only these nine episodes are tested, so real stress that is not on the
+        list counts against it here. Treat it as a ceiling on the false-alarm rate.`:''}` : ''}</p>
     </section>` : ''}
 
     ${d.notes && d.notes.length ? `<p class="foot" style="margin-top:22px">${d.notes.join(' · ')}</p>` : ''}
