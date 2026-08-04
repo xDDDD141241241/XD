@@ -1,7 +1,7 @@
 {
- "updated": "2026-08-01T07:38:54+00:00",
+ "updated": "2026-08-04T08:04:47+00:00",
  "build": "c5db3b4c",
- "score": 37.3,
+ "score": 37.0,
  "band": "ELEVATED",
  "regime": {
   "name": "BULL",
@@ -46,7 +46,7 @@
    "weight": 6,
    "note": "the calmest VIX of the last quarter, versus six months ago",
    "check": "A rising floor while the index makes highs is the classic late-cycle tell: the market is no longer able to get as quiet as it used to, even as price goes up.",
-   "as_of": "2026-07-31",
+   "as_of": "2026-08-04",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
    "thin_history": false,
@@ -152,13 +152,13 @@
   {
    "id": "vix",
    "label": "VIX level",
-   "value": 15.99,
-   "display": "15.99",
-   "percentile": 42.3,
+   "value": 15.68,
+   "display": "15.68",
+   "percentile": 37.2,
    "weight": 8,
    "note": "",
    "check": "Direction against price is what counts. VIX rising while the index also rises is rare and is worth stopping on.",
-   "as_of": "2026-07-31",
+   "as_of": "2026-08-04",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
    "thin_history": false,
@@ -194,7 +194,7 @@
    "basis": "ranked vs 756 sessions",
    "inverted": false,
    "thin_history": false,
-   "stale": false,
+   "stale": true,
    "excluded": false
   },
   {
@@ -13751,20 +13751,21 @@
    "n": 15
   },
   {
-   "date": "2026-08-01",
-   "score": 37.3,
+   "date": "2026-08-04",
+   "score": 37.0,
    "regime": "BULL"
   }
  ],
  "notes": [
+  "breadth data lagged by 1 thinly-covered date(s), latest good 2026-07-31",
   "score history rebuilt from 2671 sessions"
  ],
  "errors": [],
  "topping": {
-  "score": 36.4,
-  "surface": 42.2,
+  "score": 37.5,
+  "surface": 41.3,
   "internals": 65.3,
-  "calm_factor": 0.56,
+  "calm_factor": 0.57,
   "drivers": [
    {
     "label": "Volatility floor, 126d change",
@@ -13779,7 +13780,7 @@
     "percentile": 50.3
    }
   ],
-  "percentile": 33.5
+  "percentile": 35.3
  },
  "top_history": [
   {
@@ -25444,7 +25445,7 @@
    {
     "name": "Derived ratios reconcile",
     "status": "pass",
-    "detail": "VVIX/VIX matches its components"
+    "detail": "components carry different dates, so the ratio cannot be cross-checked today"
    },
    {
     "name": "Breadth gauges agree",
@@ -25454,12 +25455,12 @@
    {
     "name": "Feeds current",
     "status": "warn",
-    "detail": "3 stale: ts_vix_vix3m, ts_vix9d_vix, move"
+    "detail": "4 stale: nfci, ts_vix_vix3m, ts_vix9d_vix, move"
    },
    {
     "name": "Score change explainable",
     "status": "pass",
-    "detail": "score moved -1.2 overnight"
+    "detail": "score moved -0.3 overnight"
    },
    {
     "name": "Enough gauges reporting",
@@ -25480,7 +25481,7 @@
   "baseline_away_share": 0.79,
   "window_days": 10,
   "history_from": "2015-09-25",
-  "history_to": "2026-08-01",
+  "history_to": "2026-08-04",
   "threshold_p80": 44.1,
   "threshold_p90": 50.1,
   "episodes_testable": 9,
@@ -25686,5 +25687,5 @@
   ],
   "note": "Lows are the easy test and should be near-perfect. Tops are the hard test — judge the tool on that column."
  },
- "score_percentile": 63.2
+ "score_percentile": 62.6
 }
