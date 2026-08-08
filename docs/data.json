@@ -1,8 +1,8 @@
 {
- "updated": "2026-08-07T05:09:03+00:00",
+ "updated": "2026-08-08T00:02:10+00:00",
  "build": "c5db3b4c",
- "score": 35.4,
- "band": "ELEVATED",
+ "score": 29.2,
+ "band": "CALM",
  "regime": {
   "name": "BULL",
   "description": "above the 200-day and participation is broad",
@@ -15,38 +15,38 @@
    "span": 9,
    "kind": "ema",
    "above": true,
-   "dist_pct": 1.52
+   "dist_pct": 1.71
   },
   {
    "span": 21,
    "kind": "ema",
    "above": true,
-   "dist_pct": 2.37
+   "dist_pct": 2.72
   },
   {
    "span": 50,
    "kind": "sma",
    "above": true,
-   "dist_pct": 2.92
+   "dist_pct": 3.49
   },
   {
    "span": 200,
    "kind": "sma",
    "above": true,
-   "dist_pct": 9.41
+   "dist_pct": 10.0
   }
  ],
  "indicators": [
   {
    "id": "vol_floor",
    "label": "Volatility floor, 126d change",
-   "value": 1.56,
-   "display": "+1.6",
-   "percentile": 77.8,
+   "value": 1.43,
+   "display": "+1.4",
+   "percentile": 74.1,
    "weight": 6,
    "note": "the calmest VIX of the last quarter, versus six months ago",
    "check": "A rising floor while the index makes highs is the classic late-cycle tell: the market is no longer able to get as quiet as it used to, even as price goes up.",
-   "as_of": "2026-08-06",
+   "as_of": "2026-08-07",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
    "thin_history": false,
@@ -56,30 +56,14 @@
   {
    "id": "corr_spy_tlt",
    "label": "Stock/bond correlation, 63d",
-   "value": 0.3917,
+   "value": 0.3922,
    "display": "+0.39",
    "percentile": 69.6,
    "weight": 6,
    "note": "above zero means bonds stop cushioning equities",
    "check": "Check this before you need the hedge, not after. It says nothing about whether a drawdown is coming, only what it will cost you.",
-   "as_of": "2026-08-06",
+   "as_of": "2026-08-07",
    "basis": "absolute scale",
-   "inverted": false,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false
-  },
-  {
-   "id": "hy_oas_chg",
-   "label": "HY OAS, 20-day change",
-   "value": 0.05,
-   "display": "+0.05",
-   "percentile": 67.0,
-   "weight": 8,
-   "note": "",
-   "check": "Positive while the index makes new highs is the single most reliable non-confirmation in this whole panel.",
-   "as_of": "2026-08-05",
-   "basis": "ranked vs 756 sessions",
    "inverted": false,
    "thin_history": false,
    "stale": false,
@@ -88,12 +72,28 @@
   {
    "id": "vvix_vix",
    "label": "VVIX / VIX",
-   "value": 5.8561,
-   "display": "5.86",
-   "percentile": 56.7,
+   "value": 6.0685,
+   "display": "6.07",
+   "percentile": 69.1,
    "weight": 6,
    "note": "",
    "check": "High ratio with a low VIX = complacent spot, expensive tails. Protection is cheapest to own exactly here.",
+   "as_of": "2026-08-07",
+   "basis": "ranked vs 756 sessions",
+   "inverted": false,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false
+  },
+  {
+   "id": "hy_oas_chg",
+   "label": "HY OAS, 20-day change",
+   "value": 0.01,
+   "display": "+0.01",
+   "percentile": 60.9,
+   "weight": 8,
+   "note": "",
+   "check": "Positive while the index makes new highs is the single most reliable non-confirmation in this whole panel.",
    "as_of": "2026-08-06",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
@@ -104,31 +104,15 @@
   {
    "id": "quality_spread",
    "label": "Quality spread (CCC minus BB)",
-   "value": 8.58,
-   "display": "8.58",
-   "percentile": 54.8,
+   "value": 8.56,
+   "display": "8.56",
+   "percentile": 54.7,
    "weight": 8,
    "note": "the junk end versus the decent end of high yield",
    "check": "Widening while equities hold up means risk appetite is leaving from the bottom. The weakest borrowers crack first, and this gap opens before the index-level spread does.",
-   "as_of": "2026-08-05",
-   "basis": "absolute scale",
-   "inverted": false,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false
-  },
-  {
-   "id": "nh_nl",
-   "label": "New 52w highs minus new lows",
-   "value": 14.0,
-   "display": "+14",
-   "percentile": 45.3,
-   "weight": 6,
-   "note": "",
-   "check": "Negative while the index is at a new high is the textbook non-confirmation. It was present at 1972, 2000, 2007 and 2021.",
    "as_of": "2026-08-06",
    "basis": "absolute scale",
-   "inverted": true,
+   "inverted": false,
    "thin_history": false,
    "stale": false,
    "excluded": false
@@ -150,15 +134,15 @@
    "excluded": false
   },
   {
-   "id": "pct_above_20",
-   "label": "% of S&P 500 above 20-day average",
-   "value": 62.8743,
-   "display": "63%",
-   "percentile": 37.1,
-   "weight": 8,
+   "id": "nh_nl",
+   "label": "New 52w highs minus new lows",
+   "value": 20.0,
+   "display": "+20",
+   "percentile": 43.3,
+   "weight": 6,
    "note": "",
-   "check": "Short-horizon. Under 15% is washout territory -- check whether price has actually broken structure or merely dipped.",
-   "as_of": "2026-08-06",
+   "check": "Negative while the index is at a new high is the textbook non-confirmation. It was present at 1972, 2000, 2007 and 2021.",
+   "as_of": "2026-08-07",
    "basis": "absolute scale",
    "inverted": true,
    "thin_history": false,
@@ -166,15 +150,31 @@
    "excluded": false
   },
   {
-   "id": "vix",
-   "label": "VIX level",
-   "value": 15.15,
-   "display": "15.15",
-   "percentile": 31.5,
+   "id": "pct_above_20",
+   "label": "% of S&P 500 above 20-day average",
+   "value": 65.0699,
+   "display": "65%",
+   "percentile": 34.9,
    "weight": 8,
    "note": "",
-   "check": "Direction against price is what counts. VIX rising while the index also rises is rare and is worth stopping on.",
-   "as_of": "2026-08-06",
+   "check": "Short-horizon. Under 15% is washout territory -- check whether price has actually broken structure or merely dipped.",
+   "as_of": "2026-08-07",
+   "basis": "absolute scale",
+   "inverted": true,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false
+  },
+  {
+   "id": "vvix",
+   "label": "VVIX (vol of vol)",
+   "value": 90.42,
+   "display": "90.4",
+   "percentile": 33.0,
+   "weight": 8,
+   "note": "rises when people start paying up for tail protection",
+   "check": "Rising VVIX with a flat VIX means someone is buying protection before any move shows in price. This leads more often than VIX does.",
+   "as_of": "2026-08-07",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
    "thin_history": false,
@@ -184,13 +184,13 @@
   {
    "id": "defensive_rotation",
    "label": "Defensives vs index, 63d",
-   "value": -6.6067,
-   "display": "-6.6%",
-   "percentile": 30.6,
+   "value": -6.4322,
+   "display": "-6.4%",
+   "percentile": 32.1,
    "weight": 4,
    "note": "utilities and staples relative to the index",
    "check": "Rising while the index makes highs means money is moving to safety inside the rally. Confirms more often than it leads.",
-   "as_of": "2026-08-06",
+   "as_of": "2026-08-07",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
    "thin_history": false,
@@ -198,15 +198,15 @@
    "excluded": false
   },
   {
-   "id": "vvix",
-   "label": "VVIX (vol of vol)",
-   "value": 88.72,
-   "display": "88.7",
-   "percentile": 27.8,
+   "id": "vix",
+   "label": "VIX level",
+   "value": 14.9,
+   "display": "14.90",
+   "percentile": 28.2,
    "weight": 8,
-   "note": "rises when people start paying up for tail protection",
-   "check": "Rising VVIX with a flat VIX means someone is buying protection before any move shows in price. This leads more often than VIX does.",
-   "as_of": "2026-08-06",
+   "note": "",
+   "check": "Direction against price is what counts. VIX rising while the index also rises is rare and is worth stopping on.",
+   "as_of": "2026-08-07",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
    "thin_history": false,
@@ -214,20 +214,20 @@
    "excluded": false
   },
   {
-   "id": "ts_vix_vix3m",
-   "label": "VIX / VIX3M term structure",
-   "value": 0.9138,
-   "display": "0.914",
-   "percentile": 25.5,
-   "weight": 12,
-   "note": "above 1.00 = backwardation, the classic risk-off trigger",
-   "check": "Crossing 1.00 while the index is still near its highs is the meaningful case. Above 1.00 during an active selloff is normal and usually marks the panic, not the start of one.",
-   "as_of": "2026-07-17",
+   "id": "credit_divergence",
+   "label": "Credit non-confirmation, 63d count",
+   "value": 6.0,
+   "display": "6",
+   "percentile": 24.0,
+   "weight": 10,
+   "note": "days near a high with credit spreads widening",
+   "check": "Counts the days equities made highs while credit disagreed. This led 2000, 2007, 2018 and 2021-22. A count climbing off zero is the thing to watch.",
+   "as_of": "2026-08-07",
    "basis": "absolute scale",
    "inverted": false,
    "thin_history": false,
-   "stale": true,
-   "excluded": true
+   "stale": false,
+   "excluded": false
   },
   {
    "id": "breadth_divergence",
@@ -238,7 +238,7 @@
    "weight": 10,
    "note": "days near a high with breadth already negative",
    "check": "This IS the price comparison, counted for you. A rising count is the November 2021 pattern: index still making highs, participation already gone. Zero is healthy.",
-   "as_of": "2026-08-06",
+   "as_of": "2026-08-07",
    "basis": "absolute scale",
    "inverted": false,
    "thin_history": false,
@@ -246,63 +246,15 @@
    "excluded": false
   },
   {
-   "id": "credit_divergence",
-   "label": "Credit non-confirmation, 63d count",
-   "value": 5.0,
-   "display": "5",
-   "percentile": 20.0,
-   "weight": 10,
-   "note": "days near a high with credit spreads widening",
-   "check": "Counts the days equities made highs while credit disagreed. This led 2000, 2007, 2018 and 2021-22. A count climbing off zero is the thing to watch.",
-   "as_of": "2026-08-06",
-   "basis": "absolute scale",
-   "inverted": false,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false
-  },
-  {
-   "id": "breadth_ad_z",
-   "label": "Advance/decline line, 63d z-score",
-   "value": 1.6094,
-   "display": "+1.61",
-   "percentile": 17.8,
-   "weight": 12,
-   "note": "low = participation narrowing under the surface",
-   "check": "Negative while the index sits at highs is the divergence that matters. Negative during a pullback is just a pullback.",
-   "as_of": "2026-08-06",
-   "basis": "absolute scale",
-   "inverted": true,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false
-  },
-  {
-   "id": "ts_vix9d_vix",
-   "label": "VIX9D / VIX near-term stress",
-   "value": 0.8977,
-   "display": "0.898",
-   "percentile": 15.9,
+   "id": "move",
+   "label": "MOVE (rates volatility)",
+   "value": 72.0302,
+   "display": "72.0",
+   "percentile": 15.1,
    "weight": 8,
    "note": "",
-   "check": "Rising while price is flat means a dated event is being priced -- look for what is on the calendar rather than on the chart.",
-   "as_of": "2026-07-17",
-   "basis": "absolute scale",
-   "inverted": false,
-   "thin_history": false,
-   "stale": true,
-   "excluded": true
-  },
-  {
-   "id": "hy_oas",
-   "label": "High yield OAS",
-   "value": 2.75,
-   "display": "2.75",
-   "percentile": 15.3,
-   "weight": 12,
-   "note": "credit is usually early to price real trouble",
-   "check": "The level matters less than the direction. Check it every time the index prints a new high.",
-   "as_of": "2026-08-05",
+   "check": "If this leads VIX higher, the shock is coming from bonds or policy rather than from equities -- a different playbook.",
+   "as_of": "2026-08-07",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
    "thin_history": false,
@@ -326,14 +278,46 @@
    "excluded": false
   },
   {
+   "id": "breadth_ad_z",
+   "label": "Advance/decline line, 63d z-score",
+   "value": 1.8636,
+   "display": "+1.86",
+   "percentile": 12.7,
+   "weight": 12,
+   "note": "low = participation narrowing under the surface",
+   "check": "Negative while the index sits at highs is the divergence that matters. Negative during a pullback is just a pullback.",
+   "as_of": "2026-08-07",
+   "basis": "absolute scale",
+   "inverted": true,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false
+  },
+  {
    "id": "concentration",
    "label": "Cap-weight vs equal-weight, 63d",
-   "value": -1.846,
-   "display": "-1.8%",
-   "percentile": 14.2,
+   "value": -2.2508,
+   "display": "-2.3%",
+   "percentile": 12.6,
    "weight": 8,
    "note": "rising = the index is being carried by fewer names",
    "check": "Compare directly with the index. Both rising together means the gain is narrowing into a handful of names.",
+   "as_of": "2026-08-07",
+   "basis": "ranked vs 756 sessions",
+   "inverted": false,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false
+  },
+  {
+   "id": "hy_oas",
+   "label": "High yield OAS",
+   "value": 2.71,
+   "display": "2.71",
+   "percentile": 9.9,
+   "weight": 12,
+   "note": "credit is usually early to price real trouble",
+   "check": "The level matters less than the direction. Check it every time the index prints a new high.",
    "as_of": "2026-08-06",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
@@ -342,20 +326,36 @@
    "excluded": false
   },
   {
-   "id": "move",
-   "label": "MOVE (rates volatility)",
-   "value": 70.88,
-   "display": "70.9",
-   "percentile": 14.0,
-   "weight": 8,
-   "note": "",
-   "check": "If this leads VIX higher, the shock is coming from bonds or policy rather than from equities -- a different playbook.",
-   "as_of": "2026-07-17",
-   "basis": "ranked vs 756 sessions",
+   "id": "ts_vix_vix3m",
+   "label": "VIX / VIX3M term structure",
+   "value": 0.7959,
+   "display": "0.796",
+   "percentile": 0.0,
+   "weight": 12,
+   "note": "above 1.00 = backwardation, the classic risk-off trigger",
+   "check": "Crossing 1.00 while the index is still near its highs is the meaningful case. Above 1.00 during an active selloff is normal and usually marks the panic, not the start of one.",
+   "as_of": "2026-08-07",
+   "basis": "absolute scale",
    "inverted": false,
    "thin_history": false,
-   "stale": true,
-   "excluded": true
+   "stale": false,
+   "excluded": false
+  },
+  {
+   "id": "ts_vix9d_vix",
+   "label": "VIX9D / VIX near-term stress",
+   "value": 0.8027,
+   "display": "0.803",
+   "percentile": 0.0,
+   "weight": 8,
+   "note": "",
+   "check": "Rising while price is flat means a dated event is being priced -- look for what is on the calendar rather than on the chart.",
+   "as_of": "2026-08-07",
+   "basis": "absolute scale",
+   "inverted": false,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false
   }
  ],
  "signals": [
@@ -391,8 +391,8 @@
   }
  ],
  "spx_proxy": {
-  "last": 768.56,
-  "pct_from_high": -0.36
+  "last": 773.26,
+  "pct_from_high": 0.0
  },
  "history": [
   {
@@ -10012,8 +10012,8 @@
   },
   {
    "date": "2023-08-07",
-   "score": 34.2,
-   "n": 17
+   "score": 33.9,
+   "n": 16
   },
   {
    "date": "2023-08-08",
@@ -10582,8 +10582,8 @@
   },
   {
    "date": "2024-01-19",
-   "score": 30.6,
-   "n": 19
+   "score": 32.2,
+   "n": 18
   },
   {
    "date": "2024-01-22",
@@ -10622,7 +10622,7 @@
   },
   {
    "date": "2024-01-31",
-   "score": 36.4,
+   "score": 36.5,
    "n": 18
   },
   {
@@ -10647,7 +10647,7 @@
   },
   {
    "date": "2024-02-07",
-   "score": 29.9,
+   "score": 30.0,
    "n": 18
   },
   {
@@ -10682,8 +10682,8 @@
   },
   {
    "date": "2024-02-16",
-   "score": 31.3,
-   "n": 20
+   "score": 30.9,
+   "n": 19
   },
   {
    "date": "2024-02-20",
@@ -10692,7 +10692,7 @@
   },
   {
    "date": "2024-02-21",
-   "score": 34.6,
+   "score": 34.5,
    "n": 19
   },
   {
@@ -10707,7 +10707,7 @@
   },
   {
    "date": "2024-02-26",
-   "score": 30.3,
+   "score": 30.4,
    "n": 19
   },
   {
@@ -10727,7 +10727,7 @@
   },
   {
    "date": "2024-03-01",
-   "score": 28.7,
+   "score": 28.6,
    "n": 20
   },
   {
@@ -10772,7 +10772,7 @@
   },
   {
    "date": "2024-03-14",
-   "score": 34.2,
+   "score": 34.3,
    "n": 19
   },
   {
@@ -10792,12 +10792,12 @@
   },
   {
    "date": "2024-03-20",
-   "score": 26.3,
+   "score": 26.4,
    "n": 19
   },
   {
    "date": "2024-03-21",
-   "score": 24.9,
+   "score": 25.0,
    "n": 19
   },
   {
@@ -10852,7 +10852,7 @@
   },
   {
    "date": "2024-04-08",
-   "score": 36.8,
+   "score": 36.7,
    "n": 19
   },
   {
@@ -10962,7 +10962,7 @@
   },
   {
    "date": "2024-05-08",
-   "score": 29.5,
+   "score": 29.4,
    "n": 19
   },
   {
@@ -10992,12 +10992,12 @@
   },
   {
    "date": "2024-05-16",
-   "score": 25.3,
+   "score": 25.4,
    "n": 19
   },
   {
    "date": "2024-05-17",
-   "score": 25.8,
+   "score": 25.9,
    "n": 20
   },
   {
@@ -11012,7 +11012,7 @@
   },
   {
    "date": "2024-05-22",
-   "score": 28.8,
+   "score": 28.7,
    "n": 19
   },
   {
@@ -11097,7 +11097,7 @@
   },
   {
    "date": "2024-06-17",
-   "score": 42.3,
+   "score": 42.4,
    "n": 19
   },
   {
@@ -11157,7 +11157,7 @@
   },
   {
    "date": "2024-07-05",
-   "score": 43.1,
+   "score": 43.2,
    "n": 20
   },
   {
@@ -11207,7 +11207,7 @@
   },
   {
    "date": "2024-07-19",
-   "score": 43.1,
+   "score": 43.0,
    "n": 20
   },
   {
@@ -11217,7 +11217,7 @@
   },
   {
    "date": "2024-07-23",
-   "score": 38.4,
+   "score": 38.3,
    "n": 19
   },
   {
@@ -11247,7 +11247,7 @@
   },
   {
    "date": "2024-07-31",
-   "score": 44.1,
+   "score": 44.2,
    "n": 19
   },
   {
@@ -11327,7 +11327,7 @@
   },
   {
    "date": "2024-08-22",
-   "score": 43.5,
+   "score": 43.6,
    "n": 19
   },
   {
@@ -11362,7 +11362,7 @@
   },
   {
    "date": "2024-09-03",
-   "score": 45.0,
+   "score": 45.1,
    "n": 19
   },
   {
@@ -11392,7 +11392,7 @@
   },
   {
    "date": "2024-09-11",
-   "score": 44.5,
+   "score": 44.6,
    "n": 19
   },
   {
@@ -11462,7 +11462,7 @@
   },
   {
    "date": "2024-10-01",
-   "score": 34.0,
+   "score": 34.1,
    "n": 19
   },
   {
@@ -11617,7 +11617,7 @@
   },
   {
    "date": "2024-11-13",
-   "score": 29.3,
+   "score": 29.4,
    "n": 19
   },
   {
@@ -11662,7 +11662,7 @@
   },
   {
    "date": "2024-11-26",
-   "score": 24.7,
+   "score": 24.8,
    "n": 19
   },
   {
@@ -11687,7 +11687,7 @@
   },
   {
    "date": "2024-12-04",
-   "score": 28.1,
+   "score": 28.0,
    "n": 19
   },
   {
@@ -11867,7 +11867,7 @@
   },
   {
    "date": "2025-01-29",
-   "score": 34.5,
+   "score": 34.6,
    "n": 19
   },
   {
@@ -11992,7 +11992,7 @@
   },
   {
    "date": "2025-03-06",
-   "score": 54.3,
+   "score": 54.4,
    "n": 19
   },
   {
@@ -12012,7 +12012,7 @@
   },
   {
    "date": "2025-03-12",
-   "score": 55.3,
+   "score": 55.4,
    "n": 19
   },
   {
@@ -12162,7 +12162,7 @@
   },
   {
    "date": "2025-04-24",
-   "score": 47.9,
+   "score": 48.0,
    "n": 19
   },
   {
@@ -12232,7 +12232,7 @@
   },
   {
    "date": "2025-05-14",
-   "score": 30.0,
+   "score": 30.1,
    "n": 19
   },
   {
@@ -12242,7 +12242,7 @@
   },
   {
    "date": "2025-05-16",
-   "score": 26.5,
+   "score": 26.6,
    "n": 20
   },
   {
@@ -12282,7 +12282,7 @@
   },
   {
    "date": "2025-05-29",
-   "score": 33.8,
+   "score": 33.9,
    "n": 19
   },
   {
@@ -12747,7 +12747,7 @@
   },
   {
    "date": "2025-10-10",
-   "score": 49.8,
+   "score": 49.9,
    "n": 20
   },
   {
@@ -12897,7 +12897,7 @@
   },
   {
    "date": "2025-11-21",
-   "score": 48.1,
+   "score": 48.2,
    "n": 20
   },
   {
@@ -12972,7 +12972,7 @@
   },
   {
    "date": "2025-12-15",
-   "score": 27.9,
+   "score": 28.0,
    "n": 19
   },
   {
@@ -13087,7 +13087,7 @@
   },
   {
    "date": "2026-01-20",
-   "score": 36.6,
+   "score": 36.7,
    "n": 19
   },
   {
@@ -13342,7 +13342,7 @@
   },
   {
    "date": "2026-04-02",
-   "score": 45.2,
+   "score": 45.3,
    "n": 19
   },
   {
@@ -13372,7 +13372,7 @@
   },
   {
    "date": "2026-04-13",
-   "score": 33.8,
+   "score": 33.9,
    "n": 19
   },
   {
@@ -13527,7 +13527,7 @@
   },
   {
    "date": "2026-05-27",
-   "score": 30.8,
+   "score": 30.7,
    "n": 19
   },
   {
@@ -13547,7 +13547,7 @@
   },
   {
    "date": "2026-06-02",
-   "score": 32.8,
+   "score": 32.7,
    "n": 19
   },
   {
@@ -13567,7 +13567,7 @@
   },
   {
    "date": "2026-06-08",
-   "score": 38.9,
+   "score": 38.8,
    "n": 19
   },
   {
@@ -13582,7 +13582,7 @@
   },
   {
    "date": "2026-06-11",
-   "score": 38.2,
+   "score": 38.1,
    "n": 19
   },
   {
@@ -13771,35 +13771,45 @@
    "n": 16
   },
   {
+   "date": "2026-08-06",
+   "score": 34.7,
+   "n": 15
+  },
+  {
    "date": "2026-08-07",
-   "score": 35.4,
+   "score": 27.1,
+   "n": 15
+  },
+  {
+   "date": "2026-08-08",
+   "score": 29.2,
    "regime": "BULL"
   }
  ],
  "notes": [
-  "score history rebuilt from 2675 sessions"
+  "score history rebuilt from 2677 sessions"
  ],
  "errors": [],
  "topping": {
-  "score": 43.2,
-  "surface": 37.4,
-  "internals": 66.3,
-  "calm_factor": 0.65,
+  "score": 58.1,
+  "surface": 24.9,
+  "internals": 64.4,
+  "calm_factor": 0.9,
   "drivers": [
    {
     "label": "Volatility floor, 126d change",
-    "percentile": 77.8
+    "percentile": 74.1
    },
    {
     "label": "Quality spread (CCC minus BB)",
-    "percentile": 54.8
+    "percentile": 54.7
    },
    {
     "label": "New 52w highs minus new lows",
-    "percentile": 45.3
+    "percentile": 43.3
    }
   ],
-  "percentile": 43.5
+  "percentile": 69.4
  },
  "top_history": [
   {
@@ -22908,7 +22918,7 @@
   },
   {
    "date": "2024-01-19",
-   "top": 56.4
+   "top": 53.4
   },
   {
    "date": "2024-01-22",
@@ -22940,7 +22950,7 @@
   },
   {
    "date": "2024-01-31",
-   "top": 47.0
+   "top": 46.9
   },
   {
    "date": "2024-02-01",
@@ -22948,7 +22958,7 @@
   },
   {
    "date": "2024-02-02",
-   "top": 53.4
+   "top": 53.3
   },
   {
    "date": "2024-02-05",
@@ -22988,7 +22998,7 @@
   },
   {
    "date": "2024-02-16",
-   "top": 52.0
+   "top": 53.9
   },
   {
    "date": "2024-02-20",
@@ -22996,7 +23006,7 @@
   },
   {
    "date": "2024-02-21",
-   "top": 43.5
+   "top": 43.6
   },
   {
    "date": "2024-02-22",
@@ -23008,7 +23018,7 @@
   },
   {
    "date": "2024-02-26",
-   "top": 52.9
+   "top": 52.8
   },
   {
    "date": "2024-02-27",
@@ -23028,11 +23038,11 @@
   },
   {
    "date": "2024-03-04",
-   "top": 57.3
+   "top": 57.2
   },
   {
    "date": "2024-03-05",
-   "top": 51.2
+   "top": 51.1
   },
   {
    "date": "2024-03-06",
@@ -23040,7 +23050,7 @@
   },
   {
    "date": "2024-03-07",
-   "top": 50.6
+   "top": 50.7
   },
   {
    "date": "2024-03-08",
@@ -23052,7 +23062,7 @@
   },
   {
    "date": "2024-03-12",
-   "top": 54.7
+   "top": 54.8
   },
   {
    "date": "2024-03-13",
@@ -23068,11 +23078,11 @@
   },
   {
    "date": "2024-03-18",
-   "top": 65.3
+   "top": 65.2
   },
   {
    "date": "2024-03-19",
-   "top": 72.5
+   "top": 72.4
   },
   {
    "date": "2024-03-20",
@@ -23104,7 +23114,7 @@
   },
   {
    "date": "2024-04-01",
-   "top": 75.0
+   "top": 75.1
   },
   {
    "date": "2024-04-02",
@@ -23112,7 +23122,7 @@
   },
   {
    "date": "2024-04-03",
-   "top": 68.8
+   "top": 68.9
   },
   {
    "date": "2024-04-04",
@@ -23132,7 +23142,7 @@
   },
   {
    "date": "2024-04-10",
-   "top": 51.5
+   "top": 51.6
   },
   {
    "date": "2024-04-11",
@@ -23156,11 +23166,11 @@
   },
   {
    "date": "2024-04-18",
-   "top": 34.5
+   "top": 34.4
   },
   {
    "date": "2024-04-19",
-   "top": 33.9
+   "top": 33.8
   },
   {
    "date": "2024-04-22",
@@ -23184,7 +23194,7 @@
   },
   {
    "date": "2024-04-29",
-   "top": 57.6
+   "top": 57.7
   },
   {
    "date": "2024-04-30",
@@ -23196,19 +23206,19 @@
   },
   {
    "date": "2024-05-02",
-   "top": 65.1
+   "top": 65.2
   },
   {
    "date": "2024-05-03",
-   "top": 78.0
+   "top": 78.1
   },
   {
    "date": "2024-05-06",
-   "top": 79.0
+   "top": 79.1
   },
   {
    "date": "2024-05-07",
-   "top": 79.8
+   "top": 79.9
   },
   {
    "date": "2024-05-08",
@@ -23220,7 +23230,7 @@
   },
   {
    "date": "2024-05-10",
-   "top": 76.1
+   "top": 76.2
   },
   {
    "date": "2024-05-13",
@@ -23288,7 +23298,7 @@
   },
   {
    "date": "2024-06-05",
-   "top": 59.0
+   "top": 58.9
   },
   {
    "date": "2024-06-06",
@@ -23352,7 +23362,7 @@
   },
   {
    "date": "2024-06-28",
-   "top": 73.8
+   "top": 73.9
   },
   {
    "date": "2024-07-01",
@@ -23376,7 +23386,7 @@
   },
   {
    "date": "2024-07-09",
-   "top": 81.7
+   "top": 81.6
   },
   {
    "date": "2024-07-10",
@@ -23392,7 +23402,7 @@
   },
   {
    "date": "2024-07-15",
-   "top": 78.7
+   "top": 78.8
   },
   {
    "date": "2024-07-16",
@@ -23404,11 +23414,11 @@
   },
   {
    "date": "2024-07-18",
-   "top": 58.5
+   "top": 58.6
   },
   {
    "date": "2024-07-19",
-   "top": 52.1
+   "top": 52.2
   },
   {
    "date": "2024-07-22",
@@ -23440,7 +23450,7 @@
   },
   {
    "date": "2024-07-31",
-   "top": 37.5
+   "top": 37.4
   },
   {
    "date": "2024-08-01",
@@ -23448,7 +23458,7 @@
   },
   {
    "date": "2024-08-02",
-   "top": 1.0
+   "top": 0.9
   },
   {
    "date": "2024-08-05",
@@ -23468,7 +23478,7 @@
   },
   {
    "date": "2024-08-09",
-   "top": 15.5
+   "top": 15.4
   },
   {
    "date": "2024-08-12",
@@ -23476,11 +23486,11 @@
   },
   {
    "date": "2024-08-13",
-   "top": 15.1
+   "top": 15.0
   },
   {
    "date": "2024-08-14",
-   "top": 30.9
+   "top": 30.8
   },
   {
    "date": "2024-08-15",
@@ -23500,7 +23510,7 @@
   },
   {
    "date": "2024-08-21",
-   "top": 36.7
+   "top": 36.6
   },
   {
    "date": "2024-08-22",
@@ -23520,11 +23530,11 @@
   },
   {
    "date": "2024-08-28",
-   "top": 45.4
+   "top": 45.5
   },
   {
    "date": "2024-08-29",
-   "top": 66.6
+   "top": 66.5
   },
   {
    "date": "2024-08-30",
@@ -23540,11 +23550,11 @@
   },
   {
    "date": "2024-09-05",
-   "top": 33.7
+   "top": 33.6
   },
   {
    "date": "2024-09-06",
-   "top": 24.0
+   "top": 23.9
   },
   {
    "date": "2024-09-09",
@@ -23556,11 +23566,11 @@
   },
   {
    "date": "2024-09-11",
-   "top": 30.6
+   "top": 30.5
   },
   {
    "date": "2024-09-12",
-   "top": 37.9
+   "top": 37.8
   },
   {
    "date": "2024-09-13",
@@ -23600,7 +23610,7 @@
   },
   {
    "date": "2024-09-26",
-   "top": 57.8
+   "top": 57.9
   },
   {
    "date": "2024-09-27",
@@ -23744,7 +23754,7 @@
   },
   {
    "date": "2024-11-15",
-   "top": 46.4
+   "top": 46.5
   },
   {
    "date": "2024-11-18",
@@ -23788,7 +23798,7 @@
   },
   {
    "date": "2024-12-03",
-   "top": 65.5
+   "top": 65.6
   },
   {
    "date": "2024-12-04",
@@ -23804,7 +23814,7 @@
   },
   {
    "date": "2024-12-09",
-   "top": 56.7
+   "top": 56.8
   },
   {
    "date": "2024-12-10",
@@ -23816,7 +23826,7 @@
   },
   {
    "date": "2024-12-12",
-   "top": 60.9
+   "top": 61.0
   },
   {
    "date": "2024-12-13",
@@ -23912,7 +23922,7 @@
   },
   {
    "date": "2025-01-21",
-   "top": 58.3
+   "top": 58.2
   },
   {
    "date": "2025-01-22",
@@ -23920,7 +23930,7 @@
   },
   {
    "date": "2025-01-23",
-   "top": 63.3
+   "top": 63.2
   },
   {
    "date": "2025-01-24",
@@ -23928,7 +23938,7 @@
   },
   {
    "date": "2025-01-27",
-   "top": 36.6
+   "top": 36.5
   },
   {
    "date": "2025-01-28",
@@ -23936,7 +23946,7 @@
   },
   {
    "date": "2025-01-29",
-   "top": 47.7
+   "top": 47.6
   },
   {
    "date": "2025-01-30",
@@ -24032,7 +24042,7 @@
   },
   {
    "date": "2025-03-05",
-   "top": 17.1
+   "top": 17.0
   },
   {
    "date": "2025-03-06",
@@ -24040,7 +24050,7 @@
   },
   {
    "date": "2025-03-07",
-   "top": 13.8
+   "top": 13.7
   },
   {
    "date": "2025-03-10",
@@ -24068,15 +24078,15 @@
   },
   {
    "date": "2025-03-18",
-   "top": 19.7
+   "top": 19.6
   },
   {
    "date": "2025-03-19",
-   "top": 35.4
+   "top": 35.3
   },
   {
    "date": "2025-03-20",
-   "top": 39.1
+   "top": 39.0
   },
   {
    "date": "2025-03-21",
@@ -24096,7 +24106,7 @@
   },
   {
    "date": "2025-03-27",
-   "top": 33.3
+   "top": 33.2
   },
   {
    "date": "2025-03-28",
@@ -24104,7 +24114,7 @@
   },
   {
    "date": "2025-03-31",
-   "top": 3.2
+   "top": 3.1
   },
   {
    "date": "2025-04-01",
@@ -24156,7 +24166,7 @@
   },
   {
    "date": "2025-04-17",
-   "top": 0.2
+   "top": 0.3
   },
   {
    "date": "2025-04-21",
@@ -24176,7 +24186,7 @@
   },
   {
    "date": "2025-04-25",
-   "top": 13.1
+   "top": 13.0
   },
   {
    "date": "2025-04-28",
@@ -24196,7 +24206,7 @@
   },
   {
    "date": "2025-05-02",
-   "top": 35.2
+   "top": 35.1
   },
   {
    "date": "2025-05-05",
@@ -24212,7 +24222,7 @@
   },
   {
    "date": "2025-05-08",
-   "top": 40.2
+   "top": 40.1
   },
   {
    "date": "2025-05-09",
@@ -24224,7 +24234,7 @@
   },
   {
    "date": "2025-05-13",
-   "top": 52.9
+   "top": 52.8
   },
   {
    "date": "2025-05-14",
@@ -24248,7 +24258,7 @@
   },
   {
    "date": "2025-05-21",
-   "top": 49.3
+   "top": 49.2
   },
   {
    "date": "2025-05-22",
@@ -24256,7 +24266,7 @@
   },
   {
    "date": "2025-05-23",
-   "top": 37.6
+   "top": 37.5
   },
   {
    "date": "2025-05-27",
@@ -24264,7 +24274,7 @@
   },
   {
    "date": "2025-05-28",
-   "top": 57.3
+   "top": 57.2
   },
   {
    "date": "2025-05-29",
@@ -24276,7 +24286,7 @@
   },
   {
    "date": "2025-06-02",
-   "top": 57.1
+   "top": 57.0
   },
   {
    "date": "2025-06-03",
@@ -24348,7 +24358,7 @@
   },
   {
    "date": "2025-06-27",
-   "top": 82.5
+   "top": 82.4
   },
   {
    "date": "2025-06-30",
@@ -24360,7 +24370,7 @@
   },
   {
    "date": "2025-07-02",
-   "top": 87.1
+   "top": 87.0
   },
   {
    "date": "2025-07-03",
@@ -24372,11 +24382,11 @@
   },
   {
    "date": "2025-07-08",
-   "top": 85.1
+   "top": 85.0
   },
   {
    "date": "2025-07-09",
-   "top": 82.4
+   "top": 82.3
   },
   {
    "date": "2025-07-10",
@@ -24392,7 +24402,7 @@
   },
   {
    "date": "2025-07-15",
-   "top": 74.5
+   "top": 74.4
   },
   {
    "date": "2025-07-16",
@@ -24400,7 +24410,7 @@
   },
   {
    "date": "2025-07-17",
-   "top": 80.1
+   "top": 80.0
   },
   {
    "date": "2025-07-18",
@@ -24408,7 +24418,7 @@
   },
   {
    "date": "2025-07-21",
-   "top": 84.1
+   "top": 84.0
   },
   {
    "date": "2025-07-22",
@@ -24428,7 +24438,7 @@
   },
   {
    "date": "2025-07-28",
-   "top": 74.8
+   "top": 74.9
   },
   {
    "date": "2025-07-29",
@@ -24524,7 +24534,7 @@
   },
   {
    "date": "2025-08-29",
-   "top": 60.3
+   "top": 60.2
   },
   {
    "date": "2025-09-02",
@@ -24564,11 +24574,11 @@
   },
   {
    "date": "2025-09-15",
-   "top": 57.0
+   "top": 57.1
   },
   {
    "date": "2025-09-16",
-   "top": 50.4
+   "top": 50.5
   },
   {
    "date": "2025-09-17",
@@ -24640,11 +24650,11 @@
   },
   {
    "date": "2025-10-10",
-   "top": 22.0
+   "top": 21.9
   },
   {
    "date": "2025-10-13",
-   "top": 20.2
+   "top": 20.1
   },
   {
    "date": "2025-10-14",
@@ -24708,7 +24718,7 @@
   },
   {
    "date": "2025-11-04",
-   "top": 35.3
+   "top": 35.2
   },
   {
    "date": "2025-11-05",
@@ -24748,7 +24758,7 @@
   },
   {
    "date": "2025-11-18",
-   "top": 12.4
+   "top": 12.3
   },
   {
    "date": "2025-11-19",
@@ -24756,11 +24766,11 @@
   },
   {
    "date": "2025-11-20",
-   "top": 17.1
+   "top": 17.0
   },
   {
    "date": "2025-11-21",
-   "top": 20.1
+   "top": 20.0
   },
   {
    "date": "2025-11-24",
@@ -24772,7 +24782,7 @@
   },
   {
    "date": "2025-11-26",
-   "top": 51.8
+   "top": 51.7
   },
   {
    "date": "2025-11-28",
@@ -24872,7 +24882,7 @@
   },
   {
    "date": "2026-01-05",
-   "top": 43.5
+   "top": 43.6
   },
   {
    "date": "2026-01-06",
@@ -25044,7 +25054,7 @@
   },
   {
    "date": "2026-03-09",
-   "top": 7.1
+   "top": 7.0
   },
   {
    "date": "2026-03-10",
@@ -25056,11 +25066,11 @@
   },
   {
    "date": "2026-03-12",
-   "top": 6.5
+   "top": 6.4
   },
   {
    "date": "2026-03-13",
-   "top": 7.5
+   "top": 7.4
   },
   {
    "date": "2026-03-16",
@@ -25096,7 +25106,7 @@
   },
   {
    "date": "2026-03-26",
-   "top": 5.8
+   "top": 5.7
   },
   {
    "date": "2026-03-27",
@@ -25148,7 +25158,7 @@
   },
   {
    "date": "2026-04-15",
-   "top": 71.4
+   "top": 71.3
   },
   {
    "date": "2026-04-16",
@@ -25184,7 +25194,7 @@
   },
   {
    "date": "2026-04-28",
-   "top": 75.7
+   "top": 75.6
   },
   {
    "date": "2026-04-29",
@@ -25208,7 +25218,7 @@
   },
   {
    "date": "2026-05-06",
-   "top": 87.4
+   "top": 87.3
   },
   {
    "date": "2026-05-07",
@@ -25252,7 +25262,7 @@
   },
   {
    "date": "2026-05-21",
-   "top": 87.6
+   "top": 87.7
   },
   {
    "date": "2026-05-22",
@@ -25352,7 +25362,7 @@
   },
   {
    "date": "2026-06-29",
-   "top": 61.5
+   "top": 61.6
   },
   {
    "date": "2026-06-30",
@@ -25396,7 +25406,7 @@
   },
   {
    "date": "2026-07-15",
-   "top": 59.1
+   "top": 59.2
   },
   {
    "date": "2026-07-16",
@@ -25460,12 +25470,16 @@
   },
   {
    "date": "2026-08-06",
-   "top": 40.5
+   "top": 47.9
+  },
+  {
+   "date": "2026-08-07",
+   "top": 58.1
   }
  ],
  "quality": {
-  "status": "WARN",
-  "headline": "Something is off — read the notes before trusting the score.",
+  "status": "OK",
+  "headline": "Readings look trustworthy.",
   "checks": [
    {
     "name": "Values within possible ranges",
@@ -25489,13 +25503,13 @@
    },
    {
     "name": "Feeds current",
-    "status": "warn",
-    "detail": "3 stale: ts_vix_vix3m, ts_vix9d_vix, move"
+    "status": "pass",
+    "detail": "all feeds current"
    },
    {
     "name": "Score change explainable",
     "status": "pass",
-    "detail": "score moved +1.1 overnight"
+    "detail": "score moved -6.2 overnight"
    },
    {
     "name": "Enough gauges reporting",
@@ -25505,18 +25519,18 @@
    {
     "name": "History intact",
     "status": "pass",
-    "detail": "2676 sessions, no gaps or duplicates"
+    "detail": "2678 sessions, no gaps or duplicates"
    }
   ],
   "n_failed": 0,
-  "n_warned": 1
+  "n_warned": 0
  },
  "events": {
   "status": "ok",
   "baseline_away_share": 0.79,
   "window_days": 10,
   "history_from": "2015-09-25",
-  "history_to": "2026-08-07",
+  "history_to": "2026-08-08",
   "threshold_p80": 44.0,
   "threshold_p90": 50.1,
   "episodes_testable": 9,
@@ -25660,7 +25674,7 @@
     "measure": "stress",
     "score": 62.4,
     "percentile": 98.5,
-    "change_before": 14.3,
+    "change_before": 14.2,
     "useful": true,
     "verdict": "pegged high at the low"
    },
@@ -25703,7 +25717,7 @@
     "kind": "top",
     "measure": "topping",
     "score": 47.2,
-    "percentile": 50.9,
+    "percentile": 50.8,
     "change_before": 22.0,
     "useful": true,
     "verdict": "rising into the top"
@@ -25722,5 +25736,5 @@
   ],
   "note": "Lows are the easy test and should be near-perfect. Tops are the hard test — judge the tool on that column."
  },
- "score_percentile": 56.8
+ "score_percentile": 29.5
 }
