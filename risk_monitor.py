@@ -50,6 +50,12 @@ PCTL_WINDOW = 756        # ~3 years of sessions for percentile ranking
 HISTORY_MAX = 4200
 SP500_LIST = ("https://raw.githubusercontent.com/Ate329/top-us-stock-tickers"
               "/main/tickers/sp500.csv")
+# Yahoo serves ^VIX3M, ^VIX9D and ^MOVE erratically -- they were stale on most
+# runs. CBOE publishes the volatility indices itself, daily and free, so it is
+# tried as the authoritative source with Yahoo kept as the fallback.
+CBOE = "https://cdn.cboe.com/api/global/us_indices/daily_prices/{}_History.csv"
+CBOE_SERIES = {"vix": "VIX", "vix3m": "VIX3M", "vix9d": "VIX9D", "vvix": "VVIX"}
+
 FRED = "https://fred.stlouisfed.org/graph/fredgraph.csv?id={}"
 FRED_SERIES = {
     "hy_oas": "BAMLH0A0HYM2",      # high yield spread
@@ -80,6 +86,26 @@ def _yahoo(tickers: list[str], start: str = "2015-01-01") -> pd.DataFrame:
     return close if isinstance(close, pd.DataFrame) else close.to_frame()
 
 
+def fetch_cboe(errors: list) -> dict[str, pd.Series]:
+    """Volatility indices straight from CBOE. A miss is not fatal -- Yahoo covers it."""
+    out = {}
+    for key, sym in CBOE_SERIES.items():
+        try:
+            with urllib.request.urlopen(CBOE.format(sym), timeout=30) as r:
+                df = pd.read_csv(io.StringIO(r.read().decode()))
+            df.columns = [c.strip().upper() for c in df.columns]
+            dc = next(c for c in df.columns if "DATE" in c)
+            cc = next(c for c in df.columns if "CLOSE" in c)
+            ser = pd.Series(pd.to_numeric(df[cc], errors="coerce").values,
+                            index=pd.to_datetime(df[dc], errors="coerce"))
+            ser = ser[ser.index.notna()].dropna().sort_index()
+            if len(ser) > 200:
+                out[key] = ser
+        except Exception as exc:
+            errors.append(f"cboe {sym} unavailable ({type(exc).__name__})")
+    return out
+
+
 def fetch_market(errors: list) -> dict[str, pd.Series]:
     out = {}
     try:
@@ -91,6 +117,25 @@ def fetch_market(errors: list) -> dict[str, pd.Series]:
                 errors.append(f"empty series: {tic}")
     except Exception as exc:
         errors.append(f"yahoo failed: {exc}")
+
+    # Take whichever source is fresher, per series.
+    for key, ser in fetch_cboe(errors).items():
+        cur = out.get(key)
+        if cur is None or ser.index[-1] > cur.index[-1]:
+            out[key] = ser
+
+    # MOVE has no free daily source, so it was permanently stale. Realised
+    # volatility of long Treasuries fills the same slot in the panel: it is not
+    # MOVE, but it measures rates volatility and it is never stale.
+    mv, tlt = out.get("move"), out.get("tlt")
+    fresh = max((v.index[-1] for v in out.values()), default=None)
+    if tlt is not None and fresh is not None and (
+            mv is None or (fresh - mv.index[-1]).days > 6):
+        out["move"] = (tlt.pct_change().rolling(21).std()
+                       * np.sqrt(252) * 100).dropna()
+        out["_move_is_proxy"] = True
+        errors.append("MOVE stale -- substituted 21d realised volatility of "
+                      "long Treasuries")
     return out
 
 
@@ -183,7 +228,7 @@ def pctl(series: pd.Series, window: int = PCTL_WINDOW) -> float:
 
 
 def _spec(out, key, label, series, weight, invert=False, fmt="{:.2f}",
-          note="", check="", scale=None, max_lag=4):
+          note="", check="", scale=None, max_lag=4, family="Other"):
     """
     `scale=(lo, hi)` reads the gauge on a fixed absolute scale rather than a
     percentile. Percentiles are wrong for two shapes: a mostly-zero count
@@ -198,7 +243,7 @@ def _spec(out, key, label, series, weight, invert=False, fmt="{:.2f}",
         return
     out.append({"id": key, "label": label, "series": ser, "weight": weight,
                 "invert": invert, "fmt": fmt, "note": note, "check": check,
-                "scale": scale, "max_lag": max_lag})
+                "scale": scale, "max_lag": max_lag, "family": family})
 
 
 def _near_high(spy: pd.Series, lookback: int = 63, tol: float = 0.01) -> pd.Series:
@@ -215,6 +260,8 @@ def indicator_specs(m: dict, fr: dict, br: dict) -> list[dict]:
     Every gauge carries a `check`: what to compare it against on the chart.
     A number with no stated comparison is decoration.
     """
+    m = {k: v for k, v in (m or {}).items()
+         if not k.startswith("_") or k == "_move_is_proxy"}
     if fr is None:                        # every FRED series failed
         fr = {}
     elif isinstance(fr, pd.Series):       # tolerate the old single-series call
@@ -230,33 +277,35 @@ def indicator_specs(m: dict, fr: dict, br: dict) -> list[dict]:
               note="above 1.00 = backwardation, the classic risk-off trigger",
               check="Crossing 1.00 while the index is still near its highs is the "
                     "meaningful case. Above 1.00 during an active selloff is normal "
-                    "and usually marks the panic, not the start of one.")
+                    "and usually marks the panic, not the start of one.", family="Volatility")
     if g("vix9d") is not None and g("vix") is not None:
         _spec(out, "ts_vix9d_vix", "VIX9D / VIX near-term stress",
               (m["vix9d"] / m["vix"]), 8, fmt="{:.3f}", scale=(0.85, 1.15),
               check="Rising while price is flat means a dated event is being priced "
-                    "-- look for what is on the calendar rather than on the chart.")
+                    "-- look for what is on the calendar rather than on the chart.", family="Volatility")
     _spec(out, "vix", "VIX level", g("vix"), 8,
           check="Direction against price is what counts. VIX rising while the index "
-                "also rises is rare and is worth stopping on.")
+                "also rises is rare and is worth stopping on.", family="Volatility")
     _spec(out, "vvix", "VVIX (vol of vol)", g("vvix"), 8, fmt="{:.1f}",
           note="rises when people start paying up for tail protection",
           check="Rising VVIX with a flat VIX means someone is buying protection "
-                "before any move shows in price. This leads more often than VIX does.")
+                "before any move shows in price. This leads more often than VIX does.", family="Volatility")
     if g("vvix") is not None and g("vix") is not None:
         _spec(out, "vvix_vix", "VVIX / VIX", (m["vvix"] / m["vix"]), 6, fmt="{:.2f}",
               check="High ratio with a low VIX = complacent spot, expensive tails. "
-                    "Protection is cheapest to own exactly here.")
+                    "Protection is cheapest to own exactly here.", family="Volatility")
     if g("vix") is not None:
         _spec(out, "vol_floor", "Volatility floor, 126d change",
               m["vix"].rolling(63).min().diff(126), 6, fmt="{:+.1f}",
               note="the calmest VIX of the last quarter, versus six months ago",
               check="A rising floor while the index makes highs is the classic "
                     "late-cycle tell: the market is no longer able to get as "
-                    "quiet as it used to, even as price goes up.")
-    _spec(out, "move", "MOVE (rates volatility)", g("move"), 8, fmt="{:.1f}",
+                    "quiet as it used to, even as price goes up.", family="Volatility")
+    _spec(out, "move",
+          "Rates volatility (Treasury realised)" if m.get("_move_is_proxy")
+          else "MOVE (rates volatility)", g("move"), 8, fmt="{:.1f}",
           check="If this leads VIX higher, the shock is coming from bonds or policy "
-                "rather than from equities -- a different playbook.")
+                "rather than from equities -- a different playbook.", family="Volatility")
 
     # ---- credit -----------------------------------------------------------
     if f("hy_oas") is not None:
@@ -264,11 +313,11 @@ def indicator_specs(m: dict, fr: dict, br: dict) -> list[dict]:
               max_lag=6,
               note="credit is usually early to price real trouble",
               check="The level matters less than the direction. Check it every time "
-                    "the index prints a new high.")
+                    "the index prints a new high.", family="Credit")
         _spec(out, "hy_oas_chg", "HY OAS, 20-day change", fr["hy_oas"].diff(20), 8,
               fmt="{:+.2f}", max_lag=6,
               check="Positive while the index makes new highs is the single most "
-                    "reliable non-confirmation in this whole panel.")
+                    "reliable non-confirmation in this whole panel.", family="Credit")
     if f("ccc_oas") is not None and f("bb_oas") is not None:
         _spec(out, "quality_spread", "Quality spread (CCC minus BB)",
               (fr["ccc_oas"] - fr["bb_oas"]), 8, fmt="{:.2f}",
@@ -280,16 +329,16 @@ def indicator_specs(m: dict, fr: dict, br: dict) -> list[dict]:
               note="the junk end versus the decent end of high yield",
               check="Widening while equities hold up means risk appetite is leaving "
                     "from the bottom. The weakest borrowers crack first, and this "
-                    "gap opens before the index-level spread does.")
+                    "gap opens before the index-level spread does.", family="Credit")
 
     # ---- financial conditions and liquidity -------------------------------
     if f("nfci") is not None:
         _spec(out, "nfci", "Financial conditions (NFCI)", fr["nfci"], 6, fmt="{:+.2f}",
-              max_lag=10,
+              max_lag=14,
               note="above zero = tighter than average",
               check="Tightening while the index is at highs is a warning. Loosening "
                     "during a selloff usually marks the end of it. Weekly, so treat "
-                    "it as background rather than a trigger.")
+                    "it as background rather than a trigger.", family="Liquidity")
     if all(f(k) is not None for k in ("fed_assets", "tga", "rrp")):
         # Forward-fill only as far as the slowest component actually reports.
         # Filling to today would stamp weekly data with today's date, making
@@ -305,7 +354,7 @@ def indicator_specs(m: dict, fr: dict, br: dict) -> list[dict]:
               note="reserves less the Treasury account less reverse repo",
               check="Falling while the index makes highs means the advance is running "
                     "on positioning rather than on new money. Short history and "
-                    "contested -- treat as supporting evidence, never as a trigger.")
+                    "contested -- treat as supporting evidence, never as a trigger.", family="Liquidity")
 
     # ---- structure --------------------------------------------------------
     if spy is not None and g("rsp") is not None:
@@ -313,38 +362,55 @@ def indicator_specs(m: dict, fr: dict, br: dict) -> list[dict]:
               (m["spy"] / m["rsp"]).pct_change(63) * 100, 8, fmt="{:+.1f}%",
               note="rising = the index is being carried by fewer names",
               check="Compare directly with the index. Both rising together means the "
-                    "gain is narrowing into a handful of names.")
+                    "gain is narrowing into a handful of names.", family="Structure")
     if spy is not None and g("tlt") is not None:
         _spec(out, "corr_spy_tlt", "Stock/bond correlation, 63d",
               m["spy"].pct_change().rolling(63).corr(m["tlt"].pct_change()), 6,
               fmt="{:+.2f}", scale=(-1.0, 1.0), note="above zero means bonds stop cushioning equities",
               check="Check this before you need the hedge, not after. It says nothing "
-                    "about whether a drawdown is coming, only what it will cost you.")
+                    "about whether a drawdown is coming, only what it will cost you.", family="Structure")
     if spy is not None and g("xlu") is not None and g("xlp") is not None:
         defens = ((m["xlu"] / m["xlu"].iloc[0] + m["xlp"] / m["xlp"].iloc[0]) / 2)
         _spec(out, "defensive_rotation", "Defensives vs index, 63d",
               (defens / (m["spy"] / m["spy"].iloc[0])).pct_change(63) * 100, 4,
               fmt="{:+.1f}%", note="utilities and staples relative to the index",
               check="Rising while the index makes highs means money is moving to "
-                    "safety inside the rally. Confirms more often than it leads.")
+                    "safety inside the rally. Confirms more often than it leads.", family="Structure")
 
     # ---- breadth ----------------------------------------------------------
     if br:
         ad = br["ad_line"]
         adz = (ad - ad.rolling(63).mean()) / ad.rolling(63).std()
-        _spec(out, "breadth_ad_z", "Advance/decline line, 63d z-score", adz, 12,
+        _spec(out, "breadth_ad_z", "Advance/decline line, 63d z-score", adz, 5,
               invert=True, fmt="{:+.2f}", scale=(-2.5, 2.5),
-              note="low = participation narrowing under the surface",
-              check="Negative while the index sits at highs is the divergence that "
-                    "matters. Negative during a pullback is just a pullback.")
+              note="level of breadth momentum, not a divergence measure",
+              check="Read this as breadth strength only. For non-confirmation use "
+                    "the A/D confirmation gap above, which compares it against "
+                    "price -- this gauge does not know where price is.", family="Breadth")
+        # The proper divergence construct: rank the A/D line and the index over
+        # the SAME window and subtract. Shared trend cancels, so what remains is
+        # non-confirmation itself rather than the level of breadth. This is what
+        # "the A/D line failed to confirm the high" actually means, and unlike
+        # the z-score it cannot be satisfied by a strong tape.
+        if spy is not None:
+            adr = ad.rolling(252).rank(pct=True) * 100
+            pxr = spy.reindex(ad.index).ffill().rolling(252).rank(pct=True) * 100
+            _spec(out, "ad_confirmation", "A/D confirmation gap, 252d", (adr - pxr),
+                  12, invert=True, fmt="{:+.0f}", scale=(-40, 40), family="Divergence",
+                  note="A/D line's rank minus the index's rank, same window",
+                  check="Negative means the index is higher in its own range than "
+                        "participation is in its own -- the textbook non-confirmation. "
+                        "Around zero means breadth is keeping up. Positive means "
+                        "participation is running ahead of price, which is healthy.")
+
         _spec(out, "pct_above_20", "% of S&P 500 above 20-day average",
               br["pct_above_20"], 8, invert=True, fmt="{:.0f}%", scale=(0, 100),
               check="Short-horizon. Under 15% is washout territory -- check whether "
-                    "price has actually broken structure or merely dipped.")
+                    "price has actually broken structure or merely dipped.", family="Breadth")
         _spec(out, "nh_nl", "New 52w highs minus new lows", br["nh_nl"], 6,
               invert=True, fmt="{:+.0f}", scale=(-150, 150),
               check="Negative while the index is at a new high is the textbook "
-                    "non-confirmation. It was present at 1972, 2000, 2007 and 2021.")
+                    "non-confirmation. It was present at 1972, 2000, 2007 and 2021.", family="Breadth")
 
         # ---- the divergence constructs: price and internals disagreeing ----
         if spy is not None:
@@ -356,7 +422,7 @@ def indicator_specs(m: dict, fr: dict, br: dict) -> list[dict]:
                   note="days near a high with breadth already negative",
                   check="This IS the price comparison, counted for you. A rising "
                         "count is the November 2021 pattern: index still making "
-                        "highs, participation already gone. Zero is healthy.")
+                        "highs, participation already gone. Zero is healthy.", family="Divergence")
             if f("hy_oas") is not None:
                 oc = fr["hy_oas"].diff(20).reindex(hi.index).ffill()
                 _spec(out, "credit_divergence", "Credit non-confirmation, 63d count",
@@ -365,7 +431,7 @@ def indicator_specs(m: dict, fr: dict, br: dict) -> list[dict]:
                       note="days near a high with credit spreads widening",
                       check="Counts the days equities made highs while credit "
                             "disagreed. This led 2000, 2007, 2018 and 2021-22. "
-                            "A count climbing off zero is the thing to watch.")
+                            "A count climbing off zero is the thing to watch.", family="Divergence")
     return out
 
 
@@ -398,7 +464,7 @@ def build_indicators(m: dict, oas, br: dict) -> list[dict]:
             "display": sp["fmt"].format(float(s.iloc[-1])),
             "percentile": round(100 - p, 1) if sp["invert"] else round(p, 1),
             "weight": sp["weight"], "note": sp["note"],
-            "check": sp["check"],
+            "check": sp["check"], "family": sp["family"],
             "as_of": str(as_of.date()),
             "basis": ("absolute scale" if sp.get("scale")
                       else f"ranked vs {min(len(s), PCTL_WINDOW)} sessions"),
@@ -445,6 +511,10 @@ def historical_scores(m: dict, oas, br: dict,
     if not ranks:
         return []
 
+    ranks = {k: v for k, v in ranks.items()
+             if k not in ("breadth_divergence", "credit_divergence",
+                          "ad_confirmation")}
+    weights = {k: v for k, v in weights.items() if k in ranks}
     R = pd.DataFrame(ranks)
     # Score only on real trading days. One gauge (net liquidity) is built on a
     # calendar index, and its weekend rows were producing scores computed from
@@ -472,36 +542,54 @@ def historical_scores(m: dict, oas, br: dict,
 # agree, and are the only things that can move before a top.
 SURFACE_IDS = ("vix", "vvix", "move", "hy_oas", "hy_oas_chg",
                "ts_vix_vix3m", "ts_vix9d_vix", "vvix_vix", "nfci")
-INTERNAL_IDS = ("breadth_divergence", "credit_divergence", "concentration",
+INTERNAL_IDS = ("breadth_divergence", "credit_divergence", "ad_confirmation",
+                "concentration",
                 "quality_spread", "defensive_rotation", "vol_floor",
                 "breadth_ad_z", "nh_nl", "net_liquidity")
 
 
-def _topping(surface: pd.Series, internals: pd.DataFrame) -> pd.Series:
+def _topping(surface: pd.Series, internals: pd.DataFrame,
+             smooth: int = 21) -> pd.Series:
     """
     Topping risk = deteriorating internals WHILE the surface is calm.
 
     It has to be a product, not a sum. A top is not a stressed market; it is a
     quiet market whose internals have already turned. Averaging everything into
     one number cannot express that -- the calm majority outvotes the few gauges
-    that are trying to say something, so the composite reads mid-range at every
-    top in the record. That is a property of the mean, not of the data, and no
-    amount of reweighting fixes it.
+    trying to say something, so the composite reads mid-range at every top in
+    the record. That is a property of the mean, not of the data.
 
-    Internals are taken as the mean of the top two rather than the max, so one
-    flaky series cannot manufacture a signal on its own.
+    Internals are the mean of the top THREE of the family. The max, or the top
+    two, swaps membership almost daily and the result jitters across the whole
+    range; the plain mean washes out a genuine minority divergence, which is
+    exactly the November 2021 case where breadth broke months before credit.
+
+    Then smoothed. A top is a process that unfolds over weeks -- day-to-day
+    movement in this number is noise by construction, and an unsmoothed line
+    is both unreadable and untradeable.
     """
-    top2 = internals.apply(
+    top3 = internals.apply(
         lambda r: np.nan if r.dropna().empty
-        else float(np.mean(sorted(r.dropna())[-2:])), axis=1)
+        else float(np.mean(sorted(r.dropna())[-3:])), axis=1)
     calm = ((70.0 - surface) / 50.0).clip(0.0, 1.0)
-    return (top2 * calm).rename("top_risk")
+    raw = top3 * calm
+    return raw.ewm(span=smooth, adjust=False).mean().rename("top_risk")
 
 
 def composite_score(indicators: list[dict]) -> float:
-    """Weighted mean of percentiles, renormalised over surviving inputs."""
+    """
+    Weighted mean of percentiles, renormalised over surviving inputs.
+
+    Divergence gauges are deliberately EXCLUDED. They measure price and
+    internals disagreeing, which is a topping phenomenon -- in an actual
+    selloff price and breadth are both beaten down, so there is no divergence
+    and these gauges go quiet exactly when stress peaks. Leaving them in the
+    stress composite muted it during crises. They now drive the topping score
+    only, so each number measures one thing.
+    """
     ok = [i for i in indicators
-          if i["percentile"] == i["percentile"] and not i.get("excluded")]
+          if i["percentile"] == i["percentile"] and not i.get("excluded")
+          and i.get("family") != "Divergence"]
     if not ok:
         return float("nan")
     w = sum(i["weight"] for i in ok)
@@ -542,12 +630,12 @@ def topping_now(indicators: list[dict]) -> dict:
     sw = sum(i["weight"] for i in surf)
     surface = sum(i["percentile"] * i["weight"] for i in surf) / sw
     ranked = sorted(inte, key=lambda i: -i["percentile"])
-    top2 = float(np.mean([r["percentile"] for r in ranked[:2]]))
+    top3 = float(np.mean([r["percentile"] for r in ranked[:3]]))
     calm = float(np.clip((70.0 - surface) / 50.0, 0.0, 1.0))
     return {
-        "score": round(top2 * calm, 1),
+        "score_raw": round(top3 * calm, 1),
         "surface": round(surface, 1),
-        "internals": round(top2, 1),
+        "internals": round(top3, 1),
         "calm_factor": round(calm, 2),
         "drivers": [{"label": r["label"], "percentile": r["percentile"]}
                     for r in ranked[:3]],
@@ -582,6 +670,52 @@ def topping_series(m: dict, fr, br: dict, window: int = PCTL_WINDOW) -> list[dic
     surface = (R_[sc].fillna(0) * W_).sum(axis=1) / (R_[sc].notna() * W_).sum(axis=1)
     t = _topping(surface, R_[ic]).dropna()
     return [{"date": str(d.date()), "top": round(float(v), 1)} for d, v in t.items()]
+
+
+def zweig_thrusts(br: dict, spy: pd.Series | None = None) -> list[dict]:
+    """
+    Every Zweig Breadth Thrust in the record, not just today's yes/no.
+
+    Zweig's definition: the 10-day exponential average of
+    advances / (advances + declines) travels from below 0.40 to above 0.615
+    within ten trading days. It is meant to mark the start of a major advance
+    -- a sudden, total shift from selling to buying.
+
+    Two honest departures from the original. Zweig used NYSE all-issues; this
+    uses the S&P 500, which is a narrower and higher-quality universe, so the
+    thresholds are not calibrated to it and it will fire somewhat differently.
+    And the signal is genuinely rare -- roughly a dozen or so instances in
+    decades of NYSE history -- so "not fired" is its normal state and carries
+    no information at all.
+    """
+    if not br or "adv_ratio" not in br:
+        return []
+    ar = br["adv_ratio"].ewm(span=10, adjust=False).mean().dropna()
+    if len(ar) < 30:
+        return []
+    vals, idx = ar.to_numpy(), ar.index
+    out: list[dict] = []
+    for i in range(10, len(vals)):
+        if vals[i] <= 0.615:
+            continue
+        window = vals[max(0, i - 10):i]
+        if not (window < 0.40).any():
+            continue
+        # one event per episode, not one per day above the trigger
+        if out and (idx[i] - pd.Timestamp(out[-1]["date"])).days < 90:
+            continue
+        row = {"date": str(idx[i].date()), "ratio": round(float(vals[i]), 3)}
+        if spy is not None:
+            fwd = spy.reindex(spy.index.union([idx[i]])).ffill()
+            try:
+                p0 = float(fwd.asof(idx[i]))
+                p6 = float(fwd.asof(idx[i] + pd.Timedelta(days=182)))
+                if p0 and p6 == p6:
+                    row["fwd_6m_pct"] = round((p6 / p0 - 1) * 100, 1)
+            except Exception:
+                pass
+        out.append(row)
+    return out
 
 
 def classify_regime(spy: pd.Series | None, br: dict) -> dict:
@@ -746,8 +880,13 @@ def assemble(m, oas, br, errors, backfill: bool = False) -> dict:
         "notes": notes,
         "errors": errors,
     }
+    payload["thrusts"] = zweig_thrusts(br, m.get("spy"))
     payload["topping"] = topping_now(ind)
     payload["top_history"] = topping_series(m, oas, br)[-HISTORY_MAX:]
+    # publish the smoothed value, so the headline number and the chart line
+    # are the same series rather than two things that nearly agree
+    if payload["top_history"] and payload["topping"].get("score_raw") is not None:
+        payload["topping"]["score"] = payload["top_history"][-1]["top"]
     _t = [x["top"] for x in payload["top_history"]
           if isinstance(x.get("top"), (int, float))]
     if _t and payload["topping"].get("score") is not None:
