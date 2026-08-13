@@ -67,6 +67,10 @@ def synth(n=1400, seed=3, crisis=False):
         br["pct_above_20"].iloc[t] = np.clip(rng.normal(11, 6, 30), 0, 100)
         br["nh_nl"].iloc[t] = rng.normal(-230, 50, 30)
         br["adv_ratio"].iloc[t] = np.clip(rng.normal(0.28, 0.08, 30), 0, 1)
+        # the confirmation gap needs price to fall WITH breadth for the crisis
+        # case; the synthetic A/D line is otherwise independent of price
+        br["ad_line"].iloc[t] = br["ad_line"].iloc[n - 31] + np.cumsum(
+            rng.normal(-400, 60, 30))
 
     return m, fred, br
 
