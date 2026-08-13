@@ -63,6 +63,13 @@
   .lede{font-size:13.5px;color:var(--muted);margin:0 0 16px;max-width:62ch}
 
   .ladder{list-style:none;margin:0;padding:0}
+  .fam{margin-bottom:22px}
+  .famhead{display:grid;grid-template-columns:1fr 168px 62px;gap:14px;align-items:center;
+           font-family:var(--display);font-size:12px;letter-spacing:.14em;
+           text-transform:uppercase;color:var(--ink);padding-bottom:5px}
+  .fambar{position:relative;height:5px;background:var(--track);border-radius:1px}
+  .fambar i{position:absolute;left:0;top:0;bottom:0;border-radius:1px}
+  .famnum{font-family:var(--mono);font-size:11px;text-align:right;color:var(--muted)}
   .rung{display:grid;grid-template-columns:1fr 168px 62px;gap:14px;align-items:start;
         padding:11px 0;border-bottom:1px solid var(--rule)}
   .rung:first-child{border-top:1px solid var(--rule)}
@@ -174,56 +181,100 @@ function trendStrip(t){
 }
 
 
+function thin(rows, key, target){
+  // 2700 daily points in 850px is three points per pixel -- a hairball no
+  // amount of styling fixes. Aggregate into buckets and keep the MAX of each,
+  // because for a risk gauge the peak of a week is the information and the
+  // mean of a week is not.
+  if(rows.length <= target) return rows;
+  const step = Math.ceil(rows.length/target), out=[];
+  for(let i=0;i<rows.length;i+=step){
+    const seg = rows.slice(i, i+step);
+    let best = seg[0];
+    for(const r of seg) if(r[key] > best[key]) best = r;
+    out.push({date: seg[Math.floor(seg.length/2)].date, [key]: best[key]});
+  }
+  if(out[out.length-1].date !== rows[rows.length-1].date) out.push(rows[rows.length-1]);
+  return out;
+}
+
 function historyPanel(d){
-  const h = (d.history||[]).filter(x => Number.isFinite(x.score));
-  if(h.length < 60) return '';
-  const W=880, H=230, PL=34, PR=10, PT=10, PB=26;
-  const iw=W-PL-PR, ih=H-PT-PB;
-  const t0=new Date(h[0].date).getTime(), t1=new Date(h[h.length-1].date).getTime();
+  const hAll = (d.history||[]).filter(x => Number.isFinite(x.score));
+  if(hAll.length < 60) return '';
+  const h = thin(hAll, 'score', 320);
+  const th = thin((d.top_history||[]).filter(x => Number.isFinite(x.top)), 'top', 320);
+
+  // Two stacked panels sharing one x-axis. The two series answer different
+  // questions on different scales; overlaying them made both unreadable.
+  const W=880, PL=34, PR=10, PT=10, GAP=16;
+  const H1=185, H2=86, H=PT+H1+GAP+H2+26;
+  const iw=W-PL-PR;
+  const t0=new Date(hAll[0].date).getTime(), t1=new Date(hAll[hAll.length-1].date).getTime();
   const X = ms => PL + (ms-t0)/(t1-t0)*iw;
-  const Y = v  => PT + (100-v)/100*ih;
-  const band = (a,b,c) => `<rect x="${PL}" y="${Y(b)}" width="${iw}" height="${Y(a)-Y(b)}" fill="${c}"/>`;
-  const d3 = h.map((x,i)=>(i?'L':'M')+X(new Date(x.date).getTime()).toFixed(1)+' '+Y(x.score).toFixed(1)).join(' ');
-  const last = h[h.length-1];
-  const piv = ((d.pivots&&d.pivots.pivots)||[]).filter(p=>{
-    const ms=new Date(p.date).getTime(); return ms>=t0 && ms<=t1; });
+  const Y1 = v => PT + (100-v)/100*H1;
+  const T2 = PT+H1+GAP;
+  const Y2 = v => T2 + (100-v)/100*H2;
+
+  const band=(a,b,c)=>`<rect x="${PL}" y="${Y1(b)}" width="${iw}" height="${Y1(a)-Y1(b)}" fill="${c}"/>`;
+  const line=(pts,acc,Yf)=>pts.map((x,i)=>(i?'L':'M')+X(new Date(x.date).getTime()).toFixed(1)
+      +' '+Yf(acc(x)).toFixed(1)).join(' ');
+
   const yrs=[]; for(let y=new Date(t0).getFullYear(); y<=new Date(t1).getFullYear(); y++){
     const ms=new Date(y+'-01-01').getTime(); if(ms>=t0&&ms<=t1) yrs.push([y,ms]); }
+  const piv=((d.pivots&&d.pivots.pivots)||[]).filter(p=>{
+    const ms=new Date(p.date).getTime(); return ms>=t0&&ms<=t1; });
+  const last=h[h.length-1];
+  const inRange = x => { const ms=new Date(x.date).getTime(); return ms>=t0&&ms<=t1; };
+  const tp = th.filter(inRange);
+  const lastT = tp.length?tp[tp.length-1]:null;
+
   return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img"
-      aria-label="Risk score history with turning points marked">
+      aria-label="Stress score and topping risk over ${hAll.length} sessions">
     ${band(0,35,'#E4EFE9')}${band(35,60,'#F5EEE0')}${band(60,80,'#F7E4E1')}${band(80,100,'#EFD3D0')}
-    ${[0,35,60,80,100].map(v=>`<line x1="${PL}" y1="${Y(v)}" x2="${W-PR}" y2="${Y(v)}"
+    ${[0,35,60,80,100].map(v=>`<line x1="${PL}" y1="${Y1(v)}" x2="${W-PR}" y2="${Y1(v)}"
         stroke="var(--rule)" stroke-width=".6"/>
-      <text x="${PL-5}" y="${Y(v)+3}" text-anchor="end" font-size="9"
+      <text x="${PL-5}" y="${Y1(v)+3}" text-anchor="end" font-size="9"
         font-family="var(--mono)" fill="var(--muted)">${v}</text>`).join('')}
-    ${yrs.map(([y,ms])=>`<line x1="${X(ms)}" y1="${PT}" x2="${X(ms)}" y2="${PT+ih}"
-        stroke="var(--rule)" stroke-width=".6" stroke-dasharray="2 3"/>
+
+    <rect x="${PL}" y="${T2}" width="${iw}" height="${H2}" fill="#FBFCFD" stroke="var(--rule)" stroke-width=".6"/>
+    ${[0,50,100].map(v=>`<text x="${PL-5}" y="${Y2(v)+3}" text-anchor="end" font-size="9"
+        font-family="var(--mono)" fill="var(--muted)">${v}</text>`).join('')}
+    <line x1="${PL}" y1="${Y2(60)}" x2="${W-PR}" y2="${Y2(60)}" stroke="var(--danger)"
+      stroke-width=".6" stroke-dasharray="3 3" opacity=".5"/>
+
+    ${yrs.map(([y,ms])=>`<line x1="${X(ms)}" y1="${PT}" x2="${X(ms)}" y2="${T2+H2}"
+        stroke="var(--rule)" stroke-width=".6" stroke-dasharray="2 3" opacity=".7"/>
       <text x="${X(ms)}" y="${H-8}" text-anchor="middle" font-size="9"
         font-family="var(--mono)" fill="var(--muted)">${y}</text>`).join('')}
-    ${(()=>{const th=(d.top_history||[]).filter(x=>Number.isFinite(x.top));
-      if(th.length<60) return '';
-      const p=th.filter(x=>{const ms=new Date(x.date).getTime();return ms>=t0&&ms<=t1;});
-      if(p.length<10) return '';
-      return `<path d="${p.map((x,i)=>(i?'L':'M')+X(new Date(x.date).getTime()).toFixed(1)
-        +' '+Y(x.top).toFixed(1)).join(' ')}" fill="none" stroke="var(--danger)"
-        stroke-width="1" opacity=".65" stroke-dasharray="4 2"/>`;})()}
-    <path d="${d3}" fill="none" stroke="#41505F" stroke-width="1.1"/>
+
     ${piv.map(p=>{const x=X(new Date(p.date).getTime()); const low=p.kind==='low';
-      return `<line x1="${x}" y1="${PT}" x2="${x}" y2="${PT+ih}" stroke="${low?'var(--calm)':'var(--danger)'}"
-          stroke-width=".8" stroke-dasharray="3 3" opacity=".55"/>
-        <path d="${low?`M${x-4} ${PT+ih} L${x+4} ${PT+ih} L${x} ${PT+ih-7} Z`
-                      :`M${x-4} ${PT} L${x+4} ${PT} L${x} ${PT+7} Z`}"
-          fill="${low?'var(--calm)':'var(--danger)'}"><title>${p.name} — ${p.verdict}</title></path>`;}).join('')}
-    <line x1="${PL}" y1="${Y(last.score)}" x2="${W-PR}" y2="${Y(last.score)}"
-      stroke="var(--ink)" stroke-width=".7" stroke-dasharray="4 3"/>
-    <circle cx="${X(new Date(last.date).getTime())}" cy="${Y(last.score)}" r="3.6" fill="var(--ink)"/>
+      const c=low?'var(--calm)':'var(--danger)';
+      return `<line x1="${x}" y1="${low?PT:T2}" x2="${x}" y2="${low?PT+H1:T2+H2}"
+          stroke="${c}" stroke-width=".8" stroke-dasharray="3 3" opacity=".5"/>
+        <path d="${low?`M${x-4} ${PT+H1} L${x+4} ${PT+H1} L${x} ${PT+H1-7} Z`
+                     :`M${x-4} ${T2} L${x+4} ${T2} L${x} ${T2+7} Z`}"
+          fill="${c}"><title>${p.name} — ${p.verdict}</title></path>`;}).join('')}
+
+    <path d="${line(h,x=>x.score,Y1)}" fill="none" stroke="#2C3A47" stroke-width="1.3"/>
+    <circle cx="${X(new Date(last.date).getTime())}" cy="${Y1(last.score)}" r="3.4" fill="var(--ink)"/>
+    ${tp.length>10?`<path d="${line(tp,x=>x.top,Y2)}" fill="none" stroke="var(--danger)"
+        stroke-width="1.1" opacity=".85"/>
+      <circle cx="${X(new Date(lastT.date).getTime())}" cy="${Y2(lastT.top)}" r="3.2"
+        fill="var(--danger)"/>`:''}
+
+    <text x="${PL+4}" y="${PT+12}" font-size="9.5" font-family="var(--mono)"
+      fill="var(--muted)">STRESS SCORE</text>
+    <text x="${PL+4}" y="${T2+13}" font-size="9.5" font-family="var(--mono)"
+      fill="var(--danger)" opacity=".8">TOPPING RISK</text>
   </svg>
   <p class="lede" style="margin-top:8px">
-    Solid line is the stress score, dashed red is topping risk.
-    Green triangles are confirmed lows, red are confirmed tops.
-    ${d.score_percentile!=null?`Today reads higher than <strong>${d.score_percentile}%</strong>
-    of all sessions since ${h[0].date}.`:''}</p>`;
+    Upper panel is the stress score, which peaks at lows — green triangles.
+    Lower panel is topping risk, which is what tops are judged on — red triangles.
+    They are deliberately on separate axes; they answer different questions.
+    ${d.score_percentile!=null?`Today's stress reads higher than <strong>${d.score_percentile}%</strong>
+    of sessions since ${hAll[0].date}. Peaks are preserved; the line is bucketed so ${hAll.length} sessions fit legibly.`:''}</p>`;
 }
+
 
 function sparkline(hist){
   if(!hist || hist.length < 3) return '<div class="stamp">history builds from here</div>';
@@ -310,11 +361,25 @@ function render(d){
       <h2>What is loud right now</h2>
       <p class="lede">Each bar is that gauge's position within its own last three years —
         far right means today is near the most extreme reading it has produced in that window.
-        Sorted loudest first. Under each one is what to compare it against on your chart —
+        Grouped by family, loudest family first — the shape of which families are lit
+        matters more than any single bar. Under each one is what to compare it against on your chart —
         the reading on its own is only half of the information.
         A <span class="stale thin">thin history</span> tag means that gauge is ranked against
         less than two years of data, so its percentile carries little weight.</p>
-      <ul class="ladder">${d.indicators.map(rung).join('')}</ul>
+      ${(()=>{
+        const fams={};
+        d.indicators.forEach(i=>{(fams[i.family||'Other']=fams[i.family||'Other']||[]).push(i);});
+        const order=Object.keys(fams).sort((a,b)=>
+          Math.max(...fams[b].map(x=>x.percentile))-Math.max(...fams[a].map(x=>x.percentile)));
+        return order.map(f=>{
+          const g=fams[f].sort((a,b)=>b.percentile-a.percentile);
+          const hi=Math.max(...g.map(x=>x.percentile));
+          return `<div class="fam">
+            <div class="famhead"><span>${f}</span>
+              <span class="fambar"><i style="width:${hi}%;background:${colorFor(hi)}"></i></span>
+              <span class="famnum">${hi}</span></div>
+            <ul class="ladder">${g.map(rung).join('')}</ul></div>`;}).join('');
+      })()}
     </section>
 
     <section>
@@ -329,6 +394,25 @@ function render(d){
         </div>`).join('')}</div>
       ${fired.length ? '' : '<p class="lede" style="margin-top:14px">Nothing is firing today.</p>'}
     </section>
+
+    ${d.thrusts ? `<section>
+      <h2>Zweig breadth thrusts</h2>
+      <p class="lede">The ten-day average of advancing share travelling from under 40%
+        to over 61.5% within ten sessions — a total flip from selling to buying.
+        Genuinely rare, so an empty list is its normal state and means nothing.
+        Built on the S&P 500 rather than Zweig's NYSE all-issues, so the thresholds
+        are not calibrated to this universe.</p>
+      ${d.thrusts.length ? `<div>${d.thrusts.slice().reverse().map(t=>`
+        <div class="sig on good"><span class="dot"></span>
+          <div><span class="lbl">${t.date}</span>
+            <div class="mean">10-day advancing share reached ${(t.ratio*100).toFixed(1)}%${
+              t.fwd_6m_pct!=null?` — index ${t.fwd_6m_pct>0?'+':''}${t.fwd_6m_pct}% over the following six months`:''}</div>
+          </div></div>`).join('')}</div>
+        <p class="foot" style="margin-top:14px">${d.thrusts.length} thrust${d.thrusts.length===1?'':'s'}
+          in the record. The forward-return column is the whole test: if it is not
+          consistently positive, the signal is not doing what it claims.</p>`
+        : '<p class="lede">None in the record.</p>'}
+    </section>` : ''}
 
     ${d.pivots && d.pivots.status === 'ok' ? `<section>
       <h2>Behaviour at turning points</h2>
