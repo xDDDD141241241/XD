@@ -33,6 +33,7 @@ HARD_BANDS = {
     "quality_spread": (0.0, 25.0), "nfci": (-3.0, 8.0),
     "net_liquidity": (-40, 40), "defensive_rotation": (-40, 40),
     "breadth_divergence": (0, 63), "credit_divergence": (0, 63),
+    "nhnl_cum_z": (-8, 8), "risk_appetite": (-60, 60), "ad_confirmation": (-100, 100),
     "defensive_rotation ": (-40, 40),
 }
 
