@@ -23,6 +23,10 @@ def synth(n=1400, seed=3, crisis=False):
     m["rsp"] = pd.Series(140 * np.exp(np.cumsum(rng.normal(0.0003, 0.010, n))), index=idx)
     m["tlt"] = pd.Series(100 * np.exp(np.cumsum(rng.normal(0.0000, 0.008, n))), index=idx)
     oas = walk(4.0, 0.04, floor=1.5)
+    for tic, base, dr, vol in (("uup",28,0.0000,0.004),("fxy",62,-0.0001,0.005),
+                               ("fxf",105,0.0001,0.005),("gld",180,0.0003,0.008),
+                               ("iwv",280,0.0004,0.010)):
+        m[tic] = pd.Series(base*np.exp(np.cumsum(rng.normal(dr,vol,n))), index=idx)
     m["xlu"] = pd.Series(70*np.exp(np.cumsum(rng.normal(0.0002,0.008,n))), index=idx)
     m["xlp"] = pd.Series(75*np.exp(np.cumsum(rng.normal(0.0002,0.007,n))), index=idx)
     fred = {"hy_oas": oas,
@@ -39,6 +43,7 @@ def synth(n=1400, seed=3, crisis=False):
         "nh_nl": pd.Series(rng.normal(40, 45, n), index=idx),
         "adv_ratio": pd.Series(np.clip(rng.normal(0.53, 0.11, n), 0, 1), index=idx),
     }
+    br["nhnl_line"] = br["nh_nl"].cumsum()
 
     if crisis:
         tail = slice(n - 30, n)
@@ -66,6 +71,9 @@ def synth(n=1400, seed=3, crisis=False):
             rng.normal(-260, 60, 30))
         br["pct_above_20"].iloc[t] = np.clip(rng.normal(11, 6, 30), 0, 100)
         br["nh_nl"].iloc[t] = rng.normal(-230, 50, 30)
+        br["nhnl_line"] = br["nh_nl"].cumsum()
+        for tic, mult in (("iwv",0.80),("gld",1.05),("uup",1.04),("fxy",1.06),("fxf",1.05)):
+            m[tic].iloc[t] *= np.linspace(1.0, mult, 30)
         br["adv_ratio"].iloc[t] = np.clip(rng.normal(0.28, 0.08, 30), 0, 1)
         # the confirmation gap needs price to fall WITH breadth for the crisis
         # case; the synthetic A/D line is otherwise independent of price
