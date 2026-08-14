@@ -71,6 +71,8 @@ YAHOO_SERIES = {
     "vix9d": "^VIX9D", "vix": "^VIX", "vix3m": "^VIX3M", "vvix": "^VVIX",
     "move": "^MOVE", "spy": "SPY", "rsp": "RSP", "tlt": "TLT",
     "xlu": "XLU", "xlp": "XLP",
+    # cross-asset risk appetite: dollar, two funding currencies, gold, broad market
+    "uup": "UUP", "fxy": "FXY", "fxf": "FXF", "gld": "GLD", "iwv": "IWV",
 }
 
 
@@ -199,6 +201,7 @@ def fetch_breadth(errors: list) -> dict[str, pd.Series]:
         lo52 = (px <= px.rolling(252).min()).sum(axis=1)
 
         return {
+            "nhnl_line": (hi52 - lo52).cumsum().dropna(),
             "ad_line": ad_line.dropna(),
             "pct_above_20": above20.dropna(),
             "nh_nl": (hi52 - lo52).dropna(),
@@ -369,6 +372,30 @@ def indicator_specs(m: dict, fr: dict, br: dict) -> list[dict]:
               fmt="{:+.2f}", scale=(-1.0, 1.0), note="above zero means bonds stop cushioning equities",
               check="Check this before you need the hedge, not after. It says nothing "
                     "about whether a drawdown is coming, only what it will cost you.", family="Structure")
+    # Risk-on versus risk-off across assets: broad equities and gold against the
+    # dollar and the two classic funding currencies. Equity-internal breadth
+    # cannot see a flight into the dollar or the yen, so this is the one gauge
+    # here looking outside the stock market. Deliberately built as a simple
+    # ratio of two equal-weighted baskets -- no tuned weights, no chosen
+    # smoothing window beyond the 63d change every other structural gauge uses.
+    riskon = [g(k) for k in ("iwv", "gld") if g(k) is not None]
+    riskoff = [g(k) for k in ("uup", "fxy", "fxf") if g(k) is not None]
+    if len(riskon) >= 1 and len(riskoff) >= 2:
+        def basket(parts):
+            norm = [p / p.dropna().iloc[0] for p in parts]
+            df = pd.concat(norm, axis=1).dropna()
+            return df.mean(axis=1)
+        ratio = (basket(riskon) / basket(riskoff)).dropna()
+        _spec(out, "risk_appetite", "Cross-asset risk appetite, 63d",
+              ratio.pct_change(63) * 100, 6, invert=True, fmt="{:+.1f}%",
+              family="Structure", scale=(-12, 12),
+              note="equities and gold versus dollar, yen and Swiss franc",
+              check="Falling means money is moving to the dollar and funding "
+                    "currencies while equities may still look fine -- the one "
+                    "measure here that can see outside the stock market. "
+                    "Unproven: judge it on the turning-point section, not on "
+                    "the reasoning.")
+
     if spy is not None and g("xlu") is not None and g("xlp") is not None:
         defens = ((m["xlu"] / m["xlu"].iloc[0] + m["xlp"] / m["xlp"].iloc[0]) / 2)
         _spec(out, "defensive_rotation", "Defensives vs index, 63d",
@@ -402,6 +429,22 @@ def indicator_specs(m: dict, fr: dict, br: dict) -> list[dict]:
                         "participation is in its own -- the textbook non-confirmation. "
                         "Around zero means breadth is keeping up. Positive means "
                         "participation is running ahead of price, which is healthy.")
+
+        # A cumulative NH-NL line z-scored over a year. Cumulative because a
+        # running total has memory -- the daily net count is mostly noise, and
+        # the line is what people actually mean by "the NH-NL line". Kept as a
+        # LEVEL gauge, not a divergence one: in the record it identifies bear
+        # regimes, and it turns down at tops late or not at all.
+        if "nhnl_line" in br:
+            nl = br["nhnl_line"]
+            nlz = (nl - nl.rolling(252).mean()) / nl.rolling(252).std()
+            _spec(out, "nhnl_cum_z", "Cumulative NH-NL line, 252d z-score", nlz,
+                  10, invert=True, fmt="{:+.2f}", scale=(-2.5, 2.5), family="Breadth",
+                  note="running total of net new highs, ranked against its own year",
+                  check="Below zero has marked bear regimes -- 2001-03, 2008-09, "
+                        "2015-16, 2022. Treat it as a filter on whether dips are "
+                        "worth buying, not as a warning before a top: it turned "
+                        "down well after the 2000 and 2007 highs.")
 
         _spec(out, "pct_above_20", "% of S&P 500 above 20-day average",
               br["pct_above_20"], 8, invert=True, fmt="{:.0f}%", scale=(0, 100),
