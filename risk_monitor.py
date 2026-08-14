@@ -38,6 +38,7 @@ from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
 
+import guide as G
 import validate as V
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -96,8 +97,18 @@ def fetch_cboe(errors: list) -> dict[str, pd.Series]:
             with urllib.request.urlopen(CBOE.format(sym), timeout=30) as r:
                 df = pd.read_csv(io.StringIO(r.read().decode()))
             df.columns = [c.strip().upper() for c in df.columns]
-            dc = next(c for c in df.columns if "DATE" in c)
-            cc = next(c for c in df.columns if "CLOSE" in c)
+            # VIX/VIX3M/VIX9D publish OPEN/HIGH/LOW/CLOSE; VVIX publishes a
+            # single value column named after the index. Assuming CLOSE existed
+            # raised StopIteration and silently dropped VVIX to Yahoo.
+            dc = next((c for c in df.columns if "DATE" in c), df.columns[0])
+            cc = next((c for c in df.columns if "CLOSE" in c), None)
+            if cc is None:
+                nums = [c for c in df.columns
+                        if c != dc and pd.to_numeric(df[c], errors="coerce").notna().sum()
+                        > len(df) * 0.5]
+                if not nums:
+                    raise ValueError(f"no numeric column in {list(df.columns)}")
+                cc = nums[-1]
             ser = pd.Series(pd.to_numeric(df[cc], errors="coerce").values,
                             index=pd.to_datetime(df[dc], errors="coerce"))
             ser = ser[ser.index.notna()].dropna().sort_index()
@@ -318,9 +329,12 @@ def indicator_specs(m: dict, fr: dict, br: dict) -> list[dict]:
               check="The level matters less than the direction. Check it every time "
                     "the index prints a new high.", family="Credit")
         _spec(out, "hy_oas_chg", "HY OAS, 20-day change", fr["hy_oas"].diff(20), 8,
-              fmt="{:+.2f}", max_lag=6,
+              fmt="{:+.2f}", max_lag=6, scale=(-0.60, 0.60),
               check="Positive while the index makes new highs is the single most "
-                    "reliable non-confirmation in this whole panel.", family="Credit")
+                    "reliable non-confirmation in this whole panel. Read on an "
+                    "absolute scale so that no change reads neutral -- ranked "
+                    "against its own history, a flat reading scored 60 purely "
+                    "because spreads have mostly been tightening.", family="Credit")
     if f("ccc_oas") is not None and f("bb_oas") is not None:
         _spec(out, "quality_spread", "Quality spread (CCC minus BB)",
               (fr["ccc_oas"] - fr["bb_oas"]), 8, fmt="{:.2f}",
@@ -400,7 +414,7 @@ def indicator_specs(m: dict, fr: dict, br: dict) -> list[dict]:
         defens = ((m["xlu"] / m["xlu"].iloc[0] + m["xlp"] / m["xlp"].iloc[0]) / 2)
         _spec(out, "defensive_rotation", "Defensives vs index, 63d",
               (defens / (m["spy"] / m["spy"].iloc[0])).pct_change(63) * 100, 4,
-              fmt="{:+.1f}%", note="utilities and staples relative to the index",
+              fmt="{:+.1f}%", scale=(-10, 10), note="utilities and staples relative to the index",
               check="Rising while the index makes highs means money is moving to "
                     "safety inside the rally. Confirms more often than it leads.", family="Structure")
 
@@ -488,9 +502,15 @@ def build_indicators(m: dict, oas, br: dict) -> list[dict]:
     out = []
     for sp in specs:
         s = sp["series"]
+        clipped = False
         if sp.get("scale"):
             lo, hi = sp["scale"]
-            p = float(np.clip((float(s.iloc[-1]) - lo) / (hi - lo), 0, 1) * 100)
+            v0 = float(s.iloc[-1])
+            # A gauge sitting on its floor or ceiling has stopped conveying
+            # anything: 0.77 and 0.85 both read zero. Worth showing, because a
+            # bar pinned left looks identical to a bar that is merely calm.
+            clipped = v0 <= lo or v0 >= hi
+            p = float(np.clip((v0 - lo) / (hi - lo), 0, 1) * 100)
         else:
             p = pctl(s)
         if p != p:
@@ -508,10 +528,14 @@ def build_indicators(m: dict, oas, br: dict) -> list[dict]:
             "percentile": round(100 - p, 1) if sp["invert"] else round(p, 1),
             "weight": sp["weight"], "note": sp["note"],
             "check": sp["check"], "family": sp["family"],
+            # plain-language reading guide, kept in guide.py
+            **{k: v for k, v in G.GUIDE.get(sp["id"], {}).items()},
             "as_of": str(as_of.date()),
             "basis": ("absolute scale" if sp.get("scale")
                       else f"ranked vs {min(len(s), PCTL_WINDOW)} sessions"),
-            "inverted": bool(sp["invert"]),
+            "inverted": bool(sp["invert"]), "clipped": bool(clipped),
+            "scale_lo": None if not sp.get("scale") else sp["scale"][0],
+            "scale_hi": None if not sp.get("scale") else sp["scale"][1],
             "thin_history": bool(not sp.get("scale")
                                  and len(s) < PCTL_WINDOW),
             # a feed that has quietly stopped updating still returns a number;
