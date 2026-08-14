@@ -1,7 +1,7 @@
 {
- "updated": "2026-08-14T22:31:07+00:00",
+ "updated": "2026-08-14T23:02:49+00:00",
  "build": "40285c2e",
- "score": 28.9,
+ "score": 29.5,
  "band": "CALM",
  "regime": {
   "name": "BULL",
@@ -136,9 +136,9 @@
   {
    "id": "risk_appetite",
    "label": "Cross-asset risk appetite, 63d",
-   "value": -0.0135,
-   "display": "-0.0%",
-   "percentile": 50.1,
+   "value": -0.3412,
+   "display": "-0.3%",
+   "percentile": 51.4,
    "weight": 6,
    "note": "equities and gold versus dollar, yen and Swiss franc",
    "check": "Falling means money is moving to the dollar and funding currencies while equities may still look fine -- the one measure here that can see outside the stock market. Unproven: judge it on the turning-point section, not on the reasoning.",
@@ -206,11 +206,35 @@
    "excluded": false
   },
   {
+   "id": "pct_above_20",
+   "label": "% of S&P 500 above 20-day average",
+   "value": 52.8942,
+   "display": "53%",
+   "percentile": 47.1,
+   "weight": 8,
+   "note": "",
+   "check": "Short-horizon. Under 15% is washout territory -- check whether price has actually broken structure or merely dipped.",
+   "family": "Breadth",
+   "plain": "What share of the 500 companies are trading above their own 20-day average. Very short-horizon.",
+   "compare": "Whether the index has actually broken anything, or merely dipped.",
+   "worry": "Under 15%. Though that is usually washout near a LOW, not a warning of one.",
+   "ignore": "Anything between roughly 40 and 70. That is an ordinary market.",
+   "as_of": "2026-08-14",
+   "basis": "absolute scale",
+   "inverted": true,
+   "clipped": false,
+   "scale_lo": 0,
+   "scale_hi": 100,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false
+  },
+  {
    "id": "nh_nl",
    "label": "New 52w highs minus new lows",
-   "value": 15.0,
-   "display": "+15",
-   "percentile": 45.0,
+   "value": 12.0,
+   "display": "+12",
+   "percentile": 46.0,
    "weight": 6,
    "note": "",
    "check": "Negative while the index is at a new high is the textbook non-confirmation. It was present at 1972, 2000, 2007 and 2021.",
@@ -249,30 +273,6 @@
    "clipped": false,
    "scale_lo": null,
    "scale_hi": null,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false
-  },
-  {
-   "id": "pct_above_20",
-   "label": "% of S&P 500 above 20-day average",
-   "value": 61.0778,
-   "display": "61%",
-   "percentile": 38.9,
-   "weight": 8,
-   "note": "",
-   "check": "Short-horizon. Under 15% is washout territory -- check whether price has actually broken structure or merely dipped.",
-   "family": "Breadth",
-   "plain": "What share of the 500 companies are trading above their own 20-day average. Very short-horizon.",
-   "compare": "Whether the index has actually broken anything, or merely dipped.",
-   "worry": "Under 15%. Though that is usually washout near a LOW, not a warning of one.",
-   "ignore": "Anything between roughly 40 and 70. That is an ordinary market.",
-   "as_of": "2026-08-14",
-   "basis": "absolute scale",
-   "inverted": true,
-   "clipped": false,
-   "scale_lo": 0,
-   "scale_hi": 100,
    "thin_history": false,
    "stale": false,
    "excluded": false
@@ -376,9 +376,9 @@
   {
    "id": "nhnl_cum_z",
    "label": "Cumulative NH-NL line, 252d z-score",
-   "value": 1.5862,
-   "display": "+1.59",
-   "percentile": 18.3,
+   "value": 1.6029,
+   "display": "+1.60",
+   "percentile": 17.9,
    "weight": 10,
    "note": "running total of net new highs, ranked against its own year",
    "check": "Below zero has marked bear regimes -- 2001-03, 2008-09, 2015-16, 2022. Treat it as a filter on whether dips are worth buying, not as a warning before a top: it turned down well after the 2000 and 2007 highs.",
@@ -424,9 +424,9 @@
   {
    "id": "breadth_ad_z",
    "label": "Advance/decline line, 63d z-score",
-   "value": 1.8886,
+   "value": 1.8857,
    "display": "+1.89",
-   "percentile": 12.2,
+   "percentile": 12.3,
    "weight": 5,
    "note": "level of breadth momentum, not a divergence measure",
    "check": "Read this as breadth strength only. For non-confirmation use the A/D confirmation gap above, which compares it against price -- this gauge does not know where price is.",
@@ -13873,73 +13873,63 @@
    "n": 16
   },
   {
-   "date": "2026-07-21",
-   "score": 43.2,
-   "n": 16
-  },
-  {
-   "date": "2026-07-22",
-   "score": 42.2,
-   "n": 16
-  },
-  {
    "date": "2026-07-23",
-   "score": 46.3,
+   "score": 45.8,
    "n": 16
   },
   {
    "date": "2026-07-24",
-   "score": 43.5,
+   "score": 42.7,
    "n": 17
   },
   {
    "date": "2026-07-27",
-   "score": 42.9,
-   "n": 16
-  },
-  {
-   "date": "2026-07-28",
-   "score": 41.8,
-   "n": 16
-  },
-  {
-   "date": "2026-07-29",
-   "score": 46.2,
-   "n": 16
-  },
-  {
-   "date": "2026-07-30",
    "score": 42.3,
    "n": 16
   },
   {
+   "date": "2026-07-28",
+   "score": 40.9,
+   "n": 16
+  },
+  {
+   "date": "2026-07-29",
+   "score": 46.0,
+   "n": 16
+  },
+  {
+   "date": "2026-07-30",
+   "score": 42.1,
+   "n": 16
+  },
+  {
    "date": "2026-07-31",
-   "score": 42.0,
-   "n": 17
+   "score": 40.3,
+   "n": 16
   },
   {
    "date": "2026-08-03",
-   "score": 39.3,
+   "score": 39.5,
    "n": 16
   },
   {
    "date": "2026-08-04",
-   "score": 37.4,
+   "score": 37.9,
    "n": 16
   },
   {
    "date": "2026-08-05",
-   "score": 36.9,
+   "score": 37.3,
    "n": 16
   },
   {
    "date": "2026-08-06",
-   "score": 36.7,
+   "score": 36.8,
    "n": 16
   },
   {
    "date": "2026-08-07",
-   "score": 36.5,
+   "score": 36.4,
    "n": 17
   },
   {
@@ -13949,27 +13939,28 @@
   },
   {
    "date": "2026-08-11",
-   "score": 36.7,
+   "score": 37.2,
    "n": 16
   },
   {
    "date": "2026-08-12",
-   "score": 35.4,
+   "score": 35.9,
    "n": 16
   },
   {
    "date": "2026-08-13",
-   "score": 36.1,
+   "score": 36.7,
    "n": 15
   },
   {
    "date": "2026-08-14",
-   "score": 28.9,
+   "score": 29.5,
    "regime": "BULL"
   }
  ],
  "notes": [
-  "score history rebuilt from 2668 sessions"
+  "breadth data lagged by 2 thinly-covered date(s), latest good 2026-08-14",
+  "score history rebuilt from 2666 sessions"
  ],
  "errors": [],
  "thrusts": [
@@ -14018,8 +14009,8 @@
     "percentile": 49.5
    }
   ],
-  "score": 42.2,
-  "percentile": 53.3
+  "score": 42.1,
+  "percentile": 53.2
  },
  "top_history": [
   {
@@ -25632,79 +25623,79 @@
   },
   {
    "date": "2026-07-21",
-   "top": 51.2
+   "top": 51.0
   },
   {
    "date": "2026-07-22",
-   "top": 50.1
+   "top": 49.8
   },
   {
    "date": "2026-07-23",
-   "top": 48.1
+   "top": 47.8
   },
   {
    "date": "2026-07-24",
-   "top": 46.4
+   "top": 46.0
   },
   {
    "date": "2026-07-27",
-   "top": 44.5
+   "top": 44.2
   },
   {
    "date": "2026-07-28",
-   "top": 42.8
+   "top": 42.5
   },
   {
    "date": "2026-07-29",
-   "top": 40.4
+   "top": 40.2
   },
   {
    "date": "2026-07-30",
-   "top": 39.6
-  },
-  {
-   "date": "2026-07-31",
-   "top": 39.2
-  },
-  {
-   "date": "2026-08-03",
-   "top": 39.3
-  },
-  {
-   "date": "2026-08-04",
    "top": 39.4
   },
   {
+   "date": "2026-07-31",
+   "top": 39.0
+  },
+  {
+   "date": "2026-08-03",
+   "top": 39.1
+  },
+  {
+   "date": "2026-08-04",
+   "top": 39.2
+  },
+  {
    "date": "2026-08-05",
-   "top": 39.7
+   "top": 39.5
   },
   {
    "date": "2026-08-06",
-   "top": 40.3
+   "top": 40.1
   },
   {
    "date": "2026-08-07",
-   "top": 40.5
+   "top": 40.3
   },
   {
    "date": "2026-08-10",
-   "top": 40.5
+   "top": 40.3
   },
   {
    "date": "2026-08-11",
-   "top": 40.6
+   "top": 40.5
   },
   {
    "date": "2026-08-12",
-   "top": 40.9
+   "top": 40.8
   },
   {
    "date": "2026-08-13",
-   "top": 41.1
+   "top": 41.0
   },
   {
    "date": "2026-08-14",
-   "top": 42.2
+   "top": 42.1
   }
  ],
  "quality": {
@@ -25739,7 +25730,7 @@
    {
     "name": "Score change explainable",
     "status": "pass",
-    "detail": "score moved -1.1 overnight"
+    "detail": "score moved +0.6 overnight"
    },
    {
     "name": "Enough gauges reporting",
@@ -25749,7 +25740,7 @@
    {
     "name": "History intact",
     "status": "pass",
-    "detail": "2668 sessions, no gaps or duplicates"
+    "detail": "2666 sessions, no gaps or duplicates"
    }
   ],
   "n_failed": 0,
@@ -25859,7 +25850,7 @@
     "kind": "low",
     "measure": "stress",
     "score": 74.4,
-    "percentile": 99.6,
+    "percentile": 99.5,
     "change_before": 14.6,
     "useful": true,
     "verdict": "pegged high at the low"
@@ -25966,5 +25957,5 @@
   ],
   "note": "Lows are the easy test and should be near-perfect. Tops are the hard test — judge the tool on that column."
  },
- "score_percentile": 13.8
+ "score_percentile": 15.8
 }
