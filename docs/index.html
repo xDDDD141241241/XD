@@ -77,6 +77,12 @@
   .note{display:block;font-size:12px;color:var(--muted);margin-top:2px}
   .check{display:block;font-size:12px;color:var(--ink);opacity:.72;margin-top:5px;
          padding-left:9px;border-left:2px solid var(--rule);max-width:58ch}
+  .guide{margin-top:7px;padding-left:9px;border-left:2px solid var(--rule);max-width:60ch}
+  .guide div{display:grid;grid-template-columns:92px 1fr;gap:10px;font-size:12px;
+             line-height:1.5;margin-bottom:3px;color:var(--ink);opacity:.82}
+  .guide b{font-weight:600;font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;
+           color:var(--muted);padding-top:2px}
+  .guide .w b{color:var(--danger);opacity:.85}
   .track{position:relative;height:16px;background:var(--track);border-radius:1px}
   .track i{position:absolute;top:-3px;width:3px;height:22px;background:var(--ink);
            transform:translateX(-1.5px)}
@@ -112,6 +118,7 @@
         margin-top:16px}
   .empty{background:var(--panel);border:1px solid var(--rule);padding:28px;margin-top:20px}
   .stale.thin{background:#6B7A8C}
+  .inv.clip{border-color:var(--caution);color:var(--caution)}
   .inv{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;
        color:var(--muted);border:1px solid var(--rule);padding:1px 4px;vertical-align:2px}
   .stale{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
@@ -119,6 +126,8 @@
   code{font-family:var(--mono);font-size:12.5px;background:var(--track);padding:1px 5px}
 
   @media (max-width:620px){
+    .guide div{grid-template-columns:1fr;gap:0}
+    .guide b{display:block;margin-top:4px}
     .read{grid-template-columns:1fr;gap:16px}
     .score{font-size:62px}
     .rung{grid-template-columns:1fr 84px;grid-template-areas:"n f" "t t";gap:6px 12px}
@@ -305,7 +314,12 @@ function sparkline(hist){
 function rung(i){
   const c = colorFor(i.percentile);
   return `<li class="rung">
-    <div class="name">${i.label}${i.stale ? ' <span class="stale">stale</span>' : ''}${i.thin_history ? ' <span class="stale thin">thin history</span>' : ''}${i.inverted ? ' <span class="inv" title="the raw number runs the other way: lower readings mean more concern">lower = worse</span>' : ''}${i.note ? `<span class="note">${i.note}</span>` : ''}${i.check ? `<span class="check">${i.check}</span>` : ''}</div>
+    <div class="name">${i.label}${i.stale ? ' <span class="stale">stale</span>' : ''}${i.thin_history ? ' <span class="stale thin">thin history</span>' : ''}${i.inverted ? ' <span class="inv" title="the raw number runs the other way: lower readings mean more concern">lower = worse</span>' : ''}${i.clipped ? ` <span class="inv clip" title="value is past the end of this gauge's scale (${i.scale_lo} to ${i.scale_hi}), so the bar cannot move further">at scale limit</span>` : ''}${i.plain ? `<span class="note">${i.plain}</span>` : (i.note ? `<span class="note">${i.note}</span>` : '')}
+      ${(i.compare||i.worry||i.ignore) ? `<div class="guide">
+        ${i.compare?`<div><b>Read against</b>${i.compare}</div>`:''}
+        ${i.worry?`<div class="w"><b>Worry when</b>${i.worry}</div>`:''}
+        ${i.ignore?`<div><b>Ignore</b>${i.ignore}</div>`:''}
+      </div>` : (i.check ? `<span class="check">${i.check}</span>` : '')}</div>
     <div class="track" role="img" aria-label="${i.percentile} out of 100">
       <b style="width:${i.percentile}%;background:${c}"></b>
       <u></u><i style="left:${i.percentile}%;background:${c}"></i>
@@ -362,10 +376,14 @@ function render(d){
       <p class="lede">Each bar is that gauge's position within its own last three years —
         far right means today is near the most extreme reading it has produced in that window.
         Grouped by family, loudest family first — the shape of which families are lit
-        matters more than any single bar. Under each one is what to compare it against on your chart —
+        matters more than any single bar. Under each gauge: what it measures, what to read it
+        against, the combination that means something, and the reading that looks alarming but is not.
+        The last one matters most —
         the reading on its own is only half of the information.
         A <span class="stale thin">thin history</span> tag means that gauge is ranked against
-        less than two years of data, so its percentile carries little weight.</p>
+        less than two years of data. <span class="inv clip">at scale limit</span> means the value
+        has run past the end of its scale, so the bar has stopped moving and only the raw
+        number still carries information.</p>
       ${(()=>{
         const fams={};
         d.indicators.forEach(i=>{(fams[i.family||'Other']=fams[i.family||'Other']||[]).push(i);});
