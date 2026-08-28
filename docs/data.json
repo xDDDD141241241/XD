@@ -1,7 +1,7 @@
 {
- "updated": "2026-08-27T03:24:48+00:00",
+ "updated": "2026-08-28T06:12:34+00:00",
  "build": "40285c2e",
- "score": 28.0,
+ "score": 27.6,
  "band": "CALM",
  "regime": {
   "name": "BULL",
@@ -14,35 +14,35 @@
   {
    "span": 9,
    "kind": "ema",
-   "above": false,
-   "dist_pct": -0.07
+   "above": true,
+   "dist_pct": 0.47
   },
   {
    "span": 21,
    "kind": "ema",
    "above": true,
-   "dist_pct": 0.3
+   "dist_pct": 0.87
   },
   {
    "span": 50,
    "kind": "sma",
    "above": true,
-   "dist_pct": 1.74
+   "dist_pct": 2.35
   },
   {
    "span": 200,
    "kind": "sma",
    "above": true,
-   "dist_pct": 8.07
+   "dist_pct": 8.7
   }
  ],
  "indicators": [
   {
    "id": "corr_spy_tlt",
    "label": "Stock/bond correlation, 63d",
-   "value": 0.2985,
-   "display": "+0.30",
-   "percentile": 64.9,
+   "value": 0.2881,
+   "display": "+0.29",
+   "percentile": 64.4,
    "weight": 6,
    "note": "above zero means bonds stop cushioning equities",
    "check": "Check this before you need the hedge, not after. It says nothing about whether a drawdown is coming, only what it will cost you.",
@@ -51,7 +51,7 @@
    "compare": "Your own hedges — not the index.",
    "worry": "Above zero. Bonds are no longer cushioning equity losses, so a drawdown costs more than the standard models assume.",
    "ignore": "It as a timing signal. It tells you what a fall would cost you, never whether one is coming.",
-   "as_of": "2026-08-26",
+   "as_of": "2026-08-27",
    "basis": "absolute scale",
    "inverted": false,
    "clipped": false,
@@ -75,7 +75,7 @@
    "compare": "The index. Ideally the floor falls while price rises.",
    "worry": "The floor rising while the index makes new highs. The market can no longer get as quiet as it used to — a classic late-cycle tell.",
    "ignore": "A rising floor during a correction. That is simply what corrections do.",
-   "as_of": "2026-08-26",
+   "as_of": "2026-08-27",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
    "clipped": false,
@@ -88,9 +88,9 @@
   {
    "id": "quality_spread",
    "label": "Quality spread (CCC minus BB)",
-   "value": 8.81,
-   "display": "8.81",
-   "percentile": 56.8,
+   "value": 8.75,
+   "display": "8.75",
+   "percentile": 56.2,
    "weight": 8,
    "note": "the junk end versus the decent end of high yield",
    "check": "Widening while equities hold up means risk appetite is leaving from the bottom. The weakest borrowers crack first, and this gap opens before the index-level spread does.",
@@ -99,7 +99,7 @@
    "compare": "The headline high-yield spread directly above it.",
    "worry": "This widens while the headline spread stays tight. Trouble starts at the bottom of the credit stack and works upward.",
    "ignore": "A move driven by one sector. A few distressed energy or retail names can open this gap without meaning anything market-wide.",
-   "as_of": "2026-08-25",
+   "as_of": "2026-08-26",
    "basis": "absolute scale",
    "inverted": false,
    "clipped": false,
@@ -110,35 +110,11 @@
    "excluded": false
   },
   {
-   "id": "nh_nl",
-   "label": "New 52w highs minus new lows",
-   "value": 6.0,
-   "display": "+6",
-   "percentile": 48.0,
-   "weight": 6,
-   "note": "",
-   "check": "Negative while the index is at a new high is the textbook non-confirmation. It was present at 1972, 2000, 2007 and 2021.",
-   "family": "Breadth",
-   "plain": "How many companies hit a new 52-week high today, minus how many hit a new low.",
-   "compare": "The index when it is at a new high.",
-   "worry": "Negative while the index prints a new high. This was present at 1972, 2000, 2007 and 2021.",
-   "ignore": "Daily noise. The cumulative version below is the more reliable form of the same idea.",
-   "as_of": "2026-08-26",
-   "basis": "absolute scale",
-   "inverted": true,
-   "clipped": false,
-   "scale_lo": -150,
-   "scale_hi": 150,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false
-  },
-  {
    "id": "pct_above_20",
    "label": "% of S&P 500 above 20-day average",
-   "value": 52.2954,
-   "display": "52%",
-   "percentile": 47.7,
+   "value": 44.511,
+   "display": "45%",
+   "percentile": 55.5,
    "weight": 8,
    "note": "",
    "check": "Short-horizon. Under 15% is washout territory -- check whether price has actually broken structure or merely dipped.",
@@ -147,7 +123,7 @@
    "compare": "Whether the index has actually broken anything, or merely dipped.",
    "worry": "Under 15%. Though that is usually washout near a LOW, not a warning of one.",
    "ignore": "Anything between roughly 40 and 70. That is an ordinary market.",
-   "as_of": "2026-08-26",
+   "as_of": "2026-08-27",
    "basis": "absolute scale",
    "inverted": true,
    "clipped": false,
@@ -160,9 +136,9 @@
   {
    "id": "ad_confirmation",
    "label": "A/D confirmation gap, 252d",
-   "value": 3.1746,
-   "display": "+3",
-   "percentile": 46.0,
+   "value": -3.9683,
+   "display": "-4",
+   "percentile": 55.0,
    "weight": 12,
    "note": "A/D line's rank minus the index's rank, same window",
    "check": "Negative means the index is higher in its own range than participation is in its own -- the textbook non-confirmation. Around zero means breadth is keeping up. Positive means participation is running ahead of price, which is healthy.",
@@ -171,7 +147,7 @@
    "compare": "Built in — the comparison IS the gauge.",
    "worry": "Clearly negative. The index is high in its range while participation is not: textbook non-confirmation.",
    "ignore": "Readings near zero. Breadth is keeping up, which is exactly what you want.",
-   "as_of": "2026-08-26",
+   "as_of": "2026-08-27",
    "basis": "absolute scale",
    "inverted": true,
    "clipped": false,
@@ -182,11 +158,35 @@
    "excluded": false
   },
   {
+   "id": "nh_nl",
+   "label": "New 52w highs minus new lows",
+   "value": 2.0,
+   "display": "+2",
+   "percentile": 49.3,
+   "weight": 6,
+   "note": "",
+   "check": "Negative while the index is at a new high is the textbook non-confirmation. It was present at 1972, 2000, 2007 and 2021.",
+   "family": "Breadth",
+   "plain": "How many companies hit a new 52-week high today, minus how many hit a new low.",
+   "compare": "The index when it is at a new high.",
+   "worry": "Negative while the index prints a new high. This was present at 1972, 2000, 2007 and 2021.",
+   "ignore": "Daily noise. The cumulative version below is the more reliable form of the same idea.",
+   "as_of": "2026-08-27",
+   "basis": "absolute scale",
+   "inverted": true,
+   "clipped": false,
+   "scale_lo": -150,
+   "scale_hi": 150,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false
+  },
+  {
    "id": "vvix_vix",
    "label": "VVIX / VIX",
-   "value": 5.6042,
-   "display": "5.60",
-   "percentile": 39.7,
+   "value": 5.7133,
+   "display": "5.71",
+   "percentile": 47.3,
    "weight": 6,
    "note": "",
    "check": "High ratio with a low VIX = complacent spot, expensive tails. Protection is cheapest to own exactly here.",
@@ -195,7 +195,7 @@
    "compare": "The VIX level, always. Never read this one on its own.",
    "worry": "A high ratio while VIX is low — a calm market where tails are being priced up. Historically a complacent setup.",
    "ignore": "The number by itself. It rises mechanically whenever VIX is very low, so a high reading can simply mean 'VIX is cheap'.",
-   "as_of": "2026-08-26",
+   "as_of": "2026-08-27",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
    "clipped": false,
@@ -206,35 +206,11 @@
    "excluded": false
   },
   {
-   "id": "hy_oas_chg",
-   "label": "HY OAS, 20-day change",
-   "value": -0.14,
-   "display": "-0.14",
-   "percentile": 38.3,
-   "weight": 8,
-   "note": "",
-   "check": "Positive while the index makes new highs is the single most reliable non-confirmation in this whole panel. Read on an absolute scale so that no change reads neutral -- ranked against its own history, a flat reading scored 60 purely because spreads have mostly been tightening.",
-   "family": "Credit",
-   "plain": "Whether that lending premium has widened or narrowed over the past month.",
-   "compare": "The index's own last month.",
-   "worry": "Positive — widening — while the index makes new highs. This is the single most reliable disagreement signal in the whole panel.",
-   "ignore": "Widening during a selloff. Everything widens then.",
-   "as_of": "2026-08-25",
-   "basis": "absolute scale",
-   "inverted": false,
-   "clipped": false,
-   "scale_lo": -0.6,
-   "scale_hi": 0.6,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false
-  },
-  {
    "id": "risk_appetite",
    "label": "Cross-asset risk appetite, 63d",
-   "value": 3.3924,
-   "display": "+3.4%",
-   "percentile": 35.9,
+   "value": 3.1495,
+   "display": "+3.1%",
+   "percentile": 36.9,
    "weight": 6,
    "note": "equities and gold versus dollar, yen and Swiss franc",
    "check": "Falling means money is moving to the dollar and funding currencies while equities may still look fine -- the one measure here that can see outside the stock market. Unproven: judge it on the turning-point section, not on the reasoning.",
@@ -243,7 +219,7 @@
    "compare": "The index.",
    "worry": "Falling while stocks hold up. Capital is quietly moving into safe currencies — this is the only gauge here that can see outside the stock market.",
    "ignore": "It for now. Newly added and untested. Judge it on the turning-point section before giving it weight.",
-   "as_of": "2026-08-26",
+   "as_of": "2026-08-27",
    "basis": "absolute scale",
    "inverted": true,
    "clipped": false,
@@ -254,11 +230,59 @@
    "excluded": false
   },
   {
+   "id": "breadth_ad_z",
+   "label": "Advance/decline line, 63d z-score",
+   "value": 0.8021,
+   "display": "+0.80",
+   "percentile": 34.0,
+   "weight": 5,
+   "note": "level of breadth momentum, not a divergence measure",
+   "check": "Read this as breadth strength only. For non-confirmation use the A/D confirmation gap above, which compares it against price -- this gauge does not know where price is.",
+   "family": "Breadth",
+   "plain": "How strong day-to-day participation has been recently, measured in standard deviations.",
+   "compare": "Nothing. Read it alone, as a strength reading.",
+   "worry": "Sustained negative. But for a genuine divergence use the confirmation gap instead — this gauge does not know where price is.",
+   "ignore": "Small swings. It is a noisy series.",
+   "as_of": "2026-08-27",
+   "basis": "absolute scale",
+   "inverted": true,
+   "clipped": false,
+   "scale_lo": -2.5,
+   "scale_hi": 2.5,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false
+  },
+  {
+   "id": "hy_oas_chg",
+   "label": "HY OAS, 20-day change",
+   "value": -0.2,
+   "display": "-0.20",
+   "percentile": 33.3,
+   "weight": 8,
+   "note": "",
+   "check": "Positive while the index makes new highs is the single most reliable non-confirmation in this whole panel. Read on an absolute scale so that no change reads neutral -- ranked against its own history, a flat reading scored 60 purely because spreads have mostly been tightening.",
+   "family": "Credit",
+   "plain": "Whether that lending premium has widened or narrowed over the past month.",
+   "compare": "The index's own last month.",
+   "worry": "Positive — widening — while the index makes new highs. This is the single most reliable disagreement signal in the whole panel.",
+   "ignore": "Widening during a selloff. Everything widens then.",
+   "as_of": "2026-08-26",
+   "basis": "absolute scale",
+   "inverted": false,
+   "clipped": false,
+   "scale_lo": -0.6,
+   "scale_hi": 0.6,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false
+  },
+  {
    "id": "defensive_rotation",
    "label": "Defensives vs index, 63d",
-   "value": -2.9446,
-   "display": "-2.9%",
-   "percentile": 35.3,
+   "value": -3.4262,
+   "display": "-3.4%",
+   "percentile": 32.9,
    "weight": 4,
    "note": "utilities and staples relative to the index",
    "check": "Rising while the index makes highs means money is moving to safety inside the rally. Confirms more often than it leads.",
@@ -267,36 +291,12 @@
    "compare": "The index.",
    "worry": "Defensives outperforming while the index makes highs. Money is moving to safety inside the rally.",
    "ignore": "It as an early warning. It confirms far more often than it leads.",
-   "as_of": "2026-08-26",
+   "as_of": "2026-08-27",
    "basis": "absolute scale",
    "inverted": false,
    "clipped": false,
    "scale_lo": -10,
    "scale_hi": 10,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false
-  },
-  {
-   "id": "vix",
-   "label": "VIX level",
-   "value": 15.21,
-   "display": "15.21",
-   "percentile": 32.7,
-   "weight": 8,
-   "note": "",
-   "check": "Direction against price is what counts. VIX rising while the index also rises is rare and is worth stopping on.",
-   "family": "Volatility",
-   "plain": "The size of the swing the market expects over the next month. The fear gauge.",
-   "compare": "The index itself. Normally the two move in opposite directions.",
-   "worry": "It rises on a day the index ALSO rises. That pairing is rare and usually means someone is positioning for trouble.",
-   "ignore": "A spike during an obvious selloff. That is the market reacting, not warning.",
-   "as_of": "2026-08-26",
-   "basis": "ranked vs 756 sessions",
-   "inverted": false,
-   "clipped": false,
-   "scale_lo": null,
-   "scale_hi": null,
    "thin_history": false,
    "stale": false,
    "excluded": false
@@ -315,7 +315,7 @@
    "compare": "Built in.",
    "worry": "A rising count. This one led 2000, 2007, 2018 and 2021-22.",
    "ignore": "Very little. Of all the divergences here this has the best record, so treat a sustained rise seriously.",
-   "as_of": "2026-08-26",
+   "as_of": "2026-08-27",
    "basis": "absolute scale",
    "inverted": false,
    "clipped": false,
@@ -352,9 +352,9 @@
   {
    "id": "net_liquidity",
    "label": "Fed net liquidity, 63d change",
-   "value": 0.1366,
-   "display": "+0.1%",
-   "percentile": 27.8,
+   "value": -0.0708,
+   "display": "-0.1%",
+   "percentile": 30.6,
    "weight": 4,
    "note": "reserves less the Treasury account less reverse repo",
    "check": "Falling while the index makes highs means the advance is running on positioning rather than on new money. Short history and contested -- treat as supporting evidence, never as a trigger.",
@@ -363,7 +363,7 @@
    "compare": "The index.",
    "worry": "Falling while the index makes highs. The advance is running on positioning rather than on new money.",
    "ignore": "It as a standalone trigger. The relationship is contested and the history is short.",
-   "as_of": "2026-08-19",
+   "as_of": "2026-08-26",
    "basis": "ranked vs 756 sessions",
    "inverted": true,
    "clipped": false,
@@ -374,44 +374,20 @@
    "excluded": false
   },
   {
-   "id": "breadth_ad_z",
-   "label": "Advance/decline line, 63d z-score",
-   "value": 1.2878,
-   "display": "+1.29",
-   "percentile": 24.2,
-   "weight": 5,
-   "note": "level of breadth momentum, not a divergence measure",
-   "check": "Read this as breadth strength only. For non-confirmation use the A/D confirmation gap above, which compares it against price -- this gauge does not know where price is.",
-   "family": "Breadth",
-   "plain": "How strong day-to-day participation has been recently, measured in standard deviations.",
-   "compare": "Nothing. Read it alone, as a strength reading.",
-   "worry": "Sustained negative. But for a genuine divergence use the confirmation gap instead — this gauge does not know where price is.",
-   "ignore": "Small swings. It is a noisy series.",
-   "as_of": "2026-08-26",
-   "basis": "absolute scale",
-   "inverted": true,
-   "clipped": false,
-   "scale_lo": -2.5,
-   "scale_hi": 2.5,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false
-  },
-  {
-   "id": "vvix",
-   "label": "VVIX (vol of vol)",
-   "value": 85.24,
-   "display": "85.2",
-   "percentile": 19.2,
+   "id": "vix",
+   "label": "VIX level",
+   "value": 14.51,
+   "display": "14.51",
+   "percentile": 24.3,
    "weight": 8,
-   "note": "rises when people start paying up for tail protection",
-   "check": "Rising VVIX with a flat VIX means someone is buying protection before any move shows in price. This leads more often than VIX does.",
+   "note": "",
+   "check": "Direction against price is what counts. VIX rising while the index also rises is rare and is worth stopping on.",
    "family": "Volatility",
-   "plain": "How jumpy the price of insurance itself is — the volatility of volatility.",
-   "compare": "The VIX line just beside it.",
-   "worry": "This rises while VIX stays flat. Protection is being bought before anything shows up in price.",
-   "ignore": "Both rising together during a selloff. Entirely normal.",
-   "as_of": "2026-08-26",
+   "plain": "The size of the swing the market expects over the next month. The fear gauge.",
+   "compare": "The index itself. Normally the two move in opposite directions.",
+   "worry": "It rises on a day the index ALSO rises. That pairing is rare and usually means someone is positioning for trouble.",
+   "ignore": "A spike during an obvious selloff. That is the market reacting, not warning.",
+   "as_of": "2026-08-27",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
    "clipped": false,
@@ -424,9 +400,9 @@
   {
    "id": "nhnl_cum_z",
    "label": "Cumulative NH-NL line, 252d z-score",
-   "value": 1.5881,
-   "display": "+1.59",
-   "percentile": 18.2,
+   "value": 1.5781,
+   "display": "+1.58",
+   "percentile": 18.4,
    "weight": 10,
    "note": "running total of net new highs, ranked against its own year",
    "check": "Below zero has marked bear regimes -- 2001-03, 2008-09, 2015-16, 2022. Treat it as a filter on whether dips are worth buying, not as a warning before a top: it turned down well after the 2000 and 2007 highs.",
@@ -435,7 +411,7 @@
    "compare": "The index against its 200-day average.",
    "worry": "Below zero. That has marked the bear phases: 2001-03, 2008-09, 2015-16, 2022.",
    "ignore": "It as a top warning. It turned down well AFTER the 2000 and 2007 highs. It tells you whether dips are worth buying, not when to sell.",
-   "as_of": "2026-08-26",
+   "as_of": "2026-08-27",
    "basis": "absolute scale",
    "inverted": true,
    "clipped": false,
@@ -446,11 +422,35 @@
    "excluded": false
   },
   {
+   "id": "vvix",
+   "label": "VVIX (vol of vol)",
+   "value": 82.9,
+   "display": "82.9",
+   "percentile": 13.2,
+   "weight": 8,
+   "note": "rises when people start paying up for tail protection",
+   "check": "Rising VVIX with a flat VIX means someone is buying protection before any move shows in price. This leads more often than VIX does.",
+   "family": "Volatility",
+   "plain": "How jumpy the price of insurance itself is — the volatility of volatility.",
+   "compare": "The VIX line just beside it.",
+   "worry": "This rises while VIX stays flat. Protection is being bought before anything shows up in price.",
+   "ignore": "Both rising together during a selloff. Entirely normal.",
+   "as_of": "2026-08-27",
+   "basis": "ranked vs 756 sessions",
+   "inverted": false,
+   "clipped": false,
+   "scale_lo": null,
+   "scale_hi": null,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false
+  },
+  {
    "id": "move",
    "label": "MOVE (rates volatility)",
-   "value": 69.4375,
-   "display": "69.4",
-   "percentile": 11.7,
+   "value": 69.86,
+   "display": "69.9",
+   "percentile": 12.6,
    "weight": 8,
    "note": "",
    "check": "If this leads VIX higher, the shock is coming from bonds or policy rather than from equities -- a different playbook.",
@@ -459,7 +459,31 @@
    "compare": "VIX. Which of the two moves first tells you where the trouble is coming from.",
    "worry": "This leads VIX higher. The shock is coming from rates or policy, which plays out differently from an equity scare.",
    "ignore": "Small daily moves. Bonds are noisy.",
-   "as_of": "2026-08-26",
+   "as_of": "2026-08-27",
+   "basis": "ranked vs 756 sessions",
+   "inverted": false,
+   "clipped": false,
+   "scale_lo": null,
+   "scale_hi": null,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false
+  },
+  {
+   "id": "concentration",
+   "label": "Cap-weight vs equal-weight, 63d",
+   "value": -3.9045,
+   "display": "-3.9%",
+   "percentile": 8.0,
+   "weight": 8,
+   "note": "rising = the index is being carried by fewer names",
+   "check": "Compare directly with the index. Both rising together means the gain is narrowing into a handful of names.",
+   "family": "Structure",
+   "plain": "How far the big-company index has outrun the equal-weighted version over three months.",
+   "compare": "The index itself.",
+   "worry": "Both rising together. The gain is coming from a handful of names rather than the market.",
+   "ignore": "Negative readings. Those mean the average stock is keeping up, which is healthy.",
+   "as_of": "2026-08-27",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
    "clipped": false,
@@ -472,9 +496,9 @@
   {
    "id": "hy_oas",
    "label": "High yield OAS",
-   "value": 2.7,
-   "display": "2.70",
-   "percentile": 9.4,
+   "value": 2.67,
+   "display": "2.67",
+   "percentile": 5.6,
    "weight": 12,
    "note": "credit is usually early to price real trouble",
    "check": "The level matters less than the direction. Check it every time the index prints a new high.",
@@ -483,54 +507,6 @@
    "compare": "The index, every time it prints a new high.",
    "worry": "Rising while stocks make highs. Lenders are seeing something equity holders are not.",
    "ignore": "The absolute level on its own — it drifts with the interest-rate environment.",
-   "as_of": "2026-08-25",
-   "basis": "ranked vs 756 sessions",
-   "inverted": false,
-   "clipped": false,
-   "scale_lo": null,
-   "scale_hi": null,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false
-  },
-  {
-   "id": "ts_vix9d_vix",
-   "label": "VIX9D / VIX near-term stress",
-   "value": 0.8764,
-   "display": "0.876",
-   "percentile": 8.8,
-   "weight": 8,
-   "note": "",
-   "check": "Rising while price is flat means a dated event is being priced -- look for what is on the calendar rather than on the chart.",
-   "family": "Volatility",
-   "plain": "Nine-day fear versus one-month fear. Picks up specific dated events.",
-   "compare": "The calendar, not the chart.",
-   "worry": "Rising while price is flat — something specific is being priced in, like a Fed meeting or a big earnings date.",
-   "ignore": "Movement during a broad selloff. It is just following VIX.",
-   "as_of": "2026-08-26",
-   "basis": "absolute scale",
-   "inverted": false,
-   "clipped": false,
-   "scale_lo": 0.85,
-   "scale_hi": 1.15,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false
-  },
-  {
-   "id": "concentration",
-   "label": "Cap-weight vs equal-weight, 63d",
-   "value": -4.6379,
-   "display": "-4.6%",
-   "percentile": 4.8,
-   "weight": 8,
-   "note": "rising = the index is being carried by fewer names",
-   "check": "Compare directly with the index. Both rising together means the gain is narrowing into a handful of names.",
-   "family": "Structure",
-   "plain": "How far the big-company index has outrun the equal-weighted version over three months.",
-   "compare": "The index itself.",
-   "worry": "Both rising together. The gain is coming from a handful of names rather than the market.",
-   "ignore": "Negative readings. Those mean the average stock is keeping up, which is healthy.",
    "as_of": "2026-08-26",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
@@ -555,7 +531,7 @@
    "compare": "Built in.",
    "worry": "A count climbing off zero and staying there. That is the November 2021 shape.",
    "ignore": "One or two days. Zero is healthy, single digits are a flicker.",
-   "as_of": "2026-08-26",
+   "as_of": "2026-08-27",
    "basis": "absolute scale",
    "inverted": false,
    "clipped": false,
@@ -568,8 +544,8 @@
   {
    "id": "ts_vix_vix3m",
    "label": "VIX / VIX3M term structure",
-   "value": 0.8455,
-   "display": "0.845",
+   "value": 0.8263,
+   "display": "0.826",
    "percentile": 0.0,
    "weight": 12,
    "note": "above 1.00 = backwardation, the classic risk-off trigger",
@@ -579,12 +555,36 @@
    "compare": "Where the index is trading — near a high, or already falling.",
    "worry": "It crosses above 1.00 while the index is STILL near a high. Traders are paying more for protection now than for later.",
    "ignore": "Above 1.00 during a selloff already underway. That is usually the panic, and often near the low.",
-   "as_of": "2026-08-26",
+   "as_of": "2026-08-27",
    "basis": "absolute scale",
    "inverted": false,
    "clipped": true,
    "scale_lo": 0.85,
    "scale_hi": 1.1,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false
+  },
+  {
+   "id": "ts_vix9d_vix",
+   "label": "VIX9D / VIX near-term stress",
+   "value": 0.8339,
+   "display": "0.834",
+   "percentile": 0.0,
+   "weight": 8,
+   "note": "",
+   "check": "Rising while price is flat means a dated event is being priced -- look for what is on the calendar rather than on the chart.",
+   "family": "Volatility",
+   "plain": "Nine-day fear versus one-month fear. Picks up specific dated events.",
+   "compare": "The calendar, not the chart.",
+   "worry": "Rising while price is flat — something specific is being priced in, like a Fed meeting or a big earnings date.",
+   "ignore": "Movement during a broad selloff. It is just following VIX.",
+   "as_of": "2026-08-27",
+   "basis": "absolute scale",
+   "inverted": false,
+   "clipped": true,
+   "scale_lo": 0.85,
+   "scale_hi": 1.15,
    "thin_history": false,
    "stale": false,
    "excluded": false
@@ -623,8 +623,8 @@
   }
  ],
  "spx_proxy": {
-  "last": 766.08,
-  "pct_from_high": -1.52
+  "last": 771.1,
+  "pct_from_high": -0.87
  },
  "history": [
   {
@@ -13984,37 +13984,42 @@
   },
   {
    "date": "2026-08-20",
-   "score": 32.2,
-   "n": 18
+   "score": 32.1,
+   "n": 19
   },
   {
    "date": "2026-08-21",
    "score": 28.4,
-   "n": 19
+   "n": 20
   },
   {
    "date": "2026-08-24",
-   "score": 29.3,
-   "n": 18
+   "score": 29.2,
+   "n": 19
   },
   {
    "date": "2026-08-25",
    "score": 28.2,
-   "n": 18
+   "n": 19
   },
   {
    "date": "2026-08-26",
-   "score": 27.1,
-   "n": 15
+   "score": 27.4,
+   "n": 19
   },
   {
    "date": "2026-08-27",
-   "score": 28.0,
+   "score": 27.2,
+   "n": 15
+  },
+  {
+   "date": "2026-08-28",
+   "score": 27.6,
    "regime": "BULL"
   }
  ],
  "notes": [
-  "score history rebuilt from 2676 sessions"
+  "score history rebuilt from 2677 sessions"
  ],
  "errors": [
   "empty series: ^VIX9D",
@@ -14048,9 +14053,9 @@
   }
  ],
  "topping": {
-  "score_raw": 55.9,
-  "surface": 18.7,
-  "internals": 55.9,
+  "score_raw": 58.1,
+  "surface": 15.8,
+  "internals": 58.1,
   "calm_factor": 1.0,
   "drivers": [
    {
@@ -14059,15 +14064,15 @@
    },
    {
     "label": "Quality spread (CCC minus BB)",
-    "percentile": 56.8
+    "percentile": 56.2
    },
    {
-    "label": "New 52w highs minus new lows",
-    "percentile": 48.0
+    "label": "A/D confirmation gap, 252d",
+    "percentile": 55.0
    }
   ],
-  "score": 52.8,
-  "percentile": 75.0
+  "score": 53.4,
+  "percentile": 76.5
  },
  "top_history": [
   {
@@ -25784,7 +25789,11 @@
   },
   {
    "date": "2026-08-26",
-   "top": 52.8
+   "top": 53.2
+  },
+  {
+   "date": "2026-08-27",
+   "top": 53.4
   }
  ],
  "quality": {
@@ -25819,7 +25828,7 @@
    {
     "name": "Score change explainable",
     "status": "pass",
-    "detail": "score moved -0.5 overnight"
+    "detail": "score moved -0.4 overnight"
    },
    {
     "name": "Enough gauges reporting",
@@ -25829,7 +25838,7 @@
    {
     "name": "History intact",
     "status": "pass",
-    "detail": "2677 sessions, no gaps or duplicates"
+    "detail": "2678 sessions, no gaps or duplicates"
    }
   ],
   "n_failed": 0,
@@ -25840,7 +25849,7 @@
   "baseline_away_share": 0.79,
   "window_days": 10,
   "history_from": "2016-01-04",
-  "history_to": "2026-08-27",
+  "history_to": "2026-08-28",
   "threshold_p80": 49.7,
   "threshold_p90": 56.5,
   "episodes_testable": 9,
@@ -26038,7 +26047,7 @@
     "kind": "top",
     "measure": "topping",
     "score": 49.7,
-    "percentile": 67.6,
+    "percentile": 67.5,
     "change_before": 0.6,
     "useful": true,
     "verdict": "elevated at the top"
@@ -26046,5 +26055,5 @@
   ],
   "note": "Lows are the easy test and should be near-perfect. Tops are the hard test — judge the tool on that column."
  },
- "score_percentile": 10.4
+ "score_percentile": 9.3
 }
