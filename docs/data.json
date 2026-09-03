@@ -1,8 +1,8 @@
 {
- "updated": "2026-09-02T00:22:01+00:00",
+ "updated": "2026-09-03T00:23:35+00:00",
  "build": "40285c2e",
- "score": 35.1,
- "band": "ELEVATED",
+ "score": 32.9,
+ "band": "CALM",
  "regime": {
   "name": "BULL",
   "description": "above the 200-day and participation is broad",
@@ -99,12 +99,36 @@
    "compare": "The index. Ideally the floor falls while price rises.",
    "worry": "The floor rising while the index makes new highs. The market can no longer get as quiet as it used to — a classic late-cycle tell.",
    "ignore": "A rising floor during a correction. That is simply what corrections do.",
-   "as_of": "2026-09-01",
+   "as_of": "2026-09-02",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
    "clipped": false,
    "scale_lo": null,
    "scale_hi": null,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false
+  },
+  {
+   "id": "quality_spread",
+   "label": "Quality spread (CCC minus BB)",
+   "value": 8.97,
+   "display": "8.97",
+   "percentile": 58.1,
+   "weight": 8,
+   "note": "the junk end versus the decent end of high yield",
+   "check": "Widening while equities hold up means risk appetite is leaving from the bottom. The weakest borrowers crack first, and this gap opens before the index-level spread does.",
+   "family": "Credit",
+   "plain": "The gap between what the weakest borrowers pay and what the merely mediocre ones pay.",
+   "compare": "The headline high-yield spread directly above it.",
+   "worry": "This widens while the headline spread stays tight. Trouble starts at the bottom of the credit stack and works upward.",
+   "ignore": "A move driven by one sector. A few distressed energy or retail names can open this gap without meaning anything market-wide.",
+   "as_of": "2026-09-01",
+   "basis": "absolute scale",
+   "inverted": false,
+   "clipped": false,
+   "scale_lo": 2.0,
+   "scale_hi": 14.0,
    "thin_history": false,
    "stale": false,
    "excluded": false
@@ -129,30 +153,6 @@
    "clipped": false,
    "scale_lo": -40,
    "scale_hi": 40,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false
-  },
-  {
-   "id": "quality_spread",
-   "label": "Quality spread (CCC minus BB)",
-   "value": 8.9,
-   "display": "8.90",
-   "percentile": 57.5,
-   "weight": 8,
-   "note": "the junk end versus the decent end of high yield",
-   "check": "Widening while equities hold up means risk appetite is leaving from the bottom. The weakest borrowers crack first, and this gap opens before the index-level spread does.",
-   "family": "Credit",
-   "plain": "The gap between what the weakest borrowers pay and what the merely mediocre ones pay.",
-   "compare": "The headline high-yield spread directly above it.",
-   "worry": "This widens while the headline spread stays tight. Trouble starts at the bottom of the credit stack and works upward.",
-   "ignore": "A move driven by one sector. A few distressed energy or retail names can open this gap without meaning anything market-wide.",
-   "as_of": "2026-08-31",
-   "basis": "absolute scale",
-   "inverted": false,
-   "clipped": false,
-   "scale_lo": 2.0,
-   "scale_hi": 14.0,
    "thin_history": false,
    "stale": false,
    "excluded": false
@@ -254,35 +254,11 @@
    "excluded": false
   },
   {
-   "id": "vix",
-   "label": "VIX level",
-   "value": 16.34,
-   "display": "16.34",
-   "percentile": 47.5,
-   "weight": 8,
-   "note": "",
-   "check": "Direction against price is what counts. VIX rising while the index also rises is rare and is worth stopping on.",
-   "family": "Volatility",
-   "plain": "The size of the swing the market expects over the next month. The fear gauge.",
-   "compare": "The index itself. Normally the two move in opposite directions.",
-   "worry": "It rises on a day the index ALSO rises. That pairing is rare and usually means someone is positioning for trouble.",
-   "ignore": "A spike during an obvious selloff. That is the market reacting, not warning.",
-   "as_of": "2026-09-01",
-   "basis": "ranked vs 756 sessions",
-   "inverted": false,
-   "clipped": false,
-   "scale_lo": null,
-   "scale_hi": null,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false
-  },
-  {
    "id": "vvix_vix",
    "label": "VVIX / VIX",
-   "value": 5.5845,
-   "display": "5.58",
-   "percentile": 38.0,
+   "value": 5.6743,
+   "display": "5.67",
+   "percentile": 44.8,
    "weight": 6,
    "note": "",
    "check": "High ratio with a low VIX = complacent spot, expensive tails. Protection is cheapest to own exactly here.",
@@ -291,31 +267,7 @@
    "compare": "The VIX level, always. Never read this one on its own.",
    "worry": "A high ratio while VIX is low — a calm market where tails are being priced up. Historically a complacent setup.",
    "ignore": "The number by itself. It rises mechanically whenever VIX is very low, so a high reading can simply mean 'VIX is cheap'.",
-   "as_of": "2026-09-01",
-   "basis": "ranked vs 756 sessions",
-   "inverted": false,
-   "clipped": false,
-   "scale_lo": null,
-   "scale_hi": null,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false
-  },
-  {
-   "id": "vvix",
-   "label": "VVIX (vol of vol)",
-   "value": 91.25,
-   "display": "91.2",
-   "percentile": 37.8,
-   "weight": 8,
-   "note": "rises when people start paying up for tail protection",
-   "check": "Rising VVIX with a flat VIX means someone is buying protection before any move shows in price. This leads more often than VIX does.",
-   "family": "Volatility",
-   "plain": "How jumpy the price of insurance itself is — the volatility of volatility.",
-   "compare": "The VIX line just beside it.",
-   "worry": "This rises while VIX stays flat. Protection is being bought before anything shows up in price.",
-   "ignore": "Both rising together during a selloff. Entirely normal.",
-   "as_of": "2026-09-01",
+   "as_of": "2026-09-02",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
    "clipped": false,
@@ -328,9 +280,9 @@
   {
    "id": "hy_oas_chg",
    "label": "HY OAS, 20-day change",
-   "value": -0.15,
-   "display": "-0.15",
-   "percentile": 37.5,
+   "value": -0.08,
+   "display": "-0.08",
+   "percentile": 43.3,
    "weight": 8,
    "note": "",
    "check": "Positive while the index makes new highs is the single most reliable non-confirmation in this whole panel. Read on an absolute scale so that no change reads neutral -- ranked against its own history, a flat reading scored 60 purely because spreads have mostly been tightening.",
@@ -339,12 +291,60 @@
    "compare": "The index's own last month.",
    "worry": "Positive — widening — while the index makes new highs. This is the single most reliable disagreement signal in the whole panel.",
    "ignore": "Widening during a selloff. Everything widens then.",
-   "as_of": "2026-08-31",
+   "as_of": "2026-09-01",
    "basis": "absolute scale",
    "inverted": false,
    "clipped": false,
    "scale_lo": -0.6,
    "scale_hi": 0.6,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false
+  },
+  {
+   "id": "nfci",
+   "label": "Financial conditions (NFCI)",
+   "value": -0.558,
+   "display": "-0.56",
+   "percentile": 36.0,
+   "weight": 6,
+   "note": "above zero = tighter than average",
+   "check": "Tightening while the index is at highs is a warning. Loosening during a selloff usually marks the end of it. Weekly, so treat it as background rather than a trigger.",
+   "family": "Liquidity",
+   "plain": "A broad Chicago Fed measure of how easy it is to borrow anywhere in the system. Above zero means tighter than normal.",
+   "compare": "The index.",
+   "worry": "Tightening while stocks sit at highs.",
+   "ignore": "Day-to-day changes. It updates weekly, so treat it as background rather than a trigger.",
+   "as_of": "2026-08-28",
+   "basis": "ranked vs 756 sessions",
+   "inverted": false,
+   "clipped": false,
+   "scale_lo": null,
+   "scale_hi": null,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false
+  },
+  {
+   "id": "vix",
+   "label": "VIX level",
+   "value": 15.2,
+   "display": "15.20",
+   "percentile": 32.8,
+   "weight": 8,
+   "note": "",
+   "check": "Direction against price is what counts. VIX rising while the index also rises is rare and is worth stopping on.",
+   "family": "Volatility",
+   "plain": "The size of the swing the market expects over the next month. The fear gauge.",
+   "compare": "The index itself. Normally the two move in opposite directions.",
+   "worry": "It rises on a day the index ALSO rises. That pairing is rare and usually means someone is positioning for trouble.",
+   "ignore": "A spike during an obvious selloff. That is the market reacting, not warning.",
+   "as_of": "2026-09-02",
+   "basis": "ranked vs 756 sessions",
+   "inverted": false,
+   "clipped": false,
+   "scale_lo": null,
+   "scale_hi": null,
    "thin_history": false,
    "stale": false,
    "excluded": false
@@ -369,30 +369,6 @@
    "clipped": false,
    "scale_lo": 0,
    "scale_hi": 25,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false
-  },
-  {
-   "id": "nfci",
-   "label": "Financial conditions (NFCI)",
-   "value": -0.566,
-   "display": "-0.57",
-   "percentile": 30.8,
-   "weight": 6,
-   "note": "above zero = tighter than average",
-   "check": "Tightening while the index is at highs is a warning. Loosening during a selloff usually marks the end of it. Weekly, so treat it as background rather than a trigger.",
-   "family": "Liquidity",
-   "plain": "A broad Chicago Fed measure of how easy it is to borrow anywhere in the system. Above zero means tighter than normal.",
-   "compare": "The index.",
-   "worry": "Tightening while stocks sit at highs.",
-   "ignore": "Day-to-day changes. It updates weekly, so treat it as background rather than a trigger.",
-   "as_of": "2026-08-21",
-   "basis": "ranked vs 756 sessions",
-   "inverted": false,
-   "clipped": false,
-   "scale_lo": null,
-   "scale_hi": null,
    "thin_history": false,
    "stale": false,
    "excluded": false
@@ -424,9 +400,9 @@
   {
    "id": "move",
    "label": "MOVE (rates volatility)",
-   "value": 77.8754,
-   "display": "77.9",
-   "percentile": 26.9,
+   "value": 79.7133,
+   "display": "79.7",
+   "percentile": 29.2,
    "weight": 8,
    "note": "",
    "check": "If this leads VIX higher, the shock is coming from bonds or policy rather than from equities -- a different playbook.",
@@ -435,7 +411,31 @@
    "compare": "VIX. Which of the two moves first tells you where the trouble is coming from.",
    "worry": "This leads VIX higher. The shock is coming from rates or policy, which plays out differently from an equity scare.",
    "ignore": "Small daily moves. Bonds are noisy.",
-   "as_of": "2026-09-01",
+   "as_of": "2026-09-02",
+   "basis": "ranked vs 756 sessions",
+   "inverted": false,
+   "clipped": false,
+   "scale_lo": null,
+   "scale_hi": null,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false
+  },
+  {
+   "id": "vvix",
+   "label": "VVIX (vol of vol)",
+   "value": 86.25,
+   "display": "86.2",
+   "percentile": 21.5,
+   "weight": 8,
+   "note": "rises when people start paying up for tail protection",
+   "check": "Rising VVIX with a flat VIX means someone is buying protection before any move shows in price. This leads more often than VIX does.",
+   "family": "Volatility",
+   "plain": "How jumpy the price of insurance itself is — the volatility of volatility.",
+   "compare": "The VIX line just beside it.",
+   "worry": "This rises while VIX stays flat. Protection is being bought before anything shows up in price.",
+   "ignore": "Both rising together during a selloff. Entirely normal.",
+   "as_of": "2026-09-02",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
    "clipped": false,
@@ -470,30 +470,6 @@
    "excluded": false
   },
   {
-   "id": "ts_vix_vix3m",
-   "label": "VIX / VIX3M term structure",
-   "value": 0.8914,
-   "display": "0.891",
-   "percentile": 16.6,
-   "weight": 12,
-   "note": "above 1.00 = backwardation, the classic risk-off trigger",
-   "check": "Crossing 1.00 while the index is still near its highs is the meaningful case. Above 1.00 during an active selloff is normal and usually marks the panic, not the start of one.",
-   "family": "Volatility",
-   "plain": "One-month fear divided by three-month fear. Below 1.00 is the normal state.",
-   "compare": "Where the index is trading — near a high, or already falling.",
-   "worry": "It crosses above 1.00 while the index is STILL near a high. Traders are paying more for protection now than for later.",
-   "ignore": "Above 1.00 during a selloff already underway. That is usually the panic, and often near the low.",
-   "as_of": "2026-09-01",
-   "basis": "absolute scale",
-   "inverted": false,
-   "clipped": false,
-   "scale_lo": 0.85,
-   "scale_hi": 1.1,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false
-  },
-  {
    "id": "concentration",
    "label": "Cap-weight vs equal-weight, 63d",
    "value": -3.189,
@@ -513,30 +489,6 @@
    "clipped": false,
    "scale_lo": null,
    "scale_hi": null,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false
-  },
-  {
-   "id": "ts_vix9d_vix",
-   "label": "VIX9D / VIX near-term stress",
-   "value": 0.877,
-   "display": "0.877",
-   "percentile": 9.0,
-   "weight": 8,
-   "note": "",
-   "check": "Rising while price is flat means a dated event is being priced -- look for what is on the calendar rather than on the chart.",
-   "family": "Volatility",
-   "plain": "Nine-day fear versus one-month fear. Picks up specific dated events.",
-   "compare": "The calendar, not the chart.",
-   "worry": "Rising while price is flat — something specific is being priced in, like a Fed meeting or a big earnings date.",
-   "ignore": "Movement during a broad selloff. It is just following VIX.",
-   "as_of": "2026-09-01",
-   "basis": "absolute scale",
-   "inverted": false,
-   "clipped": false,
-   "scale_lo": 0.85,
-   "scale_hi": 1.15,
    "thin_history": false,
    "stale": false,
    "excluded": false
@@ -568,9 +520,9 @@
   {
    "id": "hy_oas",
    "label": "High yield OAS",
-   "value": 2.63,
-   "display": "2.63",
-   "percentile": 1.9,
+   "value": 2.65,
+   "display": "2.65",
+   "percentile": 3.4,
    "weight": 12,
    "note": "credit is usually early to price real trouble",
    "check": "The level matters less than the direction. Check it every time the index prints a new high.",
@@ -579,12 +531,60 @@
    "compare": "The index, every time it prints a new high.",
    "worry": "Rising while stocks make highs. Lenders are seeing something equity holders are not.",
    "ignore": "The absolute level on its own — it drifts with the interest-rate environment.",
-   "as_of": "2026-08-31",
+   "as_of": "2026-09-01",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
    "clipped": false,
    "scale_lo": null,
    "scale_hi": null,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false
+  },
+  {
+   "id": "ts_vix_vix3m",
+   "label": "VIX / VIX3M term structure",
+   "value": 0.8573,
+   "display": "0.857",
+   "percentile": 2.9,
+   "weight": 12,
+   "note": "above 1.00 = backwardation, the classic risk-off trigger",
+   "check": "Crossing 1.00 while the index is still near its highs is the meaningful case. Above 1.00 during an active selloff is normal and usually marks the panic, not the start of one.",
+   "family": "Volatility",
+   "plain": "One-month fear divided by three-month fear. Below 1.00 is the normal state.",
+   "compare": "Where the index is trading — near a high, or already falling.",
+   "worry": "It crosses above 1.00 while the index is STILL near a high. Traders are paying more for protection now than for later.",
+   "ignore": "Above 1.00 during a selloff already underway. That is usually the panic, and often near the low.",
+   "as_of": "2026-09-02",
+   "basis": "absolute scale",
+   "inverted": false,
+   "clipped": false,
+   "scale_lo": 0.85,
+   "scale_hi": 1.1,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false
+  },
+  {
+   "id": "ts_vix9d_vix",
+   "label": "VIX9D / VIX near-term stress",
+   "value": 0.827,
+   "display": "0.827",
+   "percentile": 0.0,
+   "weight": 8,
+   "note": "",
+   "check": "Rising while price is flat means a dated event is being priced -- look for what is on the calendar rather than on the chart.",
+   "family": "Volatility",
+   "plain": "Nine-day fear versus one-month fear. Picks up specific dated events.",
+   "compare": "The calendar, not the chart.",
+   "worry": "Rising while price is flat — something specific is being priced in, like a Fed meeting or a big earnings date.",
+   "ignore": "Movement during a broad selloff. It is just following VIX.",
+   "as_of": "2026-09-02",
+   "basis": "absolute scale",
+   "inverted": false,
+   "clipped": true,
+   "scale_lo": 0.85,
+   "scale_hi": 1.15,
    "thin_history": false,
    "stale": false,
    "excluded": false
@@ -649,7 +649,7 @@
   },
   {
    "date": "2016-01-08",
-   "score": 66.4,
+   "score": 66.5,
    "n": 14
   },
   {
@@ -669,7 +669,7 @@
   },
   {
    "date": "2016-01-15",
-   "score": 69.6,
+   "score": 69.7,
    "n": 14
   },
   {
@@ -714,7 +714,7 @@
   },
   {
    "date": "2016-01-29",
-   "score": 50.9,
+   "score": 51.0,
    "n": 14
   },
   {
@@ -764,7 +764,7 @@
   },
   {
    "date": "2016-02-12",
-   "score": 57.1,
+   "score": 57.2,
    "n": 14
   },
   {
@@ -859,7 +859,7 @@
   },
   {
    "date": "2016-03-11",
-   "score": 34.8,
+   "score": 34.7,
    "n": 14
   },
   {
@@ -929,7 +929,7 @@
   },
   {
    "date": "2016-04-01",
-   "score": 25.8,
+   "score": 25.7,
    "n": 15
   },
   {
@@ -1004,7 +1004,7 @@
   },
   {
    "date": "2016-04-22",
-   "score": 26.0,
+   "score": 25.9,
    "n": 16
   },
   {
@@ -1249,7 +1249,7 @@
   },
   {
    "date": "2016-07-01",
-   "score": 34.4,
+   "score": 34.3,
    "n": 16
   },
   {
@@ -1469,7 +1469,7 @@
   },
   {
    "date": "2016-09-02",
-   "score": 28.1,
+   "score": 28.2,
    "n": 16
   },
   {
@@ -1589,7 +1589,7 @@
   },
   {
    "date": "2016-10-07",
-   "score": 36.6,
+   "score": 36.5,
    "n": 16
   },
   {
@@ -1739,7 +1739,7 @@
   },
   {
    "date": "2016-11-18",
-   "score": 36.2,
+   "score": 36.3,
    "n": 16
   },
   {
@@ -1759,7 +1759,7 @@
   },
   {
    "date": "2016-11-25",
-   "score": 30.8,
+   "score": 30.9,
    "n": 16
   },
   {
@@ -1809,7 +1809,7 @@
   },
   {
    "date": "2016-12-09",
-   "score": 33.2,
+   "score": 33.3,
    "n": 16
   },
   {
@@ -1834,7 +1834,7 @@
   },
   {
    "date": "2016-12-16",
-   "score": 34.2,
+   "score": 34.3,
    "n": 16
   },
   {
@@ -1899,7 +1899,7 @@
   },
   {
    "date": "2017-01-06",
-   "score": 26.0,
+   "score": 26.1,
    "n": 17
   },
   {
@@ -1994,7 +1994,7 @@
   },
   {
    "date": "2017-02-03",
-   "score": 23.8,
+   "score": 23.7,
    "n": 17
   },
   {
@@ -2019,7 +2019,7 @@
   },
   {
    "date": "2017-02-10",
-   "score": 24.3,
+   "score": 24.2,
    "n": 17
   },
   {
@@ -2064,7 +2064,7 @@
   },
   {
    "date": "2017-02-24",
-   "score": 28.0,
+   "score": 27.9,
    "n": 17
   },
   {
@@ -2284,7 +2284,7 @@
   },
   {
    "date": "2017-04-28",
-   "score": 26.7,
+   "score": 26.6,
    "n": 17
   },
   {
@@ -2309,7 +2309,7 @@
   },
   {
    "date": "2017-05-05",
-   "score": 29.9,
+   "score": 29.8,
    "n": 17
   },
   {
@@ -2334,7 +2334,7 @@
   },
   {
    "date": "2017-05-12",
-   "score": 30.0,
+   "score": 29.9,
    "n": 17
   },
   {
@@ -2359,7 +2359,7 @@
   },
   {
    "date": "2017-05-19",
-   "score": 34.0,
+   "score": 33.9,
    "n": 17
   },
   {
@@ -2384,7 +2384,7 @@
   },
   {
    "date": "2017-05-26",
-   "score": 26.2,
+   "score": 26.1,
    "n": 17
   },
   {
@@ -2404,7 +2404,7 @@
   },
   {
    "date": "2017-06-02",
-   "score": 24.5,
+   "score": 24.4,
    "n": 17
   },
   {
@@ -2429,7 +2429,7 @@
   },
   {
    "date": "2017-06-09",
-   "score": 29.0,
+   "score": 28.9,
    "n": 17
   },
   {
@@ -2454,7 +2454,7 @@
   },
   {
    "date": "2017-06-16",
-   "score": 26.4,
+   "score": 26.3,
    "n": 17
   },
   {
@@ -2479,7 +2479,7 @@
   },
   {
    "date": "2017-06-23",
-   "score": 27.4,
+   "score": 27.2,
    "n": 17
   },
   {
@@ -2504,7 +2504,7 @@
   },
   {
    "date": "2017-06-30",
-   "score": 32.6,
+   "score": 32.5,
    "n": 17
   },
   {
@@ -2524,7 +2524,7 @@
   },
   {
    "date": "2017-07-07",
-   "score": 32.5,
+   "score": 32.3,
    "n": 17
   },
   {
@@ -2549,7 +2549,7 @@
   },
   {
    "date": "2017-07-14",
-   "score": 26.3,
+   "score": 26.2,
    "n": 17
   },
   {
@@ -2574,7 +2574,7 @@
   },
   {
    "date": "2017-07-21",
-   "score": 23.1,
+   "score": 22.8,
    "n": 17
   },
   {
@@ -2599,7 +2599,7 @@
   },
   {
    "date": "2017-07-28",
-   "score": 29.5,
+   "score": 29.3,
    "n": 17
   },
   {
@@ -2624,7 +2624,7 @@
   },
   {
    "date": "2017-08-04",
-   "score": 29.9,
+   "score": 29.7,
    "n": 17
   },
   {
@@ -2649,7 +2649,7 @@
   },
   {
    "date": "2017-08-11",
-   "score": 48.4,
+   "score": 48.3,
    "n": 17
   },
   {
@@ -2674,7 +2674,7 @@
   },
   {
    "date": "2017-08-18",
-   "score": 47.3,
+   "score": 47.2,
    "n": 17
   },
   {
@@ -2699,7 +2699,7 @@
   },
   {
    "date": "2017-08-25",
-   "score": 35.7,
+   "score": 35.5,
    "n": 17
   },
   {
@@ -2724,7 +2724,7 @@
   },
   {
    "date": "2017-09-01",
-   "score": 31.6,
+   "score": 31.5,
    "n": 17
   },
   {
@@ -2744,7 +2744,7 @@
   },
   {
    "date": "2017-09-08",
-   "score": 38.8,
+   "score": 38.6,
    "n": 16
   },
   {
@@ -2769,7 +2769,7 @@
   },
   {
    "date": "2017-09-15",
-   "score": 29.1,
+   "score": 29.0,
    "n": 17
   },
   {
@@ -2794,7 +2794,7 @@
   },
   {
    "date": "2017-09-22",
-   "score": 30.9,
+   "score": 30.7,
    "n": 17
   },
   {
@@ -2819,7 +2819,7 @@
   },
   {
    "date": "2017-09-29",
-   "score": 30.8,
+   "score": 30.6,
    "n": 17
   },
   {
@@ -2844,7 +2844,7 @@
   },
   {
    "date": "2017-10-06",
-   "score": 28.4,
+   "score": 28.2,
    "n": 17
   },
   {
@@ -2869,7 +2869,7 @@
   },
   {
    "date": "2017-10-13",
-   "score": 29.4,
+   "score": 29.1,
    "n": 17
   },
   {
@@ -2894,7 +2894,7 @@
   },
   {
    "date": "2017-10-20",
-   "score": 25.4,
+   "score": 25.1,
    "n": 17
   },
   {
@@ -2919,7 +2919,7 @@
   },
   {
    "date": "2017-10-27",
-   "score": 31.8,
+   "score": 31.5,
    "n": 17
   },
   {
@@ -2944,7 +2944,7 @@
   },
   {
    "date": "2017-11-03",
-   "score": 30.1,
+   "score": 29.8,
    "n": 17
   },
   {
@@ -2969,7 +2969,7 @@
   },
   {
    "date": "2017-11-10",
-   "score": 34.9,
+   "score": 34.6,
    "n": 17
   },
   {
@@ -2994,7 +2994,7 @@
   },
   {
    "date": "2017-11-17",
-   "score": 32.5,
+   "score": 32.3,
    "n": 17
   },
   {
@@ -3014,7 +3014,7 @@
   },
   {
    "date": "2017-11-24",
-   "score": 27.7,
+   "score": 27.5,
    "n": 17
   },
   {
@@ -3039,7 +3039,7 @@
   },
   {
    "date": "2017-12-01",
-   "score": 36.1,
+   "score": 35.9,
    "n": 17
   },
   {
@@ -3064,7 +3064,7 @@
   },
   {
    "date": "2017-12-08",
-   "score": 30.4,
+   "score": 30.2,
    "n": 17
   },
   {
@@ -3089,7 +3089,7 @@
   },
   {
    "date": "2017-12-15",
-   "score": 30.9,
+   "score": 30.7,
    "n": 17
   },
   {
@@ -3114,7 +3114,7 @@
   },
   {
    "date": "2017-12-22",
-   "score": 33.8,
+   "score": 33.6,
    "n": 17
   },
   {
@@ -3134,7 +3134,7 @@
   },
   {
    "date": "2017-12-29",
-   "score": 37.0,
+   "score": 36.8,
    "n": 17
   },
   {
@@ -3154,7 +3154,7 @@
   },
   {
    "date": "2018-01-05",
-   "score": 28.3,
+   "score": 28.2,
    "n": 17
   },
   {
@@ -3179,7 +3179,7 @@
   },
   {
    "date": "2018-01-12",
-   "score": 26.6,
+   "score": 26.5,
    "n": 17
   },
   {
@@ -3199,7 +3199,7 @@
   },
   {
    "date": "2018-01-19",
-   "score": 33.0,
+   "score": 32.9,
    "n": 16
   },
   {
@@ -3224,7 +3224,7 @@
   },
   {
    "date": "2018-01-26",
-   "score": 32.4,
+   "score": 32.2,
    "n": 17
   },
   {
@@ -3249,7 +3249,7 @@
   },
   {
    "date": "2018-02-02",
-   "score": 55.1,
+   "score": 54.8,
    "n": 17
   },
   {
@@ -3274,7 +3274,7 @@
   },
   {
    "date": "2018-02-09",
-   "score": 62.0,
+   "score": 61.9,
    "n": 16
   },
   {
@@ -3299,7 +3299,7 @@
   },
   {
    "date": "2018-02-16",
-   "score": 50.4,
+   "score": 50.3,
    "n": 17
   },
   {
@@ -3489,7 +3489,7 @@
   },
   {
    "date": "2018-04-13",
-   "score": 45.6,
+   "score": 45.5,
    "n": 17
   },
   {
@@ -3514,7 +3514,7 @@
   },
   {
    "date": "2018-04-20",
-   "score": 46.4,
+   "score": 46.3,
    "n": 17
   },
   {
@@ -3539,7 +3539,7 @@
   },
   {
    "date": "2018-04-27",
-   "score": 41.7,
+   "score": 41.6,
    "n": 17
   },
   {
@@ -3589,7 +3589,7 @@
   },
   {
    "date": "2018-05-11",
-   "score": 34.9,
+   "score": 34.8,
    "n": 17
   },
   {
@@ -3614,7 +3614,7 @@
   },
   {
    "date": "2018-05-18",
-   "score": 38.4,
+   "score": 38.3,
    "n": 17
   },
   {
@@ -3639,7 +3639,7 @@
   },
   {
    "date": "2018-05-25",
-   "score": 38.4,
+   "score": 38.3,
    "n": 17
   },
   {
@@ -3659,7 +3659,7 @@
   },
   {
    "date": "2018-06-01",
-   "score": 37.6,
+   "score": 37.5,
    "n": 17
   },
   {
@@ -3684,7 +3684,7 @@
   },
   {
    "date": "2018-06-08",
-   "score": 37.0,
+   "score": 36.9,
    "n": 17
   },
   {
@@ -3734,7 +3734,7 @@
   },
   {
    "date": "2018-06-22",
-   "score": 42.9,
+   "score": 42.8,
    "n": 17
   },
   {
@@ -3759,7 +3759,7 @@
   },
   {
    "date": "2018-06-29",
-   "score": 49.0,
+   "score": 48.9,
    "n": 17
   },
   {
@@ -3779,7 +3779,7 @@
   },
   {
    "date": "2018-07-06",
-   "score": 39.5,
+   "score": 39.4,
    "n": 17
   },
   {
@@ -3804,7 +3804,7 @@
   },
   {
    "date": "2018-07-13",
-   "score": 38.3,
+   "score": 38.2,
    "n": 17
   },
   {
@@ -3829,7 +3829,7 @@
   },
   {
    "date": "2018-07-20",
-   "score": 41.1,
+   "score": 41.0,
    "n": 17
   },
   {
@@ -3854,7 +3854,7 @@
   },
   {
    "date": "2018-07-27",
-   "score": 42.8,
+   "score": 42.7,
    "n": 17
   },
   {
@@ -3879,7 +3879,7 @@
   },
   {
    "date": "2018-08-03",
-   "score": 35.8,
+   "score": 35.6,
    "n": 17
   },
   {
@@ -3904,7 +3904,7 @@
   },
   {
    "date": "2018-08-10",
-   "score": 44.8,
+   "score": 44.5,
    "n": 17
   },
   {
@@ -3929,7 +3929,7 @@
   },
   {
    "date": "2018-08-17",
-   "score": 42.3,
+   "score": 42.0,
    "n": 17
   },
   {
@@ -3954,7 +3954,7 @@
   },
   {
    "date": "2018-08-24",
-   "score": 36.3,
+   "score": 36.0,
    "n": 17
   },
   {
@@ -3979,7 +3979,7 @@
   },
   {
    "date": "2018-08-31",
-   "score": 37.4,
+   "score": 37.1,
    "n": 17
   },
   {
@@ -3999,7 +3999,7 @@
   },
   {
    "date": "2018-09-07",
-   "score": 45.3,
+   "score": 45.1,
    "n": 17
   },
   {
@@ -4024,7 +4024,7 @@
   },
   {
    "date": "2018-09-14",
-   "score": 34.9,
+   "score": 34.6,
    "n": 17
   },
   {
@@ -4049,7 +4049,7 @@
   },
   {
    "date": "2018-09-21",
-   "score": 36.6,
+   "score": 36.3,
    "n": 17
   },
   {
@@ -4074,7 +4074,7 @@
   },
   {
    "date": "2018-09-28",
-   "score": 37.6,
+   "score": 37.2,
    "n": 17
   },
   {
@@ -4099,7 +4099,7 @@
   },
   {
    "date": "2018-10-05",
-   "score": 53.1,
+   "score": 52.8,
    "n": 17
   },
   {
@@ -4124,7 +4124,7 @@
   },
   {
    "date": "2018-10-12",
-   "score": 65.5,
+   "score": 65.2,
    "n": 17
   },
   {
@@ -4149,7 +4149,7 @@
   },
   {
    "date": "2018-10-19",
-   "score": 59.9,
+   "score": 59.8,
    "n": 17
   },
   {
@@ -4174,7 +4174,7 @@
   },
   {
    "date": "2018-10-26",
-   "score": 66.3,
+   "score": 66.2,
    "n": 17
   },
   {
@@ -4199,7 +4199,7 @@
   },
   {
    "date": "2018-11-02",
-   "score": 52.5,
+   "score": 52.4,
    "n": 17
   },
   {
@@ -4224,7 +4224,7 @@
   },
   {
    "date": "2018-11-09",
-   "score": 44.5,
+   "score": 44.4,
    "n": 17
   },
   {
@@ -4294,7 +4294,7 @@
   },
   {
    "date": "2018-11-30",
-   "score": 49.2,
+   "score": 49.3,
    "n": 17
   },
   {
@@ -4314,7 +4314,7 @@
   },
   {
    "date": "2018-12-07",
-   "score": 62.2,
+   "score": 62.3,
    "n": 17
   },
   {
@@ -4339,7 +4339,7 @@
   },
   {
    "date": "2018-12-14",
-   "score": 59.4,
+   "score": 59.5,
    "n": 17
   },
   {
@@ -4384,7 +4384,7 @@
   },
   {
    "date": "2018-12-28",
-   "score": 66.9,
+   "score": 67.0,
    "n": 17
   },
   {
@@ -4404,7 +4404,7 @@
   },
   {
    "date": "2019-01-04",
-   "score": 53.9,
+   "score": 54.0,
    "n": 17
   },
   {
@@ -4429,7 +4429,7 @@
   },
   {
    "date": "2019-01-11",
-   "score": 40.2,
+   "score": 40.3,
    "n": 17
   },
   {
@@ -4474,7 +4474,7 @@
   },
   {
    "date": "2019-01-25",
-   "score": 36.4,
+   "score": 36.3,
    "n": 17
   },
   {
@@ -4499,7 +4499,7 @@
   },
   {
    "date": "2019-02-01",
-   "score": 31.5,
+   "score": 31.4,
    "n": 17
   },
   {
@@ -4524,7 +4524,7 @@
   },
   {
    "date": "2019-02-08",
-   "score": 33.3,
+   "score": 33.2,
    "n": 17
   },
   {
@@ -4549,7 +4549,7 @@
   },
   {
    "date": "2019-02-15",
-   "score": 27.1,
+   "score": 26.9,
    "n": 17
   },
   {
@@ -4569,7 +4569,7 @@
   },
   {
    "date": "2019-02-22",
-   "score": 25.6,
+   "score": 25.3,
    "n": 17
   },
   {
@@ -4594,7 +4594,7 @@
   },
   {
    "date": "2019-03-01",
-   "score": 28.6,
+   "score": 28.3,
    "n": 17
   },
   {
@@ -4619,7 +4619,7 @@
   },
   {
    "date": "2019-03-08",
-   "score": 39.3,
+   "score": 39.0,
    "n": 17
   },
   {
@@ -4644,7 +4644,7 @@
   },
   {
    "date": "2019-03-15",
-   "score": 27.5,
+   "score": 27.1,
    "n": 17
   },
   {
@@ -4669,7 +4669,7 @@
   },
   {
    "date": "2019-03-22",
-   "score": 44.2,
+   "score": 43.9,
    "n": 17
   },
   {
@@ -4694,7 +4694,7 @@
   },
   {
    "date": "2019-03-29",
-   "score": 32.0,
+   "score": 31.7,
    "n": 17
   },
   {
@@ -4719,7 +4719,7 @@
   },
   {
    "date": "2019-04-05",
-   "score": 23.8,
+   "score": 23.6,
    "n": 17
   },
   {
@@ -4744,7 +4744,7 @@
   },
   {
    "date": "2019-04-12",
-   "score": 25.9,
+   "score": 25.7,
    "n": 17
   },
   {
@@ -4789,7 +4789,7 @@
   },
   {
    "date": "2019-04-26",
-   "score": 31.8,
+   "score": 31.6,
    "n": 17
   },
   {
@@ -4814,7 +4814,7 @@
   },
   {
    "date": "2019-05-03",
-   "score": 31.1,
+   "score": 30.9,
    "n": 17
   },
   {
@@ -4839,7 +4839,7 @@
   },
   {
    "date": "2019-05-10",
-   "score": 47.9,
+   "score": 47.6,
    "n": 17
   },
   {
@@ -4864,7 +4864,7 @@
   },
   {
    "date": "2019-05-17",
-   "score": 51.4,
+   "score": 51.1,
    "n": 17
   },
   {
@@ -4889,7 +4889,7 @@
   },
   {
    "date": "2019-05-24",
-   "score": 49.0,
+   "score": 48.7,
    "n": 17
   },
   {
@@ -4909,7 +4909,7 @@
   },
   {
    "date": "2019-05-31",
-   "score": 58.6,
+   "score": 58.3,
    "n": 17
   },
   {
@@ -4934,7 +4934,7 @@
   },
   {
    "date": "2019-06-07",
-   "score": 41.4,
+   "score": 41.2,
    "n": 17
   },
   {
@@ -4959,7 +4959,7 @@
   },
   {
    "date": "2019-06-14",
-   "score": 40.3,
+   "score": 40.1,
    "n": 17
   },
   {
@@ -4984,7 +4984,7 @@
   },
   {
    "date": "2019-06-21",
-   "score": 36.8,
+   "score": 36.6,
    "n": 17
   },
   {
@@ -5009,7 +5009,7 @@
   },
   {
    "date": "2019-06-28",
-   "score": 41.2,
+   "score": 41.0,
    "n": 17
   },
   {
@@ -5029,7 +5029,7 @@
   },
   {
    "date": "2019-07-05",
-   "score": 35.5,
+   "score": 35.2,
    "n": 15
   },
   {
@@ -5054,7 +5054,7 @@
   },
   {
    "date": "2019-07-12",
-   "score": 30.1,
+   "score": 29.8,
    "n": 17
   },
   {
@@ -5079,7 +5079,7 @@
   },
   {
    "date": "2019-07-19",
-   "score": 38.1,
+   "score": 37.8,
    "n": 17
   },
   {
@@ -5104,7 +5104,7 @@
   },
   {
    "date": "2019-07-26",
-   "score": 30.4,
+   "score": 30.1,
    "n": 17
   },
   {
@@ -5129,7 +5129,7 @@
   },
   {
    "date": "2019-08-02",
-   "score": 50.6,
+   "score": 50.4,
    "n": 17
   },
   {
@@ -5154,7 +5154,7 @@
   },
   {
    "date": "2019-08-09",
-   "score": 50.6,
+   "score": 50.5,
    "n": 17
   },
   {
@@ -5204,7 +5204,7 @@
   },
   {
    "date": "2019-08-23",
-   "score": 57.4,
+   "score": 57.3,
    "n": 17
   },
   {
@@ -5249,7 +5249,7 @@
   },
   {
    "date": "2019-09-06",
-   "score": 35.9,
+   "score": 35.8,
    "n": 17
   },
   {
@@ -5299,7 +5299,7 @@
   },
   {
    "date": "2019-09-20",
-   "score": 40.1,
+   "score": 40.0,
    "n": 17
   },
   {
@@ -5374,7 +5374,7 @@
   },
   {
    "date": "2019-10-11",
-   "score": 45.7,
+   "score": 45.6,
    "n": 17
   },
   {
@@ -5399,7 +5399,7 @@
   },
   {
    "date": "2019-10-18",
-   "score": 36.9,
+   "score": 36.8,
    "n": 17
   },
   {
@@ -5424,7 +5424,7 @@
   },
   {
    "date": "2019-10-25",
-   "score": 30.8,
+   "score": 30.7,
    "n": 17
   },
   {
@@ -5449,7 +5449,7 @@
   },
   {
    "date": "2019-11-01",
-   "score": 28.8,
+   "score": 28.7,
    "n": 17
   },
   {
@@ -5474,7 +5474,7 @@
   },
   {
    "date": "2019-11-08",
-   "score": 29.3,
+   "score": 29.1,
    "n": 17
   },
   {
@@ -5499,7 +5499,7 @@
   },
   {
    "date": "2019-11-15",
-   "score": 29.4,
+   "score": 29.2,
    "n": 17
   },
   {
@@ -5524,7 +5524,7 @@
   },
   {
    "date": "2019-11-22",
-   "score": 31.8,
+   "score": 31.6,
    "n": 17
   },
   {
@@ -5544,7 +5544,7 @@
   },
   {
    "date": "2019-11-29",
-   "score": 29.8,
+   "score": 29.7,
    "n": 17
   },
   {
@@ -5569,7 +5569,7 @@
   },
   {
    "date": "2019-12-06",
-   "score": 37.4,
+   "score": 37.3,
    "n": 17
   },
   {
@@ -5594,7 +5594,7 @@
   },
   {
    "date": "2019-12-13",
-   "score": 39.5,
+   "score": 39.3,
    "n": 17
   },
   {
@@ -5619,7 +5619,7 @@
   },
   {
    "date": "2019-12-20",
-   "score": 31.5,
+   "score": 31.4,
    "n": 17
   },
   {
@@ -5639,7 +5639,7 @@
   },
   {
    "date": "2019-12-27",
-   "score": 34.5,
+   "score": 34.4,
    "n": 17
   },
   {
@@ -5659,7 +5659,7 @@
   },
   {
    "date": "2020-01-03",
-   "score": 35.4,
+   "score": 35.3,
    "n": 17
   },
   {
@@ -5684,7 +5684,7 @@
   },
   {
    "date": "2020-01-10",
-   "score": 29.0,
+   "score": 28.8,
    "n": 17
   },
   {
@@ -5709,7 +5709,7 @@
   },
   {
    "date": "2020-01-17",
-   "score": 25.2,
+   "score": 25.0,
    "n": 17
   },
   {
@@ -5729,7 +5729,7 @@
   },
   {
    "date": "2020-01-24",
-   "score": 41.3,
+   "score": 41.2,
    "n": 17
   },
   {
@@ -5754,7 +5754,7 @@
   },
   {
    "date": "2020-01-31",
-   "score": 55.9,
+   "score": 55.8,
    "n": 17
   },
   {
@@ -5779,7 +5779,7 @@
   },
   {
    "date": "2020-02-07",
-   "score": 41.9,
+   "score": 41.7,
    "n": 17
   },
   {
@@ -5804,7 +5804,7 @@
   },
   {
    "date": "2020-02-14",
-   "score": 37.0,
+   "score": 36.9,
    "n": 17
   },
   {
@@ -5824,7 +5824,7 @@
   },
   {
    "date": "2020-02-21",
-   "score": 47.9,
+   "score": 48.0,
    "n": 17
   },
   {
@@ -5849,7 +5849,7 @@
   },
   {
    "date": "2020-02-28",
-   "score": 70.5,
+   "score": 70.6,
    "n": 17
   },
   {
@@ -5874,7 +5874,7 @@
   },
   {
    "date": "2020-03-06",
-   "score": 71.6,
+   "score": 71.7,
    "n": 17
   },
   {
@@ -6119,7 +6119,7 @@
   },
   {
    "date": "2020-05-15",
-   "score": 54.4,
+   "score": 54.5,
    "n": 17
   },
   {
@@ -6189,7 +6189,7 @@
   },
   {
    "date": "2020-06-05",
-   "score": 38.4,
+   "score": 38.5,
    "n": 17
   },
   {
@@ -6239,7 +6239,7 @@
   },
   {
    "date": "2020-06-19",
-   "score": 43.2,
+   "score": 43.3,
    "n": 17
   },
   {
@@ -6264,7 +6264,7 @@
   },
   {
    "date": "2020-06-26",
-   "score": 46.7,
+   "score": 46.8,
    "n": 17
   },
   {
@@ -6309,7 +6309,7 @@
   },
   {
    "date": "2020-07-10",
-   "score": 39.5,
+   "score": 39.6,
    "n": 17
   },
   {
@@ -6334,7 +6334,7 @@
   },
   {
    "date": "2020-07-17",
-   "score": 29.7,
+   "score": 29.8,
    "n": 17
   },
   {
@@ -6359,7 +6359,7 @@
   },
   {
    "date": "2020-07-24",
-   "score": 30.9,
+   "score": 31.0,
    "n": 17
   },
   {
@@ -6459,7 +6459,7 @@
   },
   {
    "date": "2020-08-21",
-   "score": 35.8,
+   "score": 35.7,
    "n": 17
   },
   {
@@ -6704,7 +6704,7 @@
   },
   {
    "date": "2020-10-30",
-   "score": 60.2,
+   "score": 60.1,
    "n": 17
   },
   {
@@ -6754,7 +6754,7 @@
   },
   {
    "date": "2020-11-13",
-   "score": 33.6,
+   "score": 33.5,
    "n": 17
   },
   {
@@ -6824,7 +6824,7 @@
   },
   {
    "date": "2020-12-04",
-   "score": 22.9,
+   "score": 22.8,
    "n": 17
   },
   {
@@ -6849,7 +6849,7 @@
   },
   {
    "date": "2020-12-11",
-   "score": 31.0,
+   "score": 30.9,
    "n": 17
   },
   {
@@ -6874,7 +6874,7 @@
   },
   {
    "date": "2020-12-18",
-   "score": 24.1,
+   "score": 24.0,
    "n": 17
   },
   {
@@ -6939,7 +6939,7 @@
   },
   {
    "date": "2021-01-08",
-   "score": 22.3,
+   "score": 22.2,
    "n": 17
   },
   {
@@ -6984,7 +6984,7 @@
   },
   {
    "date": "2021-01-22",
-   "score": 19.9,
+   "score": 19.8,
    "n": 15
   },
   {
@@ -7009,7 +7009,7 @@
   },
   {
    "date": "2021-01-29",
-   "score": 39.2,
+   "score": 39.1,
    "n": 17
   },
   {
@@ -7059,7 +7059,7 @@
   },
   {
    "date": "2021-02-12",
-   "score": 23.8,
+   "score": 23.7,
    "n": 17
   },
   {
@@ -7079,7 +7079,7 @@
   },
   {
    "date": "2021-02-19",
-   "score": 29.0,
+   "score": 28.9,
    "n": 17
   },
   {
@@ -7274,7 +7274,7 @@
   },
   {
    "date": "2021-04-16",
-   "score": 25.7,
+   "score": 25.8,
    "n": 17
   },
   {
@@ -7299,7 +7299,7 @@
   },
   {
    "date": "2021-04-23",
-   "score": 26.4,
+   "score": 26.5,
    "n": 17
   },
   {
@@ -7324,7 +7324,7 @@
   },
   {
    "date": "2021-04-30",
-   "score": 28.0,
+   "score": 28.1,
    "n": 17
   },
   {
@@ -7349,7 +7349,7 @@
   },
   {
    "date": "2021-05-07",
-   "score": 23.6,
+   "score": 23.7,
    "n": 17
   },
   {
@@ -7444,7 +7444,7 @@
   },
   {
    "date": "2021-06-04",
-   "score": 26.9,
+   "score": 27.0,
    "n": 17
   },
   {
@@ -7494,7 +7494,7 @@
   },
   {
    "date": "2021-06-18",
-   "score": 46.1,
+   "score": 46.2,
    "n": 17
   },
   {
@@ -7519,7 +7519,7 @@
   },
   {
    "date": "2021-06-25",
-   "score": 31.5,
+   "score": 31.6,
    "n": 17
   },
   {
@@ -7564,7 +7564,7 @@
   },
   {
    "date": "2021-07-09",
-   "score": 31.8,
+   "score": 31.9,
    "n": 17
   },
   {
@@ -7589,7 +7589,7 @@
   },
   {
    "date": "2021-07-16",
-   "score": 38.7,
+   "score": 38.8,
    "n": 17
   },
   {
@@ -7664,7 +7664,7 @@
   },
   {
    "date": "2021-08-06",
-   "score": 34.6,
+   "score": 34.7,
    "n": 17
   },
   {
@@ -7689,7 +7689,7 @@
   },
   {
    "date": "2021-08-13",
-   "score": 33.0,
+   "score": 33.1,
    "n": 17
   },
   {
@@ -7739,7 +7739,7 @@
   },
   {
    "date": "2021-08-27",
-   "score": 32.5,
+   "score": 32.6,
    "n": 17
   },
   {
@@ -7764,7 +7764,7 @@
   },
   {
    "date": "2021-09-03",
-   "score": 30.8,
+   "score": 30.9,
    "n": 17
   },
   {
@@ -7784,7 +7784,7 @@
   },
   {
    "date": "2021-09-10",
-   "score": 45.8,
+   "score": 45.9,
    "n": 17
   },
   {
@@ -7809,7 +7809,7 @@
   },
   {
    "date": "2021-09-17",
-   "score": 43.0,
+   "score": 43.1,
    "n": 17
   },
   {
@@ -7834,7 +7834,7 @@
   },
   {
    "date": "2021-09-24",
-   "score": 36.2,
+   "score": 36.3,
    "n": 17
   },
   {
@@ -7859,7 +7859,7 @@
   },
   {
    "date": "2021-10-01",
-   "score": 43.4,
+   "score": 43.5,
    "n": 17
   },
   {
@@ -7884,7 +7884,7 @@
   },
   {
    "date": "2021-10-08",
-   "score": 37.3,
+   "score": 37.4,
    "n": 17
   },
   {
@@ -7909,7 +7909,7 @@
   },
   {
    "date": "2021-10-15",
-   "score": 32.2,
+   "score": 32.3,
    "n": 17
   },
   {
@@ -7934,7 +7934,7 @@
   },
   {
    "date": "2021-10-22",
-   "score": 31.1,
+   "score": 31.2,
    "n": 17
   },
   {
@@ -7959,7 +7959,7 @@
   },
   {
    "date": "2021-10-29",
-   "score": 35.6,
+   "score": 35.7,
    "n": 17
   },
   {
@@ -8009,7 +8009,7 @@
   },
   {
    "date": "2021-11-12",
-   "score": 35.1,
+   "score": 35.2,
    "n": 17
   },
   {
@@ -8034,7 +8034,7 @@
   },
   {
    "date": "2021-11-19",
-   "score": 40.2,
+   "score": 40.4,
    "n": 17
   },
   {
@@ -8054,7 +8054,7 @@
   },
   {
    "date": "2021-11-26",
-   "score": 59.9,
+   "score": 60.0,
    "n": 17
   },
   {
@@ -8079,7 +8079,7 @@
   },
   {
    "date": "2021-12-03",
-   "score": 57.7,
+   "score": 57.8,
    "n": 17
   },
   {
@@ -8104,7 +8104,7 @@
   },
   {
    "date": "2021-12-10",
-   "score": 41.0,
+   "score": 41.2,
    "n": 17
   },
   {
@@ -8129,7 +8129,7 @@
   },
   {
    "date": "2021-12-17",
-   "score": 45.7,
+   "score": 45.8,
    "n": 17
   },
   {
@@ -8174,7 +8174,7 @@
   },
   {
    "date": "2021-12-31",
-   "score": 37.6,
+   "score": 37.7,
    "n": 17
   },
   {
@@ -8199,7 +8199,7 @@
   },
   {
    "date": "2022-01-07",
-   "score": 39.9,
+   "score": 40.0,
    "n": 17
   },
   {
@@ -8224,7 +8224,7 @@
   },
   {
    "date": "2022-01-14",
-   "score": 42.8,
+   "score": 42.9,
    "n": 17
   },
   {
@@ -8244,7 +8244,7 @@
   },
   {
    "date": "2022-01-21",
-   "score": 61.0,
+   "score": 61.2,
    "n": 17
   },
   {
@@ -8269,7 +8269,7 @@
   },
   {
    "date": "2022-01-28",
-   "score": 58.0,
+   "score": 58.1,
    "n": 17
   },
   {
@@ -8294,7 +8294,7 @@
   },
   {
    "date": "2022-02-04",
-   "score": 50.9,
+   "score": 51.0,
    "n": 17
   },
   {
@@ -8319,7 +8319,7 @@
   },
   {
    "date": "2022-02-11",
-   "score": 56.0,
+   "score": 56.1,
    "n": 17
   },
   {
@@ -8344,7 +8344,7 @@
   },
   {
    "date": "2022-02-18",
-   "score": 57.0,
+   "score": 57.2,
    "n": 17
   },
   {
@@ -8364,7 +8364,7 @@
   },
   {
    "date": "2022-02-25",
-   "score": 55.2,
+   "score": 55.3,
    "n": 17
   },
   {
@@ -8389,7 +8389,7 @@
   },
   {
    "date": "2022-03-04",
-   "score": 57.0,
+   "score": 57.1,
    "n": 17
   },
   {
@@ -8414,7 +8414,7 @@
   },
   {
    "date": "2022-03-11",
-   "score": 58.2,
+   "score": 58.3,
    "n": 17
   },
   {
@@ -8439,7 +8439,7 @@
   },
   {
    "date": "2022-03-18",
-   "score": 43.8,
+   "score": 43.9,
    "n": 17
   },
   {
@@ -8464,7 +8464,7 @@
   },
   {
    "date": "2022-03-25",
-   "score": 41.1,
+   "score": 41.2,
    "n": 17
   },
   {
@@ -8489,7 +8489,7 @@
   },
   {
    "date": "2022-04-01",
-   "score": 42.1,
+   "score": 42.2,
    "n": 17
   },
   {
@@ -8514,7 +8514,7 @@
   },
   {
    "date": "2022-04-08",
-   "score": 45.0,
+   "score": 45.1,
    "n": 17
   },
   {
@@ -8559,7 +8559,7 @@
   },
   {
    "date": "2022-04-22",
-   "score": 58.5,
+   "score": 58.7,
    "n": 17
   },
   {
@@ -8584,7 +8584,7 @@
   },
   {
    "date": "2022-04-29",
-   "score": 64.9,
+   "score": 65.0,
    "n": 17
   },
   {
@@ -8609,7 +8609,7 @@
   },
   {
    "date": "2022-05-06",
-   "score": 58.4,
+   "score": 58.5,
    "n": 17
   },
   {
@@ -8634,7 +8634,7 @@
   },
   {
    "date": "2022-05-13",
-   "score": 59.1,
+   "score": 59.2,
    "n": 17
   },
   {
@@ -8659,7 +8659,7 @@
   },
   {
    "date": "2022-05-20",
-   "score": 57.8,
+   "score": 57.9,
    "n": 17
   },
   {
@@ -8819,7 +8819,7 @@
   },
   {
    "date": "2022-07-08",
-   "score": 49.7,
+   "score": 49.8,
    "n": 17
   },
   {
@@ -8869,7 +8869,7 @@
   },
   {
    "date": "2022-07-22",
-   "score": 49.1,
+   "score": 49.2,
    "n": 17
   },
   {
@@ -8969,7 +8969,7 @@
   },
   {
    "date": "2022-08-19",
-   "score": 43.4,
+   "score": 43.5,
    "n": 17
   },
   {
@@ -9019,7 +9019,7 @@
   },
   {
    "date": "2022-09-02",
-   "score": 57.3,
+   "score": 57.4,
    "n": 17
   },
   {
@@ -9064,7 +9064,7 @@
   },
   {
    "date": "2022-09-16",
-   "score": 57.2,
+   "score": 57.3,
    "n": 17
   },
   {
@@ -9089,7 +9089,7 @@
   },
   {
    "date": "2022-09-23",
-   "score": 67.1,
+   "score": 67.2,
    "n": 17
   },
   {
@@ -9114,7 +9114,7 @@
   },
   {
    "date": "2022-09-30",
-   "score": 68.4,
+   "score": 68.5,
    "n": 17
   },
   {
@@ -9139,7 +9139,7 @@
   },
   {
    "date": "2022-10-07",
-   "score": 63.1,
+   "score": 63.2,
    "n": 17
   },
   {
@@ -9164,7 +9164,7 @@
   },
   {
    "date": "2022-10-14",
-   "score": 62.8,
+   "score": 62.9,
    "n": 17
   },
   {
@@ -9189,7 +9189,7 @@
   },
   {
    "date": "2022-10-21",
-   "score": 57.2,
+   "score": 57.3,
    "n": 17
   },
   {
@@ -9214,7 +9214,7 @@
   },
   {
    "date": "2022-10-28",
-   "score": 53.3,
+   "score": 53.4,
    "n": 17
   },
   {
@@ -9264,7 +9264,7 @@
   },
   {
    "date": "2022-11-11",
-   "score": 42.4,
+   "score": 42.5,
    "n": 16
   },
   {
@@ -9429,7 +9429,7 @@
   },
   {
    "date": "2022-12-30",
-   "score": 46.5,
+   "score": 46.6,
    "n": 17
   },
   {
@@ -9474,7 +9474,7 @@
   },
   {
    "date": "2023-01-13",
-   "score": 34.6,
+   "score": 34.7,
    "n": 17
   },
   {
@@ -9494,7 +9494,7 @@
   },
   {
    "date": "2023-01-20",
-   "score": 38.7,
+   "score": 38.8,
    "n": 17
   },
   {
@@ -9519,7 +9519,7 @@
   },
   {
    "date": "2023-01-27",
-   "score": 40.9,
+   "score": 41.0,
    "n": 17
   },
   {
@@ -9544,7 +9544,7 @@
   },
   {
    "date": "2023-02-03",
-   "score": 38.0,
+   "score": 38.1,
    "n": 17
   },
   {
@@ -9569,7 +9569,7 @@
   },
   {
    "date": "2023-02-10",
-   "score": 46.6,
+   "score": 46.7,
    "n": 17
   },
   {
@@ -9594,7 +9594,7 @@
   },
   {
    "date": "2023-02-17",
-   "score": 42.5,
+   "score": 42.6,
    "n": 17
   },
   {
@@ -9614,7 +9614,7 @@
   },
   {
    "date": "2023-02-24",
-   "score": 48.7,
+   "score": 48.8,
    "n": 17
   },
   {
@@ -9664,7 +9664,7 @@
   },
   {
    "date": "2023-03-10",
-   "score": 63.0,
+   "score": 63.1,
    "n": 17
   },
   {
@@ -9714,7 +9714,7 @@
   },
   {
    "date": "2023-03-24",
-   "score": 50.9,
+   "score": 51.0,
    "n": 17
   },
   {
@@ -9739,7 +9739,7 @@
   },
   {
    "date": "2023-03-31",
-   "score": 39.1,
+   "score": 39.2,
    "n": 17
   },
   {
@@ -9834,7 +9834,7 @@
   },
   {
    "date": "2023-04-28",
-   "score": 42.9,
+   "score": 43.0,
    "n": 17
   },
   {
@@ -9859,7 +9859,7 @@
   },
   {
    "date": "2023-05-05",
-   "score": 43.4,
+   "score": 43.5,
    "n": 17
   },
   {
@@ -9884,7 +9884,7 @@
   },
   {
    "date": "2023-05-12",
-   "score": 43.4,
+   "score": 43.5,
    "n": 17
   },
   {
@@ -9934,7 +9934,7 @@
   },
   {
    "date": "2023-05-26",
-   "score": 47.5,
+   "score": 47.6,
    "n": 17
   },
   {
@@ -10094,7 +10094,7 @@
   },
   {
    "date": "2023-07-14",
-   "score": 32.8,
+   "score": 32.9,
    "n": 17
   },
   {
@@ -10144,7 +10144,7 @@
   },
   {
    "date": "2023-07-28",
-   "score": 31.7,
+   "score": 31.8,
    "n": 17
   },
   {
@@ -10169,7 +10169,7 @@
   },
   {
    "date": "2023-08-04",
-   "score": 41.9,
+   "score": 42.0,
    "n": 17
   },
   {
@@ -10194,7 +10194,7 @@
   },
   {
    "date": "2023-08-11",
-   "score": 37.3,
+   "score": 37.4,
    "n": 17
   },
   {
@@ -10219,7 +10219,7 @@
   },
   {
    "date": "2023-08-18",
-   "score": 44.8,
+   "score": 44.9,
    "n": 17
   },
   {
@@ -10244,7 +10244,7 @@
   },
   {
    "date": "2023-08-25",
-   "score": 37.8,
+   "score": 37.9,
    "n": 17
   },
   {
@@ -10289,7 +10289,7 @@
   },
   {
    "date": "2023-09-08",
-   "score": 37.3,
+   "score": 37.4,
    "n": 18
   },
   {
@@ -10339,7 +10339,7 @@
   },
   {
    "date": "2023-09-22",
-   "score": 48.7,
+   "score": 48.8,
    "n": 18
   },
   {
@@ -10389,7 +10389,7 @@
   },
   {
    "date": "2023-10-06",
-   "score": 52.5,
+   "score": 52.6,
    "n": 19
   },
   {
@@ -10414,7 +10414,7 @@
   },
   {
    "date": "2023-10-13",
-   "score": 56.2,
+   "score": 56.3,
    "n": 19
   },
   {
@@ -10439,7 +10439,7 @@
   },
   {
    "date": "2023-10-20",
-   "score": 62.3,
+   "score": 62.4,
    "n": 19
   },
   {
@@ -10464,7 +10464,7 @@
   },
   {
    "date": "2023-10-27",
-   "score": 61.8,
+   "score": 61.9,
    "n": 19
   },
   {
@@ -10489,7 +10489,7 @@
   },
   {
    "date": "2023-11-03",
-   "score": 41.1,
+   "score": 41.2,
    "n": 19
   },
   {
@@ -10514,7 +10514,7 @@
   },
   {
    "date": "2023-11-10",
-   "score": 41.2,
+   "score": 41.3,
    "n": 19
   },
   {
@@ -10539,7 +10539,7 @@
   },
   {
    "date": "2023-11-17",
-   "score": 35.5,
+   "score": 35.6,
    "n": 19
   },
   {
@@ -10634,7 +10634,7 @@
   },
   {
    "date": "2023-12-15",
-   "score": 32.9,
+   "score": 33.0,
    "n": 19
   },
   {
@@ -10659,7 +10659,7 @@
   },
   {
    "date": "2023-12-22",
-   "score": 31.6,
+   "score": 31.7,
    "n": 19
   },
   {
@@ -10679,7 +10679,7 @@
   },
   {
    "date": "2023-12-29",
-   "score": 30.8,
+   "score": 30.9,
    "n": 19
   },
   {
@@ -10699,7 +10699,7 @@
   },
   {
    "date": "2024-01-05",
-   "score": 34.1,
+   "score": 34.2,
    "n": 19
   },
   {
@@ -10724,7 +10724,7 @@
   },
   {
    "date": "2024-01-12",
-   "score": 34.9,
+   "score": 35.0,
    "n": 19
   },
   {
@@ -10744,7 +10744,7 @@
   },
   {
    "date": "2024-01-19",
-   "score": 34.3,
+   "score": 34.4,
    "n": 19
   },
   {
@@ -10769,7 +10769,7 @@
   },
   {
    "date": "2024-01-26",
-   "score": 34.2,
+   "score": 34.3,
    "n": 19
   },
   {
@@ -10819,7 +10819,7 @@
   },
   {
    "date": "2024-02-09",
-   "score": 29.9,
+   "score": 30.0,
    "n": 19
   },
   {
@@ -10864,7 +10864,7 @@
   },
   {
    "date": "2024-02-23",
-   "score": 27.2,
+   "score": 27.3,
    "n": 20
   },
   {
@@ -10889,7 +10889,7 @@
   },
   {
    "date": "2024-03-01",
-   "score": 26.7,
+   "score": 26.8,
    "n": 20
   },
   {
@@ -10939,7 +10939,7 @@
   },
   {
    "date": "2024-03-15",
-   "score": 33.8,
+   "score": 33.9,
    "n": 20
   },
   {
@@ -10964,7 +10964,7 @@
   },
   {
    "date": "2024-03-22",
-   "score": 26.6,
+   "score": 26.7,
    "n": 20
   },
   {
@@ -11009,7 +11009,7 @@
   },
   {
    "date": "2024-04-05",
-   "score": 37.0,
+   "score": 37.1,
    "n": 20
   },
   {
@@ -11034,7 +11034,7 @@
   },
   {
    "date": "2024-04-12",
-   "score": 46.5,
+   "score": 46.6,
    "n": 20
   },
   {
@@ -11059,7 +11059,7 @@
   },
   {
    "date": "2024-04-19",
-   "score": 48.2,
+   "score": 48.3,
    "n": 20
   },
   {
@@ -11159,7 +11159,7 @@
   },
   {
    "date": "2024-05-17",
-   "score": 28.1,
+   "score": 28.2,
    "n": 20
   },
   {
@@ -11204,7 +11204,7 @@
   },
   {
    "date": "2024-05-31",
-   "score": 37.3,
+   "score": 37.4,
    "n": 20
   },
   {
@@ -11229,7 +11229,7 @@
   },
   {
    "date": "2024-06-07",
-   "score": 39.4,
+   "score": 39.5,
    "n": 20
   },
   {
@@ -11254,7 +11254,7 @@
   },
   {
    "date": "2024-06-14",
-   "score": 41.7,
+   "score": 41.8,
    "n": 20
   },
   {
@@ -11274,7 +11274,7 @@
   },
   {
    "date": "2024-06-21",
-   "score": 38.3,
+   "score": 38.4,
    "n": 20
   },
   {
@@ -11299,7 +11299,7 @@
   },
   {
    "date": "2024-06-28",
-   "score": 37.0,
+   "score": 37.1,
    "n": 20
   },
   {
@@ -11344,7 +11344,7 @@
   },
   {
    "date": "2024-07-12",
-   "score": 33.7,
+   "score": 33.8,
    "n": 20
   },
   {
@@ -11369,7 +11369,7 @@
   },
   {
    "date": "2024-07-19",
-   "score": 40.4,
+   "score": 40.5,
    "n": 20
   },
   {
@@ -11394,7 +11394,7 @@
   },
   {
    "date": "2024-07-26",
-   "score": 40.9,
+   "score": 41.0,
    "n": 20
   },
   {
@@ -11419,7 +11419,7 @@
   },
   {
    "date": "2024-08-02",
-   "score": 57.4,
+   "score": 57.5,
    "n": 20
   },
   {
@@ -11444,7 +11444,7 @@
   },
   {
    "date": "2024-08-09",
-   "score": 51.6,
+   "score": 51.7,
    "n": 20
   },
   {
@@ -11494,7 +11494,7 @@
   },
   {
    "date": "2024-08-23",
-   "score": 35.4,
+   "score": 35.5,
    "n": 20
   },
   {
@@ -11564,7 +11564,7 @@
   },
   {
    "date": "2024-09-13",
-   "score": 39.2,
+   "score": 39.3,
    "n": 20
   },
   {
@@ -11589,7 +11589,7 @@
   },
   {
    "date": "2024-09-20",
-   "score": 30.5,
+   "score": 30.6,
    "n": 20
   },
   {
@@ -11614,7 +11614,7 @@
   },
   {
    "date": "2024-09-27",
-   "score": 33.1,
+   "score": 33.2,
    "n": 20
   },
   {
@@ -11639,7 +11639,7 @@
   },
   {
    "date": "2024-10-04",
-   "score": 33.3,
+   "score": 33.4,
    "n": 20
   },
   {
@@ -11664,7 +11664,7 @@
   },
   {
    "date": "2024-10-11",
-   "score": 37.8,
+   "score": 37.9,
    "n": 20
   },
   {
@@ -11689,7 +11689,7 @@
   },
   {
    "date": "2024-10-18",
-   "score": 35.3,
+   "score": 35.4,
    "n": 20
   },
   {
@@ -11714,7 +11714,7 @@
   },
   {
    "date": "2024-10-25",
-   "score": 43.8,
+   "score": 43.9,
    "n": 20
   },
   {
@@ -11739,7 +11739,7 @@
   },
   {
    "date": "2024-11-01",
-   "score": 48.8,
+   "score": 48.9,
    "n": 20
   },
   {
@@ -11764,7 +11764,7 @@
   },
   {
    "date": "2024-11-08",
-   "score": 28.0,
+   "score": 28.1,
    "n": 20
   },
   {
@@ -11789,7 +11789,7 @@
   },
   {
    "date": "2024-11-15",
-   "score": 36.5,
+   "score": 36.6,
    "n": 20
   },
   {
@@ -11859,7 +11859,7 @@
   },
   {
    "date": "2024-12-06",
-   "score": 30.8,
+   "score": 30.9,
    "n": 20
   },
   {
@@ -11909,7 +11909,7 @@
   },
   {
    "date": "2024-12-20",
-   "score": 45.2,
+   "score": 45.3,
    "n": 20
   },
   {
@@ -11994,7 +11994,7 @@
   },
   {
    "date": "2025-01-17",
-   "score": 35.8,
+   "score": 35.9,
    "n": 20
   },
   {
@@ -12039,7 +12039,7 @@
   },
   {
    "date": "2025-01-31",
-   "score": 36.3,
+   "score": 36.4,
    "n": 20
   },
   {
@@ -12089,7 +12089,7 @@
   },
   {
    "date": "2025-02-14",
-   "score": 34.5,
+   "score": 34.6,
    "n": 20
   },
   {
@@ -12109,7 +12109,7 @@
   },
   {
    "date": "2025-02-21",
-   "score": 42.8,
+   "score": 42.9,
    "n": 20
   },
   {
@@ -12134,7 +12134,7 @@
   },
   {
    "date": "2025-02-28",
-   "score": 46.4,
+   "score": 46.5,
    "n": 20
   },
   {
@@ -12159,7 +12159,7 @@
   },
   {
    "date": "2025-03-07",
-   "score": 51.3,
+   "score": 51.4,
    "n": 20
   },
   {
@@ -12184,7 +12184,7 @@
   },
   {
    "date": "2025-03-14",
-   "score": 52.6,
+   "score": 52.7,
    "n": 20
   },
   {
@@ -12209,7 +12209,7 @@
   },
   {
    "date": "2025-03-21",
-   "score": 45.6,
+   "score": 45.7,
    "n": 20
   },
   {
@@ -12234,7 +12234,7 @@
   },
   {
    "date": "2025-03-28",
-   "score": 54.6,
+   "score": 54.7,
    "n": 20
   },
   {
@@ -12259,7 +12259,7 @@
   },
   {
    "date": "2025-04-04",
-   "score": 72.3,
+   "score": 72.4,
    "n": 20
   },
   {
@@ -12284,7 +12284,7 @@
   },
   {
    "date": "2025-04-11",
-   "score": 71.7,
+   "score": 71.8,
    "n": 20
   },
   {
@@ -12329,7 +12329,7 @@
   },
   {
    "date": "2025-04-25",
-   "score": 52.1,
+   "score": 52.2,
    "n": 20
   },
   {
@@ -12354,7 +12354,7 @@
   },
   {
    "date": "2025-05-02",
-   "score": 43.1,
+   "score": 43.2,
    "n": 20
   },
   {
@@ -12404,7 +12404,7 @@
   },
   {
    "date": "2025-05-16",
-   "score": 31.5,
+   "score": 31.6,
    "n": 20
   },
   {
@@ -12449,7 +12449,7 @@
   },
   {
    "date": "2025-05-30",
-   "score": 40.0,
+   "score": 40.1,
    "n": 20
   },
   {
@@ -12499,7 +12499,7 @@
   },
   {
    "date": "2025-06-13",
-   "score": 46.4,
+   "score": 46.5,
    "n": 20
   },
   {
@@ -12519,7 +12519,7 @@
   },
   {
    "date": "2025-06-20",
-   "score": 42.7,
+   "score": 42.8,
    "n": 20
   },
   {
@@ -12614,7 +12614,7 @@
   },
   {
    "date": "2025-07-18",
-   "score": 33.4,
+   "score": 33.5,
    "n": 20
   },
   {
@@ -12639,7 +12639,7 @@
   },
   {
    "date": "2025-07-25",
-   "score": 30.5,
+   "score": 30.6,
    "n": 20
   },
   {
@@ -12664,7 +12664,7 @@
   },
   {
    "date": "2025-08-01",
-   "score": 46.8,
+   "score": 46.9,
    "n": 20
   },
   {
@@ -12689,7 +12689,7 @@
   },
   {
    "date": "2025-08-08",
-   "score": 35.6,
+   "score": 35.7,
    "n": 20
   },
   {
@@ -12714,7 +12714,7 @@
   },
   {
    "date": "2025-08-15",
-   "score": 36.7,
+   "score": 36.8,
    "n": 20
   },
   {
@@ -12764,7 +12764,7 @@
   },
   {
    "date": "2025-08-29",
-   "score": 31.0,
+   "score": 31.1,
    "n": 20
   },
   {
@@ -12784,7 +12784,7 @@
   },
   {
    "date": "2025-09-05",
-   "score": 32.0,
+   "score": 32.1,
    "n": 20
   },
   {
@@ -12859,7 +12859,7 @@
   },
   {
    "date": "2025-09-26",
-   "score": 30.2,
+   "score": 30.3,
    "n": 20
   },
   {
@@ -12884,7 +12884,7 @@
   },
   {
    "date": "2025-10-03",
-   "score": 29.9,
+   "score": 30.0,
    "n": 20
   },
   {
@@ -12909,7 +12909,7 @@
   },
   {
    "date": "2025-10-10",
-   "score": 48.3,
+   "score": 48.4,
    "n": 20
   },
   {
@@ -13034,7 +13034,7 @@
   },
   {
    "date": "2025-11-14",
-   "score": 39.7,
+   "score": 39.8,
    "n": 20
   },
   {
@@ -13059,7 +13059,7 @@
   },
   {
    "date": "2025-11-21",
-   "score": 45.6,
+   "score": 45.7,
    "n": 20
   },
   {
@@ -13079,7 +13079,7 @@
   },
   {
    "date": "2025-11-28",
-   "score": 28.1,
+   "score": 28.2,
    "n": 20
   },
   {
@@ -13244,7 +13244,7 @@
   },
   {
    "date": "2026-01-16",
-   "score": 25.1,
+   "score": 25.2,
    "n": 20
   },
   {
@@ -13314,7 +13314,7 @@
   },
   {
    "date": "2026-02-06",
-   "score": 32.8,
+   "score": 32.9,
    "n": 20
   },
   {
@@ -13459,7 +13459,7 @@
   },
   {
    "date": "2026-03-20",
-   "score": 55.2,
+   "score": 55.3,
    "n": 20
   },
   {
@@ -13484,7 +13484,7 @@
   },
   {
    "date": "2026-03-27",
-   "score": 60.2,
+   "score": 60.3,
    "n": 20
   },
   {
@@ -13629,7 +13629,7 @@
   },
   {
    "date": "2026-05-08",
-   "score": 38.5,
+   "score": 38.6,
    "n": 20
   },
   {
@@ -13889,7 +13889,7 @@
   },
   {
    "date": "2026-07-24",
-   "score": 41.8,
+   "score": 41.9,
    "n": 18
   },
   {
@@ -13914,7 +13914,7 @@
   },
   {
    "date": "2026-07-31",
-   "score": 41.0,
+   "score": 41.1,
    "n": 18
   },
   {
@@ -13939,7 +13939,7 @@
   },
   {
    "date": "2026-08-07",
-   "score": 34.5,
+   "score": 34.7,
    "n": 18
   },
   {
@@ -13964,7 +13964,7 @@
   },
   {
    "date": "2026-08-14",
-   "score": 32.0,
+   "score": 32.2,
    "n": 18
   },
   {
@@ -13989,7 +13989,7 @@
   },
   {
    "date": "2026-08-21",
-   "score": 32.9,
+   "score": 33.2,
    "n": 18
   },
   {
@@ -14019,17 +14019,17 @@
   },
   {
    "date": "2026-09-01",
-   "score": 35.8,
-   "n": 14
+   "score": 38.5,
+   "n": 15
   },
   {
-   "date": "2026-09-02",
-   "score": 35.1,
+   "date": "2026-09-03",
+   "score": 32.9,
    "regime": "BULL"
   }
  ],
  "notes": [
-  "breadth data lagged by 1 thinly-covered date(s), latest good 2026-09-01",
+  "breadth data lagged by 2 thinly-covered date(s), latest good 2026-09-01",
   "score history rebuilt from 2679 sessions"
  ],
  "errors": [],
@@ -14061,191 +14061,191 @@
   }
  ],
  "topping": {
-  "score_raw": 53.4,
-  "surface": 25.1,
-  "internals": 59.4,
-  "calm_factor": 0.9,
+  "score_raw": 58.7,
+  "surface": 20.7,
+  "internals": 59.6,
+  "calm_factor": 0.99,
   "drivers": [
    {
     "label": "Volatility floor, 126d change",
     "percentile": 62.8
    },
    {
-    "label": "A/D confirmation gap, 252d",
-    "percentile": 57.9
+    "label": "Quality spread (CCC minus BB)",
+    "percentile": 58.1
    },
    {
-    "label": "Quality spread (CCC minus BB)",
-    "percentile": 57.5
+    "label": "A/D confirmation gap, 252d",
+    "percentile": 57.9
    }
   ],
-  "score": 47.9,
-  "percentile": 64.7
+  "score": 46.2,
+  "percentile": 61.4
  },
  "top_history": [
   {
    "date": "2015-01-02",
-   "top": 78.9
+   "top": 80.4
   },
   {
    "date": "2015-01-05",
-   "top": 76.7
+   "top": 78.0
   },
   {
    "date": "2015-01-06",
-   "top": 73.5
+   "top": 74.8
   },
   {
    "date": "2015-01-07",
-   "top": 73.2
+   "top": 74.3
   },
   {
    "date": "2015-01-08",
-   "top": 75.5
+   "top": 76.5
   },
   {
    "date": "2015-01-09",
-   "top": 76.9
+   "top": 77.9
   },
   {
    "date": "2015-01-12",
-   "top": 76.0
-  },
-  {
-   "date": "2015-01-13",
-   "top": 74.1
-  },
-  {
-   "date": "2015-01-14",
-   "top": 69.0
-  },
-  {
-   "date": "2015-01-15",
-   "top": 63.2
-  },
-  {
-   "date": "2015-01-16",
-   "top": 60.0
-  },
-  {
-   "date": "2015-01-20",
-   "top": 56.6
-  },
-  {
-   "date": "2015-01-21",
-   "top": 54.6
-  },
-  {
-   "date": "2015-01-22",
-   "top": 58.3
-  },
-  {
-   "date": "2015-01-23",
-   "top": 60.4
-  },
-  {
-   "date": "2015-01-26",
-   "top": 63.8
-  },
-  {
-   "date": "2015-01-27",
-   "top": 64.2
-  },
-  {
-   "date": "2015-01-28",
-   "top": 61.3
-  },
-  {
-   "date": "2015-01-29",
-   "top": 60.8
-  },
-  {
-   "date": "2015-01-30",
-   "top": 59.0
-  },
-  {
-   "date": "2015-02-02",
-   "top": 59.2
-  },
-  {
-   "date": "2015-02-03",
-   "top": 62.1
-  },
-  {
-   "date": "2015-02-04",
-   "top": 64.4
-  },
-  {
-   "date": "2015-02-05",
-   "top": 67.3
-  },
-  {
-   "date": "2015-02-06",
-   "top": 70.0
-  },
-  {
-   "date": "2015-02-09",
-   "top": 72.5
-  },
-  {
-   "date": "2015-02-10",
-   "top": 74.7
-  },
-  {
-   "date": "2015-02-11",
    "top": 76.9
   },
   {
+   "date": "2015-01-13",
+   "top": 74.9
+  },
+  {
+   "date": "2015-01-14",
+   "top": 69.8
+  },
+  {
+   "date": "2015-01-15",
+   "top": 64.0
+  },
+  {
+   "date": "2015-01-16",
+   "top": 60.7
+  },
+  {
+   "date": "2015-01-20",
+   "top": 57.2
+  },
+  {
+   "date": "2015-01-21",
+   "top": 55.2
+  },
+  {
+   "date": "2015-01-22",
+   "top": 58.9
+  },
+  {
+   "date": "2015-01-23",
+   "top": 60.9
+  },
+  {
+   "date": "2015-01-26",
+   "top": 64.3
+  },
+  {
+   "date": "2015-01-27",
+   "top": 64.7
+  },
+  {
+   "date": "2015-01-28",
+   "top": 61.7
+  },
+  {
+   "date": "2015-01-29",
+   "top": 61.2
+  },
+  {
+   "date": "2015-01-30",
+   "top": 59.5
+  },
+  {
+   "date": "2015-02-02",
+   "top": 59.6
+  },
+  {
+   "date": "2015-02-03",
+   "top": 62.5
+  },
+  {
+   "date": "2015-02-04",
+   "top": 64.7
+  },
+  {
+   "date": "2015-02-05",
+   "top": 67.7
+  },
+  {
+   "date": "2015-02-06",
+   "top": 70.3
+  },
+  {
+   "date": "2015-02-09",
+   "top": 72.7
+  },
+  {
+   "date": "2015-02-10",
+   "top": 75.0
+  },
+  {
+   "date": "2015-02-11",
+   "top": 77.1
+  },
+  {
    "date": "2015-02-12",
-   "top": 78.9
+   "top": 79.1
   },
   {
    "date": "2015-02-13",
-   "top": 80.7
+   "top": 80.9
   },
   {
    "date": "2015-02-17",
-   "top": 82.4
+   "top": 82.5
   },
   {
    "date": "2015-02-18",
-   "top": 84.0
+   "top": 84.1
   },
   {
    "date": "2015-02-19",
-   "top": 85.4
+   "top": 85.5
   },
   {
    "date": "2015-02-20",
-   "top": 86.7
+   "top": 86.8
   },
   {
    "date": "2015-02-23",
-   "top": 87.9
+   "top": 88.0
   },
   {
    "date": "2015-02-24",
-   "top": 88.9
+   "top": 89.0
   },
   {
    "date": "2015-02-25",
-   "top": 89.9
+   "top": 90.0
   },
   {
    "date": "2015-02-26",
-   "top": 90.8
+   "top": 90.9
   },
   {
    "date": "2015-02-27",
-   "top": 91.6
+   "top": 91.7
   },
   {
    "date": "2015-03-02",
-   "top": 92.3
+   "top": 92.4
   },
   {
    "date": "2015-03-03",
-   "top": 92.9
+   "top": 93.0
   },
   {
    "date": "2015-03-04",
@@ -14257,135 +14257,135 @@
   },
   {
    "date": "2015-03-06",
-   "top": 93.6
+   "top": 93.8
   },
   {
    "date": "2015-03-09",
-   "top": 94.1
+   "top": 94.2
   },
   {
    "date": "2015-03-10",
-   "top": 91.7
+   "top": 91.8
   },
   {
    "date": "2015-03-11",
-   "top": 89.9
+   "top": 90.0
   },
   {
    "date": "2015-03-12",
-   "top": 89.7
+   "top": 89.8
   },
   {
    "date": "2015-03-13",
-   "top": 88.7
+   "top": 88.9
   },
   {
    "date": "2015-03-16",
-   "top": 86.7
+   "top": 87.0
   },
   {
    "date": "2015-03-17",
-   "top": 84.2
+   "top": 84.4
   },
   {
    "date": "2015-03-18",
-   "top": 85.6
+   "top": 85.8
   },
   {
    "date": "2015-03-19",
-   "top": 86.8
+   "top": 86.9
   },
   {
    "date": "2015-03-20",
-   "top": 87.9
-  },
-  {
-   "date": "2015-03-23",
-   "top": 88.8
-  },
-  {
-   "date": "2015-03-24",
-   "top": 89.7
-  },
-  {
-   "date": "2015-03-25",
-   "top": 89.6
-  },
-  {
-   "date": "2015-03-26",
-   "top": 88.2
-  },
-  {
-   "date": "2015-03-27",
    "top": 88.0
   },
   {
-   "date": "2015-03-30",
+   "date": "2015-03-23",
    "top": 89.0
   },
   {
+   "date": "2015-03-24",
+   "top": 89.8
+  },
+  {
+   "date": "2015-03-25",
+   "top": 89.7
+  },
+  {
+   "date": "2015-03-26",
+   "top": 88.3
+  },
+  {
+   "date": "2015-03-27",
+   "top": 88.2
+  },
+  {
+   "date": "2015-03-30",
+   "top": 89.2
+  },
+  {
    "date": "2015-03-31",
-   "top": 88.7
+   "top": 88.9
   },
   {
    "date": "2015-04-01",
-   "top": 89.5
+   "top": 89.6
   },
   {
    "date": "2015-04-02",
-   "top": 84.3
+   "top": 84.4
   },
   {
    "date": "2015-04-06",
-   "top": 80.6
+   "top": 80.8
   },
   {
    "date": "2015-04-07",
-   "top": 77.2
+   "top": 77.3
   },
   {
    "date": "2015-04-08",
-   "top": 73.9
+   "top": 74.0
   },
   {
    "date": "2015-04-09",
-   "top": 70.7
+   "top": 70.9
   },
   {
    "date": "2015-04-10",
-   "top": 68.0
+   "top": 68.1
   },
   {
    "date": "2015-04-13",
-   "top": 65.4
+   "top": 65.5
   },
   {
    "date": "2015-04-14",
-   "top": 63.0
+   "top": 63.1
   },
   {
    "date": "2015-04-15",
-   "top": 60.7
+   "top": 60.8
   },
   {
    "date": "2015-04-16",
-   "top": 58.5
+   "top": 58.6
   },
   {
    "date": "2015-04-17",
-   "top": 56.3
+   "top": 56.4
   },
   {
    "date": "2015-04-20",
-   "top": 54.4
+   "top": 54.5
   },
   {
    "date": "2015-04-21",
-   "top": 52.6
+   "top": 52.7
   },
   {
    "date": "2015-04-22",
-   "top": 50.8
+   "top": 50.9
   },
   {
    "date": "2015-04-23",
@@ -14393,11 +14393,11 @@
   },
   {
    "date": "2015-04-24",
-   "top": 48.0
+   "top": 48.1
   },
   {
    "date": "2015-04-27",
-   "top": 46.8
+   "top": 46.9
   },
   {
    "date": "2015-04-28",
@@ -14409,11 +14409,11 @@
   },
   {
    "date": "2015-04-30",
-   "top": 42.7
+   "top": 42.8
   },
   {
    "date": "2015-05-01",
-   "top": 41.9
+   "top": 42.0
   },
   {
    "date": "2015-05-04",
@@ -14433,7 +14433,7 @@
   },
   {
    "date": "2015-05-08",
-   "top": 37.2
+   "top": 37.3
   },
   {
    "date": "2015-05-11",
@@ -14453,7 +14453,7 @@
   },
   {
    "date": "2015-05-15",
-   "top": 38.1
+   "top": 38.2
   },
   {
    "date": "2015-05-18",
@@ -14469,7 +14469,7 @@
   },
   {
    "date": "2015-05-21",
-   "top": 39.6
+   "top": 39.7
   },
   {
    "date": "2015-05-22",
@@ -14489,11 +14489,11 @@
   },
   {
    "date": "2015-05-29",
-   "top": 39.8
+   "top": 39.9
   },
   {
    "date": "2015-06-01",
-   "top": 39.4
+   "top": 39.5
   },
   {
    "date": "2015-06-02",
@@ -14509,19 +14509,19 @@
   },
   {
    "date": "2015-06-05",
-   "top": 38.1
+   "top": 38.2
   },
   {
    "date": "2015-06-08",
-   "top": 36.8
+   "top": 36.9
   },
   {
    "date": "2015-06-09",
-   "top": 36.1
+   "top": 36.2
   },
   {
    "date": "2015-06-10",
-   "top": 36.3
+   "top": 36.4
   },
   {
    "date": "2015-06-11",
@@ -14529,55 +14529,55 @@
   },
   {
    "date": "2015-06-12",
-   "top": 36.0
+   "top": 36.2
   },
   {
    "date": "2015-06-15",
-   "top": 34.3
+   "top": 34.4
   },
   {
    "date": "2015-06-16",
-   "top": 32.8
-  },
-  {
-   "date": "2015-06-17",
-   "top": 32.2
-  },
-  {
-   "date": "2015-06-18",
-   "top": 33.0
-  },
-  {
-   "date": "2015-06-19",
-   "top": 32.6
-  },
-  {
-   "date": "2015-06-22",
    "top": 32.9
   },
   {
+   "date": "2015-06-17",
+   "top": 32.3
+  },
+  {
+   "date": "2015-06-18",
+   "top": 33.1
+  },
+  {
+   "date": "2015-06-19",
+   "top": 32.7
+  },
+  {
+   "date": "2015-06-22",
+   "top": 33.0
+  },
+  {
    "date": "2015-06-23",
-   "top": 33.3
+   "top": 33.4
   },
   {
    "date": "2015-06-24",
-   "top": 32.1
+   "top": 32.2
   },
   {
    "date": "2015-06-25",
-   "top": 31.1
+   "top": 31.2
   },
   {
    "date": "2015-06-26",
-   "top": 29.9
+   "top": 30.0
   },
   {
    "date": "2015-06-29",
-   "top": 27.2
+   "top": 27.3
   },
   {
    "date": "2015-06-30",
-   "top": 24.7
+   "top": 24.8
   },
   {
    "date": "2015-07-01",
@@ -14585,7 +14585,7 @@
   },
   {
    "date": "2015-07-02",
-   "top": 20.6
+   "top": 20.7
   },
   {
    "date": "2015-07-06",
@@ -14593,7 +14593,7 @@
   },
   {
    "date": "2015-07-07",
-   "top": 18.1
+   "top": 18.2
   },
   {
    "date": "2015-07-08",
@@ -14605,19 +14605,19 @@
   },
   {
    "date": "2015-07-10",
-   "top": 14.2
+   "top": 14.3
   },
   {
    "date": "2015-07-13",
-   "top": 15.4
+   "top": 15.5
   },
   {
    "date": "2015-07-14",
-   "top": 16.8
+   "top": 16.9
   },
   {
    "date": "2015-07-15",
-   "top": 18.2
+   "top": 18.3
   },
   {
    "date": "2015-07-16",
@@ -14625,15 +14625,15 @@
   },
   {
    "date": "2015-07-17",
-   "top": 21.9
+   "top": 22.0
   },
   {
    "date": "2015-07-20",
-   "top": 23.5
+   "top": 23.6
   },
   {
    "date": "2015-07-21",
-   "top": 25.0
+   "top": 25.1
   },
   {
    "date": "2015-07-22",
@@ -14641,11 +14641,11 @@
   },
   {
    "date": "2015-07-23",
-   "top": 27.3
+   "top": 27.4
   },
   {
    "date": "2015-07-24",
-   "top": 27.2
+   "top": 27.3
   },
   {
    "date": "2015-07-27",
@@ -14657,7 +14657,7 @@
   },
   {
    "date": "2015-07-29",
-   "top": 27.4
+   "top": 27.5
   },
   {
    "date": "2015-07-30",
@@ -14677,15 +14677,15 @@
   },
   {
    "date": "2015-08-05",
-   "top": 32.2
+   "top": 32.3
   },
   {
    "date": "2015-08-06",
-   "top": 32.1
+   "top": 32.2
   },
   {
    "date": "2015-08-07",
-   "top": 32.3
+   "top": 32.4
   },
   {
    "date": "2015-08-10",
@@ -14749,7 +14749,7 @@
   },
   {
    "date": "2015-08-31",
-   "top": 14.8
+   "top": 14.9
   },
   {
    "date": "2015-09-01",
@@ -14849,7 +14849,7 @@
   },
   {
    "date": "2015-10-06",
-   "top": 24.9
+   "top": 24.8
   },
   {
    "date": "2015-10-07",
@@ -14885,7 +14885,7 @@
   },
   {
    "date": "2015-10-19",
-   "top": 34.7
+   "top": 34.6
   },
   {
    "date": "2015-10-20",
@@ -14913,11 +14913,11 @@
   },
   {
    "date": "2015-10-28",
-   "top": 38.5
+   "top": 38.4
   },
   {
    "date": "2015-10-29",
-   "top": 39.6
+   "top": 39.5
   },
   {
    "date": "2015-10-30",
@@ -14953,7 +14953,7 @@
   },
   {
    "date": "2015-11-11",
-   "top": 44.7
+   "top": 44.6
   },
   {
    "date": "2015-11-12",
@@ -14985,7 +14985,7 @@
   },
   {
    "date": "2015-11-23",
-   "top": 47.1
+   "top": 47.0
   },
   {
    "date": "2015-11-24",
@@ -14997,19 +14997,19 @@
   },
   {
    "date": "2015-11-27",
-   "top": 50.0
+   "top": 49.9
   },
   {
    "date": "2015-11-30",
-   "top": 50.1
+   "top": 50.0
   },
   {
    "date": "2015-12-01",
-   "top": 51.2
+   "top": 51.1
   },
   {
    "date": "2015-12-02",
-   "top": 50.7
+   "top": 50.6
   },
   {
    "date": "2015-12-03",
@@ -15025,7 +15025,7 @@
   },
   {
    "date": "2015-12-08",
-   "top": 49.0
+   "top": 48.9
   },
   {
    "date": "2015-12-09",
@@ -15033,19 +15033,19 @@
   },
   {
    "date": "2015-12-10",
-   "top": 44.2
+   "top": 44.1
   },
   {
    "date": "2015-12-11",
-   "top": 40.5
+   "top": 40.4
   },
   {
    "date": "2015-12-14",
-   "top": 37.5
+   "top": 37.4
   },
   {
    "date": "2015-12-15",
-   "top": 35.4
+   "top": 35.3
   },
   {
    "date": "2015-12-16",
@@ -15085,7 +15085,7 @@
   },
   {
    "date": "2015-12-30",
-   "top": 41.7
+   "top": 41.6
   },
   {
    "date": "2015-12-31",
@@ -15109,7 +15109,7 @@
   },
   {
    "date": "2016-01-08",
-   "top": 34.3
+   "top": 34.2
   },
   {
    "date": "2016-01-11",
@@ -15137,7 +15137,7 @@
   },
   {
    "date": "2016-01-20",
-   "top": 24.1
+   "top": 24.0
   },
   {
    "date": "2016-01-21",
@@ -15157,7 +15157,7 @@
   },
   {
    "date": "2016-01-27",
-   "top": 24.2
+   "top": 24.1
   },
   {
    "date": "2016-01-28",
@@ -15221,7 +15221,7 @@
   },
   {
    "date": "2016-02-19",
-   "top": 28.3
+   "top": 28.2
   },
   {
    "date": "2016-02-22",
@@ -15241,7 +15241,7 @@
   },
   {
    "date": "2016-02-26",
-   "top": 35.3
+   "top": 35.2
   },
   {
    "date": "2016-02-29",
@@ -15249,11 +15249,11 @@
   },
   {
    "date": "2016-03-01",
-   "top": 38.6
+   "top": 38.5
   },
   {
    "date": "2016-03-02",
-   "top": 41.4
+   "top": 41.3
   },
   {
    "date": "2016-03-03",
@@ -15317,7 +15317,7 @@
   },
   {
    "date": "2016-03-24",
-   "top": 58.2
+   "top": 58.3
   },
   {
    "date": "2016-03-28",
@@ -15337,7 +15337,7 @@
   },
   {
    "date": "2016-04-01",
-   "top": 62.1
+   "top": 62.2
   },
   {
    "date": "2016-04-04",
@@ -15413,11 +15413,11 @@
   },
   {
    "date": "2016-04-28",
-   "top": 50.0
+   "top": 50.1
   },
   {
    "date": "2016-04-29",
-   "top": 49.5
+   "top": 49.6
   },
   {
    "date": "2016-05-02",
@@ -15541,7 +15541,7 @@
   },
   {
    "date": "2016-06-14",
-   "top": 45.1
+   "top": 45.0
   },
   {
    "date": "2016-06-15",
@@ -15693,7 +15693,7 @@
   },
   {
    "date": "2016-08-08",
-   "top": 44.1
+   "top": 44.0
   },
   {
    "date": "2016-08-09",
@@ -15881,7 +15881,7 @@
   },
   {
    "date": "2016-10-13",
-   "top": 38.4
+   "top": 38.5
   },
   {
    "date": "2016-10-14",
@@ -15921,7 +15921,7 @@
   },
   {
    "date": "2016-10-27",
-   "top": 44.2
+   "top": 44.3
   },
   {
    "date": "2016-10-28",
@@ -16113,7 +16113,7 @@
   },
   {
    "date": "2017-01-06",
-   "top": 35.4
+   "top": 35.3
   },
   {
    "date": "2017-01-09",
@@ -16121,7 +16121,7 @@
   },
   {
    "date": "2017-01-10",
-   "top": 36.6
+   "top": 36.5
   },
   {
    "date": "2017-01-11",
@@ -16233,7 +16233,7 @@
   },
   {
    "date": "2017-02-21",
-   "top": 50.4
+   "top": 50.5
   },
   {
    "date": "2017-02-22",
@@ -16281,7 +16281,7 @@
   },
   {
    "date": "2017-03-09",
-   "top": 57.8
+   "top": 57.9
   },
   {
    "date": "2017-03-10",
@@ -16449,7 +16449,7 @@
   },
   {
    "date": "2017-05-09",
-   "top": 49.8
+   "top": 49.9
   },
   {
    "date": "2017-05-10",
@@ -16461,11 +16461,11 @@
   },
   {
    "date": "2017-05-12",
-   "top": 51.7
+   "top": 51.8
   },
   {
    "date": "2017-05-15",
-   "top": 52.7
+   "top": 52.8
   },
   {
    "date": "2017-05-16",
@@ -16481,7 +16481,7 @@
   },
   {
    "date": "2017-05-19",
-   "top": 46.3
+   "top": 46.4
   },
   {
    "date": "2017-05-22",
@@ -16493,7 +16493,7 @@
   },
   {
    "date": "2017-05-24",
-   "top": 50.8
+   "top": 50.9
   },
   {
    "date": "2017-05-25",
@@ -16505,11 +16505,11 @@
   },
   {
    "date": "2017-05-30",
-   "top": 55.3
+   "top": 55.4
   },
   {
    "date": "2017-05-31",
-   "top": 56.8
+   "top": 56.9
   },
   {
    "date": "2017-06-01",
@@ -16529,7 +16529,7 @@
   },
   {
    "date": "2017-06-07",
-   "top": 59.4
+   "top": 59.5
   },
   {
    "date": "2017-06-08",
@@ -16541,7 +16541,7 @@
   },
   {
    "date": "2017-06-12",
-   "top": 58.4
+   "top": 58.5
   },
   {
    "date": "2017-06-13",
@@ -16553,27 +16553,27 @@
   },
   {
    "date": "2017-06-15",
-   "top": 57.9
+   "top": 58.0
   },
   {
    "date": "2017-06-16",
-   "top": 58.1
+   "top": 58.2
   },
   {
    "date": "2017-06-19",
-   "top": 58.4
+   "top": 58.5
   },
   {
    "date": "2017-06-20",
-   "top": 58.3
+   "top": 58.4
   },
   {
    "date": "2017-06-21",
-   "top": 57.9
+   "top": 58.0
   },
   {
    "date": "2017-06-22",
-   "top": 57.8
+   "top": 57.9
   },
   {
    "date": "2017-06-23",
@@ -16589,7 +16589,7 @@
   },
   {
    "date": "2017-06-28",
-   "top": 56.8
+   "top": 56.9
   },
   {
    "date": "2017-06-29",
@@ -16605,7 +16605,7 @@
   },
   {
    "date": "2017-07-05",
-   "top": 53.0
+   "top": 53.1
   },
   {
    "date": "2017-07-06",
@@ -16617,19 +16617,19 @@
   },
   {
    "date": "2017-07-10",
-   "top": 51.2
+   "top": 51.3
   },
   {
    "date": "2017-07-11",
-   "top": 51.7
+   "top": 51.8
   },
   {
    "date": "2017-07-12",
-   "top": 52.9
+   "top": 53.0
   },
   {
    "date": "2017-07-13",
-   "top": 53.8
+   "top": 53.9
   },
   {
    "date": "2017-07-14",
@@ -16645,7 +16645,7 @@
   },
   {
    "date": "2017-07-19",
-   "top": 55.4
+   "top": 55.5
   },
   {
    "date": "2017-07-20",
@@ -16673,15 +16673,15 @@
   },
   {
    "date": "2017-07-28",
-   "top": 54.9
+   "top": 55.0
   },
   {
    "date": "2017-07-31",
-   "top": 54.5
+   "top": 54.6
   },
   {
    "date": "2017-08-01",
-   "top": 54.5
+   "top": 54.6
   },
   {
    "date": "2017-08-02",
@@ -16689,15 +16689,15 @@
   },
   {
    "date": "2017-08-03",
-   "top": 53.9
+   "top": 54.0
   },
   {
    "date": "2017-08-04",
-   "top": 53.8
+   "top": 53.9
   },
   {
    "date": "2017-08-07",
-   "top": 53.7
+   "top": 53.8
   },
   {
    "date": "2017-08-08",
@@ -16713,11 +16713,11 @@
   },
   {
    "date": "2017-08-11",
-   "top": 44.7
+   "top": 44.8
   },
   {
    "date": "2017-08-14",
-   "top": 44.0
+   "top": 44.1
   },
   {
    "date": "2017-08-15",
@@ -16733,43 +16733,43 @@
   },
   {
    "date": "2017-08-18",
-   "top": 42.8
+   "top": 42.9
   },
   {
    "date": "2017-08-21",
-   "top": 43.1
+   "top": 43.2
   },
   {
    "date": "2017-08-22",
-   "top": 44.8
+   "top": 44.9
   },
   {
    "date": "2017-08-23",
-   "top": 45.3
+   "top": 45.4
   },
   {
    "date": "2017-08-24",
-   "top": 46.0
+   "top": 46.1
   },
   {
    "date": "2017-08-25",
-   "top": 46.6
+   "top": 46.7
   },
   {
    "date": "2017-08-28",
-   "top": 47.4
+   "top": 47.5
   },
   {
    "date": "2017-08-29",
-   "top": 48.3
+   "top": 48.4
   },
   {
    "date": "2017-08-30",
-   "top": 49.2
+   "top": 49.3
   },
   {
    "date": "2017-08-31",
-   "top": 50.4
+   "top": 50.5
   },
   {
    "date": "2017-09-01",
@@ -16777,11 +16777,11 @@
   },
   {
    "date": "2017-09-05",
-   "top": 50.3
+   "top": 50.4
   },
   {
    "date": "2017-09-06",
-   "top": 50.2
+   "top": 50.3
   },
   {
    "date": "2017-09-07",
@@ -16789,11 +16789,11 @@
   },
   {
    "date": "2017-09-08",
-   "top": 49.6
+   "top": 49.7
   },
   {
    "date": "2017-09-11",
-   "top": 50.9
+   "top": 51.0
   },
   {
    "date": "2017-09-12",
@@ -16801,7 +16801,7 @@
   },
   {
    "date": "2017-09-13",
-   "top": 51.7
+   "top": 51.8
   },
   {
    "date": "2017-09-14",
@@ -16809,7 +16809,7 @@
   },
   {
    "date": "2017-09-15",
-   "top": 51.1
+   "top": 51.2
   },
   {
    "date": "2017-09-18",
@@ -16817,51 +16817,51 @@
   },
   {
    "date": "2017-09-19",
-   "top": 50.7
+   "top": 50.8
   },
   {
    "date": "2017-09-20",
-   "top": 51.4
+   "top": 51.5
   },
   {
    "date": "2017-09-21",
-   "top": 52.3
+   "top": 52.4
   },
   {
    "date": "2017-09-22",
-   "top": 52.8
-  },
-  {
-   "date": "2017-09-25",
-   "top": 52.8
-  },
-  {
-   "date": "2017-09-26",
    "top": 52.9
   },
   {
-   "date": "2017-09-27",
-   "top": 52.5
+   "date": "2017-09-25",
+   "top": 52.9
   },
   {
-   "date": "2017-09-28",
-   "top": 52.7
-  },
-  {
-   "date": "2017-09-29",
+   "date": "2017-09-26",
    "top": 53.0
   },
   {
+   "date": "2017-09-27",
+   "top": 52.6
+  },
+  {
+   "date": "2017-09-28",
+   "top": 52.8
+  },
+  {
+   "date": "2017-09-29",
+   "top": 53.1
+  },
+  {
    "date": "2017-10-02",
-   "top": 53.6
+   "top": 53.7
   },
   {
    "date": "2017-10-03",
-   "top": 54.0
+   "top": 54.1
   },
   {
    "date": "2017-10-04",
-   "top": 53.6
+   "top": 53.7
   },
   {
    "date": "2017-10-05",
@@ -16869,19 +16869,19 @@
   },
   {
    "date": "2017-10-06",
-   "top": 52.9
+   "top": 53.0
   },
   {
    "date": "2017-10-09",
-   "top": 51.9
+   "top": 52.0
   },
   {
    "date": "2017-10-10",
-   "top": 51.7
+   "top": 51.8
   },
   {
    "date": "2017-10-11",
-   "top": 52.3
+   "top": 52.4
   },
   {
    "date": "2017-10-12",
@@ -16889,339 +16889,339 @@
   },
   {
    "date": "2017-10-13",
-   "top": 53.0
+   "top": 53.2
   },
   {
    "date": "2017-10-16",
-   "top": 52.9
+   "top": 53.0
   },
   {
    "date": "2017-10-17",
-   "top": 53.5
+   "top": 53.6
   },
   {
    "date": "2017-10-18",
-   "top": 53.0
+   "top": 53.1
   },
   {
    "date": "2017-10-19",
-   "top": 52.3
-  },
-  {
-   "date": "2017-10-20",
-   "top": 51.6
-  },
-  {
-   "date": "2017-10-23",
-   "top": 49.9
-  },
-  {
-   "date": "2017-10-24",
-   "top": 48.3
-  },
-  {
-   "date": "2017-10-25",
-   "top": 47.1
-  },
-  {
-   "date": "2017-10-26",
-   "top": 46.1
-  },
-  {
-   "date": "2017-10-27",
-   "top": 47.0
-  },
-  {
-   "date": "2017-10-30",
-   "top": 47.4
-  },
-  {
-   "date": "2017-10-31",
-   "top": 48.0
-  },
-  {
-   "date": "2017-11-01",
-   "top": 48.6
-  },
-  {
-   "date": "2017-11-02",
-   "top": 49.6
-  },
-  {
-   "date": "2017-11-03",
-   "top": 51.0
-  },
-  {
-   "date": "2017-11-06",
-   "top": 52.0
-  },
-  {
-   "date": "2017-11-07",
    "top": 52.4
   },
   {
-   "date": "2017-11-08",
-   "top": 53.0
+   "date": "2017-10-20",
+   "top": 51.7
   },
   {
-   "date": "2017-11-09",
-   "top": 52.6
+   "date": "2017-10-23",
+   "top": 50.1
   },
   {
-   "date": "2017-11-10",
-   "top": 51.8
-  },
-  {
-   "date": "2017-11-13",
-   "top": 51.2
-  },
-  {
-   "date": "2017-11-14",
-   "top": 50.6
-  },
-  {
-   "date": "2017-11-15",
-   "top": 50.2
-  },
-  {
-   "date": "2017-11-16",
-   "top": 51.2
-  },
-  {
-   "date": "2017-11-17",
-   "top": 52.1
-  },
-  {
-   "date": "2017-11-20",
-   "top": 53.3
-  },
-  {
-   "date": "2017-11-21",
-   "top": 55.0
-  },
-  {
-   "date": "2017-11-22",
-   "top": 55.8
-  },
-  {
-   "date": "2017-11-24",
-   "top": 56.5
-  },
-  {
-   "date": "2017-11-27",
-   "top": 57.0
-  },
-  {
-   "date": "2017-11-28",
-   "top": 57.5
-  },
-  {
-   "date": "2017-11-29",
-   "top": 57.9
-  },
-  {
-   "date": "2017-11-30",
-   "top": 57.6
-  },
-  {
-   "date": "2017-12-01",
-   "top": 56.6
-  },
-  {
-   "date": "2017-12-04",
-   "top": 55.5
-  },
-  {
-   "date": "2017-12-05",
-   "top": 55.1
-  },
-  {
-   "date": "2017-12-06",
-   "top": 54.9
-  },
-  {
-   "date": "2017-12-07",
-   "top": 55.3
-  },
-  {
-   "date": "2017-12-08",
-   "top": 56.3
-  },
-  {
-   "date": "2017-12-11",
-   "top": 56.9
-  },
-  {
-   "date": "2017-12-12",
-   "top": 57.4
-  },
-  {
-   "date": "2017-12-13",
-   "top": 56.8
-  },
-  {
-   "date": "2017-12-14",
-   "top": 56.3
-  },
-  {
-   "date": "2017-12-15",
-   "top": 56.3
-  },
-  {
-   "date": "2017-12-18",
-   "top": 56.5
-  },
-  {
-   "date": "2017-12-19",
-   "top": 56.1
-  },
-  {
-   "date": "2017-12-20",
-   "top": 57.1
-  },
-  {
-   "date": "2017-12-21",
-   "top": 58.0
-  },
-  {
-   "date": "2017-12-22",
-   "top": 58.8
-  },
-  {
-   "date": "2017-12-26",
-   "top": 59.2
-  },
-  {
-   "date": "2017-12-27",
-   "top": 58.9
-  },
-  {
-   "date": "2017-12-28",
-   "top": 58.6
-  },
-  {
-   "date": "2017-12-29",
-   "top": 57.9
-  },
-  {
-   "date": "2018-01-02",
-   "top": 58.0
-  },
-  {
-   "date": "2018-01-03",
-   "top": 58.4
-  },
-  {
-   "date": "2018-01-04",
-   "top": 59.0
-  },
-  {
-   "date": "2018-01-05",
-   "top": 59.5
-  },
-  {
-   "date": "2018-01-08",
-   "top": 59.8
-  },
-  {
-   "date": "2018-01-09",
-   "top": 59.9
-  },
-  {
-   "date": "2018-01-10",
-   "top": 60.2
-  },
-  {
-   "date": "2018-01-11",
-   "top": 60.6
-  },
-  {
-   "date": "2018-01-12",
-   "top": 60.9
-  },
-  {
-   "date": "2018-01-16",
-   "top": 59.4
-  },
-  {
-   "date": "2018-01-17",
-   "top": 57.6
-  },
-  {
-   "date": "2018-01-18",
-   "top": 55.6
-  },
-  {
-   "date": "2018-01-19",
-   "top": 54.3
-  },
-  {
-   "date": "2018-01-22",
-   "top": 53.5
-  },
-  {
-   "date": "2018-01-23",
-   "top": 52.9
-  },
-  {
-   "date": "2018-01-24",
-   "top": 52.1
-  },
-  {
-   "date": "2018-01-25",
-   "top": 51.2
-  },
-  {
-   "date": "2018-01-26",
-   "top": 51.1
-  },
-  {
-   "date": "2018-01-29",
+   "date": "2017-10-24",
    "top": 48.4
   },
   {
+   "date": "2017-10-25",
+   "top": 47.2
+  },
+  {
+   "date": "2017-10-26",
+   "top": 46.2
+  },
+  {
+   "date": "2017-10-27",
+   "top": 47.1
+  },
+  {
+   "date": "2017-10-30",
+   "top": 47.6
+  },
+  {
+   "date": "2017-10-31",
+   "top": 48.1
+  },
+  {
+   "date": "2017-11-01",
+   "top": 48.8
+  },
+  {
+   "date": "2017-11-02",
+   "top": 49.7
+  },
+  {
+   "date": "2017-11-03",
+   "top": 51.1
+  },
+  {
+   "date": "2017-11-06",
+   "top": 52.2
+  },
+  {
+   "date": "2017-11-07",
+   "top": 52.6
+  },
+  {
+   "date": "2017-11-08",
+   "top": 53.1
+  },
+  {
+   "date": "2017-11-09",
+   "top": 52.7
+  },
+  {
+   "date": "2017-11-10",
+   "top": 52.0
+  },
+  {
+   "date": "2017-11-13",
+   "top": 51.4
+  },
+  {
+   "date": "2017-11-14",
+   "top": 50.7
+  },
+  {
+   "date": "2017-11-15",
+   "top": 50.3
+  },
+  {
+   "date": "2017-11-16",
+   "top": 51.3
+  },
+  {
+   "date": "2017-11-17",
+   "top": 52.2
+  },
+  {
+   "date": "2017-11-20",
+   "top": 53.4
+  },
+  {
+   "date": "2017-11-21",
+   "top": 55.2
+  },
+  {
+   "date": "2017-11-22",
+   "top": 55.9
+  },
+  {
+   "date": "2017-11-24",
+   "top": 56.6
+  },
+  {
+   "date": "2017-11-27",
+   "top": 57.1
+  },
+  {
+   "date": "2017-11-28",
+   "top": 57.6
+  },
+  {
+   "date": "2017-11-29",
+   "top": 58.0
+  },
+  {
+   "date": "2017-11-30",
+   "top": 57.7
+  },
+  {
+   "date": "2017-12-01",
+   "top": 56.8
+  },
+  {
+   "date": "2017-12-04",
+   "top": 55.7
+  },
+  {
+   "date": "2017-12-05",
+   "top": 55.3
+  },
+  {
+   "date": "2017-12-06",
+   "top": 55.0
+  },
+  {
+   "date": "2017-12-07",
+   "top": 55.4
+  },
+  {
+   "date": "2017-12-08",
+   "top": 56.4
+  },
+  {
+   "date": "2017-12-11",
+   "top": 57.0
+  },
+  {
+   "date": "2017-12-12",
+   "top": 57.5
+  },
+  {
+   "date": "2017-12-13",
+   "top": 56.9
+  },
+  {
+   "date": "2017-12-14",
+   "top": 56.4
+  },
+  {
+   "date": "2017-12-15",
+   "top": 56.4
+  },
+  {
+   "date": "2017-12-18",
+   "top": 56.7
+  },
+  {
+   "date": "2017-12-19",
+   "top": 56.3
+  },
+  {
+   "date": "2017-12-20",
+   "top": 57.2
+  },
+  {
+   "date": "2017-12-21",
+   "top": 58.1
+  },
+  {
+   "date": "2017-12-22",
+   "top": 58.9
+  },
+  {
+   "date": "2017-12-26",
+   "top": 59.3
+  },
+  {
+   "date": "2017-12-27",
+   "top": 59.0
+  },
+  {
+   "date": "2017-12-28",
+   "top": 58.7
+  },
+  {
+   "date": "2017-12-29",
+   "top": 58.1
+  },
+  {
+   "date": "2018-01-02",
+   "top": 58.1
+  },
+  {
+   "date": "2018-01-03",
+   "top": 58.5
+  },
+  {
+   "date": "2018-01-04",
+   "top": 59.1
+  },
+  {
+   "date": "2018-01-05",
+   "top": 59.7
+  },
+  {
+   "date": "2018-01-08",
+   "top": 59.9
+  },
+  {
+   "date": "2018-01-09",
+   "top": 60.0
+  },
+  {
+   "date": "2018-01-10",
+   "top": 60.3
+  },
+  {
+   "date": "2018-01-11",
+   "top": 60.7
+  },
+  {
+   "date": "2018-01-12",
+   "top": 61.0
+  },
+  {
+   "date": "2018-01-16",
+   "top": 59.5
+  },
+  {
+   "date": "2018-01-17",
+   "top": 57.7
+  },
+  {
+   "date": "2018-01-18",
+   "top": 55.7
+  },
+  {
+   "date": "2018-01-19",
+   "top": 54.5
+  },
+  {
+   "date": "2018-01-22",
+   "top": 53.7
+  },
+  {
+   "date": "2018-01-23",
+   "top": 53.0
+  },
+  {
+   "date": "2018-01-24",
+   "top": 52.2
+  },
+  {
+   "date": "2018-01-25",
+   "top": 51.3
+  },
+  {
+   "date": "2018-01-26",
+   "top": 51.3
+  },
+  {
+   "date": "2018-01-29",
+   "top": 48.5
+  },
+  {
    "date": "2018-01-30",
-   "top": 45.2
+   "top": 45.3
   },
   {
    "date": "2018-01-31",
-   "top": 43.6
+   "top": 43.7
   },
   {
    "date": "2018-02-01",
-   "top": 42.2
+   "top": 42.3
   },
   {
    "date": "2018-02-02",
-   "top": 38.8
+   "top": 38.9
   },
   {
    "date": "2018-02-05",
-   "top": 35.3
+   "top": 35.4
   },
   {
    "date": "2018-02-06",
-   "top": 32.0
+   "top": 32.2
   },
   {
    "date": "2018-02-07",
-   "top": 29.1
+   "top": 29.3
   },
   {
    "date": "2018-02-08",
-   "top": 26.5
+   "top": 26.6
   },
   {
    "date": "2018-02-09",
-   "top": 24.1
+   "top": 24.2
   },
   {
    "date": "2018-02-12",
-   "top": 21.9
+   "top": 22.0
   },
   {
    "date": "2018-02-13",
-   "top": 19.9
+   "top": 20.0
   },
   {
    "date": "2018-02-14",
@@ -17229,19 +17229,19 @@
   },
   {
    "date": "2018-02-15",
-   "top": 18.3
+   "top": 18.4
   },
   {
    "date": "2018-02-16",
-   "top": 18.1
+   "top": 18.2
   },
   {
    "date": "2018-02-20",
-   "top": 17.4
+   "top": 17.5
   },
   {
    "date": "2018-02-21",
-   "top": 17.1
+   "top": 17.2
   },
   {
    "date": "2018-02-22",
@@ -17253,11 +17253,11 @@
   },
   {
    "date": "2018-02-26",
-   "top": 20.0
+   "top": 20.1
   },
   {
    "date": "2018-02-27",
-   "top": 20.0
+   "top": 20.1
   },
   {
    "date": "2018-02-28",
@@ -17265,11 +17265,11 @@
   },
   {
    "date": "2018-03-01",
-   "top": 18.4
+   "top": 18.5
   },
   {
    "date": "2018-03-02",
-   "top": 18.9
+   "top": 19.0
   },
   {
    "date": "2018-03-05",
@@ -17281,7 +17281,7 @@
   },
   {
    "date": "2018-03-07",
-   "top": 22.9
+   "top": 23.0
   },
   {
    "date": "2018-03-08",
@@ -17297,7 +17297,7 @@
   },
   {
    "date": "2018-03-13",
-   "top": 30.0
+   "top": 30.1
   },
   {
    "date": "2018-03-14",
@@ -17333,7 +17333,7 @@
   },
   {
    "date": "2018-03-26",
-   "top": 22.2
+   "top": 22.3
   },
   {
    "date": "2018-03-27",
@@ -17349,7 +17349,7 @@
   },
   {
    "date": "2018-04-02",
-   "top": 18.8
+   "top": 18.9
   },
   {
    "date": "2018-04-03",
@@ -17421,7 +17421,7 @@
   },
   {
    "date": "2018-04-26",
-   "top": 32.5
+   "top": 32.6
   },
   {
    "date": "2018-04-27",
@@ -17445,7 +17445,7 @@
   },
   {
    "date": "2018-05-04",
-   "top": 40.5
+   "top": 40.6
   },
   {
    "date": "2018-05-07",
@@ -17453,7 +17453,7 @@
   },
   {
    "date": "2018-05-08",
-   "top": 43.9
+   "top": 44.0
   },
   {
    "date": "2018-05-09",
@@ -17465,11 +17465,11 @@
   },
   {
    "date": "2018-05-11",
-   "top": 49.5
+   "top": 49.6
   },
   {
    "date": "2018-05-14",
-   "top": 50.4
+   "top": 50.5
   },
   {
    "date": "2018-05-15",
@@ -17477,7 +17477,7 @@
   },
   {
    "date": "2018-05-16",
-   "top": 49.7
+   "top": 49.8
   },
   {
    "date": "2018-05-17",
@@ -17485,7 +17485,7 @@
   },
   {
    "date": "2018-05-18",
-   "top": 51.1
+   "top": 51.2
   },
   {
    "date": "2018-05-21",
@@ -17497,7 +17497,7 @@
   },
   {
    "date": "2018-05-23",
-   "top": 54.9
+   "top": 55.0
   },
   {
    "date": "2018-05-24",
@@ -17521,7 +17521,7 @@
   },
   {
    "date": "2018-06-01",
-   "top": 50.9
+   "top": 51.0
   },
   {
    "date": "2018-06-04",
@@ -17545,15 +17545,15 @@
   },
   {
    "date": "2018-06-11",
-   "top": 53.7
+   "top": 53.8
   },
   {
    "date": "2018-06-12",
-   "top": 53.6
+   "top": 53.7
   },
   {
    "date": "2018-06-13",
-   "top": 52.9
+   "top": 53.0
   },
   {
    "date": "2018-06-14",
@@ -17561,7 +17561,7 @@
   },
   {
    "date": "2018-06-15",
-   "top": 53.2
+   "top": 53.3
   },
   {
    "date": "2018-06-18",
@@ -17573,27 +17573,27 @@
   },
   {
    "date": "2018-06-20",
-   "top": 52.1
+   "top": 52.2
   },
   {
    "date": "2018-06-21",
-   "top": 50.3
+   "top": 50.4
   },
   {
    "date": "2018-06-22",
-   "top": 50.1
+   "top": 50.2
   },
   {
    "date": "2018-06-25",
-   "top": 47.2
+   "top": 47.3
   },
   {
    "date": "2018-06-26",
-   "top": 46.1
+   "top": 46.2
   },
   {
    "date": "2018-06-27",
-   "top": 43.8
+   "top": 43.9
   },
   {
    "date": "2018-06-28",
@@ -17605,27 +17605,27 @@
   },
   {
    "date": "2018-07-02",
-   "top": 42.8
+   "top": 42.9
   },
   {
    "date": "2018-07-03",
-   "top": 42.4
-  },
-  {
-   "date": "2018-07-05",
    "top": 42.5
   },
   {
+   "date": "2018-07-05",
+   "top": 42.6
+  },
+  {
    "date": "2018-07-06",
-   "top": 44.6
+   "top": 44.7
   },
   {
    "date": "2018-07-09",
-   "top": 46.9
+   "top": 47.0
   },
   {
    "date": "2018-07-10",
-   "top": 49.1
+   "top": 49.2
   },
   {
    "date": "2018-07-11",
@@ -17637,15 +17637,15 @@
   },
   {
    "date": "2018-07-13",
-   "top": 52.7
+   "top": 52.8
   },
   {
    "date": "2018-07-16",
-   "top": 53.9
+   "top": 54.0
   },
   {
    "date": "2018-07-17",
-   "top": 55.6
+   "top": 55.7
   },
   {
    "date": "2018-07-18",
@@ -17657,11 +17657,11 @@
   },
   {
    "date": "2018-07-20",
-   "top": 58.3
+   "top": 58.4
   },
   {
    "date": "2018-07-23",
-   "top": 58.8
+   "top": 58.9
   },
   {
    "date": "2018-07-24",
@@ -17669,7 +17669,7 @@
   },
   {
    "date": "2018-07-25",
-   "top": 61.4
+   "top": 61.5
   },
   {
    "date": "2018-07-26",
@@ -17677,27 +17677,27 @@
   },
   {
    "date": "2018-07-27",
-   "top": 63.4
+   "top": 63.5
   },
   {
    "date": "2018-07-30",
-   "top": 62.2
+   "top": 62.3
   },
   {
    "date": "2018-07-31",
-   "top": 62.9
+   "top": 63.0
   },
   {
    "date": "2018-08-01",
-   "top": 63.4
+   "top": 63.5
   },
   {
    "date": "2018-08-02",
-   "top": 65.5
+   "top": 65.6
   },
   {
    "date": "2018-08-03",
-   "top": 67.6
+   "top": 67.7
   },
   {
    "date": "2018-08-06",
@@ -17717,275 +17717,275 @@
   },
   {
    "date": "2018-08-10",
-   "top": 70.3
+   "top": 70.5
   },
   {
    "date": "2018-08-13",
-   "top": 66.8
+   "top": 66.9
   },
   {
    "date": "2018-08-14",
-   "top": 65.4
+   "top": 65.5
   },
   {
    "date": "2018-08-15",
-   "top": 62.5
+   "top": 62.6
   },
   {
    "date": "2018-08-16",
-   "top": 61.5
+   "top": 61.6
   },
   {
    "date": "2018-08-17",
-   "top": 61.4
+   "top": 61.6
   },
   {
    "date": "2018-08-20",
-   "top": 61.4
+   "top": 61.5
   },
   {
    "date": "2018-08-21",
-   "top": 61.3
+   "top": 61.4
   },
   {
    "date": "2018-08-22",
-   "top": 61.8
+   "top": 62.0
   },
   {
    "date": "2018-08-23",
-   "top": 62.5
+   "top": 62.6
   },
   {
    "date": "2018-08-24",
-   "top": 63.5
+   "top": 63.8
   },
   {
    "date": "2018-08-27",
-   "top": 64.9
+   "top": 65.1
   },
   {
    "date": "2018-08-28",
-   "top": 66.1
+   "top": 66.3
   },
   {
    "date": "2018-08-29",
-   "top": 67.4
-  },
-  {
-   "date": "2018-08-30",
    "top": 67.6
   },
   {
-   "date": "2018-08-31",
-   "top": 68.1
-  },
-  {
-   "date": "2018-09-04",
-   "top": 68.0
-  },
-  {
-   "date": "2018-09-05",
-   "top": 67.4
-  },
-  {
-   "date": "2018-09-06",
-   "top": 66.1
-  },
-  {
-   "date": "2018-09-07",
-   "top": 64.9
-  },
-  {
-   "date": "2018-09-10",
-   "top": 64.5
-  },
-  {
-   "date": "2018-09-11",
-   "top": 65.3
-  },
-  {
-   "date": "2018-09-12",
-   "top": 65.7
-  },
-  {
-   "date": "2018-09-13",
-   "top": 67.2
-  },
-  {
-   "date": "2018-09-14",
-   "top": 68.8
-  },
-  {
-   "date": "2018-09-17",
-   "top": 67.3
-  },
-  {
-   "date": "2018-09-18",
+   "date": "2018-08-30",
    "top": 67.7
   },
   {
-   "date": "2018-09-19",
-   "top": 68.5
+   "date": "2018-08-31",
+   "top": 68.3
   },
   {
-   "date": "2018-09-20",
-   "top": 69.6
+   "date": "2018-09-04",
+   "top": 68.2
   },
   {
-   "date": "2018-09-21",
-   "top": 70.0
+   "date": "2018-09-05",
+   "top": 67.6
   },
   {
-   "date": "2018-09-24",
-   "top": 70.4
+   "date": "2018-09-06",
+   "top": 66.3
   },
   {
-   "date": "2018-09-25",
-   "top": 70.7
+   "date": "2018-09-07",
+   "top": 65.2
   },
   {
-   "date": "2018-09-26",
-   "top": 70.8
+   "date": "2018-09-10",
+   "top": 64.7
   },
   {
-   "date": "2018-09-27",
-   "top": 71.7
+   "date": "2018-09-11",
+   "top": 65.5
   },
   {
-   "date": "2018-09-28",
-   "top": 72.9
+   "date": "2018-09-12",
+   "top": 65.9
   },
   {
-   "date": "2018-10-01",
-   "top": 74.2
+   "date": "2018-09-13",
+   "top": 67.4
   },
   {
-   "date": "2018-10-02",
-   "top": 75.3
-  },
-  {
-   "date": "2018-10-03",
-   "top": 76.0
-  },
-  {
-   "date": "2018-10-04",
-   "top": 72.1
-  },
-  {
-   "date": "2018-10-05",
+   "date": "2018-09-14",
    "top": 69.0
   },
   {
+   "date": "2018-09-17",
+   "top": 67.5
+  },
+  {
+   "date": "2018-09-18",
+   "top": 67.8
+  },
+  {
+   "date": "2018-09-19",
+   "top": 68.6
+  },
+  {
+   "date": "2018-09-20",
+   "top": 69.7
+  },
+  {
+   "date": "2018-09-21",
+   "top": 70.2
+  },
+  {
+   "date": "2018-09-24",
+   "top": 70.6
+  },
+  {
+   "date": "2018-09-25",
+   "top": 70.8
+  },
+  {
+   "date": "2018-09-26",
+   "top": 70.9
+  },
+  {
+   "date": "2018-09-27",
+   "top": 71.9
+  },
+  {
+   "date": "2018-09-28",
+   "top": 73.2
+  },
+  {
+   "date": "2018-10-01",
+   "top": 74.4
+  },
+  {
+   "date": "2018-10-02",
+   "top": 75.5
+  },
+  {
+   "date": "2018-10-03",
+   "top": 76.2
+  },
+  {
+   "date": "2018-10-04",
+   "top": 72.3
+  },
+  {
+   "date": "2018-10-05",
+   "top": 69.2
+  },
+  {
    "date": "2018-10-08",
-   "top": 65.3
+   "top": 65.5
   },
   {
    "date": "2018-10-09",
-   "top": 62.7
+   "top": 62.9
   },
   {
    "date": "2018-10-10",
-   "top": 57.0
+   "top": 57.2
   },
   {
    "date": "2018-10-11",
-   "top": 51.8
+   "top": 52.0
   },
   {
    "date": "2018-10-12",
-   "top": 47.4
+   "top": 47.6
   },
   {
    "date": "2018-10-15",
-   "top": 43.2
+   "top": 43.4
   },
   {
    "date": "2018-10-16",
-   "top": 41.3
+   "top": 41.5
   },
   {
    "date": "2018-10-17",
-   "top": 40.0
+   "top": 40.1
   },
   {
    "date": "2018-10-18",
-   "top": 36.9
+   "top": 37.1
   },
   {
    "date": "2018-10-19",
-   "top": 35.1
+   "top": 35.3
   },
   {
    "date": "2018-10-22",
-   "top": 33.5
+   "top": 33.7
   },
   {
    "date": "2018-10-23",
-   "top": 30.9
+   "top": 31.1
   },
   {
    "date": "2018-10-24",
-   "top": 28.1
+   "top": 28.3
   },
   {
    "date": "2018-10-25",
-   "top": 25.5
+   "top": 25.7
   },
   {
    "date": "2018-10-26",
-   "top": 23.2
+   "top": 23.4
   },
   {
    "date": "2018-10-29",
-   "top": 21.1
+   "top": 21.2
   },
   {
    "date": "2018-10-30",
-   "top": 19.2
+   "top": 19.3
   },
   {
    "date": "2018-10-31",
-   "top": 17.9
-  },
-  {
-   "date": "2018-11-01",
-   "top": 17.9
-  },
-  {
-   "date": "2018-11-02",
    "top": 18.0
   },
   {
+   "date": "2018-11-01",
+   "top": 18.0
+  },
+  {
+   "date": "2018-11-02",
+   "top": 18.1
+  },
+  {
    "date": "2018-11-05",
-   "top": 17.6
+   "top": 17.7
   },
   {
    "date": "2018-11-06",
-   "top": 16.8
+   "top": 16.9
   },
   {
    "date": "2018-11-07",
-   "top": 18.8
+   "top": 18.9
   },
   {
    "date": "2018-11-08",
-   "top": 20.9
+   "top": 21.0
   },
   {
    "date": "2018-11-09",
-   "top": 22.3
+   "top": 22.4
   },
   {
    "date": "2018-11-12",
-   "top": 21.2
+   "top": 21.3
   },
   {
    "date": "2018-11-13",
-   "top": 21.6
+   "top": 21.7
   },
   {
    "date": "2018-11-14",
-   "top": 21.2
+   "top": 21.3
   },
   {
    "date": "2018-11-15",
@@ -17993,15 +17993,15 @@
   },
   {
    "date": "2018-11-16",
-   "top": 22.3
+   "top": 22.4
   },
   {
    "date": "2018-11-19",
-   "top": 22.1
+   "top": 22.2
   },
   {
    "date": "2018-11-20",
-   "top": 21.1
+   "top": 21.2
   },
   {
    "date": "2018-11-21",
@@ -18013,7 +18013,7 @@
   },
   {
    "date": "2018-11-26",
-   "top": 23.9
+   "top": 24.0
   },
   {
    "date": "2018-11-27",
@@ -18029,7 +18029,7 @@
   },
   {
    "date": "2018-11-30",
-   "top": 25.2
+   "top": 25.1
   },
   {
    "date": "2018-12-03",
@@ -18061,11 +18061,11 @@
   },
   {
    "date": "2018-12-13",
-   "top": 24.5
+   "top": 24.4
   },
   {
    "date": "2018-12-14",
-   "top": 24.9
+   "top": 24.8
   },
   {
    "date": "2018-12-17",
@@ -18077,7 +18077,7 @@
   },
   {
    "date": "2018-12-19",
-   "top": 19.5
+   "top": 19.4
   },
   {
    "date": "2018-12-20",
@@ -18085,7 +18085,7 @@
   },
   {
    "date": "2018-12-21",
-   "top": 16.1
+   "top": 16.0
   },
   {
    "date": "2018-12-24",
@@ -18101,7 +18101,7 @@
   },
   {
    "date": "2018-12-28",
-   "top": 11.1
+   "top": 11.0
   },
   {
    "date": "2018-12-31",
@@ -18113,15 +18113,15 @@
   },
   {
    "date": "2019-01-03",
-   "top": 14.3
+   "top": 14.2
   },
   {
    "date": "2019-01-04",
-   "top": 16.6
+   "top": 16.5
   },
   {
    "date": "2019-01-07",
-   "top": 19.1
+   "top": 19.0
   },
   {
    "date": "2019-01-08",
@@ -18129,35 +18129,35 @@
   },
   {
    "date": "2019-01-09",
-   "top": 24.7
+   "top": 24.6
   },
   {
    "date": "2019-01-10",
-   "top": 27.9
+   "top": 27.8
   },
   {
    "date": "2019-01-11",
-   "top": 31.1
+   "top": 31.0
   },
   {
    "date": "2019-01-14",
-   "top": 33.6
+   "top": 33.5
   },
   {
    "date": "2019-01-15",
-   "top": 36.3
+   "top": 36.2
   },
   {
    "date": "2019-01-16",
-   "top": 38.8
+   "top": 38.7
   },
   {
    "date": "2019-01-17",
-   "top": 41.6
+   "top": 41.5
   },
   {
    "date": "2019-01-18",
-   "top": 43.7
+   "top": 43.6
   },
   {
    "date": "2019-01-22",
@@ -18169,7 +18169,7 @@
   },
   {
    "date": "2019-01-24",
-   "top": 42.2
+   "top": 42.1
   },
   {
    "date": "2019-01-25",
@@ -18193,7 +18193,7 @@
   },
   {
    "date": "2019-02-01",
-   "top": 45.9
+   "top": 46.0
   },
   {
    "date": "2019-02-04",
@@ -18213,7 +18213,7 @@
   },
   {
    "date": "2019-02-08",
-   "top": 53.2
+   "top": 53.3
   },
   {
    "date": "2019-02-11",
@@ -18221,7 +18221,7 @@
   },
   {
    "date": "2019-02-12",
-   "top": 55.6
+   "top": 55.7
   },
   {
    "date": "2019-02-13",
@@ -18233,11 +18233,11 @@
   },
   {
    "date": "2019-02-15",
-   "top": 58.2
+   "top": 58.3
   },
   {
    "date": "2019-02-19",
-   "top": 59.0
+   "top": 59.1
   },
   {
    "date": "2019-02-20",
@@ -18245,11 +18245,11 @@
   },
   {
    "date": "2019-02-21",
-   "top": 62.4
+   "top": 62.5
   },
   {
    "date": "2019-02-22",
-   "top": 63.5
+   "top": 63.6
   },
   {
    "date": "2019-02-25",
@@ -18257,7 +18257,7 @@
   },
   {
    "date": "2019-02-26",
-   "top": 64.0
+   "top": 64.1
   },
   {
    "date": "2019-02-27",
@@ -18285,35 +18285,35 @@
   },
   {
    "date": "2019-03-07",
-   "top": 64.5
+   "top": 64.6
   },
   {
    "date": "2019-03-08",
-   "top": 64.1
+   "top": 64.2
   },
   {
    "date": "2019-03-11",
-   "top": 64.7
+   "top": 64.8
   },
   {
    "date": "2019-03-12",
-   "top": 65.1
+   "top": 65.2
   },
   {
    "date": "2019-03-13",
-   "top": 65.3
+   "top": 65.4
   },
   {
    "date": "2019-03-14",
-   "top": 65.5
+   "top": 65.6
   },
   {
    "date": "2019-03-15",
-   "top": 65.7
+   "top": 65.8
   },
   {
    "date": "2019-03-18",
-   "top": 65.7
+   "top": 65.8
   },
   {
    "date": "2019-03-19",
@@ -18321,7 +18321,7 @@
   },
   {
    "date": "2019-03-20",
-   "top": 64.8
+   "top": 64.9
   },
   {
    "date": "2019-03-21",
@@ -18329,71 +18329,71 @@
   },
   {
    "date": "2019-03-22",
-   "top": 61.5
+   "top": 61.6
   },
   {
    "date": "2019-03-25",
-   "top": 58.3
-  },
-  {
-   "date": "2019-03-26",
-   "top": 57.4
-  },
-  {
-   "date": "2019-03-27",
-   "top": 55.8
-  },
-  {
-   "date": "2019-03-28",
-   "top": 55.1
-  },
-  {
-   "date": "2019-03-29",
-   "top": 55.3
-  },
-  {
-   "date": "2019-04-01",
-   "top": 55.9
-  },
-  {
-   "date": "2019-04-02",
-   "top": 56.6
-  },
-  {
-   "date": "2019-04-03",
-   "top": 57.1
-  },
-  {
-   "date": "2019-04-04",
    "top": 58.4
   },
   {
+   "date": "2019-03-26",
+   "top": 57.5
+  },
+  {
+   "date": "2019-03-27",
+   "top": 55.9
+  },
+  {
+   "date": "2019-03-28",
+   "top": 55.2
+  },
+  {
+   "date": "2019-03-29",
+   "top": 55.5
+  },
+  {
+   "date": "2019-04-01",
+   "top": 56.0
+  },
+  {
+   "date": "2019-04-02",
+   "top": 56.8
+  },
+  {
+   "date": "2019-04-03",
+   "top": 57.2
+  },
+  {
+   "date": "2019-04-04",
+   "top": 58.5
+  },
+  {
    "date": "2019-04-05",
-   "top": 59.8
+   "top": 59.9
   },
   {
    "date": "2019-04-08",
-   "top": 61.0
+   "top": 61.1
   },
   {
    "date": "2019-04-09",
-   "top": 61.5
+   "top": 61.6
   },
   {
    "date": "2019-04-10",
-   "top": 61.9
+   "top": 62.0
   },
   {
    "date": "2019-04-11",
-   "top": 62.7
+   "top": 62.8
   },
   {
    "date": "2019-04-12",
-   "top": 63.3
+   "top": 63.4
   },
   {
    "date": "2019-04-15",
-   "top": 63.9
+   "top": 64.0
   },
   {
    "date": "2019-04-16",
@@ -18425,15 +18425,15 @@
   },
   {
    "date": "2019-04-26",
-   "top": 65.8
+   "top": 65.9
   },
   {
    "date": "2019-04-29",
-   "top": 66.0
+   "top": 66.1
   },
   {
    "date": "2019-04-30",
-   "top": 65.6
+   "top": 65.7
   },
   {
    "date": "2019-05-01",
@@ -18461,283 +18461,283 @@
   },
   {
    "date": "2019-05-09",
-   "top": 48.5
+   "top": 48.6
   },
   {
    "date": "2019-05-10",
-   "top": 47.2
+   "top": 47.3
   },
   {
    "date": "2019-05-13",
-   "top": 42.9
+   "top": 43.0
   },
   {
    "date": "2019-05-14",
-   "top": 40.9
+   "top": 41.0
   },
   {
    "date": "2019-05-15",
-   "top": 40.4
-  },
-  {
-   "date": "2019-05-16",
-   "top": 40.6
-  },
-  {
-   "date": "2019-05-17",
-   "top": 40.0
-  },
-  {
-   "date": "2019-05-20",
-   "top": 39.1
-  },
-  {
-   "date": "2019-05-21",
-   "top": 39.9
-  },
-  {
-   "date": "2019-05-22",
-   "top": 41.6
-  },
-  {
-   "date": "2019-05-23",
-   "top": 40.2
-  },
-  {
-   "date": "2019-05-24",
-   "top": 40.9
-  },
-  {
-   "date": "2019-05-28",
-   "top": 39.3
-  },
-  {
-   "date": "2019-05-29",
-   "top": 37.8
-  },
-  {
-   "date": "2019-05-30",
-   "top": 37.3
-  },
-  {
-   "date": "2019-05-31",
-   "top": 35.6
-  },
-  {
-   "date": "2019-06-03",
-   "top": 33.4
-  },
-  {
-   "date": "2019-06-04",
-   "top": 32.9
-  },
-  {
-   "date": "2019-06-05",
-   "top": 33.1
-  },
-  {
-   "date": "2019-06-06",
-   "top": 33.6
-  },
-  {
-   "date": "2019-06-07",
-   "top": 34.5
-  },
-  {
-   "date": "2019-06-10",
-   "top": 35.3
-  },
-  {
-   "date": "2019-06-11",
-   "top": 36.1
-  },
-  {
-   "date": "2019-06-12",
-   "top": 36.8
-  },
-  {
-   "date": "2019-06-13",
-   "top": 37.0
-  },
-  {
-   "date": "2019-06-14",
-   "top": 38.2
-  },
-  {
-   "date": "2019-06-17",
-   "top": 38.4
-  },
-  {
-   "date": "2019-06-18",
-   "top": 37.9
-  },
-  {
-   "date": "2019-06-19",
-   "top": 38.4
-  },
-  {
-   "date": "2019-06-20",
-   "top": 38.7
-  },
-  {
-   "date": "2019-06-21",
-   "top": 38.6
-  },
-  {
-   "date": "2019-06-24",
-   "top": 38.4
-  },
-  {
-   "date": "2019-06-25",
-   "top": 37.3
-  },
-  {
-   "date": "2019-06-26",
-   "top": 36.6
-  },
-  {
-   "date": "2019-06-27",
-   "top": 36.1
-  },
-  {
-   "date": "2019-06-28",
-   "top": 35.7
-  },
-  {
-   "date": "2019-07-01",
-   "top": 37.6
-  },
-  {
-   "date": "2019-07-02",
    "top": 40.5
   },
   {
-   "date": "2019-07-03",
-   "top": 42.6
+   "date": "2019-05-16",
+   "top": 40.7
   },
   {
-   "date": "2019-07-05",
-   "top": 43.6
+   "date": "2019-05-17",
+   "top": 40.2
   },
   {
-   "date": "2019-07-08",
-   "top": 44.8
+   "date": "2019-05-20",
+   "top": 39.3
   },
   {
-   "date": "2019-07-09",
-   "top": 46.1
+   "date": "2019-05-21",
+   "top": 40.0
   },
   {
-   "date": "2019-07-10",
-   "top": 47.6
+   "date": "2019-05-22",
+   "top": 41.7
   },
   {
-   "date": "2019-07-11",
-   "top": 48.6
+   "date": "2019-05-23",
+   "top": 40.4
   },
   {
-   "date": "2019-07-12",
-   "top": 49.8
+   "date": "2019-05-24",
+   "top": 41.1
   },
   {
-   "date": "2019-07-15",
-   "top": 51.0
+   "date": "2019-05-28",
+   "top": 39.5
   },
   {
-   "date": "2019-07-16",
-   "top": 51.3
+   "date": "2019-05-29",
+   "top": 38.0
   },
   {
-   "date": "2019-07-17",
-   "top": 50.4
+   "date": "2019-05-30",
+   "top": 37.5
   },
   {
-   "date": "2019-07-18",
-   "top": 50.4
+   "date": "2019-05-31",
+   "top": 35.9
   },
   {
-   "date": "2019-07-19",
-   "top": 49.5
+   "date": "2019-06-03",
+   "top": 33.6
   },
   {
-   "date": "2019-07-22",
-   "top": 49.1
+   "date": "2019-06-04",
+   "top": 33.1
   },
   {
-   "date": "2019-07-23",
-   "top": 49.1
-  },
-  {
-   "date": "2019-07-24",
-   "top": 48.6
-  },
-  {
-   "date": "2019-07-25",
-   "top": 48.0
-  },
-  {
-   "date": "2019-07-26",
-   "top": 48.1
-  },
-  {
-   "date": "2019-07-29",
-   "top": 47.5
-  },
-  {
-   "date": "2019-07-30",
-   "top": 45.8
-  },
-  {
-   "date": "2019-07-31",
-   "top": 42.7
-  },
-  {
-   "date": "2019-08-01",
-   "top": 39.0
-  },
-  {
-   "date": "2019-08-02",
-   "top": 36.7
-  },
-  {
-   "date": "2019-08-05",
+   "date": "2019-06-05",
    "top": 33.3
   },
   {
+   "date": "2019-06-06",
+   "top": 33.7
+  },
+  {
+   "date": "2019-06-07",
+   "top": 34.7
+  },
+  {
+   "date": "2019-06-10",
+   "top": 35.5
+  },
+  {
+   "date": "2019-06-11",
+   "top": 36.3
+  },
+  {
+   "date": "2019-06-12",
+   "top": 37.0
+  },
+  {
+   "date": "2019-06-13",
+   "top": 37.1
+  },
+  {
+   "date": "2019-06-14",
+   "top": 38.4
+  },
+  {
+   "date": "2019-06-17",
+   "top": 38.5
+  },
+  {
+   "date": "2019-06-18",
+   "top": 38.0
+  },
+  {
+   "date": "2019-06-19",
+   "top": 38.6
+  },
+  {
+   "date": "2019-06-20",
+   "top": 38.8
+  },
+  {
+   "date": "2019-06-21",
+   "top": 38.8
+  },
+  {
+   "date": "2019-06-24",
+   "top": 38.6
+  },
+  {
+   "date": "2019-06-25",
+   "top": 37.5
+  },
+  {
+   "date": "2019-06-26",
+   "top": 36.8
+  },
+  {
+   "date": "2019-06-27",
+   "top": 36.2
+  },
+  {
+   "date": "2019-06-28",
+   "top": 35.9
+  },
+  {
+   "date": "2019-07-01",
+   "top": 37.8
+  },
+  {
+   "date": "2019-07-02",
+   "top": 40.6
+  },
+  {
+   "date": "2019-07-03",
+   "top": 42.7
+  },
+  {
+   "date": "2019-07-05",
+   "top": 43.9
+  },
+  {
+   "date": "2019-07-08",
+   "top": 45.0
+  },
+  {
+   "date": "2019-07-09",
+   "top": 46.3
+  },
+  {
+   "date": "2019-07-10",
+   "top": 47.8
+  },
+  {
+   "date": "2019-07-11",
+   "top": 48.8
+  },
+  {
+   "date": "2019-07-12",
+   "top": 50.0
+  },
+  {
+   "date": "2019-07-15",
+   "top": 51.2
+  },
+  {
+   "date": "2019-07-16",
+   "top": 51.5
+  },
+  {
+   "date": "2019-07-17",
+   "top": 50.6
+  },
+  {
+   "date": "2019-07-18",
+   "top": 50.5
+  },
+  {
+   "date": "2019-07-19",
+   "top": 49.7
+  },
+  {
+   "date": "2019-07-22",
+   "top": 49.3
+  },
+  {
+   "date": "2019-07-23",
+   "top": 49.3
+  },
+  {
+   "date": "2019-07-24",
+   "top": 48.8
+  },
+  {
+   "date": "2019-07-25",
+   "top": 48.1
+  },
+  {
+   "date": "2019-07-26",
+   "top": 48.3
+  },
+  {
+   "date": "2019-07-29",
+   "top": 47.6
+  },
+  {
+   "date": "2019-07-30",
+   "top": 45.9
+  },
+  {
+   "date": "2019-07-31",
+   "top": 42.8
+  },
+  {
+   "date": "2019-08-01",
+   "top": 39.1
+  },
+  {
+   "date": "2019-08-02",
+   "top": 36.8
+  },
+  {
+   "date": "2019-08-05",
+   "top": 33.5
+  },
+  {
    "date": "2019-08-06",
-   "top": 30.3
+   "top": 30.4
   },
   {
    "date": "2019-08-07",
-   "top": 27.6
+   "top": 27.7
   },
   {
    "date": "2019-08-08",
-   "top": 26.4
+   "top": 26.5
   },
   {
    "date": "2019-08-09",
-   "top": 25.2
+   "top": 25.4
   },
   {
    "date": "2019-08-12",
-   "top": 22.9
+   "top": 23.0
   },
   {
    "date": "2019-08-13",
-   "top": 21.9
+   "top": 22.0
   },
   {
    "date": "2019-08-14",
-   "top": 19.9
+   "top": 20.0
   },
   {
    "date": "2019-08-15",
-   "top": 18.1
+   "top": 18.2
   },
   {
    "date": "2019-08-16",
-   "top": 17.6
+   "top": 17.7
   },
   {
    "date": "2019-08-19",
@@ -18749,11 +18749,11 @@
   },
   {
    "date": "2019-08-21",
-   "top": 17.0
+   "top": 17.1
   },
   {
    "date": "2019-08-22",
-   "top": 16.9
+   "top": 17.0
   },
   {
    "date": "2019-08-23",
@@ -18761,7 +18761,7 @@
   },
   {
    "date": "2019-08-26",
-   "top": 14.4
+   "top": 14.5
   },
   {
    "date": "2019-08-27",
@@ -18773,19 +18773,19 @@
   },
   {
    "date": "2019-08-29",
-   "top": 13.5
+   "top": 13.6
   },
   {
    "date": "2019-08-30",
-   "top": 13.3
+   "top": 13.4
   },
   {
    "date": "2019-09-03",
-   "top": 13.1
+   "top": 13.2
   },
   {
    "date": "2019-09-04",
-   "top": 14.2
+   "top": 14.3
   },
   {
    "date": "2019-09-05",
@@ -18797,11 +18797,11 @@
   },
   {
    "date": "2019-09-09",
-   "top": 18.5
+   "top": 18.6
   },
   {
    "date": "2019-09-10",
-   "top": 19.1
+   "top": 19.2
   },
   {
    "date": "2019-09-11",
@@ -18813,11 +18813,11 @@
   },
   {
    "date": "2019-09-13",
-   "top": 20.4
+   "top": 20.5
   },
   {
    "date": "2019-09-16",
-   "top": 20.0
+   "top": 20.1
   },
   {
    "date": "2019-09-17",
@@ -18837,15 +18837,15 @@
   },
   {
    "date": "2019-09-23",
-   "top": 20.7
+   "top": 20.8
   },
   {
    "date": "2019-09-24",
-   "top": 19.5
+   "top": 19.6
   },
   {
    "date": "2019-09-25",
-   "top": 19.4
+   "top": 19.5
   },
   {
    "date": "2019-09-26",
@@ -18877,7 +18877,7 @@
   },
   {
    "date": "2019-10-07",
-   "top": 17.2
+   "top": 17.3
   },
   {
    "date": "2019-10-08",
@@ -18893,11 +18893,11 @@
   },
   {
    "date": "2019-10-11",
-   "top": 16.7
+   "top": 16.8
   },
   {
    "date": "2019-10-14",
-   "top": 19.7
+   "top": 19.8
   },
   {
    "date": "2019-10-15",
@@ -18913,7 +18913,7 @@
   },
   {
    "date": "2019-10-18",
-   "top": 26.7
+   "top": 26.8
   },
   {
    "date": "2019-10-21",
@@ -18921,7 +18921,7 @@
   },
   {
    "date": "2019-10-22",
-   "top": 28.9
+   "top": 29.0
   },
   {
    "date": "2019-10-23",
@@ -18933,7 +18933,7 @@
   },
   {
    "date": "2019-10-25",
-   "top": 33.9
+   "top": 34.0
   },
   {
    "date": "2019-10-28",
@@ -18945,7 +18945,7 @@
   },
   {
    "date": "2019-10-30",
-   "top": 37.4
+   "top": 37.5
   },
   {
    "date": "2019-10-31",
@@ -18953,11 +18953,11 @@
   },
   {
    "date": "2019-11-01",
-   "top": 39.2
+   "top": 39.3
   },
   {
    "date": "2019-11-04",
-   "top": 39.4
+   "top": 39.5
   },
   {
    "date": "2019-11-05",
@@ -18965,15 +18965,15 @@
   },
   {
    "date": "2019-11-06",
-   "top": 39.5
+   "top": 39.6
   },
   {
    "date": "2019-11-07",
-   "top": 39.3
+   "top": 39.4
   },
   {
    "date": "2019-11-08",
-   "top": 39.1
+   "top": 39.2
   },
   {
    "date": "2019-11-11",
@@ -18981,19 +18981,19 @@
   },
   {
    "date": "2019-11-12",
-   "top": 38.9
+   "top": 39.0
   },
   {
    "date": "2019-11-13",
-   "top": 38.5
+   "top": 38.6
   },
   {
    "date": "2019-11-14",
-   "top": 38.2
+   "top": 38.3
   },
   {
    "date": "2019-11-15",
-   "top": 37.9
+   "top": 38.0
   },
   {
    "date": "2019-11-18",
@@ -19005,7 +19005,7 @@
   },
   {
    "date": "2019-11-20",
-   "top": 36.9
+   "top": 37.0
   },
   {
    "date": "2019-11-21",
@@ -19013,43 +19013,43 @@
   },
   {
    "date": "2019-11-22",
-   "top": 36.7
-  },
-  {
-   "date": "2019-11-25",
    "top": 36.8
   },
   {
+   "date": "2019-11-25",
+   "top": 36.9
+  },
+  {
    "date": "2019-11-26",
-   "top": 36.6
+   "top": 36.7
   },
   {
    "date": "2019-11-27",
-   "top": 36.5
+   "top": 36.6
   },
   {
    "date": "2019-11-29",
-   "top": 36.5
+   "top": 36.6
   },
   {
    "date": "2019-12-02",
-   "top": 35.0
+   "top": 35.1
   },
   {
    "date": "2019-12-03",
-   "top": 32.9
+   "top": 33.0
   },
   {
    "date": "2019-12-04",
-   "top": 31.8
+   "top": 31.9
   },
   {
    "date": "2019-12-05",
-   "top": 31.0
+   "top": 31.1
   },
   {
    "date": "2019-12-06",
-   "top": 30.9
+   "top": 31.0
   },
   {
    "date": "2019-12-09",
@@ -19057,7 +19057,7 @@
   },
   {
    "date": "2019-12-10",
-   "top": 28.1
+   "top": 28.2
   },
   {
    "date": "2019-12-11",
@@ -19065,7 +19065,7 @@
   },
   {
    "date": "2019-12-12",
-   "top": 26.6
+   "top": 26.7
   },
   {
    "date": "2019-12-13",
@@ -19073,31 +19073,31 @@
   },
   {
    "date": "2019-12-16",
-   "top": 28.8
+   "top": 28.9
   },
   {
    "date": "2019-12-17",
-   "top": 29.8
+   "top": 29.9
   },
   {
    "date": "2019-12-18",
-   "top": 30.7
+   "top": 30.8
   },
   {
    "date": "2019-12-19",
-   "top": 32.2
-  },
-  {
-   "date": "2019-12-20",
    "top": 32.3
   },
   {
+   "date": "2019-12-20",
+   "top": 32.4
+  },
+  {
    "date": "2019-12-23",
-   "top": 33.0
+   "top": 33.1
   },
   {
    "date": "2019-12-24",
-   "top": 33.4
+   "top": 33.5
   },
   {
    "date": "2019-12-26",
@@ -19105,11 +19105,11 @@
   },
   {
    "date": "2019-12-27",
-   "top": 35.0
+   "top": 35.1
   },
   {
    "date": "2019-12-30",
-   "top": 34.5
+   "top": 34.6
   },
   {
    "date": "2019-12-31",
@@ -19117,19 +19117,19 @@
   },
   {
    "date": "2020-01-02",
-   "top": 35.8
-  },
-  {
-   "date": "2020-01-03",
    "top": 35.9
   },
   {
+   "date": "2020-01-03",
+   "top": 36.0
+  },
+  {
    "date": "2020-01-06",
-   "top": 36.1
+   "top": 36.2
   },
   {
    "date": "2020-01-07",
-   "top": 36.1
+   "top": 36.2
   },
   {
    "date": "2020-01-08",
@@ -19137,39 +19137,39 @@
   },
   {
    "date": "2020-01-09",
-   "top": 37.2
+   "top": 37.3
   },
   {
    "date": "2020-01-10",
-   "top": 38.6
+   "top": 38.8
   },
   {
    "date": "2020-01-13",
-   "top": 40.2
+   "top": 40.3
   },
   {
    "date": "2020-01-14",
-   "top": 41.4
+   "top": 41.5
   },
   {
    "date": "2020-01-15",
-   "top": 42.1
+   "top": 42.2
   },
   {
    "date": "2020-01-16",
-   "top": 42.6
+   "top": 42.7
   },
   {
    "date": "2020-01-17",
-   "top": 43.4
-  },
-  {
-   "date": "2020-01-21",
    "top": 43.5
   },
   {
+   "date": "2020-01-21",
+   "top": 43.6
+  },
+  {
    "date": "2020-01-22",
-   "top": 44.0
+   "top": 44.1
   },
   {
    "date": "2020-01-23",
@@ -19177,59 +19177,59 @@
   },
   {
    "date": "2020-01-24",
-   "top": 43.0
+   "top": 43.1
   },
   {
    "date": "2020-01-27",
-   "top": 39.0
+   "top": 39.2
   },
   {
    "date": "2020-01-28",
-   "top": 35.9
+   "top": 36.0
   },
   {
    "date": "2020-01-29",
-   "top": 33.2
+   "top": 33.3
   },
   {
    "date": "2020-01-30",
-   "top": 31.6
+   "top": 31.7
   },
   {
    "date": "2020-01-31",
-   "top": 28.8
+   "top": 28.9
   },
   {
    "date": "2020-02-03",
-   "top": 26.2
+   "top": 26.3
   },
   {
    "date": "2020-02-04",
-   "top": 25.5
+   "top": 25.6
   },
   {
    "date": "2020-02-05",
-   "top": 26.0
+   "top": 26.1
   },
   {
    "date": "2020-02-06",
-   "top": 26.8
+   "top": 26.9
   },
   {
    "date": "2020-02-07",
-   "top": 27.2
+   "top": 27.3
   },
   {
    "date": "2020-02-10",
-   "top": 27.5
+   "top": 27.6
   },
   {
    "date": "2020-02-11",
-   "top": 27.8
+   "top": 27.9
   },
   {
    "date": "2020-02-12",
-   "top": 28.7
+   "top": 28.8
   },
   {
    "date": "2020-02-13",
@@ -19237,7 +19237,7 @@
   },
   {
    "date": "2020-02-14",
-   "top": 30.0
+   "top": 30.1
   },
   {
    "date": "2020-02-18",
@@ -19245,7 +19245,7 @@
   },
   {
    "date": "2020-02-19",
-   "top": 30.2
+   "top": 30.3
   },
   {
    "date": "2020-02-20",
@@ -19257,11 +19257,11 @@
   },
   {
    "date": "2020-02-24",
-   "top": 25.5
+   "top": 25.6
   },
   {
    "date": "2020-02-25",
-   "top": 23.2
+   "top": 23.3
   },
   {
    "date": "2020-02-26",
@@ -19305,7 +19305,7 @@
   },
   {
    "date": "2020-03-11",
-   "top": 8.1
+   "top": 8.2
   },
   {
    "date": "2020-03-12",
@@ -19365,7 +19365,7 @@
   },
   {
    "date": "2020-04-01",
-   "top": 1.9
+   "top": 2.0
   },
   {
    "date": "2020-04-02",
@@ -19413,7 +19413,7 @@
   },
   {
    "date": "2020-04-20",
-   "top": 0.9
+   "top": 1.0
   },
   {
    "date": "2020-04-21",
@@ -19517,7 +19517,7 @@
   },
   {
    "date": "2020-05-27",
-   "top": 27.0
+   "top": 26.9
   },
   {
    "date": "2020-05-28",
@@ -19529,7 +19529,7 @@
   },
   {
    "date": "2020-06-01",
-   "top": 29.7
+   "top": 29.6
   },
   {
    "date": "2020-06-02",
@@ -19537,11 +19537,11 @@
   },
   {
    "date": "2020-06-03",
-   "top": 30.7
+   "top": 30.6
   },
   {
    "date": "2020-06-04",
-   "top": 30.9
+   "top": 30.8
   },
   {
    "date": "2020-06-05",
@@ -19569,7 +19569,7 @@
   },
   {
    "date": "2020-06-15",
-   "top": 22.3
+   "top": 22.2
   },
   {
    "date": "2020-06-16",
@@ -19581,15 +19581,15 @@
   },
   {
    "date": "2020-06-18",
-   "top": 20.0
+   "top": 19.9
   },
   {
    "date": "2020-06-19",
-   "top": 19.5
+   "top": 19.4
   },
   {
    "date": "2020-06-22",
-   "top": 19.2
+   "top": 19.1
   },
   {
    "date": "2020-06-23",
@@ -19597,7 +19597,7 @@
   },
   {
    "date": "2020-06-24",
-   "top": 18.9
+   "top": 18.8
   },
   {
    "date": "2020-06-25",
@@ -19609,7 +19609,7 @@
   },
   {
    "date": "2020-06-29",
-   "top": 19.5
+   "top": 19.4
   },
   {
    "date": "2020-06-30",
@@ -19617,15 +19617,15 @@
   },
   {
    "date": "2020-07-01",
-   "top": 20.3
+   "top": 20.2
   },
   {
    "date": "2020-07-02",
-   "top": 21.5
+   "top": 21.4
   },
   {
    "date": "2020-07-06",
-   "top": 22.1
+   "top": 22.0
   },
   {
    "date": "2020-07-07",
@@ -19633,7 +19633,7 @@
   },
   {
    "date": "2020-07-08",
-   "top": 24.6
+   "top": 24.5
   },
   {
    "date": "2020-07-09",
@@ -19641,7 +19641,7 @@
   },
   {
    "date": "2020-07-10",
-   "top": 28.5
+   "top": 28.4
   },
   {
    "date": "2020-07-13",
@@ -19649,11 +19649,11 @@
   },
   {
    "date": "2020-07-14",
-   "top": 29.4
+   "top": 29.3
   },
   {
    "date": "2020-07-15",
-   "top": 30.3
+   "top": 30.2
   },
   {
    "date": "2020-07-16",
@@ -19661,7 +19661,7 @@
   },
   {
    "date": "2020-07-17",
-   "top": 31.9
+   "top": 31.8
   },
   {
    "date": "2020-07-20",
@@ -19669,11 +19669,11 @@
   },
   {
    "date": "2020-07-21",
-   "top": 33.5
+   "top": 33.4
   },
   {
    "date": "2020-07-22",
-   "top": 34.5
+   "top": 34.4
   },
   {
    "date": "2020-07-23",
@@ -19685,7 +19685,7 @@
   },
   {
    "date": "2020-07-27",
-   "top": 36.7
+   "top": 36.6
   },
   {
    "date": "2020-07-28",
@@ -19701,7 +19701,7 @@
   },
   {
    "date": "2020-07-31",
-   "top": 42.6
+   "top": 42.5
   },
   {
    "date": "2020-08-03",
@@ -19709,7 +19709,7 @@
   },
   {
    "date": "2020-08-04",
-   "top": 45.4
+   "top": 45.3
   },
   {
    "date": "2020-08-05",
@@ -19721,11 +19721,11 @@
   },
   {
    "date": "2020-08-07",
-   "top": 50.5
+   "top": 50.4
   },
   {
    "date": "2020-08-10",
-   "top": 51.9
+   "top": 51.8
   },
   {
    "date": "2020-08-11",
@@ -19733,7 +19733,7 @@
   },
   {
    "date": "2020-08-12",
-   "top": 53.4
+   "top": 53.3
   },
   {
    "date": "2020-08-13",
@@ -19757,7 +19757,7 @@
   },
   {
    "date": "2020-08-20",
-   "top": 55.9
+   "top": 55.8
   },
   {
    "date": "2020-08-21",
@@ -19861,7 +19861,7 @@
   },
   {
    "date": "2020-09-28",
-   "top": 51.7
+   "top": 51.8
   },
   {
    "date": "2020-09-29",
@@ -19977,7 +19977,7 @@
   },
   {
    "date": "2020-11-06",
-   "top": 20.0
+   "top": 20.1
   },
   {
    "date": "2020-11-09",
@@ -20053,7 +20053,7 @@
   },
   {
    "date": "2020-12-04",
-   "top": 34.0
+   "top": 34.1
   },
   {
    "date": "2020-12-07",
@@ -20077,7 +20077,7 @@
   },
   {
    "date": "2020-12-14",
-   "top": 30.9
+   "top": 31.0
   },
   {
    "date": "2020-12-15",
@@ -20085,11 +20085,11 @@
   },
   {
    "date": "2020-12-16",
-   "top": 30.4
+   "top": 30.5
   },
   {
    "date": "2020-12-17",
-   "top": 30.3
+   "top": 30.4
   },
   {
    "date": "2020-12-18",
@@ -20097,7 +20097,7 @@
   },
   {
    "date": "2020-12-21",
-   "top": 30.0
+   "top": 30.1
   },
   {
    "date": "2020-12-22",
@@ -20145,11 +20145,11 @@
   },
   {
    "date": "2021-01-08",
-   "top": 26.1
+   "top": 26.2
   },
   {
    "date": "2021-01-11",
-   "top": 25.8
+   "top": 25.9
   },
   {
    "date": "2021-01-12",
@@ -20205,7 +20205,7 @@
   },
   {
    "date": "2021-02-01",
-   "top": 26.0
+   "top": 26.1
   },
   {
    "date": "2021-02-02",
@@ -20213,15 +20213,15 @@
   },
   {
    "date": "2021-02-03",
-   "top": 27.5
+   "top": 27.6
   },
   {
    "date": "2021-02-04",
-   "top": 28.2
+   "top": 28.3
   },
   {
    "date": "2021-02-05",
-   "top": 28.9
+   "top": 29.0
   },
   {
    "date": "2021-02-08",
@@ -20233,15 +20233,15 @@
   },
   {
    "date": "2021-02-10",
-   "top": 29.7
+   "top": 29.8
   },
   {
    "date": "2021-02-11",
-   "top": 29.7
+   "top": 29.8
   },
   {
    "date": "2021-02-12",
-   "top": 29.6
+   "top": 29.7
   },
   {
    "date": "2021-02-16",
@@ -20257,7 +20257,7 @@
   },
   {
    "date": "2021-02-19",
-   "top": 28.8
+   "top": 28.9
   },
   {
    "date": "2021-02-22",
@@ -20269,7 +20269,7 @@
   },
   {
    "date": "2021-02-24",
-   "top": 26.9
+   "top": 27.0
   },
   {
    "date": "2021-02-25",
@@ -20285,7 +20285,7 @@
   },
   {
    "date": "2021-03-02",
-   "top": 22.3
+   "top": 22.4
   },
   {
    "date": "2021-03-03",
@@ -20293,7 +20293,7 @@
   },
   {
    "date": "2021-03-04",
-   "top": 19.7
+   "top": 19.8
   },
   {
    "date": "2021-03-05",
@@ -20305,7 +20305,7 @@
   },
   {
    "date": "2021-03-09",
-   "top": 18.4
+   "top": 18.5
   },
   {
    "date": "2021-03-10",
@@ -20317,7 +20317,7 @@
   },
   {
    "date": "2021-03-12",
-   "top": 18.5
+   "top": 18.6
   },
   {
    "date": "2021-03-15",
@@ -20413,11 +20413,11 @@
   },
   {
    "date": "2021-04-16",
-   "top": 24.8
+   "top": 24.7
   },
   {
    "date": "2021-04-19",
-   "top": 24.4
+   "top": 24.3
   },
   {
    "date": "2021-04-20",
@@ -20473,7 +20473,7 @@
   },
   {
    "date": "2021-05-07",
-   "top": 27.7
+   "top": 27.6
   },
   {
    "date": "2021-05-10",
@@ -20481,7 +20481,7 @@
   },
   {
    "date": "2021-05-11",
-   "top": 26.6
+   "top": 26.5
   },
   {
    "date": "2021-05-12",
@@ -20521,7 +20521,7 @@
   },
   {
    "date": "2021-05-25",
-   "top": 28.2
+   "top": 28.1
   },
   {
    "date": "2021-05-26",
@@ -20557,7 +20557,7 @@
   },
   {
    "date": "2021-06-08",
-   "top": 33.1
+   "top": 33.0
   },
   {
    "date": "2021-06-09",
@@ -20565,7 +20565,7 @@
   },
   {
    "date": "2021-06-10",
-   "top": 32.4
+   "top": 32.3
   },
   {
    "date": "2021-06-11",
@@ -20581,7 +20581,7 @@
   },
   {
    "date": "2021-06-16",
-   "top": 30.8
+   "top": 30.7
   },
   {
    "date": "2021-06-17",
@@ -20649,7 +20649,7 @@
   },
   {
    "date": "2021-07-12",
-   "top": 34.5
+   "top": 34.4
   },
   {
    "date": "2021-07-13",
@@ -20661,7 +20661,7 @@
   },
   {
    "date": "2021-07-15",
-   "top": 34.5
+   "top": 34.4
   },
   {
    "date": "2021-07-16",
@@ -20669,7 +20669,7 @@
   },
   {
    "date": "2021-07-19",
-   "top": 32.5
+   "top": 32.4
   },
   {
    "date": "2021-07-20",
@@ -20681,15 +20681,15 @@
   },
   {
    "date": "2021-07-22",
-   "top": 31.5
+   "top": 31.4
   },
   {
    "date": "2021-07-23",
-   "top": 32.0
+   "top": 31.9
   },
   {
    "date": "2021-07-26",
-   "top": 32.2
+   "top": 32.1
   },
   {
    "date": "2021-07-27",
@@ -20697,11 +20697,11 @@
   },
   {
    "date": "2021-07-28",
-   "top": 32.1
+   "top": 32.0
   },
   {
    "date": "2021-07-29",
-   "top": 32.4
+   "top": 32.3
   },
   {
    "date": "2021-07-30",
@@ -20713,7 +20713,7 @@
   },
   {
    "date": "2021-08-03",
-   "top": 32.4
+   "top": 32.3
   },
   {
    "date": "2021-08-04",
@@ -20721,7 +20721,7 @@
   },
   {
    "date": "2021-08-05",
-   "top": 33.0
+   "top": 32.9
   },
   {
    "date": "2021-08-06",
@@ -20737,7 +20737,7 @@
   },
   {
    "date": "2021-08-11",
-   "top": 34.1
+   "top": 34.0
   },
   {
    "date": "2021-08-12",
@@ -20745,11 +20745,11 @@
   },
   {
    "date": "2021-08-13",
-   "top": 35.1
+   "top": 35.0
   },
   {
    "date": "2021-08-16",
-   "top": 35.3
+   "top": 35.2
   },
   {
    "date": "2021-08-17",
@@ -20765,7 +20765,7 @@
   },
   {
    "date": "2021-08-20",
-   "top": 32.7
+   "top": 32.6
   },
   {
    "date": "2021-08-23",
@@ -20805,7 +20805,7 @@
   },
   {
    "date": "2021-09-03",
-   "top": 41.2
+   "top": 41.1
   },
   {
    "date": "2021-09-07",
@@ -20821,11 +20821,11 @@
   },
   {
    "date": "2021-09-10",
-   "top": 40.5
+   "top": 40.4
   },
   {
    "date": "2021-09-13",
-   "top": 39.5
+   "top": 39.4
   },
   {
    "date": "2021-09-14",
@@ -20833,7 +20833,7 @@
   },
   {
    "date": "2021-09-15",
-   "top": 39.5
+   "top": 39.4
   },
   {
    "date": "2021-09-16",
@@ -20841,11 +20841,11 @@
   },
   {
    "date": "2021-09-17",
-   "top": 39.3
+   "top": 39.2
   },
   {
    "date": "2021-09-20",
-   "top": 36.1
+   "top": 36.0
   },
   {
    "date": "2021-09-21",
@@ -20861,15 +20861,15 @@
   },
   {
    "date": "2021-09-24",
-   "top": 35.6
+   "top": 35.5
   },
   {
    "date": "2021-09-27",
-   "top": 35.4
+   "top": 35.3
   },
   {
    "date": "2021-09-28",
-   "top": 32.8
+   "top": 32.7
   },
   {
    "date": "2021-09-29",
@@ -20877,7 +20877,7 @@
   },
   {
    "date": "2021-09-30",
-   "top": 29.8
+   "top": 29.7
   },
   {
    "date": "2021-10-01",
@@ -20885,7 +20885,7 @@
   },
   {
    "date": "2021-10-04",
-   "top": 28.9
+   "top": 28.8
   },
   {
    "date": "2021-10-05",
@@ -20897,7 +20897,7 @@
   },
   {
    "date": "2021-10-07",
-   "top": 28.7
+   "top": 28.6
   },
   {
    "date": "2021-10-08",
@@ -20905,11 +20905,11 @@
   },
   {
    "date": "2021-10-11",
-   "top": 29.9
+   "top": 29.8
   },
   {
    "date": "2021-10-12",
-   "top": 29.7
+   "top": 29.6
   },
   {
    "date": "2021-10-13",
@@ -20917,7 +20917,7 @@
   },
   {
    "date": "2021-10-14",
-   "top": 30.7
+   "top": 30.6
   },
   {
    "date": "2021-10-15",
@@ -20929,7 +20929,7 @@
   },
   {
    "date": "2021-10-19",
-   "top": 32.5
+   "top": 32.4
   },
   {
    "date": "2021-10-20",
@@ -20941,7 +20941,7 @@
   },
   {
    "date": "2021-10-22",
-   "top": 33.9
+   "top": 33.8
   },
   {
    "date": "2021-10-25",
@@ -20957,11 +20957,11 @@
   },
   {
    "date": "2021-10-28",
-   "top": 34.6
+   "top": 34.5
   },
   {
    "date": "2021-10-29",
-   "top": 35.5
+   "top": 35.4
   },
   {
    "date": "2021-11-01",
@@ -20969,7 +20969,7 @@
   },
   {
    "date": "2021-11-02",
-   "top": 35.1
+   "top": 35.0
   },
   {
    "date": "2021-11-03",
@@ -20981,7 +20981,7 @@
   },
   {
    "date": "2021-11-05",
-   "top": 36.6
+   "top": 36.5
   },
   {
    "date": "2021-11-08",
@@ -20989,7 +20989,7 @@
   },
   {
    "date": "2021-11-09",
-   "top": 36.7
+   "top": 36.6
   },
   {
    "date": "2021-11-10",
@@ -21001,11 +21001,11 @@
   },
   {
    "date": "2021-11-12",
-   "top": 34.9
+   "top": 34.8
   },
   {
    "date": "2021-11-15",
-   "top": 34.1
+   "top": 34.0
   },
   {
    "date": "2021-11-16",
@@ -21013,15 +21013,15 @@
   },
   {
    "date": "2021-11-17",
-   "top": 33.4
+   "top": 33.3
   },
   {
    "date": "2021-11-18",
-   "top": 33.7
+   "top": 33.6
   },
   {
    "date": "2021-11-19",
-   "top": 34.1
+   "top": 34.0
   },
   {
    "date": "2021-11-22",
@@ -21061,11 +21061,11 @@
   },
   {
    "date": "2021-12-06",
-   "top": 19.7
+   "top": 19.6
   },
   {
    "date": "2021-12-07",
-   "top": 20.0
+   "top": 19.9
   },
   {
    "date": "2021-12-08",
@@ -21097,11 +21097,11 @@
   },
   {
    "date": "2021-12-17",
-   "top": 24.8
+   "top": 24.7
   },
   {
    "date": "2021-12-20",
-   "top": 24.0
+   "top": 23.9
   },
   {
    "date": "2021-12-21",
@@ -21109,7 +21109,7 @@
   },
   {
    "date": "2021-12-22",
-   "top": 24.6
+   "top": 24.5
   },
   {
    "date": "2021-12-23",
@@ -21117,7 +21117,7 @@
   },
   {
    "date": "2021-12-27",
-   "top": 26.4
+   "top": 26.3
   },
   {
    "date": "2021-12-28",
@@ -21149,91 +21149,91 @@
   },
   {
    "date": "2022-01-06",
-   "top": 34.2
+   "top": 34.1
   },
   {
    "date": "2022-01-07",
-   "top": 34.9
+   "top": 34.8
   },
   {
    "date": "2022-01-10",
-   "top": 35.0
+   "top": 34.9
   },
   {
    "date": "2022-01-11",
-   "top": 35.4
+   "top": 35.3
   },
   {
    "date": "2022-01-12",
-   "top": 36.1
+   "top": 36.0
   },
   {
    "date": "2022-01-13",
-   "top": 35.4
+   "top": 35.3
   },
   {
    "date": "2022-01-14",
-   "top": 35.6
+   "top": 35.5
   },
   {
    "date": "2022-01-18",
-   "top": 33.2
+   "top": 33.1
   },
   {
    "date": "2022-01-19",
-   "top": 31.3
+   "top": 31.2
   },
   {
    "date": "2022-01-20",
-   "top": 29.0
+   "top": 28.9
   },
   {
    "date": "2022-01-21",
-   "top": 26.8
+   "top": 26.6
   },
   {
    "date": "2022-01-24",
-   "top": 24.3
+   "top": 24.2
   },
   {
    "date": "2022-01-25",
-   "top": 22.1
+   "top": 22.0
   },
   {
    "date": "2022-01-26",
-   "top": 20.1
+   "top": 20.0
   },
   {
    "date": "2022-01-27",
-   "top": 18.3
+   "top": 18.2
   },
   {
    "date": "2022-01-28",
-   "top": 17.7
+   "top": 17.5
   },
   {
    "date": "2022-01-31",
-   "top": 17.3
+   "top": 17.2
   },
   {
    "date": "2022-02-01",
-   "top": 18.1
+   "top": 18.0
   },
   {
    "date": "2022-02-02",
-   "top": 18.5
-  },
-  {
-   "date": "2022-02-03",
    "top": 18.4
   },
   {
+   "date": "2022-02-03",
+   "top": 18.3
+  },
+  {
    "date": "2022-02-04",
-   "top": 19.0
+   "top": 18.9
   },
   {
    "date": "2022-02-07",
-   "top": 19.4
+   "top": 19.3
   },
   {
    "date": "2022-02-08",
@@ -21245,55 +21245,55 @@
   },
   {
    "date": "2022-02-10",
-   "top": 21.0
+   "top": 20.9
   },
   {
    "date": "2022-02-11",
-   "top": 20.0
+   "top": 19.9
   },
   {
    "date": "2022-02-14",
-   "top": 18.9
+   "top": 18.8
   },
   {
    "date": "2022-02-15",
-   "top": 18.5
-  },
-  {
-   "date": "2022-02-16",
-   "top": 19.3
-  },
-  {
-   "date": "2022-02-17",
    "top": 18.4
   },
   {
+   "date": "2022-02-16",
+   "top": 19.2
+  },
+  {
+   "date": "2022-02-17",
+   "top": 18.3
+  },
+  {
    "date": "2022-02-18",
-   "top": 18.2
+   "top": 18.1
   },
   {
    "date": "2022-02-22",
-   "top": 17.0
+   "top": 16.9
   },
   {
    "date": "2022-02-23",
-   "top": 15.7
+   "top": 15.6
   },
   {
    "date": "2022-02-24",
-   "top": 14.5
+   "top": 14.4
   },
   {
    "date": "2022-02-25",
-   "top": 14.7
+   "top": 14.6
   },
   {
    "date": "2022-02-28",
-   "top": 13.4
+   "top": 13.3
   },
   {
    "date": "2022-03-01",
-   "top": 12.2
+   "top": 12.1
   },
   {
    "date": "2022-03-02",
@@ -21301,19 +21301,19 @@
   },
   {
    "date": "2022-03-03",
-   "top": 11.3
+   "top": 11.2
   },
   {
    "date": "2022-03-04",
-   "top": 11.0
+   "top": 10.9
   },
   {
    "date": "2022-03-07",
-   "top": 10.0
+   "top": 9.9
   },
   {
    "date": "2022-03-08",
-   "top": 9.1
+   "top": 9.0
   },
   {
    "date": "2022-03-09",
@@ -21325,15 +21325,15 @@
   },
   {
    "date": "2022-03-11",
-   "top": 9.2
+   "top": 9.1
   },
   {
    "date": "2022-03-14",
-   "top": 8.9
+   "top": 8.8
   },
   {
    "date": "2022-03-15",
-   "top": 9.4
+   "top": 9.3
   },
   {
    "date": "2022-03-16",
@@ -21341,15 +21341,15 @@
   },
   {
    "date": "2022-03-17",
-   "top": 12.8
+   "top": 12.7
   },
   {
    "date": "2022-03-18",
-   "top": 14.8
+   "top": 14.7
   },
   {
    "date": "2022-03-21",
-   "top": 16.6
+   "top": 16.5
   },
   {
    "date": "2022-03-22",
@@ -21357,23 +21357,23 @@
   },
   {
    "date": "2022-03-23",
-   "top": 19.8
+   "top": 19.7
   },
   {
    "date": "2022-03-24",
-   "top": 22.4
+   "top": 22.3
   },
   {
    "date": "2022-03-25",
-   "top": 24.6
+   "top": 24.5
   },
   {
    "date": "2022-03-28",
-   "top": 27.0
+   "top": 26.9
   },
   {
    "date": "2022-03-29",
-   "top": 29.3
+   "top": 29.2
   },
   {
    "date": "2022-03-30",
@@ -21381,15 +21381,15 @@
   },
   {
    "date": "2022-03-31",
-   "top": 33.2
+   "top": 33.1
   },
   {
    "date": "2022-04-01",
-   "top": 34.5
+   "top": 34.4
   },
   {
    "date": "2022-04-04",
-   "top": 36.7
+   "top": 36.6
   },
   {
    "date": "2022-04-05",
@@ -21397,7 +21397,7 @@
   },
   {
    "date": "2022-04-06",
-   "top": 38.8
+   "top": 38.7
   },
   {
    "date": "2022-04-07",
@@ -21405,15 +21405,15 @@
   },
   {
    "date": "2022-04-08",
-   "top": 41.1
+   "top": 41.0
   },
   {
    "date": "2022-04-11",
-   "top": 40.5
+   "top": 40.4
   },
   {
    "date": "2022-04-12",
-   "top": 40.2
+   "top": 40.1
   },
   {
    "date": "2022-04-13",
@@ -21421,7 +21421,7 @@
   },
   {
    "date": "2022-04-14",
-   "top": 42.2
+   "top": 42.1
   },
   {
    "date": "2022-04-18",
@@ -21429,7 +21429,7 @@
   },
   {
    "date": "2022-04-19",
-   "top": 43.8
+   "top": 43.7
   },
   {
    "date": "2022-04-20",
@@ -21437,19 +21437,19 @@
   },
   {
    "date": "2022-04-21",
-   "top": 45.0
+   "top": 44.9
   },
   {
    "date": "2022-04-22",
-   "top": 41.9
+   "top": 41.8
   },
   {
    "date": "2022-04-25",
-   "top": 39.5
+   "top": 39.4
   },
   {
    "date": "2022-04-26",
-   "top": 35.9
+   "top": 35.8
   },
   {
    "date": "2022-04-27",
@@ -21461,27 +21461,27 @@
   },
   {
    "date": "2022-04-29",
-   "top": 27.6
+   "top": 27.5
   },
   {
    "date": "2022-05-02",
-   "top": 25.1
+   "top": 25.0
   },
   {
    "date": "2022-05-03",
-   "top": 23.9
-  },
-  {
-   "date": "2022-05-04",
-   "top": 25.1
-  },
-  {
-   "date": "2022-05-05",
    "top": 23.8
   },
   {
+   "date": "2022-05-04",
+   "top": 25.0
+  },
+  {
+   "date": "2022-05-05",
+   "top": 23.7
+  },
+  {
    "date": "2022-05-06",
-   "top": 23.6
+   "top": 23.5
   },
   {
    "date": "2022-05-09",
@@ -21489,7 +21489,7 @@
   },
   {
    "date": "2022-05-10",
-   "top": 20.3
+   "top": 20.2
   },
   {
    "date": "2022-05-11",
@@ -21501,7 +21501,7 @@
   },
   {
    "date": "2022-05-13",
-   "top": 18.5
+   "top": 18.4
   },
   {
    "date": "2022-05-16",
@@ -21517,15 +21517,15 @@
   },
   {
    "date": "2022-05-19",
-   "top": 22.0
+   "top": 21.9
   },
   {
    "date": "2022-05-20",
-   "top": 22.6
+   "top": 22.5
   },
   {
    "date": "2022-05-23",
-   "top": 23.8
+   "top": 23.7
   },
   {
    "date": "2022-05-24",
@@ -21533,7 +21533,7 @@
   },
   {
    "date": "2022-05-25",
-   "top": 26.2
+   "top": 26.1
   },
   {
    "date": "2022-05-26",
@@ -21545,7 +21545,7 @@
   },
   {
    "date": "2022-05-31",
-   "top": 31.9
+   "top": 31.8
   },
   {
    "date": "2022-06-01",
@@ -21557,11 +21557,11 @@
   },
   {
    "date": "2022-06-03",
-   "top": 36.5
+   "top": 36.4
   },
   {
    "date": "2022-06-06",
-   "top": 37.1
+   "top": 37.0
   },
   {
    "date": "2022-06-07",
@@ -21577,7 +21577,7 @@
   },
   {
    "date": "2022-06-10",
-   "top": 38.1
+   "top": 38.0
   },
   {
    "date": "2022-06-13",
@@ -21589,7 +21589,7 @@
   },
   {
    "date": "2022-06-15",
-   "top": 31.1
+   "top": 31.0
   },
   {
    "date": "2022-06-16",
@@ -21601,7 +21601,7 @@
   },
   {
    "date": "2022-06-21",
-   "top": 28.4
+   "top": 28.3
   },
   {
    "date": "2022-06-22",
@@ -21641,7 +21641,7 @@
   },
   {
    "date": "2022-07-06",
-   "top": 37.7
+   "top": 37.6
   },
   {
    "date": "2022-07-07",
@@ -21653,11 +21653,11 @@
   },
   {
    "date": "2022-07-11",
-   "top": 41.3
+   "top": 41.2
   },
   {
    "date": "2022-07-12",
-   "top": 41.3
+   "top": 41.2
   },
   {
    "date": "2022-07-13",
@@ -21673,7 +21673,7 @@
   },
   {
    "date": "2022-07-18",
-   "top": 43.2
+   "top": 43.1
   },
   {
    "date": "2022-07-19",
@@ -21697,7 +21697,7 @@
   },
   {
    "date": "2022-07-26",
-   "top": 44.6
+   "top": 44.5
   },
   {
    "date": "2022-07-27",
@@ -21705,7 +21705,7 @@
   },
   {
    "date": "2022-07-28",
-   "top": 45.9
+   "top": 45.8
   },
   {
    "date": "2022-07-29",
@@ -21725,11 +21725,11 @@
   },
   {
    "date": "2022-08-04",
-   "top": 49.0
+   "top": 48.9
   },
   {
    "date": "2022-08-05",
-   "top": 49.7
+   "top": 49.6
   },
   {
    "date": "2022-08-08",
@@ -21749,11 +21749,11 @@
   },
   {
    "date": "2022-08-12",
-   "top": 53.5
+   "top": 53.4
   },
   {
    "date": "2022-08-15",
-   "top": 54.3
+   "top": 54.2
   },
   {
    "date": "2022-08-16",
@@ -21761,7 +21761,7 @@
   },
   {
    "date": "2022-08-17",
-   "top": 55.9
+   "top": 55.8
   },
   {
    "date": "2022-08-18",
@@ -21773,7 +21773,7 @@
   },
   {
    "date": "2022-08-22",
-   "top": 56.3
+   "top": 56.2
   },
   {
    "date": "2022-08-23",
@@ -21781,7 +21781,7 @@
   },
   {
    "date": "2022-08-24",
-   "top": 54.9
+   "top": 54.8
   },
   {
    "date": "2022-08-25",
@@ -21801,7 +21801,7 @@
   },
   {
    "date": "2022-08-31",
-   "top": 50.1
+   "top": 50.0
   },
   {
    "date": "2022-09-01",
@@ -21821,15 +21821,15 @@
   },
   {
    "date": "2022-09-08",
-   "top": 46.9
-  },
-  {
-   "date": "2022-09-09",
    "top": 46.8
   },
   {
+   "date": "2022-09-09",
+   "top": 46.7
+  },
+  {
    "date": "2022-09-12",
-   "top": 45.9
+   "top": 45.8
   },
   {
    "date": "2022-09-13",
@@ -21837,7 +21837,7 @@
   },
   {
    "date": "2022-09-14",
-   "top": 42.8
+   "top": 42.7
   },
   {
    "date": "2022-09-15",
@@ -21849,7 +21849,7 @@
   },
   {
    "date": "2022-09-19",
-   "top": 39.7
+   "top": 39.6
   },
   {
    "date": "2022-09-20",
@@ -21861,11 +21861,11 @@
   },
   {
    "date": "2022-09-22",
-   "top": 36.8
+   "top": 36.7
   },
   {
    "date": "2022-09-23",
-   "top": 35.3
+   "top": 35.2
   },
   {
    "date": "2022-09-26",
@@ -21873,19 +21873,19 @@
   },
   {
    "date": "2022-09-27",
-   "top": 30.7
+   "top": 30.6
   },
   {
    "date": "2022-09-28",
-   "top": 29.6
+   "top": 29.5
   },
   {
    "date": "2022-09-29",
-   "top": 28.3
+   "top": 28.2
   },
   {
    "date": "2022-09-30",
-   "top": 27.4
+   "top": 27.3
   },
   {
    "date": "2022-10-03",
@@ -21909,11 +21909,11 @@
   },
   {
    "date": "2022-10-10",
-   "top": 27.1
+   "top": 27.0
   },
   {
    "date": "2022-10-11",
-   "top": 26.1
+   "top": 26.0
   },
   {
    "date": "2022-10-12",
@@ -21925,11 +21925,11 @@
   },
   {
    "date": "2022-10-14",
-   "top": 24.6
+   "top": 24.5
   },
   {
    "date": "2022-10-17",
-   "top": 24.9
+   "top": 24.8
   },
   {
    "date": "2022-10-18",
@@ -21945,19 +21945,19 @@
   },
   {
    "date": "2022-10-21",
-   "top": 27.3
+   "top": 27.2
   },
   {
    "date": "2022-10-24",
-   "top": 27.0
-  },
-  {
-   "date": "2022-10-25",
    "top": 26.9
   },
   {
+   "date": "2022-10-25",
+   "top": 26.8
+  },
+  {
    "date": "2022-10-26",
-   "top": 27.2
+   "top": 27.1
   },
   {
    "date": "2022-10-27",
@@ -21965,15 +21965,15 @@
   },
   {
    "date": "2022-10-28",
-   "top": 26.9
+   "top": 26.8
   },
   {
    "date": "2022-10-31",
-   "top": 26.6
+   "top": 26.5
   },
   {
    "date": "2022-11-01",
-   "top": 26.2
+   "top": 26.1
   },
   {
    "date": "2022-11-02",
@@ -21985,15 +21985,15 @@
   },
   {
    "date": "2022-11-04",
-   "top": 27.0
+   "top": 26.9
   },
   {
    "date": "2022-11-07",
-   "top": 27.6
+   "top": 27.5
   },
   {
    "date": "2022-11-08",
-   "top": 27.8
+   "top": 27.7
   },
   {
    "date": "2022-11-09",
@@ -22001,19 +22001,19 @@
   },
   {
    "date": "2022-11-10",
-   "top": 29.5
+   "top": 29.4
   },
   {
    "date": "2022-11-11",
-   "top": 31.8
+   "top": 31.7
   },
   {
    "date": "2022-11-14",
-   "top": 33.6
+   "top": 33.5
   },
   {
    "date": "2022-11-15",
-   "top": 34.7
+   "top": 34.6
   },
   {
    "date": "2022-11-16",
@@ -22029,15 +22029,15 @@
   },
   {
    "date": "2022-11-21",
-   "top": 41.0
+   "top": 40.9
   },
   {
    "date": "2022-11-22",
-   "top": 42.4
+   "top": 42.3
   },
   {
    "date": "2022-11-23",
-   "top": 44.2
+   "top": 44.1
   },
   {
    "date": "2022-11-25",
@@ -22053,7 +22053,7 @@
   },
   {
    "date": "2022-11-30",
-   "top": 47.1
+   "top": 47.0
   },
   {
    "date": "2022-12-01",
@@ -22073,7 +22073,7 @@
   },
   {
    "date": "2022-12-07",
-   "top": 44.5
+   "top": 44.4
   },
   {
    "date": "2022-12-08",
@@ -22101,11 +22101,11 @@
   },
   {
    "date": "2022-12-16",
-   "top": 40.2
+   "top": 40.1
   },
   {
    "date": "2022-12-19",
-   "top": 41.2
+   "top": 41.1
   },
   {
    "date": "2022-12-20",
@@ -22145,7 +22145,7 @@
   },
   {
    "date": "2023-01-04",
-   "top": 46.5
+   "top": 46.4
   },
   {
    "date": "2023-01-05",
@@ -22153,7 +22153,7 @@
   },
   {
    "date": "2023-01-06",
-   "top": 46.0
+   "top": 45.9
   },
   {
    "date": "2023-01-09",
@@ -22165,7 +22165,7 @@
   },
   {
    "date": "2023-01-11",
-   "top": 45.5
+   "top": 45.4
   },
   {
    "date": "2023-01-12",
@@ -22173,7 +22173,7 @@
   },
   {
    "date": "2023-01-13",
-   "top": 47.5
+   "top": 47.4
   },
   {
    "date": "2023-01-17",
@@ -22189,15 +22189,15 @@
   },
   {
    "date": "2023-01-20",
-   "top": 48.2
+   "top": 48.1
   },
   {
    "date": "2023-01-23",
-   "top": 47.3
+   "top": 47.2
   },
   {
    "date": "2023-01-24",
-   "top": 46.2
+   "top": 46.1
   },
   {
    "date": "2023-01-25",
@@ -22209,11 +22209,11 @@
   },
   {
    "date": "2023-01-27",
-   "top": 43.2
+   "top": 43.1
   },
   {
    "date": "2023-01-30",
-   "top": 42.0
+   "top": 41.9
   },
   {
    "date": "2023-01-31",
@@ -22233,11 +22233,11 @@
   },
   {
    "date": "2023-02-06",
-   "top": 40.3
+   "top": 40.2
   },
   {
    "date": "2023-02-07",
-   "top": 40.4
+   "top": 40.3
   },
   {
    "date": "2023-02-08",
@@ -22253,11 +22253,11 @@
   },
   {
    "date": "2023-02-13",
-   "top": 37.7
+   "top": 37.6
   },
   {
    "date": "2023-02-14",
-   "top": 38.5
+   "top": 38.4
   },
   {
    "date": "2023-02-15",
@@ -22269,11 +22269,11 @@
   },
   {
    "date": "2023-02-17",
-   "top": 40.4
+   "top": 40.3
   },
   {
    "date": "2023-02-21",
-   "top": 39.7
+   "top": 39.6
   },
   {
    "date": "2023-02-22",
@@ -22285,11 +22285,11 @@
   },
   {
    "date": "2023-02-24",
-   "top": 40.1
+   "top": 40.0
   },
   {
    "date": "2023-02-27",
-   "top": 40.3
+   "top": 40.2
   },
   {
    "date": "2023-02-28",
@@ -22305,11 +22305,11 @@
   },
   {
    "date": "2023-03-03",
-   "top": 41.0
+   "top": 40.9
   },
   {
    "date": "2023-03-06",
-   "top": 40.9
+   "top": 40.8
   },
   {
    "date": "2023-03-07",
@@ -22349,11 +22349,11 @@
   },
   {
    "date": "2023-03-20",
-   "top": 24.2
+   "top": 24.1
   },
   {
    "date": "2023-03-21",
-   "top": 24.6
+   "top": 24.5
   },
   {
    "date": "2023-03-22",
@@ -22365,7 +22365,7 @@
   },
   {
    "date": "2023-03-24",
-   "top": 26.4
+   "top": 26.3
   },
   {
    "date": "2023-03-27",
@@ -22377,7 +22377,7 @@
   },
   {
    "date": "2023-03-29",
-   "top": 30.8
+   "top": 30.7
   },
   {
    "date": "2023-03-30",
@@ -22397,7 +22397,7 @@
   },
   {
    "date": "2023-04-05",
-   "top": 35.5
+   "top": 35.4
   },
   {
    "date": "2023-04-06",
@@ -22405,7 +22405,7 @@
   },
   {
    "date": "2023-04-10",
-   "top": 37.7
+   "top": 37.6
   },
   {
    "date": "2023-04-11",
@@ -22413,7 +22413,7 @@
   },
   {
    "date": "2023-04-12",
-   "top": 39.3
+   "top": 39.2
   },
   {
    "date": "2023-04-13",
@@ -22421,7 +22421,7 @@
   },
   {
    "date": "2023-04-14",
-   "top": 41.7
+   "top": 41.6
   },
   {
    "date": "2023-04-17",
@@ -22445,7 +22445,7 @@
   },
   {
    "date": "2023-04-24",
-   "top": 44.7
+   "top": 44.6
   },
   {
    "date": "2023-04-25",
@@ -22465,7 +22465,7 @@
   },
   {
    "date": "2023-05-01",
-   "top": 44.7
+   "top": 44.6
   },
   {
    "date": "2023-05-02",
@@ -22509,7 +22509,7 @@
   },
   {
    "date": "2023-05-16",
-   "top": 50.4
+   "top": 50.3
   },
   {
    "date": "2023-05-17",
@@ -22529,7 +22529,7 @@
   },
   {
    "date": "2023-05-23",
-   "top": 56.0
+   "top": 55.9
   },
   {
    "date": "2023-05-24",
@@ -22585,7 +22585,7 @@
   },
   {
    "date": "2023-06-13",
-   "top": 61.5
+   "top": 61.4
   },
   {
    "date": "2023-06-14",
@@ -22597,7 +22597,7 @@
   },
   {
    "date": "2023-06-16",
-   "top": 62.2
+   "top": 62.1
   },
   {
    "date": "2023-06-20",
@@ -22625,7 +22625,7 @@
   },
   {
    "date": "2023-06-28",
-   "top": 64.9
+   "top": 64.8
   },
   {
    "date": "2023-06-29",
@@ -22661,11 +22661,11 @@
   },
   {
    "date": "2023-07-12",
-   "top": 62.7
+   "top": 62.6
   },
   {
    "date": "2023-07-13",
-   "top": 62.7
+   "top": 62.6
   },
   {
    "date": "2023-07-14",
@@ -22681,7 +22681,7 @@
   },
   {
    "date": "2023-07-19",
-   "top": 60.6
+   "top": 60.5
   },
   {
    "date": "2023-07-20",
@@ -22693,11 +22693,11 @@
   },
   {
    "date": "2023-07-24",
-   "top": 59.1
+   "top": 59.0
   },
   {
    "date": "2023-07-25",
-   "top": 58.9
+   "top": 58.8
   },
   {
    "date": "2023-07-26",
@@ -22721,7 +22721,7 @@
   },
   {
    "date": "2023-08-02",
-   "top": 59.0
+   "top": 58.9
   },
   {
    "date": "2023-08-03",
@@ -22733,7 +22733,7 @@
   },
   {
    "date": "2023-08-07",
-   "top": 55.6
+   "top": 55.5
   },
   {
    "date": "2023-08-08",
@@ -22745,23 +22745,23 @@
   },
   {
    "date": "2023-08-10",
-   "top": 54.1
+   "top": 54.0
   },
   {
    "date": "2023-08-11",
-   "top": 53.4
+   "top": 53.3
   },
   {
    "date": "2023-08-14",
-   "top": 53.1
+   "top": 53.0
   },
   {
    "date": "2023-08-15",
-   "top": 52.0
+   "top": 51.9
   },
   {
    "date": "2023-08-16",
-   "top": 51.3
+   "top": 51.2
   },
   {
    "date": "2023-08-17",
@@ -22769,7 +22769,7 @@
   },
   {
    "date": "2023-08-18",
-   "top": 49.2
+   "top": 49.1
   },
   {
    "date": "2023-08-21",
@@ -22777,7 +22777,7 @@
   },
   {
    "date": "2023-08-22",
-   "top": 48.3
+   "top": 48.2
   },
   {
    "date": "2023-08-23",
@@ -22785,7 +22785,7 @@
   },
   {
    "date": "2023-08-24",
-   "top": 49.0
+   "top": 48.9
   },
   {
    "date": "2023-08-25",
@@ -22805,7 +22805,7 @@
   },
   {
    "date": "2023-08-31",
-   "top": 54.3
+   "top": 54.2
   },
   {
    "date": "2023-09-01",
@@ -22817,11 +22817,11 @@
   },
   {
    "date": "2023-09-06",
-   "top": 56.0
+   "top": 55.9
   },
   {
    "date": "2023-09-07",
-   "top": 56.7
+   "top": 56.6
   },
   {
    "date": "2023-09-08",
@@ -22829,15 +22829,15 @@
   },
   {
    "date": "2023-09-11",
-   "top": 57.4
-  },
-  {
-   "date": "2023-09-12",
    "top": 57.3
   },
   {
+   "date": "2023-09-12",
+   "top": 57.2
+  },
+  {
    "date": "2023-09-13",
-   "top": 58.3
+   "top": 58.2
   },
   {
    "date": "2023-09-14",
@@ -22845,7 +22845,7 @@
   },
   {
    "date": "2023-09-15",
-   "top": 58.8
+   "top": 58.7
   },
   {
    "date": "2023-09-18",
@@ -22857,7 +22857,7 @@
   },
   {
    "date": "2023-09-20",
-   "top": 58.6
+   "top": 58.5
   },
   {
    "date": "2023-09-21",
@@ -22865,11 +22865,11 @@
   },
   {
    "date": "2023-09-22",
-   "top": 55.1
+   "top": 55.0
   },
   {
    "date": "2023-09-25",
-   "top": 54.1
+   "top": 54.0
   },
   {
    "date": "2023-09-26",
@@ -22881,11 +22881,11 @@
   },
   {
    "date": "2023-09-28",
-   "top": 50.2
+   "top": 50.1
   },
   {
    "date": "2023-09-29",
-   "top": 49.4
+   "top": 49.3
   },
   {
    "date": "2023-10-02",
@@ -22897,7 +22897,7 @@
   },
   {
    "date": "2023-10-04",
-   "top": 44.2
+   "top": 44.1
   },
   {
    "date": "2023-10-05",
@@ -22905,19 +22905,19 @@
   },
   {
    "date": "2023-10-06",
-   "top": 42.3
+   "top": 42.2
   },
   {
    "date": "2023-10-09",
-   "top": 42.1
+   "top": 42.0
   },
   {
    "date": "2023-10-10",
-   "top": 41.3
+   "top": 41.2
   },
   {
    "date": "2023-10-11",
-   "top": 41.4
+   "top": 41.3
   },
   {
    "date": "2023-10-12",
@@ -22925,19 +22925,19 @@
   },
   {
    "date": "2023-10-13",
-   "top": 39.4
+   "top": 39.3
   },
   {
    "date": "2023-10-16",
-   "top": 38.6
+   "top": 38.5
   },
   {
    "date": "2023-10-17",
-   "top": 37.7
+   "top": 37.6
   },
   {
    "date": "2023-10-18",
-   "top": 36.4
+   "top": 36.3
   },
   {
    "date": "2023-10-19",
@@ -22945,15 +22945,15 @@
   },
   {
    "date": "2023-10-20",
-   "top": 31.5
+   "top": 31.4
   },
   {
    "date": "2023-10-23",
-   "top": 30.1
+   "top": 30.0
   },
   {
    "date": "2023-10-24",
-   "top": 30.0
+   "top": 29.9
   },
   {
    "date": "2023-10-25",
@@ -22961,15 +22961,15 @@
   },
   {
    "date": "2023-10-26",
-   "top": 29.0
+   "top": 28.9
   },
   {
    "date": "2023-10-27",
-   "top": 28.2
+   "top": 28.1
   },
   {
    "date": "2023-10-30",
-   "top": 27.9
+   "top": 27.8
   },
   {
    "date": "2023-10-31",
@@ -22977,7 +22977,7 @@
   },
   {
    "date": "2023-11-01",
-   "top": 31.4
+   "top": 31.3
   },
   {
    "date": "2023-11-02",
@@ -22985,39 +22985,39 @@
   },
   {
    "date": "2023-11-03",
-   "top": 37.0
+   "top": 36.9
   },
   {
    "date": "2023-11-06",
-   "top": 39.5
+   "top": 39.4
   },
   {
    "date": "2023-11-07",
-   "top": 41.8
+   "top": 41.7
   },
   {
    "date": "2023-11-08",
-   "top": 43.9
+   "top": 43.8
   },
   {
    "date": "2023-11-09",
-   "top": 45.6
+   "top": 45.5
   },
   {
    "date": "2023-11-10",
-   "top": 47.3
+   "top": 47.2
   },
   {
    "date": "2023-11-13",
-   "top": 48.7
+   "top": 48.6
   },
   {
    "date": "2023-11-14",
-   "top": 50.7
+   "top": 50.6
   },
   {
    "date": "2023-11-15",
-   "top": 53.1
+   "top": 53.0
   },
   {
    "date": "2023-11-16",
@@ -23037,11 +23037,11 @@
   },
   {
    "date": "2023-11-22",
-   "top": 62.9
+   "top": 62.8
   },
   {
    "date": "2023-11-24",
-   "top": 63.5
+   "top": 63.4
   },
   {
    "date": "2023-11-27",
@@ -23053,11 +23053,11 @@
   },
   {
    "date": "2023-11-29",
-   "top": 65.0
+   "top": 64.9
   },
   {
    "date": "2023-11-30",
-   "top": 64.3
+   "top": 64.2
   },
   {
    "date": "2023-12-01",
@@ -23065,19 +23065,19 @@
   },
   {
    "date": "2023-12-04",
-   "top": 61.1
+   "top": 61.0
   },
   {
    "date": "2023-12-05",
-   "top": 59.8
+   "top": 59.7
   },
   {
    "date": "2023-12-06",
-   "top": 58.6
+   "top": 58.5
   },
   {
    "date": "2023-12-07",
-   "top": 57.6
+   "top": 57.5
   },
   {
    "date": "2023-12-08",
@@ -23093,23 +23093,23 @@
   },
   {
    "date": "2023-12-13",
-   "top": 55.3
-  },
-  {
-   "date": "2023-12-14",
-   "top": 55.5
-  },
-  {
-   "date": "2023-12-15",
    "top": 55.2
   },
   {
-   "date": "2023-12-18",
+   "date": "2023-12-14",
+   "top": 55.4
+  },
+  {
+   "date": "2023-12-15",
    "top": 55.1
   },
   {
+   "date": "2023-12-18",
+   "top": 55.0
+  },
+  {
    "date": "2023-12-19",
-   "top": 55.6
+   "top": 55.5
   },
   {
    "date": "2023-12-20",
@@ -23117,15 +23117,15 @@
   },
   {
    "date": "2023-12-21",
-   "top": 55.4
+   "top": 55.3
   },
   {
    "date": "2023-12-22",
-   "top": 55.3
+   "top": 55.2
   },
   {
    "date": "2023-12-26",
-   "top": 55.3
+   "top": 55.2
   },
   {
    "date": "2023-12-27",
@@ -23133,11 +23133,11 @@
   },
   {
    "date": "2023-12-28",
-   "top": 55.9
+   "top": 55.8
   },
   {
    "date": "2023-12-29",
-   "top": 55.8
+   "top": 55.7
   },
   {
    "date": "2024-01-02",
@@ -23145,11 +23145,11 @@
   },
   {
    "date": "2024-01-03",
-   "top": 53.7
+   "top": 53.6
   },
   {
    "date": "2024-01-04",
-   "top": 52.9
+   "top": 52.8
   },
   {
    "date": "2024-01-05",
@@ -23157,7 +23157,7 @@
   },
   {
    "date": "2024-01-08",
-   "top": 52.8
+   "top": 52.7
   },
   {
    "date": "2024-01-09",
@@ -23173,7 +23173,7 @@
   },
   {
    "date": "2024-01-12",
-   "top": 54.0
+   "top": 53.9
   },
   {
    "date": "2024-01-16",
@@ -23193,23 +23193,23 @@
   },
   {
    "date": "2024-01-22",
-   "top": 50.0
+   "top": 49.9
   },
   {
    "date": "2024-01-23",
-   "top": 49.6
+   "top": 49.5
   },
   {
    "date": "2024-01-24",
-   "top": 48.9
+   "top": 48.8
   },
   {
    "date": "2024-01-25",
-   "top": 48.0
+   "top": 47.9
   },
   {
    "date": "2024-01-26",
-   "top": 47.2
+   "top": 47.1
   },
   {
    "date": "2024-01-29",
@@ -23217,7 +23217,7 @@
   },
   {
    "date": "2024-01-30",
-   "top": 46.5
+   "top": 46.4
   },
   {
    "date": "2024-01-31",
@@ -23241,7 +23241,7 @@
   },
   {
    "date": "2024-02-07",
-   "top": 47.8
+   "top": 47.7
   },
   {
    "date": "2024-02-08",
@@ -23249,7 +23249,7 @@
   },
   {
    "date": "2024-02-09",
-   "top": 48.2
+   "top": 48.1
   },
   {
    "date": "2024-02-12",
@@ -23269,23 +23269,23 @@
   },
   {
    "date": "2024-02-16",
-   "top": 46.9
+   "top": 46.8
   },
   {
    "date": "2024-02-20",
-   "top": 46.3
+   "top": 46.2
   },
   {
    "date": "2024-02-21",
-   "top": 46.0
+   "top": 45.9
   },
   {
    "date": "2024-02-22",
-   "top": 46.6
+   "top": 46.5
   },
   {
    "date": "2024-02-23",
-   "top": 47.2
+   "top": 47.1
   },
   {
    "date": "2024-02-26",
@@ -23313,11 +23313,11 @@
   },
   {
    "date": "2024-03-05",
-   "top": 49.8
+   "top": 49.7
   },
   {
    "date": "2024-03-06",
-   "top": 50.0
+   "top": 49.9
   },
   {
    "date": "2024-03-07",
@@ -23329,7 +23329,7 @@
   },
   {
    "date": "2024-03-11",
-   "top": 48.7
+   "top": 48.6
   },
   {
    "date": "2024-03-12",
@@ -23345,11 +23345,11 @@
   },
   {
    "date": "2024-03-15",
-   "top": 49.9
+   "top": 49.8
   },
   {
    "date": "2024-03-18",
-   "top": 50.8
+   "top": 50.7
   },
   {
    "date": "2024-03-19",
@@ -23357,7 +23357,7 @@
   },
   {
    "date": "2024-03-20",
-   "top": 53.6
+   "top": 53.5
   },
   {
    "date": "2024-03-21",
@@ -23393,7 +23393,7 @@
   },
   {
    "date": "2024-04-03",
-   "top": 63.0
+   "top": 62.9
   },
   {
    "date": "2024-04-04",
@@ -23401,7 +23401,7 @@
   },
   {
    "date": "2024-04-05",
-   "top": 60.8
+   "top": 60.7
   },
   {
    "date": "2024-04-08",
@@ -23409,7 +23409,7 @@
   },
   {
    "date": "2024-04-09",
-   "top": 60.9
+   "top": 60.8
   },
   {
    "date": "2024-04-10",
@@ -23449,7 +23449,7 @@
   },
   {
    "date": "2024-04-23",
-   "top": 46.9
+   "top": 46.8
   },
   {
    "date": "2024-04-24",
@@ -23465,11 +23465,11 @@
   },
   {
    "date": "2024-04-29",
-   "top": 48.0
+   "top": 47.9
   },
   {
    "date": "2024-04-30",
-   "top": 48.0
+   "top": 47.9
   },
   {
    "date": "2024-05-01",
@@ -23485,11 +23485,11 @@
   },
   {
    "date": "2024-05-06",
-   "top": 53.4
+   "top": 53.3
   },
   {
    "date": "2024-05-07",
-   "top": 55.2
+   "top": 55.1
   },
   {
    "date": "2024-05-08",
@@ -23513,7 +23513,7 @@
   },
   {
    "date": "2024-05-15",
-   "top": 61.8
+   "top": 61.7
   },
   {
    "date": "2024-05-16",
@@ -23533,7 +23533,7 @@
   },
   {
    "date": "2024-05-22",
-   "top": 67.3
+   "top": 67.2
   },
   {
    "date": "2024-05-23",
@@ -23541,11 +23541,11 @@
   },
   {
    "date": "2024-05-24",
-   "top": 68.5
+   "top": 68.4
   },
   {
    "date": "2024-05-28",
-   "top": 69.2
+   "top": 69.1
   },
   {
    "date": "2024-05-29",
@@ -23557,7 +23557,7 @@
   },
   {
    "date": "2024-05-31",
-   "top": 67.4
+   "top": 67.3
   },
   {
    "date": "2024-06-03",
@@ -23569,15 +23569,15 @@
   },
   {
    "date": "2024-06-05",
-   "top": 65.1
+   "top": 65.0
   },
   {
    "date": "2024-06-06",
-   "top": 64.4
+   "top": 64.3
   },
   {
    "date": "2024-06-07",
-   "top": 64.2
+   "top": 64.1
   },
   {
    "date": "2024-06-10",
@@ -23609,11 +23609,11 @@
   },
   {
    "date": "2024-06-20",
-   "top": 63.4
+   "top": 63.3
   },
   {
    "date": "2024-06-21",
-   "top": 63.0
+   "top": 62.9
   },
   {
    "date": "2024-06-24",
@@ -23621,15 +23621,15 @@
   },
   {
    "date": "2024-06-25",
-   "top": 63.1
+   "top": 63.0
   },
   {
    "date": "2024-06-26",
-   "top": 63.9
+   "top": 63.8
   },
   {
    "date": "2024-06-27",
-   "top": 64.8
+   "top": 64.7
   },
   {
    "date": "2024-06-28",
@@ -23637,7 +23637,7 @@
   },
   {
    "date": "2024-07-01",
-   "top": 65.9
+   "top": 65.8
   },
   {
    "date": "2024-07-02",
@@ -23645,19 +23645,19 @@
   },
   {
    "date": "2024-07-03",
-   "top": 66.8
-  },
-  {
-   "date": "2024-07-05",
    "top": 66.7
   },
   {
+   "date": "2024-07-05",
+   "top": 66.6
+  },
+  {
    "date": "2024-07-08",
-   "top": 67.6
+   "top": 67.5
   },
   {
    "date": "2024-07-09",
-   "top": 68.5
+   "top": 68.4
   },
   {
    "date": "2024-07-10",
@@ -23705,19 +23705,19 @@
   },
   {
    "date": "2024-07-25",
-   "top": 60.5
+   "top": 60.4
   },
   {
    "date": "2024-07-26",
-   "top": 58.9
+   "top": 58.8
   },
   {
    "date": "2024-07-29",
-   "top": 57.3
+   "top": 57.2
   },
   {
    "date": "2024-07-30",
-   "top": 54.8
+   "top": 54.7
   },
   {
    "date": "2024-07-31",
@@ -23725,11 +23725,11 @@
   },
   {
    "date": "2024-08-01",
-   "top": 50.2
+   "top": 50.1
   },
   {
    "date": "2024-08-02",
-   "top": 45.7
+   "top": 45.6
   },
   {
    "date": "2024-08-05",
@@ -23737,7 +23737,7 @@
   },
   {
    "date": "2024-08-06",
-   "top": 37.8
+   "top": 37.7
   },
   {
    "date": "2024-08-07",
@@ -23745,7 +23745,7 @@
   },
   {
    "date": "2024-08-08",
-   "top": 32.0
+   "top": 31.9
   },
   {
    "date": "2024-08-09",
@@ -23761,19 +23761,19 @@
   },
   {
    "date": "2024-08-14",
-   "top": 27.2
+   "top": 27.1
   },
   {
    "date": "2024-08-15",
-   "top": 28.4
+   "top": 28.3
   },
   {
    "date": "2024-08-16",
-   "top": 29.6
+   "top": 29.5
   },
   {
    "date": "2024-08-19",
-   "top": 31.0
+   "top": 30.9
   },
   {
    "date": "2024-08-20",
@@ -23781,7 +23781,7 @@
   },
   {
    "date": "2024-08-21",
-   "top": 32.0
+   "top": 31.9
   },
   {
    "date": "2024-08-22",
@@ -23793,11 +23793,11 @@
   },
   {
    "date": "2024-08-26",
-   "top": 35.0
+   "top": 34.9
   },
   {
    "date": "2024-08-27",
-   "top": 36.6
+   "top": 36.5
   },
   {
    "date": "2024-08-28",
@@ -23809,7 +23809,7 @@
   },
   {
    "date": "2024-08-30",
-   "top": 40.6
+   "top": 40.5
   },
   {
    "date": "2024-09-03",
@@ -23825,15 +23825,15 @@
   },
   {
    "date": "2024-09-06",
-   "top": 35.0
+   "top": 34.9
   },
   {
    "date": "2024-09-09",
-   "top": 34.7
+   "top": 34.6
   },
   {
    "date": "2024-09-10",
-   "top": 33.9
+   "top": 33.8
   },
   {
    "date": "2024-09-11",
@@ -23841,7 +23841,7 @@
   },
   {
    "date": "2024-09-12",
-   "top": 33.8
+   "top": 33.7
   },
   {
    "date": "2024-09-13",
@@ -23853,11 +23853,11 @@
   },
   {
    "date": "2024-09-17",
-   "top": 34.6
+   "top": 34.5
   },
   {
    "date": "2024-09-18",
-   "top": 35.0
+   "top": 34.9
   },
   {
    "date": "2024-09-19",
@@ -23877,11 +23877,11 @@
   },
   {
    "date": "2024-09-25",
-   "top": 41.0
+   "top": 40.9
   },
   {
    "date": "2024-09-26",
-   "top": 42.1
+   "top": 42.0
   },
   {
    "date": "2024-09-27",
@@ -23893,7 +23893,7 @@
   },
   {
    "date": "2024-10-01",
-   "top": 43.1
+   "top": 43.0
   },
   {
    "date": "2024-10-02",
@@ -23909,15 +23909,15 @@
   },
   {
    "date": "2024-10-07",
-   "top": 43.2
+   "top": 43.1
   },
   {
    "date": "2024-10-08",
-   "top": 42.9
+   "top": 42.8
   },
   {
    "date": "2024-10-09",
-   "top": 42.3
+   "top": 42.2
   },
   {
    "date": "2024-10-10",
@@ -23933,7 +23933,7 @@
   },
   {
    "date": "2024-10-15",
-   "top": 42.0
+   "top": 41.9
   },
   {
    "date": "2024-10-16",
@@ -23941,7 +23941,7 @@
   },
   {
    "date": "2024-10-17",
-   "top": 42.1
+   "top": 42.0
   },
   {
    "date": "2024-10-18",
@@ -23953,11 +23953,11 @@
   },
   {
    "date": "2024-10-22",
-   "top": 42.5
+   "top": 42.4
   },
   {
    "date": "2024-10-23",
-   "top": 42.1
+   "top": 42.0
   },
   {
    "date": "2024-10-24",
@@ -23969,11 +23969,11 @@
   },
   {
    "date": "2024-10-28",
-   "top": 39.2
+   "top": 39.1
   },
   {
    "date": "2024-10-29",
-   "top": 37.7
+   "top": 37.6
   },
   {
    "date": "2024-10-30",
@@ -23981,11 +23981,11 @@
   },
   {
    "date": "2024-10-31",
-   "top": 34.0
+   "top": 33.9
   },
   {
    "date": "2024-11-01",
-   "top": 32.5
+   "top": 32.4
   },
   {
    "date": "2024-11-04",
@@ -23993,7 +23993,7 @@
   },
   {
    "date": "2024-11-05",
-   "top": 29.1
+   "top": 29.0
   },
   {
    "date": "2024-11-06",
@@ -24001,15 +24001,15 @@
   },
   {
    "date": "2024-11-07",
-   "top": 32.8
+   "top": 32.7
   },
   {
    "date": "2024-11-08",
-   "top": 34.9
+   "top": 34.8
   },
   {
    "date": "2024-11-11",
-   "top": 36.3
+   "top": 36.2
   },
   {
    "date": "2024-11-12",
@@ -24017,11 +24017,11 @@
   },
   {
    "date": "2024-11-13",
-   "top": 39.1
+   "top": 39.0
   },
   {
    "date": "2024-11-14",
-   "top": 40.6
+   "top": 40.5
   },
   {
    "date": "2024-11-15",
@@ -24037,7 +24037,7 @@
   },
   {
    "date": "2024-11-20",
-   "top": 43.2
+   "top": 43.1
   },
   {
    "date": "2024-11-21",
@@ -24045,11 +24045,11 @@
   },
   {
    "date": "2024-11-22",
-   "top": 45.6
+   "top": 45.5
   },
   {
    "date": "2024-11-25",
-   "top": 47.4
+   "top": 47.3
   },
   {
    "date": "2024-11-26",
@@ -24061,11 +24061,11 @@
   },
   {
    "date": "2024-11-29",
-   "top": 51.6
+   "top": 51.5
   },
   {
    "date": "2024-12-02",
-   "top": 52.7
+   "top": 52.6
   },
   {
    "date": "2024-12-03",
@@ -24077,7 +24077,7 @@
   },
   {
    "date": "2024-12-05",
-   "top": 55.8
+   "top": 55.7
   },
   {
    "date": "2024-12-06",
@@ -24097,11 +24097,11 @@
   },
   {
    "date": "2024-12-12",
-   "top": 56.4
+   "top": 56.3
   },
   {
    "date": "2024-12-13",
-   "top": 56.7
+   "top": 56.6
   },
   {
    "date": "2024-12-16",
@@ -24117,11 +24117,11 @@
   },
   {
    "date": "2024-12-19",
-   "top": 51.5
+   "top": 51.4
   },
   {
    "date": "2024-12-20",
-   "top": 51.0
+   "top": 50.9
   },
   {
    "date": "2024-12-23",
@@ -24133,7 +24133,7 @@
   },
   {
    "date": "2024-12-26",
-   "top": 53.0
+   "top": 52.9
   },
   {
    "date": "2024-12-27",
@@ -24141,7 +24141,7 @@
   },
   {
    "date": "2024-12-30",
-   "top": 53.0
+   "top": 52.9
   },
   {
    "date": "2024-12-31",
@@ -24149,7 +24149,7 @@
   },
   {
    "date": "2025-01-02",
-   "top": 52.4
+   "top": 52.3
   },
   {
    "date": "2025-01-03",
@@ -24161,19 +24161,19 @@
   },
   {
    "date": "2025-01-07",
-   "top": 53.2
+   "top": 53.1
   },
   {
    "date": "2025-01-08",
-   "top": 52.7
+   "top": 52.6
   },
   {
    "date": "2025-01-10",
-   "top": 51.8
+   "top": 51.7
   },
   {
    "date": "2025-01-13",
-   "top": 50.4
+   "top": 50.3
   },
   {
    "date": "2025-01-14",
@@ -24193,11 +24193,11 @@
   },
   {
    "date": "2025-01-21",
-   "top": 49.7
+   "top": 49.6
   },
   {
    "date": "2025-01-22",
-   "top": 50.6
+   "top": 50.5
   },
   {
    "date": "2025-01-23",
@@ -24205,7 +24205,7 @@
   },
   {
    "date": "2025-01-24",
-   "top": 51.6
+   "top": 51.5
   },
   {
    "date": "2025-01-27",
@@ -24217,7 +24217,7 @@
   },
   {
    "date": "2025-01-29",
-   "top": 48.7
+   "top": 48.6
   },
   {
    "date": "2025-01-30",
@@ -24229,11 +24229,11 @@
   },
   {
    "date": "2025-02-03",
-   "top": 46.3
+   "top": 46.2
   },
   {
    "date": "2025-02-04",
-   "top": 46.0
+   "top": 45.9
   },
   {
    "date": "2025-02-05",
@@ -24245,7 +24245,7 @@
   },
   {
    "date": "2025-02-07",
-   "top": 47.0
+   "top": 46.9
   },
   {
    "date": "2025-02-10",
@@ -24253,7 +24253,7 @@
   },
   {
    "date": "2025-02-11",
-   "top": 48.5
+   "top": 48.4
   },
   {
    "date": "2025-02-12",
@@ -24261,11 +24261,11 @@
   },
   {
    "date": "2025-02-13",
-   "top": 50.4
+   "top": 50.3
   },
   {
    "date": "2025-02-14",
-   "top": 51.0
+   "top": 50.9
   },
   {
    "date": "2025-02-18",
@@ -24277,11 +24277,11 @@
   },
   {
    "date": "2025-02-20",
-   "top": 52.0
+   "top": 51.9
   },
   {
    "date": "2025-02-21",
-   "top": 50.5
+   "top": 50.4
   },
   {
    "date": "2025-02-24",
@@ -24293,7 +24293,7 @@
   },
   {
    "date": "2025-02-26",
-   "top": 45.1
+   "top": 45.0
   },
   {
    "date": "2025-02-27",
@@ -24301,7 +24301,7 @@
   },
   {
    "date": "2025-02-28",
-   "top": 41.6
+   "top": 41.5
   },
   {
    "date": "2025-03-03",
@@ -24321,15 +24321,15 @@
   },
   {
    "date": "2025-03-07",
-   "top": 30.7
+   "top": 30.6
   },
   {
    "date": "2025-03-10",
-   "top": 27.9
+   "top": 27.8
   },
   {
    "date": "2025-03-11",
-   "top": 25.4
+   "top": 25.3
   },
   {
    "date": "2025-03-12",
@@ -24341,31 +24341,31 @@
   },
   {
    "date": "2025-03-14",
-   "top": 21.3
+   "top": 21.2
   },
   {
    "date": "2025-03-17",
-   "top": 21.4
+   "top": 21.3
   },
   {
    "date": "2025-03-18",
-   "top": 20.9
+   "top": 20.8
   },
   {
    "date": "2025-03-19",
-   "top": 21.7
+   "top": 21.6
   },
   {
    "date": "2025-03-20",
-   "top": 22.7
+   "top": 22.6
   },
   {
    "date": "2025-03-21",
-   "top": 23.7
+   "top": 23.6
   },
   {
    "date": "2025-03-24",
-   "top": 25.5
+   "top": 25.4
   },
   {
    "date": "2025-03-25",
@@ -24373,11 +24373,11 @@
   },
   {
    "date": "2025-03-26",
-   "top": 27.2
+   "top": 27.1
   },
   {
    "date": "2025-03-27",
-   "top": 27.3
+   "top": 27.2
   },
   {
    "date": "2025-03-28",
@@ -24401,11 +24401,11 @@
   },
   {
    "date": "2025-04-04",
-   "top": 16.5
+   "top": 16.4
   },
   {
    "date": "2025-04-07",
-   "top": 15.0
+   "top": 14.9
   },
   {
    "date": "2025-04-08",
@@ -24413,11 +24413,11 @@
   },
   {
    "date": "2025-04-09",
-   "top": 12.4
+   "top": 12.3
   },
   {
    "date": "2025-04-10",
-   "top": 11.3
+   "top": 11.2
   },
   {
    "date": "2025-04-11",
@@ -24429,7 +24429,7 @@
   },
   {
    "date": "2025-04-15",
-   "top": 8.5
+   "top": 8.4
   },
   {
    "date": "2025-04-16",
@@ -24441,7 +24441,7 @@
   },
   {
    "date": "2025-04-21",
-   "top": 6.4
+   "top": 6.3
   },
   {
    "date": "2025-04-22",
@@ -24461,7 +24461,7 @@
   },
   {
    "date": "2025-04-28",
-   "top": 5.9
+   "top": 5.8
   },
   {
    "date": "2025-04-29",
@@ -24473,7 +24473,7 @@
   },
   {
    "date": "2025-05-01",
-   "top": 6.9
+   "top": 6.8
   },
   {
    "date": "2025-05-02",
@@ -24481,7 +24481,7 @@
   },
   {
    "date": "2025-05-05",
-   "top": 10.7
+   "top": 10.6
   },
   {
    "date": "2025-05-06",
@@ -24497,11 +24497,11 @@
   },
   {
    "date": "2025-05-09",
-   "top": 17.4
+   "top": 17.3
   },
   {
    "date": "2025-05-12",
-   "top": 19.9
+   "top": 19.8
   },
   {
    "date": "2025-05-13",
@@ -24521,7 +24521,7 @@
   },
   {
    "date": "2025-05-19",
-   "top": 29.8
+   "top": 29.7
   },
   {
    "date": "2025-05-20",
@@ -24529,23 +24529,23 @@
   },
   {
    "date": "2025-05-21",
-   "top": 32.4
+   "top": 32.3
   },
   {
    "date": "2025-05-22",
-   "top": 33.0
+   "top": 32.9
   },
   {
    "date": "2025-05-23",
-   "top": 32.6
+   "top": 32.5
   },
   {
    "date": "2025-05-27",
-   "top": 33.6
+   "top": 33.5
   },
   {
    "date": "2025-05-28",
-   "top": 34.8
+   "top": 34.7
   },
   {
    "date": "2025-05-29",
@@ -24553,7 +24553,7 @@
   },
   {
    "date": "2025-05-30",
-   "top": 37.1
+   "top": 37.0
   },
   {
    "date": "2025-06-02",
@@ -24561,7 +24561,7 @@
   },
   {
    "date": "2025-06-03",
-   "top": 39.5
+   "top": 39.4
   },
   {
    "date": "2025-06-04",
@@ -24593,7 +24593,7 @@
   },
   {
    "date": "2025-06-13",
-   "top": 46.0
+   "top": 45.9
   },
   {
    "date": "2025-06-16",
@@ -24601,7 +24601,7 @@
   },
   {
    "date": "2025-06-17",
-   "top": 44.6
+   "top": 44.5
   },
   {
    "date": "2025-06-18",
@@ -24613,15 +24613,15 @@
   },
   {
    "date": "2025-06-23",
-   "top": 44.7
+   "top": 44.6
   },
   {
    "date": "2025-06-24",
-   "top": 46.0
+   "top": 45.9
   },
   {
    "date": "2025-06-25",
-   "top": 48.0
+   "top": 47.9
   },
   {
    "date": "2025-06-26",
@@ -24629,7 +24629,7 @@
   },
   {
    "date": "2025-06-27",
-   "top": 51.9
+   "top": 51.8
   },
   {
    "date": "2025-06-30",
@@ -24645,15 +24645,15 @@
   },
   {
    "date": "2025-07-03",
-   "top": 58.8
+   "top": 58.7
   },
   {
    "date": "2025-07-07",
-   "top": 59.4
+   "top": 59.3
   },
   {
    "date": "2025-07-08",
-   "top": 60.5
+   "top": 60.4
   },
   {
    "date": "2025-07-09",
@@ -24661,7 +24661,7 @@
   },
   {
    "date": "2025-07-10",
-   "top": 62.1
+   "top": 62.0
   },
   {
    "date": "2025-07-11",
@@ -24669,7 +24669,7 @@
   },
   {
    "date": "2025-07-14",
-   "top": 61.4
+   "top": 61.3
   },
   {
    "date": "2025-07-15",
@@ -24677,15 +24677,15 @@
   },
   {
    "date": "2025-07-16",
-   "top": 61.9
+   "top": 61.8
   },
   {
    "date": "2025-07-17",
-   "top": 62.5
+   "top": 62.4
   },
   {
    "date": "2025-07-18",
-   "top": 62.9
+   "top": 62.8
   },
   {
    "date": "2025-07-21",
@@ -24693,7 +24693,7 @@
   },
   {
    "date": "2025-07-22",
-   "top": 64.1
+   "top": 64.0
   },
   {
    "date": "2025-07-23",
@@ -24701,7 +24701,7 @@
   },
   {
    "date": "2025-07-24",
-   "top": 65.0
+   "top": 64.9
   },
   {
    "date": "2025-07-25",
@@ -24713,7 +24713,7 @@
   },
   {
    "date": "2025-07-29",
-   "top": 64.4
+   "top": 64.3
   },
   {
    "date": "2025-07-30",
@@ -24741,11 +24741,11 @@
   },
   {
    "date": "2025-08-07",
-   "top": 58.3
+   "top": 58.2
   },
   {
    "date": "2025-08-08",
-   "top": 58.9
+   "top": 58.8
   },
   {
    "date": "2025-08-11",
@@ -24757,11 +24757,11 @@
   },
   {
    "date": "2025-08-13",
-   "top": 59.1
+   "top": 59.0
   },
   {
    "date": "2025-08-14",
-   "top": 58.8
+   "top": 58.7
   },
   {
    "date": "2025-08-15",
@@ -24769,11 +24769,11 @@
   },
   {
    "date": "2025-08-18",
-   "top": 58.4
+   "top": 58.3
   },
   {
    "date": "2025-08-19",
-   "top": 57.4
+   "top": 57.3
   },
   {
    "date": "2025-08-20",
@@ -24781,7 +24781,7 @@
   },
   {
    "date": "2025-08-21",
-   "top": 55.1
+   "top": 55.0
   },
   {
    "date": "2025-08-22",
@@ -24813,7 +24813,7 @@
   },
   {
    "date": "2025-09-03",
-   "top": 53.8
+   "top": 53.7
   },
   {
    "date": "2025-09-04",
@@ -24849,11 +24849,11 @@
   },
   {
    "date": "2025-09-16",
-   "top": 53.3
+   "top": 53.2
   },
   {
    "date": "2025-09-17",
-   "top": 53.5
+   "top": 53.4
   },
   {
    "date": "2025-09-18",
@@ -24861,7 +24861,7 @@
   },
   {
    "date": "2025-09-19",
-   "top": 54.0
+   "top": 53.9
   },
   {
    "date": "2025-09-22",
@@ -24869,7 +24869,7 @@
   },
   {
    "date": "2025-09-23",
-   "top": 54.1
+   "top": 54.0
   },
   {
    "date": "2025-09-24",
@@ -24889,7 +24889,7 @@
   },
   {
    "date": "2025-09-30",
-   "top": 52.9
+   "top": 52.8
   },
   {
    "date": "2025-10-01",
@@ -24929,11 +24929,11 @@
   },
   {
    "date": "2025-10-14",
-   "top": 43.3
+   "top": 43.2
   },
   {
    "date": "2025-10-15",
-   "top": 41.7
+   "top": 41.6
   },
   {
    "date": "2025-10-16",
@@ -24941,7 +24941,7 @@
   },
   {
    "date": "2025-10-17",
-   "top": 37.7
+   "top": 37.6
   },
   {
    "date": "2025-10-20",
@@ -24965,7 +24965,7 @@
   },
   {
    "date": "2025-10-27",
-   "top": 37.3
+   "top": 37.2
   },
   {
    "date": "2025-10-28",
@@ -24997,7 +24997,7 @@
   },
   {
    "date": "2025-11-06",
-   "top": 40.3
+   "top": 40.2
   },
   {
    "date": "2025-11-07",
@@ -25057,7 +25057,7 @@
   },
   {
    "date": "2025-11-28",
-   "top": 34.0
+   "top": 33.9
   },
   {
    "date": "2025-12-01",
@@ -25077,7 +25077,7 @@
   },
   {
    "date": "2025-12-05",
-   "top": 39.9
+   "top": 39.8
   },
   {
    "date": "2025-12-08",
@@ -25141,7 +25141,7 @@
   },
   {
    "date": "2025-12-30",
-   "top": 42.9
+   "top": 42.8
   },
   {
    "date": "2025-12-31",
@@ -25173,7 +25173,7 @@
   },
   {
    "date": "2026-01-12",
-   "top": 44.4
+   "top": 44.3
   },
   {
    "date": "2026-01-13",
@@ -25233,7 +25233,7 @@
   },
   {
    "date": "2026-02-03",
-   "top": 37.7
+   "top": 37.6
   },
   {
    "date": "2026-02-04",
@@ -25269,7 +25269,7 @@
   },
   {
    "date": "2026-02-17",
-   "top": 33.7
+   "top": 33.6
   },
   {
    "date": "2026-02-18",
@@ -25297,7 +25297,7 @@
   },
   {
    "date": "2026-02-26",
-   "top": 31.6
+   "top": 31.5
   },
   {
    "date": "2026-02-27",
@@ -25333,7 +25333,7 @@
   },
   {
    "date": "2026-03-11",
-   "top": 24.0
+   "top": 23.9
   },
   {
    "date": "2026-03-12",
@@ -25357,11 +25357,11 @@
   },
   {
    "date": "2026-03-19",
-   "top": 19.7
+   "top": 19.6
   },
   {
    "date": "2026-03-20",
-   "top": 18.6
+   "top": 18.5
   },
   {
    "date": "2026-03-23",
@@ -25425,11 +25425,11 @@
   },
   {
    "date": "2026-04-14",
-   "top": 30.2
+   "top": 30.1
   },
   {
    "date": "2026-04-15",
-   "top": 32.7
+   "top": 32.6
   },
   {
    "date": "2026-04-16",
@@ -25441,15 +25441,15 @@
   },
   {
    "date": "2026-04-20",
-   "top": 38.0
+   "top": 37.9
   },
   {
    "date": "2026-04-21",
-   "top": 38.4
+   "top": 38.3
   },
   {
    "date": "2026-04-22",
-   "top": 39.4
+   "top": 39.3
   },
   {
    "date": "2026-04-23",
@@ -25465,7 +25465,7 @@
   },
   {
    "date": "2026-04-28",
-   "top": 45.4
+   "top": 45.3
   },
   {
    "date": "2026-04-29",
@@ -25521,7 +25521,7 @@
   },
   {
    "date": "2026-05-18",
-   "top": 64.5
+   "top": 64.4
   },
   {
    "date": "2026-05-19",
@@ -25593,11 +25593,11 @@
   },
   {
    "date": "2026-06-12",
-   "top": 56.8
+   "top": 56.7
   },
   {
    "date": "2026-06-15",
-   "top": 57.1
+   "top": 57.0
   },
   {
    "date": "2026-06-16",
@@ -25629,7 +25629,7 @@
   },
   {
    "date": "2026-06-26",
-   "top": 53.3
+   "top": 53.2
   },
   {
    "date": "2026-06-29",
@@ -25649,7 +25649,7 @@
   },
   {
    "date": "2026-07-06",
-   "top": 56.9
+   "top": 56.8
   },
   {
    "date": "2026-07-07",
@@ -25689,11 +25689,11 @@
   },
   {
    "date": "2026-07-20",
-   "top": 53.1
+   "top": 53.0
   },
   {
    "date": "2026-07-21",
-   "top": 52.0
+   "top": 51.9
   },
   {
    "date": "2026-07-22",
@@ -25709,7 +25709,7 @@
   },
   {
    "date": "2026-07-27",
-   "top": 46.3
+   "top": 46.2
   },
   {
    "date": "2026-07-28",
@@ -25725,11 +25725,11 @@
   },
   {
    "date": "2026-07-31",
-   "top": 41.8
+   "top": 41.7
   },
   {
    "date": "2026-08-03",
-   "top": 41.9
+   "top": 41.8
   },
   {
    "date": "2026-08-04",
@@ -25737,7 +25737,7 @@
   },
   {
    "date": "2026-08-05",
-   "top": 42.3
+   "top": 42.2
   },
   {
    "date": "2026-08-06",
@@ -25745,19 +25745,19 @@
   },
   {
    "date": "2026-08-07",
-   "top": 43.1
+   "top": 43.0
   },
   {
    "date": "2026-08-10",
-   "top": 43.2
+   "top": 43.1
   },
   {
    "date": "2026-08-11",
-   "top": 43.2
+   "top": 43.1
   },
   {
    "date": "2026-08-12",
-   "top": 43.6
+   "top": 43.5
   },
   {
    "date": "2026-08-13",
@@ -25765,55 +25765,55 @@
   },
   {
    "date": "2026-08-14",
-   "top": 44.3
+   "top": 44.2
   },
   {
    "date": "2026-08-17",
-   "top": 43.8
+   "top": 43.7
   },
   {
    "date": "2026-08-18",
-   "top": 43.3
+   "top": 43.2
   },
   {
    "date": "2026-08-19",
-   "top": 43.6
+   "top": 43.5
   },
   {
    "date": "2026-08-20",
-   "top": 43.6
+   "top": 43.5
   },
   {
    "date": "2026-08-21",
-   "top": 44.1
+   "top": 43.9
   },
   {
    "date": "2026-08-24",
-   "top": 44.4
+   "top": 44.2
   },
   {
    "date": "2026-08-25",
-   "top": 45.0
+   "top": 44.9
   },
   {
    "date": "2026-08-26",
-   "top": 45.8
+   "top": 45.7
   },
   {
    "date": "2026-08-27",
-   "top": 46.9
+   "top": 46.8
   },
   {
    "date": "2026-08-28",
-   "top": 47.3
+   "top": 45.4
   },
   {
    "date": "2026-08-31",
-   "top": 47.8
+   "top": 46.1
   },
   {
    "date": "2026-09-01",
-   "top": 47.9
+   "top": 46.2
   }
  ],
  "quality": {
@@ -25848,7 +25848,7 @@
    {
     "name": "Score change explainable",
     "status": "pass",
-    "detail": "score moved +4.9 overnight"
+    "detail": "score moved -2.2 overnight"
    },
    {
     "name": "Enough gauges reporting",
@@ -25869,8 +25869,8 @@
   "baseline_away_share": 0.79,
   "window_days": 10,
   "history_from": "2016-01-04",
-  "history_to": "2026-09-02",
-  "threshold_p80": 49.7,
+  "history_to": "2026-09-03",
+  "threshold_p80": 49.8,
   "threshold_p90": 56.5,
   "episodes_testable": 9,
   "episodes_flagged": 9,
@@ -25892,8 +25892,8 @@
    {
     "date": "2020-02-24",
     "name": "Covid crash",
-    "peak_score": 70.5,
-    "percentile": 98.7,
+    "peak_score": 70.6,
+    "percentile": 98.8,
     "flagged": true
    },
    {
@@ -25957,7 +25957,7 @@
     "kind": "low",
     "measure": "stress",
     "score": 70.6,
-    "percentile": 98.7,
+    "percentile": 98.8,
     "change_before": 16.8,
     "useful": true,
     "verdict": "pegged high at the low"
@@ -25979,7 +25979,7 @@
     "kind": "low",
     "measure": "stress",
     "score": 61.1,
-    "percentile": 94.8,
+    "percentile": 94.7,
     "change_before": 1.2,
     "useful": true,
     "verdict": "pegged high at the low"
@@ -25989,7 +25989,7 @@
     "name": "SVB low",
     "kind": "low",
     "measure": "stress",
-    "score": 58.2,
+    "score": 58.3,
     "percentile": 92.1,
     "change_before": 14.2,
     "useful": true,
@@ -26001,7 +26001,7 @@
     "kind": "low",
     "measure": "stress",
     "score": 52.9,
-    "percentile": 85.2,
+    "percentile": 85.3,
     "change_before": 15.5,
     "useful": true,
     "verdict": "pegged high at the low"
@@ -26022,7 +26022,7 @@
     "name": "Sep 2018 top",
     "kind": "top",
     "measure": "topping",
-    "score": 69.3,
+    "score": 69.5,
     "percentile": 97.4,
     "change_before": 4.0,
     "useful": true,
@@ -26034,7 +26034,7 @@
     "kind": "top",
     "measure": "topping",
     "score": 27.6,
-    "percentile": 20.7,
+    "percentile": 20.9,
     "change_before": -7.7,
     "useful": false,
     "verdict": "asleep at the top"
@@ -26044,8 +26044,8 @@
     "name": "Nov 2021 breadth top",
     "kind": "top",
     "measure": "topping",
-    "score": 35.7,
-    "percentile": 38.2,
+    "score": 35.6,
+    "percentile": 38.1,
     "change_before": 3.8,
     "useful": false,
     "verdict": "asleep at the top"
@@ -26055,8 +26055,8 @@
     "name": "Jan 2022 index top",
     "kind": "top",
     "measure": "topping",
-    "score": 32.0,
-    "percentile": 28.8,
+    "score": 31.9,
+    "percentile": 28.9,
     "change_before": 6.5,
     "useful": true,
     "verdict": "rising into the top"
@@ -26067,7 +26067,7 @@
     "kind": "top",
     "measure": "topping",
     "score": 49.6,
-    "percentile": 68.2,
+    "percentile": 67.8,
     "change_before": 0.6,
     "useful": true,
     "verdict": "elevated at the top"
@@ -26075,5 +26075,5 @@
   ],
   "note": "Lows are the easy test and should be near-perfect. Tops are the hard test — judge the tool on that column."
  },
- "score_percentile": 40.2
+ "score_percentile": 29.9
 }
