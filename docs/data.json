@@ -1,7 +1,7 @@
 {
- "updated": "2026-09-21T21:02:41+00:00",
+ "updated": "2026-09-22T00:56:57+00:00",
  "build": "40285c2e",
- "score": 36.8,
+ "score": 36.9,
  "band": "ELEVATED",
  "regime": {
   "name": "DETERIORATING",
@@ -15,58 +15,34 @@
    "span": 9,
    "kind": "ema",
    "above": true,
-   "dist_pct": 1.27
+   "dist_pct": 0.04
   },
   {
    "span": 21,
    "kind": "ema",
-   "above": true,
-   "dist_pct": 1.27
+   "above": false,
+   "dist_pct": -0.15
   },
   {
    "span": 50,
    "kind": "sma",
    "above": true,
-   "dist_pct": 1.76
+   "dist_pct": 0.26
   },
   {
    "span": 200,
    "kind": "sma",
    "above": true,
-   "dist_pct": 7.92
+   "dist_pct": 6.34
   }
  ],
  "indicators": [
   {
-   "id": "ad_confirmation",
-   "label": "A/D confirmation gap, 252d",
-   "value": -48.0159,
-   "display": "-48",
-   "percentile": 100.0,
-   "weight": 12,
-   "note": "A/D line's rank minus the index's rank, same window",
-   "check": "Negative means the index is higher in its own range than participation is in its own -- the textbook non-confirmation. Around zero means breadth is keeping up. Positive means participation is running ahead of price, which is healthy.",
-   "family": "Divergence",
-   "plain": "Where the breadth line sits within its own year, minus where the index sits within its own. Are the two agreeing?",
-   "compare": "Built in — the comparison IS the gauge.",
-   "worry": "Clearly negative. The index is high in its range while participation is not: textbook non-confirmation.",
-   "ignore": "Readings near zero. Breadth is keeping up, which is exactly what you want.",
-   "as_of": "2026-09-21",
-   "basis": "absolute scale",
-   "inverted": true,
-   "clipped": true,
-   "scale_lo": -40,
-   "scale_hi": 40,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false
-  },
-  {
    "id": "breadth_ad_z",
    "label": "Advance/decline line, 63d z-score",
-   "value": -2.235,
-   "display": "-2.24",
-   "percentile": 94.7,
+   "value": -2.5164,
+   "display": "-2.52",
+   "percentile": 100.0,
    "weight": 5,
    "note": "level of breadth momentum, not a divergence measure",
    "check": "Read this as breadth strength only. For non-confirmation use the A/D confirmation gap above, which compares it against price -- this gauge does not know where price is.",
@@ -75,10 +51,10 @@
    "compare": "Nothing. Read it alone, as a strength reading.",
    "worry": "Sustained negative. But for a genuine divergence use the confirmation gap instead — this gauge does not know where price is.",
    "ignore": "Small swings. It is a noisy series.",
-   "as_of": "2026-09-21",
+   "as_of": "2026-09-18",
    "basis": "absolute scale",
    "inverted": true,
-   "clipped": false,
+   "clipped": true,
    "scale_lo": -2.5,
    "scale_hi": 2.5,
    "thin_history": false,
@@ -86,11 +62,35 @@
    "excluded": false
   },
   {
+   "id": "ad_confirmation",
+   "label": "A/D confirmation gap, 252d",
+   "value": -39.6825,
+   "display": "-40",
+   "percentile": 99.6,
+   "weight": 12,
+   "note": "A/D line's rank minus the index's rank, same window",
+   "check": "Negative means the index is higher in its own range than participation is in its own -- the textbook non-confirmation. Around zero means breadth is keeping up. Positive means participation is running ahead of price, which is healthy.",
+   "family": "Divergence",
+   "plain": "Where the breadth line sits within its own year, minus where the index sits within its own. Are the two agreeing?",
+   "compare": "Built in — the comparison IS the gauge.",
+   "worry": "Clearly negative. The index is high in its range while participation is not: textbook non-confirmation.",
+   "ignore": "Readings near zero. Breadth is keeping up, which is exactly what you want.",
+   "as_of": "2026-09-18",
+   "basis": "absolute scale",
+   "inverted": true,
+   "clipped": false,
+   "scale_lo": -40,
+   "scale_hi": 40,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false
+  },
+  {
    "id": "pct_above_20",
    "label": "% of S&P 500 above 20-day average",
-   "value": 26.1477,
-   "display": "26%",
-   "percentile": 73.9,
+   "value": 19.5609,
+   "display": "20%",
+   "percentile": 80.4,
    "weight": 8,
    "note": "",
    "check": "Short-horizon. Under 15% is washout territory -- check whether price has actually broken structure or merely dipped.",
@@ -99,7 +99,7 @@
    "compare": "Whether the index has actually broken anything, or merely dipped.",
    "worry": "Under 15%. Though that is usually washout near a LOW, not a warning of one.",
    "ignore": "Anything between roughly 40 and 70. That is an ordinary market.",
-   "as_of": "2026-09-21",
+   "as_of": "2026-09-18",
    "basis": "absolute scale",
    "inverted": true,
    "clipped": false,
@@ -112,9 +112,9 @@
   {
    "id": "corr_spy_tlt",
    "label": "Stock/bond correlation, 63d",
-   "value": 0.3523,
-   "display": "+0.35",
-   "percentile": 67.6,
+   "value": 0.3321,
+   "display": "+0.33",
+   "percentile": 66.6,
    "weight": 6,
    "note": "above zero means bonds stop cushioning equities",
    "check": "Check this before you need the hedge, not after. It says nothing about whether a drawdown is coming, only what it will cost you.",
@@ -123,7 +123,7 @@
    "compare": "Your own hedges — not the index.",
    "worry": "Above zero. Bonds are no longer cushioning equity losses, so a drawdown costs more than the standard models assume.",
    "ignore": "It as a timing signal. It tells you what a fall would cost you, never whether one is coming.",
-   "as_of": "2026-09-21",
+   "as_of": "2026-09-18",
    "basis": "absolute scale",
    "inverted": false,
    "clipped": false,
@@ -184,9 +184,9 @@
   {
    "id": "nh_nl",
    "label": "New 52w highs minus new lows",
-   "value": -17.0,
-   "display": "-17",
-   "percentile": 55.7,
+   "value": -27.0,
+   "display": "-27",
+   "percentile": 59.0,
    "weight": 6,
    "note": "",
    "check": "Negative while the index is at a new high is the textbook non-confirmation. It was present at 1972, 2000, 2007 and 2021.",
@@ -195,36 +195,12 @@
    "compare": "The index when it is at a new high.",
    "worry": "Negative while the index prints a new high. This was present at 1972, 2000, 2007 and 2021.",
    "ignore": "Daily noise. The cumulative version below is the more reliable form of the same idea.",
-   "as_of": "2026-09-21",
+   "as_of": "2026-09-18",
    "basis": "absolute scale",
    "inverted": true,
    "clipped": false,
    "scale_lo": -150,
    "scale_hi": 150,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false
-  },
-  {
-   "id": "concentration",
-   "label": "Cap-weight vs equal-weight, 63d",
-   "value": 2.4107,
-   "display": "+2.4%",
-   "percentile": 55.6,
-   "weight": 8,
-   "note": "rising = the index is being carried by fewer names",
-   "check": "Compare directly with the index. Both rising together means the gain is narrowing into a handful of names.",
-   "family": "Structure",
-   "plain": "How far the big-company index has outrun the equal-weighted version over three months.",
-   "compare": "The index itself.",
-   "worry": "Both rising together. The gain is coming from a handful of names rather than the market.",
-   "ignore": "Negative readings. Those mean the average stock is keeping up, which is healthy.",
-   "as_of": "2026-09-21",
-   "basis": "ranked vs 756 sessions",
-   "inverted": false,
-   "clipped": false,
-   "scale_lo": null,
-   "scale_hi": null,
    "thin_history": false,
    "stale": false,
    "excluded": false
@@ -278,11 +254,35 @@
    "excluded": false
   },
   {
+   "id": "concentration",
+   "label": "Cap-weight vs equal-weight, 63d",
+   "value": 0.8825,
+   "display": "+0.9%",
+   "percentile": 39.5,
+   "weight": 8,
+   "note": "rising = the index is being carried by fewer names",
+   "check": "Compare directly with the index. Both rising together means the gain is narrowing into a handful of names.",
+   "family": "Structure",
+   "plain": "How far the big-company index has outrun the equal-weighted version over three months.",
+   "compare": "The index itself.",
+   "worry": "Both rising together. The gain is coming from a handful of names rather than the market.",
+   "ignore": "Negative readings. Those mean the average stock is keeping up, which is healthy.",
+   "as_of": "2026-09-18",
+   "basis": "ranked vs 756 sessions",
+   "inverted": false,
+   "clipped": false,
+   "scale_lo": null,
+   "scale_hi": null,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false
+  },
+  {
    "id": "risk_appetite",
    "label": "Cross-asset risk appetite, 63d",
-   "value": 3.3759,
-   "display": "+3.4%",
-   "percentile": 35.9,
+   "value": 2.6558,
+   "display": "+2.7%",
+   "percentile": 38.9,
    "weight": 6,
    "note": "equities and gold versus dollar, yen and Swiss franc",
    "check": "Falling means money is moving to the dollar and funding currencies while equities may still look fine -- the one measure here that can see outside the stock market. Unproven: judge it on the turning-point section, not on the reasoning.",
@@ -291,7 +291,7 @@
    "compare": "The index.",
    "worry": "Falling while stocks hold up. Capital is quietly moving into safe currencies — this is the only gauge here that can see outside the stock market.",
    "ignore": "It for now. Newly added and untested. Judge it on the turning-point section before giving it weight.",
-   "as_of": "2026-09-21",
+   "as_of": "2026-09-18",
    "basis": "absolute scale",
    "inverted": true,
    "clipped": false,
@@ -339,7 +339,7 @@
    "compare": "Built in.",
    "worry": "A rising count. This one led 2000, 2007, 2018 and 2021-22.",
    "ignore": "Very little. Of all the divergences here this has the best record, so treat a sustained rise seriously.",
-   "as_of": "2026-09-21",
+   "as_of": "2026-09-18",
    "basis": "absolute scale",
    "inverted": false,
    "clipped": false,
@@ -424,9 +424,9 @@
   {
    "id": "nhnl_cum_z",
    "label": "Cumulative NH-NL line, 252d z-score",
-   "value": 1.3438,
-   "display": "+1.34",
-   "percentile": 23.1,
+   "value": 1.3647,
+   "display": "+1.36",
+   "percentile": 22.7,
    "weight": 10,
    "note": "running total of net new highs, ranked against its own year",
    "check": "Below zero has marked bear regimes -- 2001-03, 2008-09, 2015-16, 2022. Treat it as a filter on whether dips are worth buying, not as a warning before a top: it turned down well after the 2000 and 2007 highs.",
@@ -435,7 +435,7 @@
    "compare": "The index against its 200-day average.",
    "worry": "Below zero. That has marked the bear phases: 2001-03, 2008-09, 2015-16, 2022.",
    "ignore": "It as a top warning. It turned down well AFTER the 2000 and 2007 highs. It tells you whether dips are worth buying, not when to sell.",
-   "as_of": "2026-09-21",
+   "as_of": "2026-09-18",
    "basis": "absolute scale",
    "inverted": true,
    "clipped": false,
@@ -465,6 +465,30 @@
    "clipped": false,
    "scale_lo": null,
    "scale_hi": null,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false
+  },
+  {
+   "id": "defensive_rotation",
+   "label": "Defensives vs index, 63d",
+   "value": -6.4341,
+   "display": "-6.4%",
+   "percentile": 17.8,
+   "weight": 4,
+   "note": "utilities and staples relative to the index",
+   "check": "Rising while the index makes highs means money is moving to safety inside the rally. Confirms more often than it leads.",
+   "family": "Structure",
+   "plain": "Utilities and consumer staples measured against the whole index over three months.",
+   "compare": "The index.",
+   "worry": "Defensives outperforming while the index makes highs. Money is moving to safety inside the rally.",
+   "ignore": "It as an early warning. It confirms far more often than it leads.",
+   "as_of": "2026-09-18",
+   "basis": "absolute scale",
+   "inverted": false,
+   "clipped": false,
+   "scale_lo": -10,
+   "scale_hi": 10,
    "thin_history": false,
    "stale": false,
    "excluded": false
@@ -520,9 +544,9 @@
   {
    "id": "breadth_divergence",
    "label": "Breadth non-confirmation, 63d count",
-   "value": 2.0,
-   "display": "2",
-   "percentile": 8.0,
+   "value": 1.0,
+   "display": "1",
+   "percentile": 4.0,
    "weight": 10,
    "note": "days near a high with breadth already negative",
    "check": "This IS the price comparison, counted for you. A rising count is the November 2021 pattern: index still making highs, participation already gone. Zero is healthy.",
@@ -531,36 +555,12 @@
    "compare": "Built in.",
    "worry": "A count climbing off zero and staying there. That is the November 2021 shape.",
    "ignore": "One or two days. Zero is healthy, single digits are a flicker.",
-   "as_of": "2026-09-21",
+   "as_of": "2026-09-18",
    "basis": "absolute scale",
    "inverted": false,
    "clipped": false,
    "scale_lo": 0,
    "scale_hi": 25,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false
-  },
-  {
-   "id": "defensive_rotation",
-   "label": "Defensives vs index, 63d",
-   "value": -8.5025,
-   "display": "-8.5%",
-   "percentile": 7.5,
-   "weight": 4,
-   "note": "utilities and staples relative to the index",
-   "check": "Rising while the index makes highs means money is moving to safety inside the rally. Confirms more often than it leads.",
-   "family": "Structure",
-   "plain": "Utilities and consumer staples measured against the whole index over three months.",
-   "compare": "The index.",
-   "worry": "Defensives outperforming while the index makes highs. Money is moving to safety inside the rally.",
-   "ignore": "It as an early warning. It confirms far more often than it leads.",
-   "as_of": "2026-09-21",
-   "basis": "absolute scale",
-   "inverted": false,
-   "clipped": false,
-   "scale_lo": -10,
-   "scale_hi": 10,
    "thin_history": false,
    "stale": false,
    "excluded": false
@@ -623,8 +623,8 @@
   }
  ],
  "spx_proxy": {
-  "last": 773.5,
-  "pct_from_high": -0.56
+  "last": 761.69,
+  "pct_from_high": -2.08
  },
  "history": [
   {
@@ -14088,13 +14088,14 @@
    "n": 18
   },
   {
-   "date": "2026-09-21",
-   "score": 36.8,
+   "date": "2026-09-22",
+   "score": 36.9,
    "regime": "DETERIORATING"
   }
  ],
  "notes": [
-  "score history rebuilt from 2693 sessions"
+  "breadth data lagged by 1 thinly-covered date(s), latest good 2026-09-18",
+  "score history rebuilt from 2692 sessions"
  ],
  "errors": [],
  "thrusts": [
@@ -14125,26 +14126,26 @@
   }
  ],
  "topping": {
-  "score_raw": 81.4,
+  "score_raw": 83.0,
   "surface": 22.4,
-  "internals": 85.5,
+  "internals": 87.1,
   "calm_factor": 0.95,
   "drivers": [
    {
-    "label": "A/D confirmation gap, 252d",
+    "label": "Advance/decline line, 63d z-score",
     "percentile": 100.0
    },
    {
-    "label": "Advance/decline line, 63d z-score",
-    "percentile": 94.7
+    "label": "A/D confirmation gap, 252d",
+    "percentile": 99.6
    },
    {
     "label": "Volatility floor, 126d change",
     "percentile": 61.8
    }
   ],
-  "score": 62.5,
-  "percentile": 91.8
+  "score": 60.3,
+  "percentile": 89.8
  },
  "top_history": [
   {
@@ -25926,10 +25927,6 @@
   {
    "date": "2026-09-18",
    "top": 60.3
-  },
-  {
-   "date": "2026-09-21",
-   "top": 62.5
   }
  ],
  "quality": {
@@ -25964,7 +25961,7 @@
    {
     "name": "Score change explainable",
     "status": "pass",
-    "detail": "score moved +0.5 overnight"
+    "detail": "score moved +0.1 overnight"
    },
    {
     "name": "Enough gauges reporting",
@@ -25985,7 +25982,7 @@
   "baseline_away_share": 0.79,
   "window_days": 10,
   "history_from": "2016-01-04",
-  "history_to": "2026-09-21",
+  "history_to": "2026-09-22",
   "threshold_p80": 49.5,
   "threshold_p90": 56.5,
   "episodes_testable": 9,
@@ -26172,7 +26169,7 @@
     "kind": "top",
     "measure": "topping",
     "score": 32.0,
-    "percentile": 28.5,
+    "percentile": 28.6,
     "change_before": 6.5,
     "useful": true,
     "verdict": "rising into the top"
@@ -26191,5 +26188,5 @@
   ],
   "note": "Lows are the easy test and should be near-perfect. Tops are the hard test — judge the tool on that column."
  },
- "score_percentile": 46.5
+ "score_percentile": 46.8
 }
