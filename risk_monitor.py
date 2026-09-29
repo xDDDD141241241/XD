@@ -38,11 +38,15 @@ from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
 
+import backtest as B
 import guide as G
 import validate as V
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA_PATH = os.path.join(HERE, "docs", "data.json")
+# Per-day history of every gauge. Kept out of data.json so the page opens
+# fast; it is fetched only when a history panel is opened.
+GAUGES_PATH = os.path.join(HERE, "docs", "gauges.json")
 
 PCTL_WINDOW = 756        # ~3 years of sessions for percentile ranking
 # Retention has to outlive the oldest turning point we test against, or the
@@ -552,6 +556,29 @@ def build_indicators(m: dict, oas, br: dict) -> list[dict]:
     return out
 
 
+def gauge_readings(specs: list[dict], window: int = PCTL_WINDOW) -> dict[str, pd.Series]:
+    """
+    Every gauge's 0-100 reading for every past day -- the same oriented
+    number its bar shows, where 100 always means "more concerning".
+    Each day is ranked only against the days before it, so no reading
+    knows the future. The score history, the topping history and the
+    what-happened-next tables all read from here, so they cannot drift
+    apart.
+    """
+    out = {}
+    for sp in specs:
+        s = sp["series"].dropna()
+        if len(s) < window // 4:
+            continue
+        if sp.get("scale"):
+            lo, hi = sp["scale"]
+            r = ((s - lo) / (hi - lo)).clip(0, 1) * 100
+        else:
+            r = s.rolling(window, min_periods=120).rank(pct=True) * 100
+        out[sp["id"]] = (100 - r) if sp["invert"] else r
+    return out
+
+
 def historical_scores(m: dict, oas, br: dict,
                       window: int = PCTL_WINDOW) -> list[dict]:
     """
@@ -563,18 +590,8 @@ def historical_scores(m: dict, oas, br: dict,
     if not specs:
         return []
 
-    ranks, weights = {}, {}
-    for sp in specs:
-        s = sp["series"].dropna()
-        if len(s) < window // 4:
-            continue
-        if sp.get("scale"):
-            lo, hi = sp["scale"]
-            r = ((s - lo) / (hi - lo)).clip(0, 1) * 100
-        else:
-            r = s.rolling(window, min_periods=120).rank(pct=True) * 100
-        ranks[sp["id"]] = (100 - r) if sp["invert"] else r
-        weights[sp["id"]] = sp["weight"]
+    ranks = gauge_readings(specs, window)
+    weights = {sp["id"]: sp["weight"] for sp in specs if sp["id"] in ranks}
     if not ranks:
         return []
 
@@ -687,6 +704,69 @@ def trend_table(spy: pd.Series | None) -> list[dict]:
     return out
 
 
+# Where the index sits against its own year. The divergence gauges were
+# written around "while the index makes new highs", which left a market
+# that stalls a percent or two under its high -- for weeks -- unnamed. These
+# states name it. Thresholds are the conventional round numbers (5 / 10 / 20
+# percent off the high, a week and a month without a new one); they were not
+# tuned against the record and must not be.
+STATE_LABELS = {
+    "at_high":    "AT HIGHS",
+    "pause":      "PAUSING NEAR HIGHS",
+    "range_high": "RANGE-BOUND NEAR HIGHS",
+    "pullback":   "PULLBACK",
+    "correction": "CORRECTION",
+    "deep":       "DRAWDOWN 20%+",
+}
+STATE_SAY = {
+    "at_high":    "printing new one-year highs within the last week",
+    "pause":      "within 5% of the one-year high, a new high within the last month",
+    "range_high": "within 5% of the one-year high, but no new high for a month or more",
+    "pullback":   "5–10% below the one-year high",
+    "correction": "10–20% below the one-year high",
+    "deep":       "more than 20% below the one-year high",
+}
+
+
+def price_state_frame(spy: pd.Series | None, lookback: int = 252) -> pd.DataFrame:
+    """Daily price-state record: distance from high, days since it, range position."""
+    if spy is None or len(spy.dropna()) < lookback + 5:
+        return pd.DataFrame()
+    s = spy.dropna().astype(float)
+    hi = s.rolling(lookback).max()
+    lo = s.rolling(lookback).min()
+    dist = (s / hi - 1) * 100
+    pos = np.arange(len(s), dtype=float)
+    last_hi = pd.Series(np.where(s >= hi, pos, np.nan), index=s.index).ffill()
+    days = pd.Series(pos, index=s.index) - last_hi
+    rng_pos = (s - lo) / (hi - lo).replace(0, np.nan) * 100
+    band42 = (s.rolling(42).max() / s.rolling(42).min() - 1) * 100
+    state = pd.Series(np.select(
+        [dist <= -20, dist <= -10, dist <= -5, days <= 5, days < 21],
+        ["deep", "correction", "pullback", "at_high", "pause"],
+        default="range_high"), index=s.index)
+    state[hi.isna()] = None
+    return pd.DataFrame({"dist": dist, "days": days, "range_pos": rng_pos,
+                         "band42": band42, "state": state}).dropna(subset=["state", "days"])
+
+
+def price_state_now(spy: pd.Series | None) -> dict:
+    f = price_state_frame(spy)
+    if f.empty:
+        return {}
+    r = f.iloc[-1]
+    key = r["state"]
+    out = {
+        "state": key, "label": STATE_LABELS[key], "say": STATE_SAY[key],
+        "pct_from_high": round(float(r["dist"]), 2),
+        "days_since_high": int(r["days"]),
+        "range_position": round(float(r["range_pos"]), 0),
+        "band_42d": round(float(r["band42"]), 1),
+    }
+    out["history"] = B.state_history(f["state"], spy, key, STATE_LABELS)
+    return out
+
+
 def topping_now(indicators: list[dict]) -> dict:
     """Today's topping risk, plus which internals are driving it."""
     live = {i["id"]: i for i in indicators if not i.get("excluded")}
@@ -712,18 +792,8 @@ def topping_now(indicators: list[dict]) -> dict:
 def topping_series(m: dict, fr, br: dict, window: int = PCTL_WINDOW) -> list[dict]:
     """The same construct, recomputed for every past session."""
     specs = indicator_specs(m, fr, br)
-    ranks, weights = {}, {}
-    for sp in specs:
-        ser = sp["series"].dropna()
-        if len(ser) < window // 4:
-            continue
-        if sp.get("scale"):
-            lo, hi = sp["scale"]
-            r = ((ser - lo) / (hi - lo)).clip(0, 1) * 100
-        else:
-            r = ser.rolling(window, min_periods=120).rank(pct=True) * 100
-        ranks[sp["id"]] = (100 - r) if sp["invert"] else r
-        weights[sp["id"]] = sp["weight"]
+    ranks = gauge_readings(specs, window)
+    weights = {sp["id"]: sp["weight"] for sp in specs if sp["id"] in ranks}
     if not ranks:
         return []
     R_ = pd.DataFrame(ranks)
@@ -860,7 +930,7 @@ def code_fingerprint() -> str:
     visible instead of leaving it to be inferred from behaviour.
     """
     h = hashlib.sha256()
-    for fn in ("risk_monitor.py", "validate.py"):
+    for fn in ("risk_monitor.py", "validate.py", "backtest.py"):
         try:
             with open(os.path.join(HERE, fn), "rb") as f:
                 h.update(f.read())
@@ -959,6 +1029,20 @@ def assemble(m, oas, br, errors, backfill: bool = False) -> dict:
     if _t and payload["topping"].get("score") is not None:
         payload["topping"]["percentile"] = round(
             float(np.mean([v <= payload["topping"]["score"] for v in _t]) * 100), 1)
+    # ---- where price sits, and what happened next ----------------------
+    payload["price_state"] = price_state_now(spy)
+    specs = indicator_specs(m, oas, br)
+    today = {i["id"]: i["percentile"] for i in ind}
+    summaries, detail = B.gauge_history(specs, gauge_readings(specs), spy, today)
+    for i in payload["indicators"]:
+        if i["id"] in summaries:
+            i["history"] = summaries[i["id"]]
+    if detail:
+        detail["updated"] = payload["updated"]
+        detail["build"] = payload["build"]
+        payload["_gauges"] = detail          # written to gauges.json, not data.json
+        payload["gauge_file"] = "gauges.json"
+
     payload["quality"] = V.quality_report(payload, prev_payload())
     payload["events"] = V.event_report(payload["history"])
     payload["pivots"] = V.pivot_report(payload["history"],
@@ -973,8 +1057,14 @@ def assemble(m, oas, br, errors, backfill: bool = False) -> dict:
 
 def write(payload: dict) -> None:
     os.makedirs(os.path.dirname(DATA_PATH), exist_ok=True)
+    detail = payload.pop("_gauges", None)
     with open(DATA_PATH, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=1, default=str)
+    if detail:
+        # compact on purpose: this file is ~20x the size of the daily numbers
+        with open(GAUGES_PATH, "w", encoding="utf-8") as f:
+            json.dump(detail, f, ensure_ascii=False, separators=(",", ":"),
+                      default=str)
 
 
 def main() -> int:
@@ -1003,6 +1093,10 @@ def main() -> int:
 
     print(f"score {payload['score']}  band {payload['band']}  "
           f"regime {payload['regime']['name']}")
+    ps = payload.get("price_state") or {}
+    if ps:
+        print(f"price {ps['label']}  {ps['pct_from_high']:+.1f}% from high, "
+              f"{ps['days_since_high']} sessions since it")
     for i in payload["indicators"]:
         print(f"  {i['id']:<16} {i['display']:>9}   pctl {i['percentile']:>5}")
     for s in payload["signals"]:

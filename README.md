@@ -19,6 +19,9 @@ You do not need to read any of the code.
 
    ```
    risk_monitor.py
+   backtest.py
+   guide.py
+   validate.py
    selftest.py
    docs/index.html
    docs/data.json
@@ -90,6 +93,35 @@ Thirteen gauges across five families:
 If a data source fails, its weight is redistributed across the ones that
 answered rather than quietly dragging the score toward zero. The page tells you
 when that has happened.
+
+---
+
+## Price state and "what happened next"
+
+**Price state**, in the box under the regime line, says where the index sits
+against its own year: at highs, pausing near highs, *range-bound near highs*
+(within 5% of the high but no new one for a month or more), pullback,
+correction, or a 20%+ drawdown. Several gauge notes say "while the index makes
+new highs" — when the box says range-bound near highs, read them as applying.
+
+**Show history** under each gauge opens its full record since 2016: the
+gauge's reading drawn above the index, a table of what the index did over the
+next month and three months after readings in each range, and a list of every
+past spell in today's range. Three rules keep it honest:
+
+- every past reading uses only data available on that day, and the self-test
+  checks this (weekly series are also held back a week, to match publication);
+- neighbouring days count as one spell, and the spell count is shown as the
+  real sample size;
+- every figure sits next to the same figure for *all* days, because the index
+  rises most of the time.
+
+It is a display only. Nothing in it changes the score, and thresholds should
+not be adjusted to make the tables look better — that is how a monitor gets
+fitted to the past.
+
+The per-day history lives in `docs/gauges.json` (about 0.7 MB), which the page
+loads only when a history panel is opened.
 
 ---
 

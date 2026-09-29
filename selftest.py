@@ -127,6 +127,33 @@ def run_selftest() -> int:
         if not 0 <= p["score"] <= 100:
             print("FAIL: score out of bounds"); ok = False
 
+    # invariant 5: no lookahead in the gauge history. Rebuild every gauge on
+    # data cut off at a past date; its reading ON that date must match the
+    # reading the full-history run stored for it. If any gauge peeks at later
+    # data, the what-happened-next tables would be flattering fiction.
+    m, fr, br = synth(crisis=False)
+    cut = m["spy"].index[900]
+    trim = lambda d: {k: (v.loc[:cut] if hasattr(v, "loc") else v) for k, v in d.items()}
+    full = R.gauge_readings(R.indicator_specs(m, fr, br))
+    part = R.gauge_readings(R.indicator_specs(trim(m), trim(fr), trim(br)))
+    leaks = [k for k in full if k in part and cut in part[k].index
+             and abs(float(full[k].get(cut, np.nan)) - float(part[k].loc[cut])) > 1e-6]
+    print(f"\nlookahead check at {cut.date()}: {len(part)} gauges compared, "
+          f"{len(leaks)} disagree")
+    if leaks:
+        print("FAIL: gauge readings use future data:", ", ".join(leaks)); ok = False
+
+    # invariant 6: the price state names a stalled market near its high
+    spy = m["spy"].copy()
+    top = float(spy.iloc[:-40].max()) * 1.01
+    spy.iloc[-41] = top                                    # a genuine new high...
+    spy.iloc[-40:] = top * np.linspace(0.985, 0.975, 40)   # ...then 40 flat sessions just under it
+    st = R.price_state_now(spy)
+    print(f"price state on a stalled tape: {st.get('label')} "
+          f"({st.get('days_since_high')} sessions since high)")
+    if st.get("state") != "range_high":
+        print("FAIL: a stall just under the high was not read as range-bound"); ok = False
+
     print("\nSELFTEST", "PASSED" if ok else "FAILED")
     return 0 if ok else 1
 
