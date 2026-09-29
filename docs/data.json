@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-29T17:54:39+00:00",
+ "updated": "2026-09-29T18:08:17+00:00",
  "build": "c9e241af",
  "score": 49.4,
  "band": "ELEVATED",
@@ -15,33 +15,33 @@
    "span": 9,
    "kind": "ema",
    "above": false,
-   "dist_pct": -0.46
+   "dist_pct": -0.36
   },
   {
    "span": 21,
    "kind": "ema",
    "above": false,
-   "dist_pct": -0.37
+   "dist_pct": -0.26
   },
   {
    "span": 50,
    "kind": "sma",
    "above": true,
-   "dist_pct": 0.03
+   "dist_pct": 0.14
   },
   {
    "span": 200,
    "kind": "sma",
    "above": true,
-   "dist_pct": 6.03
+   "dist_pct": 6.16
   }
  ],
  "indicators": [
   {
    "id": "breadth_ad_z",
    "label": "Advance/decline line, 63d z-score",
-   "value": -2.6222,
-   "display": "-2.62",
+   "value": -2.5916,
+   "display": "-2.59",
    "percentile": 100.0,
    "weight": 5,
    "note": "level of breadth momentum, not a divergence measure",
@@ -81,8 +81,8 @@
   {
    "id": "ad_confirmation",
    "label": "A/D confirmation gap, 252d",
-   "value": -49.2063,
-   "display": "-49",
+   "value": -49.6032,
+   "display": "-50",
    "percentile": 100.0,
    "weight": 12,
    "note": "A/D line's rank minus the index's rank, same window",
@@ -163,7 +163,7 @@
   {
    "id": "concentration",
    "label": "Cap-weight vs equal-weight, 63d",
-   "value": 4.1172,
+   "value": 4.1124,
    "display": "+4.1%",
    "percentile": 79.3,
    "weight": 8,
@@ -204,7 +204,7 @@
   {
    "id": "move",
    "label": "MOVE (rates volatility)",
-   "value": 107.4903,
+   "value": 107.4897,
    "display": "107.5",
    "percentile": 76.8,
    "weight": 8,
@@ -243,52 +243,11 @@
    }
   },
   {
-   "id": "corr_spy_tlt",
-   "label": "Stock/bond correlation, 63d",
-   "value": 0.4845,
-   "display": "+0.48",
-   "percentile": 74.2,
-   "weight": 6,
-   "note": "above zero means bonds stop cushioning equities",
-   "check": "Check this before you need the hedge, not after. It says nothing about whether a drawdown is coming, only what it will cost you.",
-   "family": "Structure",
-   "plain": "Whether stocks and Treasuries have been moving together or in opposite directions over three months.",
-   "compare": "Your own hedges — not the index.",
-   "worry": "Above zero. Bonds are no longer cushioning equity losses, so a drawdown costs more than the standard models assume.",
-   "ignore": "It as a timing signal. It tells you what a fall would cost you, never whether one is coming.",
-   "as_of": "2026-09-29",
-   "basis": "absolute scale",
-   "inverted": false,
-   "clipped": false,
-   "scale_lo": -1.0,
-   "scale_hi": 1.0,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false,
-   "history": {
-    "bucket": "60–80",
-    "bucket_index": 3,
-    "episodes": 10,
-    "episodes_done": 10,
-    "ep_lower_1m": 1,
-    "lower_1m": 32.0,
-    "med_3m": 5.2,
-    "med_dd": -2.4,
-    "worst_dd": -19.0,
-    "base_lower_1m": 33.0,
-    "base_med_3m": 3.9,
-    "base_med_dd": -2.7,
-    "enough": true,
-    "since": "2015-04-06",
-    "lag": 0
-   }
-  },
-  {
    "id": "pct_above_20",
    "label": "% of S&P 500 above 20-day average",
-   "value": 25.9481,
+   "value": 25.7485,
    "display": "26%",
-   "percentile": 74.1,
+   "percentile": 74.3,
    "weight": 8,
    "note": "",
    "check": "Short-horizon. Under 15% is washout territory -- check whether price has actually broken structure or merely dipped.",
@@ -321,6 +280,47 @@
     "base_med_dd": -2.7,
     "enough": true,
     "since": "2016-01-04",
+    "lag": 0
+   }
+  },
+  {
+   "id": "corr_spy_tlt",
+   "label": "Stock/bond correlation, 63d",
+   "value": 0.4824,
+   "display": "+0.48",
+   "percentile": 74.1,
+   "weight": 6,
+   "note": "above zero means bonds stop cushioning equities",
+   "check": "Check this before you need the hedge, not after. It says nothing about whether a drawdown is coming, only what it will cost you.",
+   "family": "Structure",
+   "plain": "Whether stocks and Treasuries have been moving together or in opposite directions over three months.",
+   "compare": "Your own hedges — not the index.",
+   "worry": "Above zero. Bonds are no longer cushioning equity losses, so a drawdown costs more than the standard models assume.",
+   "ignore": "It as a timing signal. It tells you what a fall would cost you, never whether one is coming.",
+   "as_of": "2026-09-29",
+   "basis": "absolute scale",
+   "inverted": false,
+   "clipped": false,
+   "scale_lo": -1.0,
+   "scale_hi": 1.0,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false,
+   "history": {
+    "bucket": "60–80",
+    "bucket_index": 3,
+    "episodes": 10,
+    "episodes_done": 10,
+    "ep_lower_1m": 1,
+    "lower_1m": 32.0,
+    "med_3m": 5.2,
+    "med_dd": -2.4,
+    "worst_dd": -19.0,
+    "base_lower_1m": 33.0,
+    "base_med_3m": 3.9,
+    "base_med_dd": -2.7,
+    "enough": true,
+    "since": "2015-04-06",
     "lag": 0
    }
   },
@@ -368,9 +368,9 @@
   {
    "id": "nh_nl",
    "label": "New 52w highs minus new lows",
-   "value": -26.0,
-   "display": "-26",
-   "percentile": 58.7,
+   "value": -22.0,
+   "display": "-22",
+   "percentile": 57.3,
    "weight": 6,
    "note": "",
    "check": "Negative while the index is at a new high is the textbook non-confirmation. It was present at 1972, 2000, 2007 and 2021.",
@@ -450,9 +450,9 @@
   {
    "id": "vix",
    "label": "VIX level",
-   "value": 16.26,
-   "display": "16.26",
-   "percentile": 46.1,
+   "value": 16.33,
+   "display": "16.33",
+   "percentile": 47.1,
    "weight": 8,
    "note": "",
    "check": "Direction against price is what counts. VIX rising while the index also rises is rare and is worth stopping on.",
@@ -489,52 +489,11 @@
    }
   },
   {
-   "id": "vvix_vix",
-   "label": "VVIX / VIX",
-   "value": 5.6285,
-   "display": "5.63",
-   "percentile": 41.5,
-   "weight": 6,
-   "note": "",
-   "check": "High ratio with a low VIX = complacent spot, expensive tails. Protection is cheapest to own exactly here.",
-   "family": "Volatility",
-   "plain": "How expensive crash protection is relative to everyday nervousness.",
-   "compare": "The VIX level, always. Never read this one on its own.",
-   "worry": "A high ratio while VIX is low — a calm market where tails are being priced up. Historically a complacent setup.",
-   "ignore": "The number by itself. It rises mechanically whenever VIX is very low, so a high reading can simply mean 'VIX is cheap'.",
-   "as_of": "2026-09-29",
-   "basis": "ranked vs 756 sessions",
-   "inverted": false,
-   "clipped": false,
-   "scale_lo": null,
-   "scale_hi": null,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false,
-   "history": {
-    "bucket": "40–60",
-    "bucket_index": 2,
-    "episodes": 44,
-    "episodes_done": 43,
-    "ep_lower_1m": 12,
-    "lower_1m": 34.0,
-    "med_3m": 4.9,
-    "med_dd": -2.7,
-    "worst_dd": -34.1,
-    "base_lower_1m": 33.0,
-    "base_med_3m": 3.9,
-    "base_med_dd": -2.7,
-    "enough": true,
-    "since": "2015-06-24",
-    "lag": 0
-   }
-  },
-  {
    "id": "risk_appetite",
    "label": "Cross-asset risk appetite, 63d",
-   "value": 2.1563,
-   "display": "+2.2%",
-   "percentile": 41.0,
+   "value": 2.4057,
+   "display": "+2.4%",
+   "percentile": 40.0,
    "weight": 6,
    "note": "equities and gold versus dollar, yen and Swiss franc",
    "check": "Falling means money is moving to the dollar and funding currencies while equities may still look fine -- the one measure here that can see outside the stock market. Unproven: judge it on the turning-point section, not on the reasoning.",
@@ -567,6 +526,47 @@
     "base_med_dd": -2.7,
     "enough": true,
     "since": "2015-04-06",
+    "lag": 0
+   }
+  },
+  {
+   "id": "vvix_vix",
+   "label": "VVIX / VIX",
+   "value": 5.605,
+   "display": "5.61",
+   "percentile": 39.6,
+   "weight": 6,
+   "note": "",
+   "check": "High ratio with a low VIX = complacent spot, expensive tails. Protection is cheapest to own exactly here.",
+   "family": "Volatility",
+   "plain": "How expensive crash protection is relative to everyday nervousness.",
+   "compare": "The VIX level, always. Never read this one on its own.",
+   "worry": "A high ratio while VIX is low — a calm market where tails are being priced up. Historically a complacent setup.",
+   "ignore": "The number by itself. It rises mechanically whenever VIX is very low, so a high reading can simply mean 'VIX is cheap'.",
+   "as_of": "2026-09-29",
+   "basis": "ranked vs 756 sessions",
+   "inverted": false,
+   "clipped": false,
+   "scale_lo": null,
+   "scale_hi": null,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false,
+   "history": {
+    "bucket": "20–40",
+    "bucket_index": 1,
+    "episodes": 37,
+    "episodes_done": 36,
+    "ep_lower_1m": 9,
+    "lower_1m": 42.0,
+    "med_3m": 4.1,
+    "med_dd": -3.4,
+    "worst_dd": -33.8,
+    "base_lower_1m": 33.0,
+    "base_med_3m": 3.9,
+    "base_med_dd": -2.7,
+    "enough": true,
+    "since": "2015-06-24",
     "lag": 0
    }
   },
@@ -614,7 +614,7 @@
   {
    "id": "vvix",
    "label": "VVIX (vol of vol)",
-   "value": 91.52,
+   "value": 91.53,
    "display": "91.5",
    "percentile": 37.8,
    "weight": 8,
@@ -778,8 +778,8 @@
   {
    "id": "nhnl_cum_z",
    "label": "Cumulative NH-NL line, 252d z-score",
-   "value": 1.2038,
-   "display": "+1.20",
+   "value": 1.2067,
+   "display": "+1.21",
    "percentile": 25.9,
    "weight": 10,
    "note": "running total of net new highs, ranked against its own year",
@@ -819,9 +819,9 @@
   {
    "id": "ts_vix_vix3m",
    "label": "VIX / VIX3M term structure",
-   "value": 0.8934,
-   "display": "0.893",
-   "percentile": 17.4,
+   "value": 0.8958,
+   "display": "0.896",
+   "percentile": 18.3,
    "weight": 12,
    "note": "above 1.00 = backwardation, the classic risk-off trigger",
    "check": "Crossing 1.00 while the index is still near its highs is the meaningful case. Above 1.00 during an active selloff is normal and usually marks the panic, not the start of one.",
@@ -901,9 +901,9 @@
   {
    "id": "ts_vix9d_vix",
    "label": "VIX9D / VIX near-term stress",
-   "value": 0.8954,
-   "display": "0.895",
-   "percentile": 15.1,
+   "value": 0.8965,
+   "display": "0.897",
+   "percentile": 15.5,
    "weight": 8,
    "note": "",
    "check": "Rising while price is flat means a dated event is being priced -- look for what is on the calendar rather than on the chart.",
@@ -942,9 +942,9 @@
   {
    "id": "defensive_rotation",
    "label": "Defensives vs index, 63d",
-   "value": -9.4208,
-   "display": "-9.4%",
-   "percentile": 2.9,
+   "value": -9.467,
+   "display": "-9.5%",
+   "percentile": 2.7,
    "weight": 4,
    "note": "utilities and staples relative to the index",
    "check": "Rising while the index makes highs means money is moving to safety inside the rally. Confirms more often than it leads.",
@@ -1014,8 +1014,8 @@
   }
  ],
  "spx_proxy": {
-  "last": 762.62,
-  "pct_from_high": -1.96
+  "last": 763.54,
+  "pct_from_high": -1.84
  },
  "history": [
   {
@@ -14546,10 +14546,10 @@
   }
  ],
  "topping": {
-  "score_raw": 48.2,
-  "surface": 44.1,
+  "score_raw": 47.9,
+  "surface": 44.3,
   "internals": 93.1,
-  "calm_factor": 0.52,
+  "calm_factor": 0.51,
   "drivers": [
    {
     "label": "A/D confirmation gap, 252d",
@@ -26381,7 +26381,7 @@
   "state": "range_high",
   "label": "RANGE-BOUND NEAR HIGHS",
   "say": "within 5% of the one-year high, but no new high for a month or more",
-  "pct_from_high": -1.96,
+  "pct_from_high": -1.84,
   "days_since_high": 32,
   "range_position": 90.0,
   "band_42d": 4.1,
@@ -26743,7 +26743,7 @@
    {
     "name": "Score change explainable",
     "status": "pass",
-    "detail": "score moved +1.5 overnight"
+    "detail": "score moved +0.0 overnight"
    },
    {
     "name": "Enough gauges reporting",
