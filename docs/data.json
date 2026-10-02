@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-01T22:38:16+00:00",
+ "updated": "2026-10-02T01:44:30+00:00",
  "build": "c9e241af",
  "score": 50.6,
  "band": "ELEVATED",
@@ -81,7 +81,7 @@
   {
    "id": "breadth_ad_z",
    "label": "Advance/decline line, 63d z-score",
-   "value": -2.3914,
+   "value": -2.3899,
    "display": "-2.39",
    "percentile": 97.8,
    "weight": 5,
@@ -491,7 +491,7 @@
   {
    "id": "risk_appetite",
    "label": "Cross-asset risk appetite, 63d",
-   "value": 1.4834,
+   "value": 1.4848,
    "display": "+1.5%",
    "percentile": 43.8,
    "weight": 6,
@@ -14520,6 +14520,11 @@
   },
   {
    "date": "2026-10-01",
+   "score": 47.0,
+   "n": 15
+  },
+  {
+   "date": "2026-10-02",
    "score": 50.6,
    "regime": "DETERIORATING"
   }
@@ -26761,7 +26766,7 @@
    {
     "name": "Score change explainable",
     "status": "pass",
-    "detail": "score moved +2.0 overnight"
+    "detail": "score moved +0.0 overnight"
    },
    {
     "name": "Enough gauges reporting",
@@ -26771,7 +26776,7 @@
    {
     "name": "History intact",
     "status": "pass",
-    "detail": "2701 sessions, no gaps or duplicates"
+    "detail": "2702 sessions, no gaps or duplicates"
    }
   ],
   "n_failed": 0,
@@ -26782,7 +26787,7 @@
   "baseline_away_share": 0.79,
   "window_days": 10,
   "history_from": "2016-01-04",
-  "history_to": "2026-10-01",
+  "history_to": "2026-10-02",
   "threshold_p80": 49.6,
   "threshold_p90": 56.5,
   "episodes_testable": 9,
