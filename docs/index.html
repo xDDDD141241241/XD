@@ -148,15 +148,6 @@
         margin-top:4px}
   .hist[hidden]{display:none}
   .hist .rd{font-family:var(--mono);font-size:11px;color:var(--muted);min-height:1.5em}
-  .ctool{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin-bottom:6px}
-  .ctool button{font-family:var(--mono);font-size:10.5px;background:#fff;border:1px solid var(--rule);
-                padding:3px 8px;cursor:pointer;color:var(--ink)}
-  .ctool button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
-  .ctool .sep{width:8px}
-  .chartwrap{cursor:crosshair;user-select:none;-webkit-user-select:none;margin-top:4px}
-  .chartwrap.grab{cursor:grabbing}
-  .chint{margin-top:2px}
-  .hist .rd b{color:var(--ink);font-weight:600}
   .tbl{overflow-x:auto;margin-top:10px}
   .tbl table{border-collapse:collapse;font-size:12px;width:100%;min-width:560px}
   .tbl th{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;
@@ -167,6 +158,10 @@
           font-variant-numeric:tabular-nums}
   .tbl tr.now td{background:#FBF1DF;font-weight:600}
   .tbl tr.base td{color:var(--muted);border-top:1px solid var(--rule)}
+  .tbl tr.hot td:first-child{border-left:3px solid var(--danger);padding-left:6px}
+  .tbl tr.total td{border-top:1px solid var(--rule);color:var(--muted)}
+  .tbl td .sub{display:block;font-size:10px;color:var(--muted)}
+  .tbl td.lbl{font-family:var(--body);font-size:12.5px}
   .hist h3{font-family:var(--display);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
            color:var(--muted);margin:14px 0 2px;font-weight:600}
 
@@ -245,13 +240,9 @@ const yr = s => s ? s.slice(0,4) : '';
 // Descriptive only: it labels the table, it never feeds the score.
 function verdict(h){
   if(!h || !h.enough || h.lower_1m==null || h.base_lower_1m==null) return null;
-  // Same test in both directions: either measure clearly differing counts.
-  // If one points each way, say so rather than pick one.
-  const dd = h.med_dd!=null && h.base_med_dd!=null;
-  const worse = (h.lower_1m >= h.base_lower_1m + 10) || (dd && h.med_dd <= h.base_med_dd - 1.5);
-  const better = (h.lower_1m <= h.base_lower_1m - 10) || (dd && h.med_dd >= h.base_med_dd + 1.5);
-  return worse && better ? ['v-same','mixed against an ordinary day']
-       : worse ? ['v-worse','worse than an ordinary day']
+  const worse = (h.lower_1m >= h.base_lower_1m + 10) || (h.med_dd!=null && h.med_dd <= h.base_med_dd - 1.5);
+  const better = (h.lower_1m <= h.base_lower_1m - 10) && (h.med_dd!=null && h.med_dd >= h.base_med_dd + 1);
+  return worse ? ['v-worse','worse than an ordinary day']
        : better ? ['v-better','better than an ordinary day']
        : ['v-same','about the same as an ordinary day'];
 }
@@ -319,218 +310,51 @@ function loadGauges(file){
   return GAUGES;
 }
 
-// ---- zoomable gauge chart ---------------------------------------------------
-// Drawn at the container's real pixel width, so text stays readable at any
-// screen size, and redrawn on every zoom or pan over just the visible window.
-// Long windows are thinned by keeping the min AND max of each pixel column,
-// so spikes survive -- for a risk gauge the extremes are the information.
-const CH = {};
-const RANGES = [['6M',126],['1Y',252],['3Y',756],['5Y',1260],['All',0]];
-
-function niceTicks(lo, hi, n){
-  const span = (hi - lo) || 1, raw = span / n;
-  const mag = Math.pow(10, Math.floor(Math.log10(raw))), f = raw / mag;
-  const step = (f < 1.5 ? 1 : f < 3 ? 2 : f < 7 ? 5 : 10) * mag, out = [];
-  for(let v = Math.ceil(lo / step) * step; v <= hi + step * 1e-6; v += step) out.push(+v.toPrecision(10));
-  return out;
-}
-const fmtV = v => { const a = Math.abs(v);
-  return a >= 100 ? v.toFixed(0) : a >= 10 ? v.toFixed(1) : a >= 1 ? v.toFixed(2) : v.toFixed(3); };
-const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-
-function thinWindow(k0, k1, cols, get){
-  const n = k1 - k0 + 1, pts = [];
-  if(n <= cols * 2){ for(let k = k0; k <= k1; k++){ const v = get(k); pts.push(v == null ? null : [k, v]); } return pts; }
-  const per = n / cols;
-  for(let c = 0; c < cols; c++){
-    const a = k0 + Math.floor(c * per), b = Math.min(k1, k0 + Math.floor((c + 1) * per) - 1);
-    let mn = null, mx = null, kmn = a, kmx = a;
-    for(let k = a; k <= b; k++){ const v = get(k); if(v == null) continue;
-      if(mn == null || v < mn){ mn = v; kmn = k; } if(mx == null || v > mx){ mx = v; kmx = k; } }
-    if(mn == null){ pts.push(null); continue; }
-    if(kmn <= kmx){ pts.push([kmn, mn], [kmx, mx]); } else { pts.push([kmx, mx], [kmn, mn]); }
-  }
-  return pts;
-}
-function pathOf(pts, X, Y){
-  let d = '', pen = false;
-  for(const p of pts){ if(!p){ pen = false; continue; }
-    d += (pen ? 'L' : 'M') + X(p[0]).toFixed(1) + ' ' + Y(p[1]).toFixed(1); pen = true; }
-  return d;
-}
-
-function drawChart(id){
-  const st = CH[id], G = st.G, g = st.g, wrap = st.wrap;
-  const W = Math.max(300, Math.floor(wrap.clientWidth)), narrow = W < 560;
-  const PL = narrow ? 42 : 50, PR = 12, PT = 10, H1 = narrow ? 180 : 240, GAP = 20, H2 = narrow ? 130 : 170, PB = 26;
-  const H = PT + H1 + GAP + H2 + PB, iw = W - PL - PR, T2 = PT + H1 + GAP;
-  const i0 = st.i0, i1 = st.i1, span = Math.max(i1 - i0, 1);
-  const X = k => PL + (k - i0) / span * iw;
-  const valMode = st.mode === 'value';
-  const get = valMode ? (k => g.value[k]) : (k => g.reading[k]);
-
-  let lo1 = 0, hi1 = 100;
-  if(valMode){
-    lo1 = Infinity; hi1 = -Infinity;
-    for(let k = i0; k <= i1; k++){ const v = g.value[k]; if(v != null){ if(v < lo1) lo1 = v; if(v > hi1) hi1 = v; } }
-    if(!isFinite(lo1)){ lo1 = 0; hi1 = 1; }
-    const pad = (hi1 - lo1) * 0.08 || Math.abs(hi1) * 0.05 || 1; lo1 -= pad; hi1 += pad;
-  }
-  const Y1 = v => PT + (hi1 - v) / (hi1 - lo1) * H1;
-
-  let lo2 = Infinity, hi2 = -Infinity;
-  for(let k = i0; k <= i1; k++){ const v = G.spy[k]; if(v > 0){ const l = Math.log(v); if(l < lo2) lo2 = l; if(l > hi2) hi2 = l; } }
-  const pad2 = (hi2 - lo2) * 0.08 || 0.01; lo2 -= pad2; hi2 += pad2;
-  const Y2 = v => T2 + (hi2 - Math.log(v)) / (hi2 - lo2) * H2;
-
-  // spells in today's range, visible part only
+function gaugeChart(G, g, id){
+  const n = G.dates.length, W = 880, PL = 34, PR = 10, PT = 8, H1 = 120, GAP = 14, H2 = 90;
+  const H = PT + H1 + GAP + H2 + 22, iw = W - PL - PR, T2 = PT + H1 + GAP;
+  const X = k => PL + k/(n-1)*iw;
+  const Y1 = v => PT + (100-v)/100*H1;
+  const sp = G.spy.map(v => v>0 ? Math.log(v) : null).filter(v=>v!=null);
+  const lo = Math.min(...sp), hi = Math.max(...sp);
+  const Y2 = v => T2 + (hi-Math.log(v))/(hi-lo||1)*H2;
   const B = [[0,20],[20,40],[40,60],[60,80],[80,100]][g.today_bucket];
-  const inB = v => v != null && v >= B[0] && (v < B[1] || B[1] === 100);
+
+  let p1 = '', pen = false;
+  g.reading.forEach((v,k) => { if(v==null){pen=false;return;}
+    p1 += (pen?'L':'M') + X(k).toFixed(1) + ' ' + Y1(v).toFixed(1) + ' '; pen = true; });
+  const p2 = G.spy.map((v,k) => (k?'L':'M') + X(k).toFixed(1) + ' ' + Y2(v).toFixed(1)).join(' ');
+
+  // shade the stretches when the gauge was in today's bucket, across both panels
   let shade = '', s0 = null;
-  for(let k = i0; k <= i1 + 1; k++){
-    const on = k <= i1 && inB(g.reading[k]);
-    if(on && s0 === null) s0 = k;
-    if(!on && s0 !== null){
-      const x0 = X(s0 - 0.5), x1 = X(k - 0.5);
-      shade += `<rect x="${Math.max(PL, x0).toFixed(1)}" y="${PT}" width="${Math.max(x1 - Math.max(PL, x0), 1.2).toFixed(1)}"
-        height="${T2 + H2 - PT}" fill="var(--caution)" opacity=".14"/>`;
-      s0 = null;
-    }
+  const inB = v => v!=null && v >= B[0] && (v < B[1] || B[1]===100);
+  for(let k=0;k<=n;k++){
+    const on = k<n && inB(g.reading[k]);
+    if(on && s0===null) s0 = k;
+    if(!on && s0!==null){ shade += `<rect x="${X(s0).toFixed(1)}" y="${PT}" width="${Math.max(X(k-1)-X(s0),1.2).toFixed(1)}"
+        height="${T2+H2-PT}" fill="var(--caution)" opacity=".13"/>`; s0 = null; }
   }
+  const yrs = []; let last = '';
+  G.dates.forEach((d,k) => { const y = d.slice(0,4); if(y!==last){ last = y; if(k>0) yrs.push([y,k]); } });
 
-  // x-axis: years, quarters or months depending on how much is visible
-  const days = (new Date(G.dates[i1]) - new Date(G.dates[i0])) / 864e5;
-  const xt = [];
-  for(let k = i0 + 1; k <= i1; k++){
-    const a = G.dates[k - 1], b = G.dates[k];
-    const m = +b.slice(5, 7);
-    if(days > 1600){ if(a.slice(0, 4) !== b.slice(0, 4)) xt.push([k, b.slice(0, 4)]); }
-    else if(a.slice(5, 7) !== b.slice(5, 7)){
-      if(days > 500 ? (m - 1) % 3 === 0 : true)
-        xt.push([k, m === 1 || days > 500 ? `${MON[m - 1]} ${b.slice(2, 4)}` : MON[m - 1]]);
-    }
-  }
-  // drop labels that would collide
-  const minGap = narrow ? 44 : 52, xs = [];
-  for(const t of xt) if(!xs.length || X(t[0]) - X(xs[xs.length - 1][0]) >= minGap) xs.push(t);
-  if(days <= 1600 && xs.length && !/\d/.test(xs[0][1])) xs[0] = [xs[0][0], xs[0][1] + ' ' + G.dates[xs[0][0]].slice(2, 4)];
-
-  const t1 = valMode ? niceTicks(lo1, hi1, narrow ? 3 : 4) : [0, 20, 40, 60, 80, 100];
-  const t2 = niceTicks(Math.exp(lo2), Math.exp(hi2), 3).filter(v => v > 0);
-  const lab = (x, y, s, anchor) => `<text x="${x}" y="${y}" text-anchor="${anchor}" font-size="10.5"
-      font-family="var(--mono)" fill="var(--muted)">${s}</text>`;
-  const cols = Math.ceil(iw);
-
-  st.PL = PL; st.iw = iw; st.T2 = T2; st.H2 = H2; st.PT = PT; st.Y1 = Y1; st.Y2 = Y2; st.get = get;
-  wrap.innerHTML = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" style="display:block;touch-action:pan-y"
-      role="img" aria-label="${g.label} and the index, ${G.dates[i0]} to ${G.dates[i1]}">
-    <defs><clipPath id="clip-${id}"><rect x="${PL}" y="0" width="${iw}" height="${H}"/></clipPath></defs>
-    ${!valMode ? `<rect x="${PL}" y="${Y1(B[1] > 100 ? 100 : B[1])}" width="${iw}" height="${Y1(B[0]) - Y1(Math.min(B[1], 100))}"
-      fill="var(--caution)" opacity=".10"/>` : ''}
-    ${t1.map(v => `<line x1="${PL}" y1="${Y1(v)}" x2="${W - PR}" y2="${Y1(v)}" stroke="var(--rule)" stroke-width=".6"/>
-      ${lab(PL - 6, Y1(v) + 3.5, valMode ? fmtV(v) : v, 'end')}`).join('')}
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" data-chart="${id}" style="touch-action:pan-y"
+      role="img" aria-label="${g.label} reading and index price since ${G.dates[0]}">
+    <rect x="${PL}" y="${Y1(B[1]===100.01?100:B[1])}" width="${iw}" height="${Y1(B[0])-Y1(Math.min(B[1],100))}"
+      fill="var(--caution)" opacity=".10"/>
+    ${[0,50,100].map(v=>`<line x1="${PL}" y1="${Y1(v)}" x2="${W-PR}" y2="${Y1(v)}" stroke="var(--rule)" stroke-width=".6"/>
+      <text x="${PL-5}" y="${Y1(v)+3}" text-anchor="end" font-size="9" font-family="var(--mono)" fill="var(--muted)">${v}</text>`).join('')}
     <rect x="${PL}" y="${T2}" width="${iw}" height="${H2}" fill="#fff" stroke="var(--rule)" stroke-width=".6"/>
-    ${t2.map(v => `<line x1="${PL}" y1="${Y2(v)}" x2="${W - PR}" y2="${Y2(v)}" stroke="var(--track)" stroke-width=".6"/>
-      ${lab(PL - 6, Y2(v) + 3.5, fmtV(v), 'end')}`).join('')}
-    <g clip-path="url(#clip-${id})">
-      ${shade}
-      ${xs.map(([k]) => `<line x1="${X(k)}" y1="${PT}" x2="${X(k)}" y2="${T2 + H2}" stroke="var(--rule)"
-          stroke-width=".6" stroke-dasharray="2 3"/>`).join('')}
-      <path d="${pathOf(thinWindow(i0, i1, cols, get), X, Y1)}" fill="none" stroke="#2C3A47" stroke-width="1.2"
-        stroke-linejoin="round"/>
-      <path d="${pathOf(thinWindow(i0, i1, cols, k => G.spy[k]), X, Y2)}" fill="none" stroke="var(--ink)"
-        stroke-width="1.3" stroke-linejoin="round"/>
-    </g>
-    ${xs.map(([k, s]) => lab(X(k), H - 8, s, 'middle')).join('')}
-    <text x="${PL + 6}" y="${PT + 13}" font-size="10" font-family="var(--mono)" fill="var(--muted)">${
-      valMode ? 'GAUGE VALUE' : 'GAUGE READING, 0–100'}</text>
-    <text x="${PL + 6}" y="${T2 + 14}" font-size="10" font-family="var(--mono)" fill="var(--muted)">INDEX (SPY, LOG SCALE)</text>
-    <line class="xh" x1="0" y1="${PT}" x2="0" y2="${T2 + H2}" stroke="var(--ink)" stroke-width=".8" opacity="0"/>
-    <circle class="d1" r="3.2" fill="var(--ink)" opacity="0"/><circle class="d2" r="3.2" fill="var(--ink)" opacity="0"/>
+    ${shade}
+    ${yrs.map(([y,k])=>`<line x1="${X(k)}" y1="${PT}" x2="${X(k)}" y2="${T2+H2}" stroke="var(--rule)"
+        stroke-width=".6" stroke-dasharray="2 3"/>
+      <text x="${X(k)}" y="${H-6}" text-anchor="middle" font-size="9" font-family="var(--mono)" fill="var(--muted)">${y}</text>`).join('')}
+    <path d="${p1}" fill="none" stroke="#2C3A47" stroke-width="1"/>
+    <path d="${p2}" fill="none" stroke="var(--ink)" stroke-width="1.1"/>
+    <text x="${PL+4}" y="${PT+11}" font-size="9.5" font-family="var(--mono)" fill="var(--muted)">GAUGE READING, 0–100</text>
+    <text x="${PL+4}" y="${T2+12}" font-size="9.5" font-family="var(--mono)" fill="var(--muted)">INDEX (SPY, LOG SCALE)</text>
+    <line class="xh" x1="0" y1="${PT}" x2="0" y2="${T2+H2}" stroke="var(--ink)" stroke-width=".7" opacity="0"/>
   </svg>`;
-  st.tool.querySelectorAll('[data-z]').forEach(b => {
-    const n = +b.dataset.z; b.classList.toggle('on', n ? (i1 - i0 + 1 === Math.min(n, st.kmax - st.kmin + 1) && i1 === st.kmax)
-      : (i0 === st.kmin && i1 === st.kmax)); });
-  st.tool.querySelectorAll('[data-m]').forEach(b => b.classList.toggle('on', b.dataset.m === st.mode));
 }
-
-function readout(id, k){
-  const st = CH[id], G = st.G, g = st.g;
-  const v = g.value[k], r = g.reading[k];
-  st.rd.innerHTML = `<b>${G.dates[k]}</b> · value ${v == null ? '–' : fmtV(v)} · reading ${r == null ? '–' : r}
-    · SPY ${G.spy[k]} · next month ${pc(G.fwd21[k])} · next 3 months ${pc(G.fwd63[k])}`;
-  const svg = st.wrap.querySelector('svg'); if(!svg) return;
-  const x = st.PL + (k - st.i0) / Math.max(st.i1 - st.i0, 1) * st.iw;
-  const xh = svg.querySelector('.xh'); xh.setAttribute('x1', x); xh.setAttribute('x2', x); xh.setAttribute('opacity', '.45');
-  const gv = st.get(k), d1 = svg.querySelector('.d1'), d2 = svg.querySelector('.d2');
-  if(gv != null){ d1.setAttribute('cx', x); d1.setAttribute('cy', st.Y1(gv)); d1.setAttribute('opacity', 1); }
-  else d1.setAttribute('opacity', 0);
-  d2.setAttribute('cx', x); d2.setAttribute('cy', st.Y2(G.spy[k])); d2.setAttribute('opacity', 1);
-}
-
-function setWindow(id, i0, i1){
-  const st = CH[id], full = st.kmax - st.kmin, minSpan = 20;
-  let span = Math.min(Math.max(i1 - i0, minSpan), full);
-  if(i0 < st.kmin){ i0 = st.kmin; }
-  if(i0 + span > st.kmax){ i0 = st.kmax - span; }
-  st.i0 = Math.round(Math.max(i0, st.kmin)); st.i1 = Math.round(st.i0 + span);
-  if(!st.raf) st.raf = requestAnimationFrame(() => { st.raf = null; drawChart(id); });
-}
-function zoomAt(id, kc, f){
-  const st = CH[id], span = st.i1 - st.i0, ns = span * f;
-  setWindow(id, kc - (kc - st.i0) * ns / span, kc - (kc - st.i0) * ns / span + ns);
-}
-
-function mountChart(id, G, g, host){
-  const n = G.dates.length;
-  let kmin = g.reading.findIndex(v => v != null); if(kmin < 0) kmin = 0;
-  host.innerHTML = `<div class="ctool">
-      ${RANGES.map(([l, z]) => `<button data-z="${z}">${l}</button>`).join('')}
-      <span class="sep"></span><button data-f="0.6" title="zoom in">+</button><button data-f="1.6" title="zoom out">−</button>
-      <span class="sep"></span><button data-m="reading">0–100 reading</button><button data-m="value">actual value</button>
-    </div>
-    <div class="rd"></div>
-    <div class="chartwrap"></div>
-    <div class="stamp chint">Scroll to zoom · drag to move · double-click to reset · on a phone use the buttons and swipe sideways.</div>`;
-  const st = CH[id] = { G, g, kmin, kmax: n - 1, i0: kmin, i1: n - 1, mode: 'reading',
-    wrap: host.querySelector('.chartwrap'), rd: host.querySelector('.rd'), tool: host.querySelector('.ctool') };
-  drawChart(id); readout(id, st.kmax);
-
-  st.tool.addEventListener('click', ev => {
-    const b = ev.target.closest('button'); if(!b) return;
-    if(b.dataset.z != null){ const z = +b.dataset.z;
-      setWindow(id, z ? st.kmax - Math.min(z, st.kmax - st.kmin + 1) + 1 : st.kmin, st.kmax); }
-    else if(b.dataset.f){ zoomAt(id, (st.i0 + st.i1) / 2, +b.dataset.f); }
-    else if(b.dataset.m){ st.mode = b.dataset.m; drawChart(id); }
-  });
-  const kAt = cx => { const r = st.wrap.getBoundingClientRect();
-    return st.i0 + (cx - r.left - st.PL) / st.iw * (st.i1 - st.i0); };
-  st.wrap.addEventListener('wheel', ev => {
-    ev.preventDefault();
-    zoomAt(id, Math.min(Math.max(kAt(ev.clientX), st.i0), st.i1), ev.deltaY > 0 ? 1.2 : 1 / 1.2);
-  }, {passive: false});
-  st.wrap.addEventListener('pointerdown', ev => {
-    st.drag = { x: ev.clientX, i0: st.i0, i1: st.i1, moved: false };
-    st.wrap.setPointerCapture(ev.pointerId); st.wrap.classList.add('grab');
-  });
-  st.wrap.addEventListener('pointermove', ev => {
-    if(st.drag){
-      const dx = ev.clientX - st.drag.x; if(Math.abs(dx) > 3) st.drag.moved = true;
-      const dk = -dx / st.iw * (st.drag.i1 - st.drag.i0);
-      if(st.drag.moved){ setWindow(id, st.drag.i0 + dk, st.drag.i1 + dk); return; }
-    }
-    const k = Math.round(kAt(ev.clientX));
-    if(k >= st.i0 && k <= st.i1) readout(id, k);
-  });
-  const end = () => { st.drag = null; st.wrap.classList.remove('grab'); };
-  st.wrap.addEventListener('pointerup', end); st.wrap.addEventListener('pointercancel', end);
-  st.wrap.addEventListener('dblclick', () => setWindow(id, st.kmin, st.kmax));
-}
-window.addEventListener('resize', () => {
-  clearTimeout(window._rz);
-  window._rz = setTimeout(() => Object.keys(CH).forEach(id => {
-    if(CH[id].wrap.isConnected && CH[id].wrap.offsetParent) drawChart(id); }), 150);
-});
 
 function bucketTable(G, g){
   const b = G.baseline;
@@ -568,7 +392,8 @@ function openHistory(id, file){
     if(!g){ box.innerHTML = '<div class="rd">No history stored for this gauge.</div>'; return; }
     box.dataset.done = '1';
     box.innerHTML = `
-      <div class="chost"></div>
+      <div class="rd" id="rd-${id}">Move across the chart to read any day.</div>
+      ${gaugeChart(G, g, id)}
       <p class="stamp" style="margin-top:4px">Shaded: days the gauge was in today's range (${
         ['0–20','20–40','40–60','60–80','80–100'][g.today_bucket]}).${g.lag?' Weekly data, shifted a week later to match publication.':''}</p>
       <h3>What the index did next, by reading</h3>
@@ -577,7 +402,21 @@ function openHistory(id, file){
         the gauge is not adding much on its own. “Spells” is the real sample size — neighbouring days are the same event.</p>
       <h3>Every spell in today's range, newest first</h3>
       ${episodeTable(g)}`;
-    mountChart(id, G, g, box.querySelector('.chost'));
+    const svg = box.querySelector('svg'), rd = document.getElementById('rd-' + id), xh = svg.querySelector('.xh');
+    const n = G.dates.length, PL = 34, iw = 880 - 34 - 10;
+    const move = ev => {
+      const pt = ev.touches ? ev.touches[0] : ev;
+      const r = svg.getBoundingClientRect();
+      const x = (pt.clientX - r.left) / r.width * 880;
+      const k = Math.max(0, Math.min(n-1, Math.round((x - PL) / iw * (n-1))));
+      const xx = PL + k/(n-1)*iw;
+      xh.setAttribute('x1', xx); xh.setAttribute('x2', xx); xh.setAttribute('opacity', '.5');
+      const v = g.value[k], rr = g.reading[k];
+      rd.textContent = `${G.dates[k]} · value ${v==null?'–':v} · reading ${rr==null?'–':rr} · SPY ${G.spy[k]}`
+        + ` · next month ${pc(G.fwd21[k])} · next 3 months ${pc(G.fwd63[k])}`;
+    };
+    svg.addEventListener('mousemove', move);
+    svg.addEventListener('touchmove', move, {passive:true});
   }).catch(() => { box.innerHTML = '<div class="rd">History file not found yet — it appears after the next nightly run.</div>'; });
 }
 
@@ -722,6 +561,64 @@ function rung(i){
   </li>`;
 }
 
+
+function sectorPanel(d){
+  const s = d.sectors, u = d.breadth_universe || {};
+  if(!s || !s.sectors) return '';
+  const pc = v => v==null ? '–' : `${v>0?'+':''}${v.toFixed(1)}`;
+  const cell20 = r => {
+    const ch = r.above20 - r.above20_month_ago;
+    return `<span style="color:${colorFor(100-r.above20)}">${r.above20}%</span>
+      <span class="sub">was ${r.above20_month_ago}%${ch? (ch>0?' ↑':' ↓'):''}</span>`;
+  };
+  const hot = r => r.share_of_index>0 && r.share_of_weak >= 1.5*r.share_of_index && r.share_of_weak >= 8;
+  const row = r => `<tr class="${hot(r)?'hot':''}">
+      <td class="lbl">${r.name}</td><td>${r.n}</td><td>${cell20(r)}</td><td>${r.above200}%</td>
+      <td>${pc(r.vs_index_3m)}<span class="sub">${pc(r.median_3m)}% itself</span></td>
+      <td>${r.new_highs_20d} / ${r.new_lows_20d}</td>
+      <td>${r.share_of_weak}%<span class="sub">${r.share_of_index}% of index</span></td></tr>`;
+  const t = s.total;
+  const grp = r => `<tr><td class="lbl">${r.name}<span class="sub">${r.sector||''}</span></td>
+      <td>${r.n}</td><td>${cell20(r)}</td><td>${pc(r.vs_index_3m)}<span class="sub">${pc(r.median_3m)}% itself</span></td>
+      <td>${r.new_highs_20d} / ${r.new_lows_20d}</td></tr>`;
+  const cov = u.coverage;
+  return `<section>
+    <h2>Breadth by sector</h2>
+    <p class="lede">The breadth gauges above count every member as one vote. This splits
+      today's count by sector, weakest first, so you can see which groups are pulling it down.
+      <b>Typical stock vs S&amp;P</b> is the middle stock of the sector over three months,
+      in percentage points against the index. <b>Share of the weak</b> is how many of the
+      stocks below their 20-day average come from that sector, next to how much of the
+      index it is — a red edge marks a sector doing well over its share of the damage.</p>
+    <div class="tbl"><table>
+      <tr><th>Sector</th><th>Stocks</th><th>Above 20-day<br>(month ago)</th><th>Above 200-day</th>
+          <th>Typical stock vs S&amp;P, 3 mo</th><th>New highs / lows, 20d</th><th>Share of the weak</th></tr>
+      ${s.sectors.map(row).join('')}
+      <tr class="total"><td class="lbl">All members</td><td>${t.n}</td><td>${t.above20}%<span class="sub">was ${t.above20_month_ago}%</span></td>
+        <td>${t.above200}%</td><td>${pc(t.vs_index_3m)}<span class="sub">${pc(t.median_3m)}% itself</span></td>
+        <td>${t.new_highs_20d} / ${t.new_lows_20d}</td><td>100%</td></tr>
+    </table></div>
+    ${s.weakest_groups && s.weakest_groups.length ? `
+      <h2 style="margin-top:22px">Weakest industry groups</h2>
+      <p class="lede">Finer cut, groups with at least four members. This is where
+        "regional banks" or "homebuilders" shows up rather than hiding inside a whole sector.</p>
+      <div class="tbl"><table>
+        <tr><th>Group</th><th>Stocks</th><th>Above 20-day<br>(month ago)</th><th>Typical stock vs S&amp;P, 3 mo</th><th>New highs / lows, 20d</th></tr>
+        ${s.weakest_groups.map(grp).join('')}
+      </table></div>
+      ${s.strongest_groups && s.strongest_groups.length ? `<p class="foot" style="margin-top:10px;border:none;padding:0">
+        Strongest for contrast: ${s.strongest_groups.map(r=>`${r.name} (${r.above20}% above 20-day)`).join(' · ')}</p>`:''}`
+      : ''}
+    <p class="foot" style="margin-top:14px">As of ${s.as_of}. Sectors: ${s.classification==='GICS'
+        ? 'official GICS classification' : 'the member list’s own labels (GICS source unavailable tonight, so these are coarser)'}.
+      ${u.survivorship_fixed && cov ? `Each stock counts only on the days it was actually in the S&amp;P 500.
+        Prices were found for ${cov.avg}% of members on an average day since 2016 (${cov.today}% today);
+        the gap is mostly companies that were taken over or went bankrupt, which Yahoo no longer serves.`
+        : u.survivorship_fixed === false ? `<strong>Membership history did not load tonight</strong> — breadth
+        fell back to treating today’s members as the index for the whole record, which flatters the past.` : ''}</p>
+  </section>`;
+}
+
 function render(d){
   window.GFILE = d.gauge_file || 'gauges.json';
   const b = band(d.score);
@@ -795,6 +692,8 @@ function render(d){
             <ul class="ladder">${g.map(rung).join('')}</ul></div>`;}).join('');
       })()}
     </section>
+
+    ${sectorPanel(d)}
 
     <section>
       <h2>Signals</h2>
