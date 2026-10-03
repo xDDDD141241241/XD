@@ -55,6 +55,23 @@ PCTL_WINDOW = 756        # ~3 years of sessions for percentile ranking
 HISTORY_MAX = 4200
 SP500_LIST = ("https://raw.githubusercontent.com/Ate329/top-us-stock-tickers"
               "/main/tickers/sp500.csv")
+# Who was in the index, and when: one row per stint, maintained publicly.
+MEMBERSHIP_URL = ("https://raw.githubusercontent.com/fja05680/sp500/master/"
+                  "sp500_ticker_start_end.csv")
+# Official GICS sector and industry for each current member.
+GICS_URL = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
+BREADTH_START = "2016-01-01"
+# Same company, new symbol -- Yahoo keeps the whole price record under the new
+# one. Each pair was checked against the membership file (old symbol ends the
+# day the new one starts), and is only applied where the file confirms it.
+# Mergers that created a new company are deliberately NOT listed.
+RENAMES = {
+    "FB": "META", "ANTM": "ELV", "PKI": "RVTY", "FLT": "CPAY", "RE": "EG",
+    "ABC": "COR", "WLTW": "WTW", "BLL": "BALL", "SYMC": "NLOK", "NLOK": "GEN",
+    "HCP": "PEAK", "PEAK": "DOC", "COG": "CTRA", "CTL": "LUMN", "UTX": "RTX",
+    "TMK": "GL", "JEC": "J", "CBS": "VIAC", "VIAC": "PARA", "PARA": "PSKY",
+    "FISV": "FI", "FI": "FISV", "HRS": "LHX", "BBT": "TFC", "MMC": "MRSH",
+}
 # Yahoo serves ^VIX3M, ^VIX9D and ^MOVE erratically -- they were stale on most
 # runs. CBOE publishes the volatility indices itself, daily and free, so it is
 # tried as the authoritative source with Yahoo kept as the fallback.
@@ -177,54 +194,330 @@ def fetch_fred(errors: list) -> dict[str, pd.Series]:
             if v is not None}
 
 
-def fetch_breadth(errors: list) -> dict[str, pd.Series]:
+# ---------------------------------------------------------------------------
+# Breadth universe: who was actually in the index, on which day
+# ---------------------------------------------------------------------------
+#
+# The old version took TODAY's member list and pretended it had always been
+# the index. Two biases followed. Companies that later dropped out -- mostly
+# losers -- vanished from the past, and companies that were added -- mostly
+# because they had been rising -- were counted during the run-up before they
+# joined. Both make past breadth look healthier than it was, so today looked
+# worse by comparison.
+#
+# Now every stock only counts on the days it was really a member, using a
+# public membership history. What cannot be fixed for free: companies that
+# were taken over or went bankrupt are no longer served by Yahoo, so they are
+# missing on the days they were members. The page reports how much of the
+# index that leaves out.
+
+def _ysym(sym: str) -> str:
+    """Index-list spelling (BRK.B, BRK/B) to Yahoo spelling (BRK-B)."""
+    return str(sym).strip().upper().replace(".", "-").replace("/", "-")
+
+
+def resolve_membership(rows: pd.DataFrame, current: list[str] | None,
+                       renames: dict = RENAMES) -> pd.DataFrame:
     """
-    Breadth built directly from S&P 500 constituents -- no paid ADD/S5TW feed.
-    Constituent list is a daily-updated public CSV.
+    Turn the membership file into Yahoo-symbol intervals.
+
+    rows: ticker, start_date, end_date (end blank = still a member).
+    A rename is only applied where the file itself shows the old symbol ending
+    the same day the new one starts, so a wrong entry in RENAMES is inert.
+    `current` (today's list, Yahoo spelling) overrides the file at its end,
+    because the file is updated less often than the index changes.
+    """
+    r = rows.copy()
+    r["ticker"] = r["ticker"].astype(str).str.strip().str.upper()
+    r["start"] = pd.to_datetime(r["start_date"], errors="coerce")
+    r["end"] = pd.to_datetime(r["end_date"], errors="coerce")
+    r = r.dropna(subset=["start"])
+    starts = {(t, s) for t, s in zip(r["ticker"], r["start"])}
+
+    def final(tic, end):
+        # follow a chain of renames forward in time: SYMC -> NLOK -> GEN
+        seen = 0
+        while pd.notna(end) and tic in renames and seen < 10:
+            nxt = renames[tic]
+            if (nxt, end) not in starts:
+                break
+            row = r[(r["ticker"] == nxt) & (r["start"] == end)].iloc[0]
+            tic, end = nxt, row["end"]
+            seen += 1
+        return tic
+
+    r["symbol"] = [_ysym(final(t, e)) for t, e in zip(r["ticker"], r["end"])]
+    out = r[["symbol", "start", "end"]].reset_index(drop=True)
+
+    if current:
+        file_last = max(out["start"].max(), out["end"].max())
+        cur = set(current)
+        live = set(out.loc[out["end"].isna(), "symbol"])
+        # added since the file was last updated
+        for s in sorted(cur - live):
+            out.loc[len(out)] = [s, file_last, pd.NaT]
+        # removed since the file was last updated
+        gone = out["end"].isna() & ~out["symbol"].isin(cur)
+        out.loc[gone, "end"] = file_last
+    return out
+
+
+def membership_mask(intervals: pd.DataFrame, index: pd.DatetimeIndex,
+                    columns) -> pd.DataFrame:
+    """True where that stock was in the index on that day."""
+    mask = pd.DataFrame(False, index=index, columns=list(columns))
+    for sym, start, end in intervals.itertuples(index=False):
+        if sym not in mask.columns:
+            continue
+        on = index >= start
+        if pd.notna(end):
+            on &= index < end
+        mask.loc[on, sym] = True
+    return mask
+
+
+def compute_breadth(px: pd.DataFrame, mask: pd.DataFrame | None = None,
+                    errors: list | None = None) -> dict[str, pd.Series]:
+    """
+    Every breadth series from member prices. Moving averages and 52-week
+    highs use each stock's full price record (prices before it joined are
+    real prices); only the COUNTING is limited to days it was a member.
+    """
+    errors = errors if errors is not None else []
+    if mask is None:
+        mask = pd.DataFrame(True, index=px.index, columns=px.columns)
+    mask = mask.reindex(index=px.index, columns=px.columns, fill_value=False)
+    live = mask & px.notna()
+
+    # A batch pull can end on a partial row -- a handful of names printed,
+    # the rest still empty. Every breadth measure then divides by that
+    # handful and returns nonsense (0% above the 20-day, exactly zero net
+    # new highs) which looks like a market event rather than a gap in the
+    # data. Drop any date without broad coverage before computing anything.
+    cov = live.sum(axis=1)
+    keep = cov >= max(100, int(cov[cov > 0].median() * 0.8))
+    dropped = int((~keep).sum())
+    if not keep.any():
+        raise RuntimeError("no dates with sufficient constituent coverage")
+    if dropped:
+        errors.append(f"breadth: skipped {dropped} thinly-covered date(s), "
+                      f"latest good {keep[keep].index[-1].date()}")
+
+    ret = px.pct_change(fill_method=None)
+    ma20 = px.rolling(20).mean()
+    hi = px.rolling(252).max()
+    lo = px.rolling(252).min()
+
+    adv = ((ret > 0) & live).sum(axis=1)
+    dec = ((ret < 0) & live).sum(axis=1)
+    valid20 = live & ma20.notna()
+    above20 = ((px > ma20) & valid20).sum(axis=1) / valid20.sum(axis=1).replace(0, np.nan) * 100
+    hi52 = ((px >= hi) & live & hi.notna()).sum(axis=1)
+    lo52 = ((px <= lo) & live & lo.notna()).sum(axis=1)
+
+    adv, dec, above20, hi52, lo52 = (s[keep] for s in (adv, dec, above20, hi52, lo52))
+    return {
+        "nhnl_line": (hi52 - lo52).cumsum().dropna(),
+        "ad_line": (adv - dec).cumsum().dropna(),
+        "pct_above_20": above20.dropna(),
+        "nh_nl": (hi52 - lo52).dropna(),
+        "adv_ratio": (adv / (adv + dec).replace(0, np.nan)).dropna(),
+    }
+
+
+def universe_coverage(px: pd.DataFrame, mask: pd.DataFrame) -> dict:
+    """How much of the real index we actually have prices for, by date."""
+    # The mask must span every member, including the ones Yahoo returned
+    # nothing for -- those missing names are exactly what this measures.
+    mask = mask.reindex(index=px.index, fill_value=False)
+    members = mask.sum(axis=1)
+    have = (mask & px.reindex(columns=mask.columns).notna()).sum(axis=1)
+    share = (have / members.replace(0, np.nan)).dropna()
+    if share.empty:
+        return {}
+    yearly = share.groupby(share.index.year).mean()
+    return {
+        "avg": round(float(share.mean()) * 100, 1),
+        "worst": round(float(share.min()) * 100, 1),
+        "worst_date": str(share.idxmin().date()),
+        "today": round(float(share.iloc[-1]) * 100, 1),
+        "by_year": {int(y): round(float(v) * 100, 1) for y, v in yearly.items()},
+    }
+
+
+def sector_breadth(px: pd.DataFrame, mask: pd.DataFrame, sector_of: dict,
+                   sub_of: dict | None = None, spy: pd.Series | None = None,
+                   min_group: int = 4) -> dict:
+    """
+    Today's breadth split by sector, so a weak total can be traced to the
+    groups doing the damage. Equal-weighted throughout -- each company is one
+    vote, exactly as in the totals above it.
+    """
+    sub_of = sub_of or {}
+    last = px.index[-1]
+    today = mask.reindex(index=px.index, columns=px.columns,
+                         fill_value=False).loc[last] & px.loc[last].notna()
+    names = [s for s in px.columns if today.get(s, False)]
+    if not names:
+        return {}
+    p = px[names]
+    ma20, ma200 = p.rolling(20).mean(), p.rolling(200).mean()
+    hi, lo = p.rolling(252).max(), p.rolling(252).min()
+    a20_now = p.iloc[-1] > ma20.iloc[-1]
+    a20_then = p.iloc[-22] > ma20.iloc[-22] if len(p) > 22 else a20_now
+    a200 = p.iloc[-1] > ma200.iloc[-1]
+    r63 = p.iloc[-1] / p.iloc[-64] - 1 if len(p) > 64 else p.iloc[-1] * np.nan
+    nh20 = (p >= hi).iloc[-20:].any()
+    nl20 = (p <= lo).iloc[-20:].any()
+    spy63 = None
+    if spy is not None and len(spy.dropna()) > 64:
+        s = spy.dropna()
+        spy63 = float(s.iloc[-1] / s.iloc[-64] - 1)
+
+    weak_total = int((~a20_now).sum())
+
+    def row(label, members):
+        members = [m for m in members if m in p.columns]
+        n = len(members)
+        if n == 0:
+            return None
+        med = r63[members].median()
+        weak = int((~a20_now[members]).sum())
+        return {
+            "name": label, "n": n,
+            "above20": round(float(a20_now[members].mean()) * 100),
+            "above20_month_ago": round(float(a20_then[members].mean()) * 100),
+            "above200": round(float(a200[members].mean()) * 100),
+            "median_3m": None if pd.isna(med) else round(float(med) * 100, 1),
+            "vs_index_3m": (None if pd.isna(med) or spy63 is None
+                            else round((float(med) - spy63) * 100, 1)),
+            "new_highs_20d": int(nh20[members].sum()),
+            "new_lows_20d": int(nl20[members].sum()),
+            "share_of_weak": (round(weak / weak_total * 100) if weak_total else 0),
+            "share_of_index": round(n / len(names) * 100),
+        }
+
+    groups: dict[str, list] = {}
+    for s in names:
+        groups.setdefault(sector_of.get(s) or "Unclassified", []).append(s)
+    sectors = [x for x in (row(k, v) for k, v in groups.items()) if x]
+    sectors.sort(key=lambda x: x["above20"])
+
+    subs: dict[str, list] = {}
+    for s in names:
+        if sub_of.get(s):
+            subs.setdefault(sub_of[s], []).append(s)
+    industries = [x for x in (row(k, v) for k, v in subs.items()
+                              if len(v) >= min_group) if x]
+    for x in industries:
+        members = subs[x["name"]]
+        x["sector"] = max(set(sector_of.get(m) for m in members),
+                          key=lambda k: sum(sector_of.get(m) == k for m in members))
+    industries.sort(key=lambda x: (x["above20"], x["median_3m"] or 0))
+
+    return {
+        "as_of": str(last.date()),
+        "total": row("All members", names),
+        "index_3m": None if spy63 is None else round(spy63 * 100, 1),
+        "sectors": sectors,
+        "weakest_groups": industries[:8],
+        "strongest_groups": sorted(industries, key=lambda x: (-x["above20"],
+                                   -(x["median_3m"] or 0)))[:5],
+    }
+
+
+def fetch_sectors(fallback: dict, errors: list) -> tuple[dict, dict, str]:
+    """
+    Official GICS sectors and industry groups from the Wikipedia member table.
+    If that page cannot be read, fall back to the coarser labels that come
+    with the daily member list -- coarser, and a few are odd, but never empty.
+    """
+    try:
+        req = urllib.request.Request(GICS_URL, headers={
+            "User-Agent": "risk-monitor/1.0 (GitHub Actions; daily breadth)"})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            html = r.read().decode("utf-8", "replace")
+        t = pd.read_html(io.StringIO(html), attrs={"id": "constituents"})[0]
+        t.columns = [str(c).strip() for c in t.columns]
+        sym = t["Symbol"].map(_ysym)
+        sector = dict(zip(sym, t["GICS Sector"].astype(str).str.strip()))
+        sub = dict(zip(sym, t["GICS Sub-Industry"].astype(str).str.strip()))
+        if len(sector) < 400:
+            raise RuntimeError(f"only {len(sector)} rows")
+        # members the table has not caught up with keep the fallback label
+        for s, v in fallback.items():
+            sector.setdefault(s, v)
+        return sector, sub, "GICS"
+    except Exception as exc:
+        # display-only detail, so this goes to the notes, not the red banner
+        errors.append(f"sectors: GICS source unavailable, used the member "
+                      f"list's own labels ({type(exc).__name__})")
+        return dict(fallback), {}, "member list labels"
+
+
+def fetch_breadth(errors: list, spy: pd.Series | None = None
+                  ) -> tuple[dict[str, pd.Series], dict]:
+    """
+    Breadth built directly from S&P 500 members -- no paid ADD/S5TW feed.
+    Returns the breadth series plus a detail block for the page (sector
+    split, and how complete the historical universe is).
     """
     try:
         with urllib.request.urlopen(SP500_LIST, timeout=30) as r:
-            tickers = pd.read_csv(io.StringIO(r.read().decode()))["symbol"]
-        tickers = [t for t in tickers.dropna().astype(str)
-                   if t.isalpha() or "." in t][:505]
-        px = _yahoo(tickers, start="2016-01-01").dropna(how="all", axis=1)
+            lst = pd.read_csv(io.StringIO(r.read().decode()))
+        lst = lst.dropna(subset=["symbol"])
+        lst["y"] = lst["symbol"].map(_ysym)
+        current = [s for s in lst["y"] if s.replace("-", "").isalpha()][:510]
+        fallback_sector = dict(zip(lst["y"], lst.get("industry", pd.Series(
+            index=lst.index, dtype=object)).fillna("Unclassified")))
+    except Exception as exc:
+        errors.append(f"breadth failed: member list ({exc})")
+        return {}, {}
+
+    intervals, survivorship_fixed = None, False
+    try:
+        with urllib.request.urlopen(MEMBERSHIP_URL, timeout=30) as r:
+            rows = pd.read_csv(io.StringIO(r.read().decode()))
+        intervals = resolve_membership(rows, current)
+        intervals = intervals[intervals["end"].isna()
+                              | (intervals["end"] > pd.Timestamp(BREADTH_START))]
+        survivorship_fixed = True
+    except Exception as exc:
+        errors.append(f"membership history unavailable -- breadth uses today's "
+                      f"members for the whole record ({type(exc).__name__})")
+
+    try:
+        universe = sorted(set(current) | (set(intervals["symbol"])
+                                          if intervals is not None else set()))
+        px = _yahoo(universe, start=BREADTH_START).dropna(how="all", axis=1)
         if px.shape[1] < 100:
             raise RuntimeError(f"only {px.shape[1]} constituents returned")
-
-        # A batch pull can end on a partial row -- a handful of names printed,
-        # the rest still empty. Every breadth measure then divides by that
-        # handful and returns nonsense (0% above the 20-day, exactly zero net
-        # new highs) which looks like a market event rather than a gap in the
-        # data. Drop any date without broad coverage before computing anything.
-        cov = px.notna().sum(axis=1)
-        keep = cov >= max(100, int(cov.median() * 0.8))
-        dropped = int((~keep).sum())
-        px = px[keep]
-        if px.empty:
-            raise RuntimeError("no dates with sufficient constituent coverage")
-        if dropped:
-            errors.append(f"breadth: skipped {dropped} thinly-covered date(s), "
-                          f"latest good {px.index[-1].date()}")
-
-        ret = px.pct_change()
-        adv = (ret > 0).sum(axis=1)
-        dec = (ret < 0).sum(axis=1)
-        ad_line = (adv - dec).cumsum()
-
-        above20 = (px > px.rolling(20).mean()).sum(axis=1) / px.notna().sum(axis=1) * 100
-        hi52 = (px >= px.rolling(252).max()).sum(axis=1)
-        lo52 = (px <= px.rolling(252).min()).sum(axis=1)
-
-        return {
-            "nhnl_line": (hi52 - lo52).cumsum().dropna(),
-            "ad_line": ad_line.dropna(),
-            "pct_above_20": above20.dropna(),
-            "nh_nl": (hi52 - lo52).dropna(),
-            "adv_ratio": (adv / (adv + dec).replace(0, np.nan)).dropna(),
-        }
+        if intervals is not None:
+            # built over everything requested, not just what Yahoo returned,
+            # so the coverage figure can see the members that are missing
+            mask = membership_mask(intervals, px.index, universe)
+        else:
+            mask = pd.DataFrame(px.columns.isin(current)[None, :].repeat(len(px), 0),
+                                index=px.index, columns=px.columns)
+        br = compute_breadth(px, mask, errors)
     except Exception as exc:
         errors.append(f"breadth failed: {exc}")
-        return {}
+        return {}, {}
+
+    detail = {"survivorship_fixed": survivorship_fixed,
+              "symbols_downloaded": int(px.shape[1]),
+              "symbols_requested": len(universe)}
+    if survivorship_fixed:
+        detail["coverage"] = universe_coverage(px, mask)
+    try:
+        sector_of, sub_of, source = fetch_sectors(fallback_sector, errors)
+        sec = sector_breadth(px, mask, sector_of, sub_of, spy)
+        if sec:
+            sec["classification"] = source
+            detail["sectors"] = sec
+    except Exception as exc:
+        errors.append(f"sector breadth failed: {exc}")
+    return br, detail
 
 
 # ---------------------------------------------------------------------------
@@ -964,7 +1257,8 @@ def load_history() -> list:
         return []
 
 
-def assemble(m, oas, br, errors, backfill: bool = False) -> dict:
+def assemble(m, oas, br, errors, backfill: bool = False,
+             breadth_detail: dict | None = None) -> dict:
     notes: list = []
     ind = build_indicators(m, oas, br)
     score = composite_score(ind)
@@ -979,6 +1273,9 @@ def assemble(m, oas, br, errors, backfill: bool = False) -> dict:
     for e in routine:
         errors.remove(e)
         notes.append(e.replace("breadth: skipped", "breadth data lagged by"))
+    for e in [e for e in errors if e.startswith("sectors:")]:
+        errors.remove(e)
+        notes.append(e)
 
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     hist = load_history()
@@ -1043,6 +1340,13 @@ def assemble(m, oas, br, errors, backfill: bool = False) -> dict:
         payload["_gauges"] = detail          # written to gauges.json, not data.json
         payload["gauge_file"] = "gauges.json"
 
+    # sector split and universe completeness -- display only, never scored
+    if breadth_detail:
+        payload["breadth_universe"] = {k: v for k, v in breadth_detail.items()
+                                       if k != "sectors"}
+        if breadth_detail.get("sectors"):
+            payload["sectors"] = breadth_detail["sectors"]
+
     payload["quality"] = V.quality_report(payload, prev_payload())
     payload["events"] = V.event_report(payload["history"])
     payload["pivots"] = V.pivot_report(payload["history"],
@@ -1082,13 +1386,14 @@ def main() -> int:
     errors: list = []
     m = fetch_market(errors)
     oas = fetch_fred(errors)
-    br = {} if a.no_breadth else fetch_breadth(errors)
+    br, bdetail = ({}, {}) if a.no_breadth else fetch_breadth(errors, m.get("spy"))
 
     if not m:
         print("no market data at all — aborting", file=sys.stderr)
         return 1
 
-    payload = assemble(m, oas, br, errors, backfill=a.backfill)
+    payload = assemble(m, oas, br, errors, backfill=a.backfill,
+                       breadth_detail=bdetail)
     write(payload)
 
     print(f"score {payload['score']}  band {payload['band']}  "
