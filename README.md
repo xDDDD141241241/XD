@@ -85,7 +85,11 @@ Thirteen gauges across five families:
   early to price real trouble.
 - **Breadth** — advance/decline z-score, share of the index above its 20-day
   average, new highs minus new lows. Built directly from the 500 constituents,
-  so no paid data feed is needed.
+  so no paid data feed is needed. Each stock only counts on the days it was
+  actually in the index (public membership history), so companies that later
+  dropped out still count in the past, and companies added later do not count
+  before they joined. A **Breadth by sector** table splits today's count by
+  GICS sector and industry group.
 - **Structure** — cap-weight versus equal-weight over 63 days, and stock/bond
   correlation. The first tells you whether fewer names are carrying the index;
   the second tells you whether bonds are still cushioning equities.
@@ -135,6 +139,10 @@ as *high* danger rather than low. It prints PASSED or FAILED.
 ---
 
 ## Honest limits
+
+- Companies that were taken over or went bankrupt are no longer served by
+  Yahoo, so they are missing on the days they were members. The sector panel
+  states what share of the index that leaves out on an average day.
 
 - The score is descriptive. High readings cluster around bad periods, but they
   also occur without incident. It tells you when to check your position sizing,
