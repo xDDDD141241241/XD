@@ -154,9 +154,85 @@ def run_selftest() -> int:
     if st.get("state") != "range_high":
         print("FAIL: a stall just under the high was not read as range-bound"); ok = False
 
+    ok = membership_checks(R) and ok
     print("\nSELFTEST", "PASSED" if ok else "FAILED")
     return 0 if ok else 1
 
 
 if __name__ == "__main__":
     raise SystemExit(run_selftest())
+
+
+def membership_checks(R) -> bool:
+    """
+    The survivorship fix and the sector split. A stock that soars before it
+    joins the index must not lift breadth before it joins; a stock that is
+    removed must stop counting; renames must carry a company's record across;
+    and the sector table must point at the group that is actually weak.
+    """
+    ok = True
+    idx = pd.bdate_range("2021-01-01", periods=400)
+    rng = np.random.default_rng(11)
+    cols = [f"S{i:03d}" for i in range(150)] + ["RISER", "FALLER"]
+    px = pd.DataFrame(100 * np.exp(np.cumsum(rng.normal(0, 0.01, (400, 152)), 0)),
+                      index=idx, columns=cols)
+    px["RISER"] = 50 * np.exp(np.arange(400) * 0.004)       # up every day
+    px["FALLER"] = 80 * np.exp(-np.arange(400) * 0.004)     # down every day
+    join, leave = idx[300], idx[200]
+    rows = pd.DataFrame(
+        [[c, "2000-01-01", ""] for c in cols[:150]]
+        + [["RISER", str(join.date()), ""],
+           ["FALLER", "2000-01-01", str(leave.date())]],
+        columns=["ticker", "start_date", "end_date"])
+    iv = R.resolve_membership(rows, None)
+    mask = R.membership_mask(iv, idx, px.columns)
+    if mask.loc[idx[299], "RISER"] or not mask.loc[idx[300], "RISER"]:
+        print("FAIL: membership start date not respected"); ok = False
+    if not mask.loc[idx[199], "FALLER"] or mask.loc[idx[200], "FALLER"]:
+        print("FAIL: membership end date not respected"); ok = False
+
+    fixed = R.compute_breadth(px, mask)
+    naive = R.compute_breadth(px)               # old behaviour: everyone, always
+    # Before RISER joins and after FALLER leaves, the fixed line must ignore
+    # both; the naive one counts RISER's run-up and FALLER's slide.
+    early = slice(idx[30], idx[190])            # FALLER a member, RISER not
+    gap = (naive["ad_line"].diff()[early] - fixed["ad_line"].diff()[early])
+    if not np.allclose(gap, 1):                 # naive wrongly adds RISER's +1
+        print("FAIL: a stock was counted before it joined the index"); ok = False
+    late = slice(idx[210], idx[290])            # neither a member
+    gap = (naive["ad_line"].diff()[late] - fixed["ad_line"].diff()[late])
+    if not np.allclose(gap, 0):                 # +1 RISER, -1 FALLER cancel
+        print("FAIL: removed/not-yet-added stocks leaked into the count"); ok = False
+
+    # renames: FB -> META must become one continuous META record
+    rn = pd.DataFrame([["FB", "2013-12-23", "2022-06-09"],
+                       ["META", "2022-06-09", ""],
+                       ["XYZ", "2015-01-01", "2022-06-09"]],
+                      columns=["ticker", "start_date", "end_date"])
+    iv = R.resolve_membership(rn, None)
+    if sorted(iv.loc[iv.symbol == "META", "start"].dt.year) != [2013, 2022]:
+        print("FAIL: rename did not carry FB's membership to META"); ok = False
+    if "XYZ" not in set(iv.symbol):
+        print("FAIL: an unrelated removal was treated as a rename"); ok = False
+
+    # sector split: make one sector clearly weak and check it lands on top
+    sec = {c: ("Weak" if i < 40 else "Strong") for i, c in enumerate(cols)}
+    px2 = px.copy()
+    px2.iloc[-25:, :40] *= np.linspace(1, 0.85, 25)[:, None]
+    px2.iloc[-25:, 40:150] *= np.linspace(1, 1.05, 25)[:, None]
+    spy = px2.iloc[:, :150].mean(axis=1)
+    out = R.sector_breadth(px2, mask, sec, None, spy)
+    s = {x["name"]: x for x in out["sectors"]}
+    if out["sectors"][0]["name"] != "Weak" or s["Weak"]["above20"] > 20 \
+            or s["Weak"]["share_of_weak"] < 50:
+        print("FAIL: sector table did not identify the weak sector"); ok = False
+    if out["total"]["n"] != 151:                # 150 + RISER (joined); FALLER gone
+        print("FAIL: sector table counted non-members"); ok = False
+    cov = R.universe_coverage(px.drop(columns=["FALLER"]), mask)
+    if not (cov["worst"] < 100 and cov["today"] == 100):
+        print("FAIL: coverage did not notice a member with no prices"); ok = False
+
+    print(f"membership: weak sector {s['Weak']['above20']}% above 20-day, "
+          f"{s['Weak']['share_of_weak']}% of the weak names; "
+          f"coverage worst {cov['worst']}%")
+    return ok
