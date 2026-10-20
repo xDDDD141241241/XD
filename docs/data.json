@@ -1,13 +1,13 @@
 {
- "updated": "2026-10-19T23:53:23+00:00",
+ "updated": "2026-10-20T01:08:03+00:00",
  "build": "214ace0c",
- "score": 55.8,
+ "score": 54.9,
  "band": "ELEVATED",
  "regime": {
-  "name": "DETERIORATING",
-  "description": "above the 200-day, but participation is narrowing",
+  "name": "BULL",
+  "description": "above the 200-day and participation is broad",
   "trend_up": true,
-  "breadth_ok": false,
+  "breadth_ok": true,
   "horizon": "200-day"
  },
  "trend": [
@@ -15,25 +15,25 @@
    "span": 9,
    "kind": "ema",
    "above": false,
-   "dist_pct": -0.52
+   "dist_pct": -1.06
   },
   {
    "span": 21,
    "kind": "ema",
    "above": false,
-   "dist_pct": -0.47
+   "dist_pct": -0.93
   },
   {
    "span": 50,
    "kind": "sma",
    "above": false,
-   "dist_pct": -0.25
+   "dist_pct": -0.68
   },
   {
    "span": 200,
    "kind": "sma",
    "above": true,
-   "dist_pct": 5.66
+   "dist_pct": 5.27
   }
  ],
  "indicators": [
@@ -75,47 +75,6 @@
     "base_med_dd": -2.7,
     "enough": true,
     "since": "2023-11-17",
-    "lag": 0
-   }
-  },
-  {
-   "id": "ad_confirmation",
-   "label": "A/D confirmation gap, 252d",
-   "value": -33.3333,
-   "display": "-33",
-   "percentile": 91.7,
-   "weight": 12,
-   "note": "A/D line's rank minus the index's rank, same window",
-   "check": "Negative means the index is higher in its own range than participation is in its own -- the textbook non-confirmation. Around zero means breadth is keeping up. Positive means participation is running ahead of price, which is healthy.",
-   "family": "Divergence",
-   "plain": "Where the breadth line sits within its own year, minus where the index sits within its own. Are the two agreeing?",
-   "compare": "Built in — the comparison IS the gauge.",
-   "worry": "Clearly negative. The index is high in its range while participation is not: textbook non-confirmation.",
-   "ignore": "Readings near zero. Breadth is keeping up, which is exactly what you want.",
-   "as_of": "2026-10-19",
-   "basis": "absolute scale",
-   "inverted": true,
-   "clipped": false,
-   "scale_lo": -40,
-   "scale_hi": 40,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false,
-   "history": {
-    "bucket": "80–100",
-    "bucket_index": 4,
-    "episodes": 4,
-    "episodes_done": 3,
-    "ep_lower_1m": 1,
-    "lower_1m": 6.0,
-    "med_3m": 10.6,
-    "med_dd": -0.6,
-    "worst_dd": -3.9,
-    "base_lower_1m": 32.0,
-    "base_med_3m": 3.9,
-    "base_med_dd": -2.7,
-    "enough": true,
-    "since": "2016-12-30",
     "lag": 0
    }
   },
@@ -202,6 +161,47 @@
    }
   },
   {
+   "id": "ad_confirmation",
+   "label": "A/D confirmation gap, 252d",
+   "value": -21.627,
+   "display": "-22",
+   "percentile": 77.0,
+   "weight": 12,
+   "note": "A/D line's rank minus the index's rank, same window",
+   "check": "Negative means the index is higher in its own range than participation is in its own -- the textbook non-confirmation. Around zero means breadth is keeping up. Positive means participation is running ahead of price, which is healthy.",
+   "family": "Divergence",
+   "plain": "Where the breadth line sits within its own year, minus where the index sits within its own. Are the two agreeing?",
+   "compare": "Built in — the comparison IS the gauge.",
+   "worry": "Clearly negative. The index is high in its range while participation is not: textbook non-confirmation.",
+   "ignore": "Readings near zero. Breadth is keeping up, which is exactly what you want.",
+   "as_of": "2026-10-16",
+   "basis": "absolute scale",
+   "inverted": true,
+   "clipped": false,
+   "scale_lo": -40,
+   "scale_hi": 40,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false,
+   "history": {
+    "bucket": "60–80",
+    "bucket_index": 3,
+    "episodes": 12,
+    "episodes_done": 10,
+    "ep_lower_1m": 3,
+    "lower_1m": 27.0,
+    "med_3m": 3.7,
+    "med_dd": -2.2,
+    "worst_dd": -18.6,
+    "base_lower_1m": 32.0,
+    "base_med_3m": 3.9,
+    "base_med_dd": -2.7,
+    "enough": true,
+    "since": "2016-12-30",
+    "lag": 0
+   }
+  },
+  {
    "id": "quality_spread",
    "label": "Quality spread (CCC minus BB)",
    "value": 10.94,
@@ -268,7 +268,7 @@
    "history": {
     "bucket": "60–80",
     "bucket_index": 3,
-    "episodes": 56,
+    "episodes": 55,
     "episodes_done": 54,
     "ep_lower_1m": 16,
     "lower_1m": 33.0,
@@ -286,9 +286,9 @@
   {
    "id": "corr_spy_tlt",
    "label": "Stock/bond correlation, 63d",
-   "value": 0.3766,
+   "value": 0.3797,
    "display": "+0.38",
-   "percentile": 68.8,
+   "percentile": 69.0,
    "weight": 6,
    "note": "above zero means bonds stop cushioning equities",
    "check": "Check this before you need the hedge, not after. It says nothing about whether a drawdown is coming, only what it will cost you.",
@@ -297,7 +297,7 @@
    "compare": "Your own hedges — not the index.",
    "worry": "Above zero. Bonds are no longer cushioning equity losses, so a drawdown costs more than the standard models assume.",
    "ignore": "It as a timing signal. It tells you what a fall would cost you, never whether one is coming.",
-   "as_of": "2026-10-19",
+   "as_of": "2026-10-16",
    "basis": "absolute scale",
    "inverted": false,
    "clipped": false,
@@ -379,7 +379,7 @@
    "compare": "Built in.",
    "worry": "A rising count. This one led 2000, 2007, 2018 and 2021-22.",
    "ignore": "Very little. Of all the divergences here this has the best record, so treat a sustained rise seriously.",
-   "as_of": "2026-10-19",
+   "as_of": "2026-10-16",
    "basis": "absolute scale",
    "inverted": false,
    "clipped": false,
@@ -409,9 +409,9 @@
   {
    "id": "breadth_ad_z",
    "label": "Advance/decline line, 63d z-score",
-   "value": -0.6639,
-   "display": "-0.66",
-   "percentile": 63.3,
+   "value": -0.457,
+   "display": "-0.46",
+   "percentile": 59.1,
    "weight": 5,
    "note": "level of breadth momentum, not a divergence measure",
    "check": "Read this as breadth strength only. For non-confirmation use the A/D confirmation gap above, which compares it against price -- this gauge does not know where price is.",
@@ -420,7 +420,7 @@
    "compare": "Nothing. Read it alone, as a strength reading.",
    "worry": "Sustained negative. But for a genuine divergence use the confirmation gap instead — this gauge does not know where price is.",
    "ignore": "Small swings. It is a noisy series.",
-   "as_of": "2026-10-19",
+   "as_of": "2026-10-16",
    "basis": "absolute scale",
    "inverted": true,
    "clipped": false,
@@ -430,15 +430,15 @@
    "stale": false,
    "excluded": false,
    "history": {
-    "bucket": "60–80",
-    "bucket_index": 3,
-    "episodes": 31,
-    "episodes_done": 29,
+    "bucket": "40–60",
+    "bucket_index": 2,
+    "episodes": 48,
+    "episodes_done": 46,
     "ep_lower_1m": 11,
-    "lower_1m": 21.0,
-    "med_3m": 6.1,
-    "med_dd": -3.6,
-    "worst_dd": -26.3,
+    "lower_1m": 37.0,
+    "med_3m": 4.6,
+    "med_dd": -3.1,
+    "worst_dd": -28.7,
     "base_lower_1m": 32.0,
     "base_med_3m": 3.9,
     "base_med_dd": -2.7,
@@ -532,9 +532,9 @@
   {
    "id": "concentration",
    "label": "Cap-weight vs equal-weight, 63d",
-   "value": 2.125,
-   "display": "+2.1%",
-   "percentile": 52.3,
+   "value": 2.0491,
+   "display": "+2.0%",
+   "percentile": 51.5,
    "weight": 8,
    "note": "rising = the index is being carried by fewer names",
    "check": "Compare directly with the index. Both rising together means the gain is narrowing into a handful of names.",
@@ -543,7 +543,7 @@
    "compare": "The index itself.",
    "worry": "Both rising together. The gain is coming from a handful of names rather than the market.",
    "ignore": "Negative readings. Those mean the average stock is keeping up, which is healthy.",
-   "as_of": "2026-10-19",
+   "as_of": "2026-10-16",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
    "clipped": false,
@@ -571,47 +571,6 @@
    }
   },
   {
-   "id": "nh_nl",
-   "label": "New 52w highs minus new lows",
-   "value": 3.0,
-   "display": "+3",
-   "percentile": 49.0,
-   "weight": 6,
-   "note": "",
-   "check": "Negative while the index is at a new high is the textbook non-confirmation. It was present at 1972, 2000, 2007 and 2021.",
-   "family": "Breadth",
-   "plain": "How many companies hit a new 52-week high today, minus how many hit a new low.",
-   "compare": "The index when it is at a new high.",
-   "worry": "Negative while the index prints a new high. This was present at 1972, 2000, 2007 and 2021.",
-   "ignore": "Daily noise. The cumulative version below is the more reliable form of the same idea.",
-   "as_of": "2026-10-19",
-   "basis": "absolute scale",
-   "inverted": true,
-   "clipped": false,
-   "scale_lo": -150,
-   "scale_hi": 150,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false,
-   "history": {
-    "bucket": "40–60",
-    "bucket_index": 2,
-    "episodes": 11,
-    "episodes_done": 11,
-    "ep_lower_1m": 5,
-    "lower_1m": 30.0,
-    "med_3m": 4.6,
-    "med_dd": -2.4,
-    "worst_dd": -33.1,
-    "base_lower_1m": 32.0,
-    "base_med_3m": 3.9,
-    "base_med_dd": -2.7,
-    "enough": true,
-    "since": "2016-01-04",
-    "lag": 0
-   }
-  },
-  {
    "id": "breadth_divergence",
    "label": "Breadth non-confirmation, 63d count",
    "value": 12.0,
@@ -625,7 +584,7 @@
    "compare": "Built in.",
    "worry": "A count climbing off zero and staying there. That is the November 2021 shape.",
    "ignore": "One or two days. Zero is healthy, single digits are a flicker.",
-   "as_of": "2026-10-19",
+   "as_of": "2026-10-16",
    "basis": "absolute scale",
    "inverted": false,
    "clipped": false,
@@ -653,43 +612,43 @@
    }
   },
   {
-   "id": "risk_appetite",
-   "label": "Cross-asset risk appetite, 63d",
-   "value": 0.8,
-   "display": "+0.8%",
-   "percentile": 46.7,
+   "id": "nh_nl",
+   "label": "New 52w highs minus new lows",
+   "value": 19.0,
+   "display": "+19",
+   "percentile": 43.7,
    "weight": 6,
-   "note": "equities and gold versus dollar, yen and Swiss franc",
-   "check": "Falling means money is moving to the dollar and funding currencies while equities may still look fine -- the one measure here that can see outside the stock market. Unproven: judge it on the turning-point section, not on the reasoning.",
-   "family": "Structure",
-   "plain": "Stocks and gold versus the dollar, the yen and the Swiss franc. The mood of money across asset classes.",
-   "compare": "The index.",
-   "worry": "Falling while stocks hold up. Capital is quietly moving into safe currencies — this is the only gauge here that can see outside the stock market.",
-   "ignore": "It for now. Newly added and untested. Judge it on the turning-point section before giving it weight.",
-   "as_of": "2026-10-19",
+   "note": "",
+   "check": "Negative while the index is at a new high is the textbook non-confirmation. It was present at 1972, 2000, 2007 and 2021.",
+   "family": "Breadth",
+   "plain": "How many companies hit a new 52-week high today, minus how many hit a new low.",
+   "compare": "The index when it is at a new high.",
+   "worry": "Negative while the index prints a new high. This was present at 1972, 2000, 2007 and 2021.",
+   "ignore": "Daily noise. The cumulative version below is the more reliable form of the same idea.",
+   "as_of": "2026-10-16",
    "basis": "absolute scale",
    "inverted": true,
    "clipped": false,
-   "scale_lo": -12,
-   "scale_hi": 12,
+   "scale_lo": -150,
+   "scale_hi": 150,
    "thin_history": false,
    "stale": false,
    "excluded": false,
    "history": {
     "bucket": "40–60",
     "bucket_index": 2,
-    "episodes": 43,
-    "episodes_done": 42,
-    "ep_lower_1m": 14,
-    "lower_1m": 37.0,
-    "med_3m": 3.3,
-    "med_dd": -3.1,
-    "worst_dd": -27.9,
+    "episodes": 11,
+    "episodes_done": 11,
+    "ep_lower_1m": 5,
+    "lower_1m": 30.0,
+    "med_3m": 4.6,
+    "med_dd": -2.4,
+    "worst_dd": -33.1,
     "base_lower_1m": 32.0,
     "base_med_3m": 3.9,
     "base_med_dd": -2.7,
     "enough": true,
-    "since": "2015-04-06",
+    "since": "2016-01-04",
     "lag": 0
    }
   },
@@ -735,6 +694,47 @@
    }
   },
   {
+   "id": "risk_appetite",
+   "label": "Cross-asset risk appetite, 63d",
+   "value": 2.3425,
+   "display": "+2.3%",
+   "percentile": 40.2,
+   "weight": 6,
+   "note": "equities and gold versus dollar, yen and Swiss franc",
+   "check": "Falling means money is moving to the dollar and funding currencies while equities may still look fine -- the one measure here that can see outside the stock market. Unproven: judge it on the turning-point section, not on the reasoning.",
+   "family": "Structure",
+   "plain": "Stocks and gold versus the dollar, the yen and the Swiss franc. The mood of money across asset classes.",
+   "compare": "The index.",
+   "worry": "Falling while stocks hold up. Capital is quietly moving into safe currencies — this is the only gauge here that can see outside the stock market.",
+   "ignore": "It for now. Newly added and untested. Judge it on the turning-point section before giving it weight.",
+   "as_of": "2026-10-16",
+   "basis": "absolute scale",
+   "inverted": true,
+   "clipped": false,
+   "scale_lo": -12,
+   "scale_hi": 12,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false,
+   "history": {
+    "bucket": "40–60",
+    "bucket_index": 2,
+    "episodes": 43,
+    "episodes_done": 42,
+    "ep_lower_1m": 14,
+    "lower_1m": 37.0,
+    "med_3m": 3.3,
+    "med_dd": -3.1,
+    "worst_dd": -27.9,
+    "base_lower_1m": 32.0,
+    "base_med_3m": 3.9,
+    "base_med_dd": -2.7,
+    "enough": true,
+    "since": "2015-04-06",
+    "lag": 0
+   }
+  },
+  {
    "id": "ts_vix_vix3m",
    "label": "VIX / VIX3M term structure",
    "value": 0.9408,
@@ -760,7 +760,7 @@
    "history": {
     "bucket": "20–40",
     "bucket_index": 1,
-    "episodes": 71,
+    "episodes": 70,
     "episodes_done": 69,
     "ep_lower_1m": 22,
     "lower_1m": 30.0,
@@ -819,9 +819,9 @@
   {
    "id": "pct_above_20",
    "label": "% of S&P 500 above 20-day average",
-   "value": 64.3426,
-   "display": "64%",
-   "percentile": 35.7,
+   "value": 68.5259,
+   "display": "69%",
+   "percentile": 31.5,
    "weight": 8,
    "note": "",
    "check": "Short-horizon. Under 15% is washout territory -- check whether price has actually broken structure or merely dipped.",
@@ -830,7 +830,7 @@
    "compare": "Whether the index has actually broken anything, or merely dipped.",
    "worry": "Under 15%. Though that is usually washout near a LOW, not a warning of one.",
    "ignore": "Anything between roughly 40 and 70. That is an ordinary market.",
-   "as_of": "2026-10-19",
+   "as_of": "2026-10-16",
    "basis": "absolute scale",
    "inverted": true,
    "clipped": false,
@@ -858,52 +858,11 @@
    }
   },
   {
-   "id": "nhnl_cum_z",
-   "label": "Cumulative NH-NL line, 252d z-score",
-   "value": 1.1405,
-   "display": "+1.14",
-   "percentile": 27.2,
-   "weight": 10,
-   "note": "running total of net new highs, ranked against its own year",
-   "check": "Below zero has marked bear regimes -- 2001-03, 2008-09, 2015-16, 2022. Treat it as a filter on whether dips are worth buying, not as a warning before a top: it turned down well after the 2000 and 2007 highs.",
-   "family": "Breadth",
-   "plain": "A running total of the line above, scored against its own past year. The classic breadth line.",
-   "compare": "The index against its 200-day average.",
-   "worry": "Below zero. That has marked the bear phases: 2001-03, 2008-09, 2015-16, 2022.",
-   "ignore": "It as a top warning. It turned down well AFTER the 2000 and 2007 highs. It tells you whether dips are worth buying, not when to sell.",
-   "as_of": "2026-10-19",
-   "basis": "absolute scale",
-   "inverted": true,
-   "clipped": false,
-   "scale_lo": -2.5,
-   "scale_hi": 2.5,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false,
-   "history": {
-    "bucket": "20–40",
-    "bucket_index": 1,
-    "episodes": 11,
-    "episodes_done": 10,
-    "ep_lower_1m": 2,
-    "lower_1m": 35.0,
-    "med_3m": 4.6,
-    "med_dd": -3.9,
-    "worst_dd": -20.7,
-    "base_lower_1m": 32.0,
-    "base_med_3m": 3.9,
-    "base_med_dd": -2.7,
-    "enough": true,
-    "since": "2016-12-30",
-    "lag": 0
-   }
-  },
-  {
    "id": "defensive_rotation",
    "label": "Defensives vs index, 63d",
-   "value": -4.6572,
-   "display": "-4.7%",
-   "percentile": 26.7,
+   "value": -4.3177,
+   "display": "-4.3%",
+   "percentile": 28.4,
    "weight": 4,
    "note": "utilities and staples relative to the index",
    "check": "Rising while the index makes highs means money is moving to safety inside the rally. Confirms more often than it leads.",
@@ -912,7 +871,7 @@
    "compare": "The index.",
    "worry": "Defensives outperforming while the index makes highs. Money is moving to safety inside the rally.",
    "ignore": "It as an early warning. It confirms far more often than it leads.",
-   "as_of": "2026-10-19",
+   "as_of": "2026-10-16",
    "basis": "absolute scale",
    "inverted": false,
    "clipped": false,
@@ -936,6 +895,47 @@
     "base_med_dd": -2.7,
     "enough": true,
     "since": "2015-04-06",
+    "lag": 0
+   }
+  },
+  {
+   "id": "nhnl_cum_z",
+   "label": "Cumulative NH-NL line, 252d z-score",
+   "value": 1.1452,
+   "display": "+1.15",
+   "percentile": 27.1,
+   "weight": 10,
+   "note": "running total of net new highs, ranked against its own year",
+   "check": "Below zero has marked bear regimes -- 2001-03, 2008-09, 2015-16, 2022. Treat it as a filter on whether dips are worth buying, not as a warning before a top: it turned down well after the 2000 and 2007 highs.",
+   "family": "Breadth",
+   "plain": "A running total of the line above, scored against its own past year. The classic breadth line.",
+   "compare": "The index against its 200-day average.",
+   "worry": "Below zero. That has marked the bear phases: 2001-03, 2008-09, 2015-16, 2022.",
+   "ignore": "It as a top warning. It turned down well AFTER the 2000 and 2007 highs. It tells you whether dips are worth buying, not when to sell.",
+   "as_of": "2026-10-16",
+   "basis": "absolute scale",
+   "inverted": true,
+   "clipped": false,
+   "scale_lo": -2.5,
+   "scale_hi": 2.5,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false,
+   "history": {
+    "bucket": "20–40",
+    "bucket_index": 1,
+    "episodes": 11,
+    "episodes_done": 10,
+    "ep_lower_1m": 2,
+    "lower_1m": 35.0,
+    "med_3m": 4.6,
+    "med_dd": -3.9,
+    "worst_dd": -20.7,
+    "base_lower_1m": 32.0,
+    "base_med_3m": 3.9,
+    "base_med_dd": -2.7,
+    "enough": true,
+    "since": "2016-12-30",
     "lag": 0
    }
   },
@@ -1014,8 +1014,8 @@
   }
  ],
  "spx_proxy": {
-  "last": 766.48,
-  "pct_from_high": -1.62
+  "last": 763.25,
+  "pct_from_high": -2.03
  },
  "history": [
   {
@@ -14509,13 +14509,14 @@
    "n": 18
   },
   {
-   "date": "2026-10-19",
-   "score": 55.8,
-   "regime": "DETERIORATING"
+   "date": "2026-10-20",
+   "score": 54.9,
+   "regime": "BULL"
   }
  ],
  "notes": [
-  "score history rebuilt from 2699 sessions"
+  "breadth data lagged by 1 thinly-covered date(s), latest good 2026-10-16",
+  "score history rebuilt from 2698 sessions"
  ],
  "errors": [],
  "thrusts": [
@@ -14556,14 +14557,14 @@
   }
  ],
  "topping": {
-  "score_raw": 6.7,
+  "score_raw": 6.2,
   "surface": 65.7,
-  "internals": 76.7,
+  "internals": 71.8,
   "calm_factor": 0.09,
   "drivers": [
    {
     "label": "A/D confirmation gap, 252d",
-    "percentile": 91.7
+    "percentile": 77.0
    },
    {
     "label": "Quality spread (CCC minus BB)",
@@ -14574,8 +14575,8 @@
     "percentile": 64.0
    }
   ],
-  "score": 46.1,
-  "percentile": 59.9
+  "score": 48.8,
+  "percentile": 65.1
  },
  "top_history": [
   {
@@ -26437,19 +26438,15 @@
   {
    "date": "2026-10-16",
    "top": 48.8
-  },
-  {
-   "date": "2026-10-19",
-   "top": 46.1
   }
  ],
  "price_state": {
   "state": "pause",
   "label": "PAUSING NEAR HIGHS",
   "say": "within 5% of the one-year high, a new high within the last month",
-  "pct_from_high": -1.62,
-  "days_since_high": 9,
-  "range_position": 91.0,
+  "pct_from_high": -2.03,
+  "days_since_high": 8,
+  "range_position": 89.0,
   "band_42d": 3.3,
   "history": {
    "table": [
@@ -26471,7 +26468,7 @@
      "share": 37.0
     },
     {
-     "days": 410,
+     "days": 409,
      "days_done": 391,
      "episodes": 51,
      "episodes_done": 49,
@@ -26489,7 +26486,7 @@
     },
     {
      "days": 521,
-     "days_done": 496,
+     "days_done": 495,
      "episodes": 30,
      "episodes_done": 29,
      "lower_1m": 20.0,
@@ -26557,8 +26554,8 @@
     }
    ],
    "baseline": {
-    "days": 2585,
-    "days_done": 2522,
+    "days": 2584,
+    "days_done": 2521,
     "episodes": 1,
     "episodes_done": 1,
     "lower_1m": 31.0,
@@ -26764,8 +26761,8 @@
     },
     {
      "start": "2026-10-14",
-     "end": "2026-10-19",
-     "sessions": 4,
+     "end": "2026-10-16",
+     "sessions": 3,
      "reading": null,
      "r21": null,
      "r63": null,
@@ -26783,9 +26780,9 @@
   "symbols_requested": 726,
   "coverage": {
    "avg": 90.2,
-   "worst": 77.4,
-   "worst_date": "2016-01-04",
-   "today": 100.0,
+   "worst": 0.0,
+   "worst_date": "2026-10-19",
+   "today": 0.0,
    "by_year": {
     "2016": 79.3,
     "2017": 82.4,
@@ -26797,358 +26794,9 @@
     "2023": 95.0,
     "2024": 96.0,
     "2025": 97.3,
-    "2026": 98.9
+    "2026": 98.4
    }
   }
- },
- "sectors": {
-  "as_of": "2026-10-19",
-  "total": {
-   "name": "All members",
-   "n": 503,
-   "above20": 64,
-   "above20_month_ago": 20,
-   "above200": 50,
-   "median_3m": -1.0,
-   "vs_index_3m": -3.5,
-   "new_highs_20d": 67,
-   "new_lows_20d": 85,
-   "share_of_weak": 100,
-   "share_of_index": 100
-  },
-  "index_3m": 2.4,
-  "sectors": [
-   {
-    "name": "Information Technology",
-    "n": 75,
-    "above20": 32,
-    "above20_month_ago": 45,
-    "above200": 60,
-    "median_3m": 3.0,
-    "vs_index_3m": 0.6,
-    "new_highs_20d": 20,
-    "new_lows_20d": 2,
-    "share_of_weak": 28,
-    "share_of_index": 15
-   },
-   {
-    "name": "Communication Services",
-    "n": 22,
-    "above20": 45,
-    "above20_month_ago": 18,
-    "above200": 45,
-    "median_3m": -1.3,
-    "vs_index_3m": -3.7,
-    "new_highs_20d": 1,
-    "new_lows_20d": 7,
-    "share_of_weak": 7,
-    "share_of_index": 4
-   },
-   {
-    "name": "Industrials",
-    "n": 83,
-    "above20": 57,
-    "above20_month_ago": 17,
-    "above200": 37,
-    "median_3m": -3.9,
-    "vs_index_3m": -6.3,
-    "new_highs_20d": 4,
-    "new_lows_20d": 12,
-    "share_of_weak": 20,
-    "share_of_index": 17
-   },
-   {
-    "name": "Real Estate",
-    "n": 30,
-    "above20": 60,
-    "above20_month_ago": 3,
-    "above200": 10,
-    "median_3m": -11.0,
-    "vs_index_3m": -13.5,
-    "new_highs_20d": 0,
-    "new_lows_20d": 10,
-    "share_of_weak": 7,
-    "share_of_index": 6
-   },
-   {
-    "name": "Financials",
-    "n": 76,
-    "above20": 61,
-    "above20_month_ago": 11,
-    "above200": 58,
-    "median_3m": -4.1,
-    "vs_index_3m": -6.5,
-    "new_highs_20d": 4,
-    "new_lows_20d": 3,
-    "share_of_weak": 17,
-    "share_of_index": 15
-   },
-   {
-    "name": "Consumer Discretionary",
-    "n": 47,
-    "above20": 79,
-    "above20_month_ago": 6,
-    "above200": 36,
-    "median_3m": -2.9,
-    "vs_index_3m": -5.3,
-    "new_highs_20d": 2,
-    "new_lows_20d": 14,
-    "share_of_weak": 6,
-    "share_of_index": 9
-   },
-   {
-    "name": "Health Care",
-    "n": 60,
-    "above20": 80,
-    "above20_month_ago": 37,
-    "above200": 82,
-    "median_3m": 11.7,
-    "vs_index_3m": 9.3,
-    "new_highs_20d": 23,
-    "new_lows_20d": 4,
-    "share_of_weak": 7,
-    "share_of_index": 12
-   },
-   {
-    "name": "Energy",
-    "n": 21,
-    "above20": 81,
-    "above20_month_ago": 38,
-    "above200": 67,
-    "median_3m": 9.3,
-    "vs_index_3m": 6.8,
-    "new_highs_20d": 8,
-    "new_lows_20d": 2,
-    "share_of_weak": 2,
-    "share_of_index": 4
-   },
-   {
-    "name": "Consumer Staples",
-    "n": 34,
-    "above20": 82,
-    "above20_month_ago": 15,
-    "above200": 62,
-    "median_3m": 0.5,
-    "vs_index_3m": -2.0,
-    "new_highs_20d": 4,
-    "new_lows_20d": 8,
-    "share_of_weak": 3,
-    "share_of_index": 7
-   },
-   {
-    "name": "Materials",
-    "n": 24,
-    "above20": 83,
-    "above20_month_ago": 0,
-    "above200": 58,
-    "median_3m": 1.0,
-    "vs_index_3m": -1.5,
-    "new_highs_20d": 1,
-    "new_lows_20d": 3,
-    "share_of_weak": 2,
-    "share_of_index": 5
-   },
-   {
-    "name": "Utilities",
-    "n": 31,
-    "above20": 90,
-    "above20_month_ago": 3,
-    "above200": 16,
-    "median_3m": -7.1,
-    "vs_index_3m": -9.5,
-    "new_highs_20d": 0,
-    "new_lows_20d": 20,
-    "share_of_weak": 2,
-    "share_of_index": 6
-   }
-  ],
-  "weakest_groups": [
-   {
-    "name": "Construction Machinery & Heavy Transportation Equipment",
-    "n": 4,
-    "above20": 0,
-    "above20_month_ago": 25,
-    "above200": 25,
-    "median_3m": -16.3,
-    "vs_index_3m": -18.7,
-    "new_highs_20d": 0,
-    "new_lows_20d": 0,
-    "share_of_weak": 2,
-    "share_of_index": 1,
-    "sector": "Industrials"
-   },
-   {
-    "name": "Semiconductor Materials & Equipment",
-    "n": 5,
-    "above20": 0,
-    "above20_month_ago": 20,
-    "above200": 0,
-    "median_3m": -15.5,
-    "vs_index_3m": -17.9,
-    "new_highs_20d": 0,
-    "new_lows_20d": 0,
-    "share_of_weak": 3,
-    "share_of_index": 1,
-    "sector": "Information Technology"
-   },
-   {
-    "name": "Investment Banking & Brokerage",
-    "n": 6,
-    "above20": 0,
-    "above20_month_ago": 17,
-    "above200": 17,
-    "median_3m": -12.1,
-    "vs_index_3m": -14.5,
-    "new_highs_20d": 0,
-    "new_lows_20d": 0,
-    "share_of_weak": 3,
-    "share_of_index": 1,
-    "sector": "Financials"
-   },
-   {
-    "name": "Homebuilding",
-    "n": 4,
-    "above20": 0,
-    "above20_month_ago": 0,
-    "above200": 0,
-    "median_3m": -7.6,
-    "vs_index_3m": -10.0,
-    "new_highs_20d": 0,
-    "new_lows_20d": 2,
-    "share_of_weak": 2,
-    "share_of_index": 1,
-    "sector": "Consumer Discretionary"
-   },
-   {
-    "name": "Semiconductors",
-    "n": 15,
-    "above20": 0,
-    "above20_month_ago": 73,
-    "above200": 60,
-    "median_3m": -6.8,
-    "vs_index_3m": -9.2,
-    "new_highs_20d": 3,
-    "new_lows_20d": 1,
-    "share_of_weak": 8,
-    "share_of_index": 3,
-    "sector": "Information Technology"
-   },
-   {
-    "name": "Construction & Engineering",
-    "n": 4,
-    "above20": 0,
-    "above20_month_ago": 50,
-    "above200": 25,
-    "median_3m": -4.5,
-    "vs_index_3m": -6.9,
-    "new_highs_20d": 0,
-    "new_lows_20d": 0,
-    "share_of_weak": 2,
-    "share_of_index": 1,
-    "sector": "Industrials"
-   },
-   {
-    "name": "Asset Management & Custody Banks",
-    "n": 12,
-    "above20": 8,
-    "above20_month_ago": 0,
-    "above200": 50,
-    "median_3m": -9.4,
-    "vs_index_3m": -11.8,
-    "new_highs_20d": 0,
-    "new_lows_20d": 0,
-    "share_of_weak": 6,
-    "share_of_index": 2,
-    "sector": "Financials"
-   },
-   {
-    "name": "Technology Hardware, Storage & Peripherals",
-    "n": 10,
-    "above20": 10,
-    "above20_month_ago": 90,
-    "above200": 70,
-    "median_3m": 16.1,
-    "vs_index_3m": 13.7,
-    "new_highs_20d": 4,
-    "new_lows_20d": 0,
-    "share_of_weak": 5,
-    "share_of_index": 2,
-    "sector": "Information Technology"
-   }
-  ],
-  "strongest_groups": [
-   {
-    "name": "IT Consulting & Other Services",
-    "n": 4,
-    "above20": 100,
-    "above20_month_ago": 0,
-    "above200": 75,
-    "median_3m": 53.6,
-    "vs_index_3m": 51.2,
-    "new_highs_20d": 0,
-    "new_lows_20d": 0,
-    "share_of_weak": 0,
-    "share_of_index": 1,
-    "sector": "Information Technology"
-   },
-   {
-    "name": "Soft Drinks & Non-alcoholic Beverages",
-    "n": 4,
-    "above20": 100,
-    "above20_month_ago": 0,
-    "above200": 75,
-    "median_3m": 6.5,
-    "vs_index_3m": 4.1,
-    "new_highs_20d": 2,
-    "new_lows_20d": 1,
-    "share_of_weak": 0,
-    "share_of_index": 1,
-    "sector": "Consumer Staples"
-   },
-   {
-    "name": "Insurance Brokers",
-    "n": 6,
-    "above20": 100,
-    "above20_month_ago": 0,
-    "above200": 67,
-    "median_3m": 3.8,
-    "vs_index_3m": 1.4,
-    "new_highs_20d": 0,
-    "new_lows_20d": 1,
-    "share_of_weak": 0,
-    "share_of_index": 1,
-    "sector": "Financials"
-   },
-   {
-    "name": "Hotels, Resorts & Cruise Lines",
-    "n": 8,
-    "above20": 100,
-    "above20_month_ago": 0,
-    "above200": 50,
-    "median_3m": 3.7,
-    "vs_index_3m": 1.2,
-    "new_highs_20d": 0,
-    "new_lows_20d": 2,
-    "share_of_weak": 0,
-    "share_of_index": 2,
-    "sector": "Consumer Discretionary"
-   },
-   {
-    "name": "Health Care Services",
-    "n": 5,
-    "above20": 100,
-    "above20_month_ago": 40,
-    "above200": 100,
-    "median_3m": 2.8,
-    "vs_index_3m": 0.3,
-    "new_highs_20d": 0,
-    "new_lows_20d": 0,
-    "share_of_weak": 0,
-    "share_of_index": 1,
-    "sector": "Health Care"
-   }
-  ],
-  "classification": "GICS"
  },
  "quality": {
   "status": "OK",
@@ -27182,7 +26830,7 @@
    {
     "name": "Score change explainable",
     "status": "pass",
-    "detail": "score moved +0.1 overnight"
+    "detail": "score moved -0.9 overnight"
    },
    {
     "name": "Enough gauges reporting",
@@ -27203,7 +26851,7 @@
   "baseline_away_share": 0.79,
   "window_days": 10,
   "history_from": "2016-01-08",
-  "history_to": "2026-10-19",
+  "history_to": "2026-10-20",
   "threshold_p80": 49.5,
   "threshold_p90": 56.2,
   "episodes_testable": 9,
@@ -27409,5 +27057,5 @@
   ],
   "note": "Lows are the easy test and should be near-perfect. Tops are the hard test — judge the tool on that column."
  },
- "score_percentile": 89.5
+ "score_percentile": 88.1
 }
