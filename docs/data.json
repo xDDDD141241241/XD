@@ -1,7 +1,7 @@
 {
- "updated": "2026-10-27T01:33:27+00:00",
+ "updated": "2026-10-28T01:30:09+00:00",
  "build": "214ace0c",
- "score": 52.8,
+ "score": 50.0,
  "band": "ELEVATED",
  "regime": {
   "name": "BULL",
@@ -15,34 +15,34 @@
    "span": 9,
    "kind": "ema",
    "above": false,
-   "dist_pct": -0.98
+   "dist_pct": -0.22
   },
   {
    "span": 21,
    "kind": "ema",
    "above": false,
-   "dist_pct": -1.15
+   "dist_pct": -0.41
   },
   {
    "span": 50,
    "kind": "sma",
    "above": false,
-   "dist_pct": -1.02
+   "dist_pct": -0.29
   },
   {
    "span": 200,
    "kind": "sma",
    "above": true,
-   "dist_pct": 4.53
+   "dist_pct": 5.22
   }
  ],
  "indicators": [
   {
    "id": "hy_oas",
    "label": "High yield OAS",
-   "value": 3.38,
-   "display": "3.38",
-   "percentile": 87.6,
+   "value": 3.3,
+   "display": "3.30",
+   "percentile": 83.7,
    "weight": 12,
    "note": "credit is usually early to price real trouble",
    "check": "The level matters less than the direction. Check it every time the index prints a new high.",
@@ -51,7 +51,7 @@
    "compare": "The index, every time it prints a new high.",
    "worry": "Rising while stocks make highs. Lenders are seeing something equity holders are not.",
    "ignore": "The absolute level on its own — it drifts with the interest-rate environment.",
-   "as_of": "2026-10-23",
+   "as_of": "2026-10-26",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
    "clipped": false,
@@ -74,57 +74,16 @@
     "base_med_3m": 3.9,
     "base_med_dd": -2.7,
     "enough": true,
-    "since": "2024-04-12",
-    "lag": 0
-   }
-  },
-  {
-   "id": "hy_oas_chg",
-   "label": "HY OAS, 20-day change",
-   "value": 0.45,
-   "display": "+0.45",
-   "percentile": 87.5,
-   "weight": 8,
-   "note": "",
-   "check": "Positive while the index makes new highs is the single most reliable non-confirmation in this whole panel. Read on an absolute scale so that no change reads neutral -- ranked against its own history, a flat reading scored 60 purely because spreads have mostly been tightening.",
-   "family": "Credit",
-   "plain": "Whether that lending premium has widened or narrowed over the past month.",
-   "compare": "The index's own last month.",
-   "worry": "Positive — widening — while the index makes new highs. This is the single most reliable disagreement signal in the whole panel.",
-   "ignore": "Widening during a selloff. Everything widens then.",
-   "as_of": "2026-10-23",
-   "basis": "absolute scale",
-   "inverted": false,
-   "clipped": false,
-   "scale_lo": -0.6,
-   "scale_hi": 0.6,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false,
-   "history": {
-    "bucket": "80–100",
-    "bucket_index": 4,
-    "episodes": 5,
-    "episodes_done": 4,
-    "ep_lower_1m": 1,
-    "lower_1m": 33.0,
-    "med_3m": 11.2,
-    "med_dd": -3.3,
-    "worst_dd": -12.7,
-    "base_lower_1m": 32.0,
-    "base_med_3m": 3.9,
-    "base_med_dd": -2.7,
-    "enough": true,
-    "since": "2023-11-24",
+    "since": "2024-04-15",
     "lag": 0
    }
   },
   {
    "id": "quality_spread",
    "label": "Quality spread (CCC minus BB)",
-   "value": 11.5,
-   "display": "11.50",
-   "percentile": 79.2,
+   "value": 11.47,
+   "display": "11.47",
+   "percentile": 78.9,
    "weight": 8,
    "note": "the junk end versus the decent end of high yield",
    "check": "Widening while equities hold up means risk appetite is leaving from the bottom. The weakest borrowers crack first, and this gap opens before the index-level spread does.",
@@ -133,7 +92,7 @@
    "compare": "The headline high-yield spread directly above it.",
    "worry": "This widens while the headline spread stays tight. Trouble starts at the bottom of the credit stack and works upward.",
    "ignore": "A move driven by one sector. A few distressed energy or retail names can open this gap without meaning anything market-wide.",
-   "as_of": "2026-10-23",
+   "as_of": "2026-10-26",
    "basis": "absolute scale",
    "inverted": false,
    "clipped": false,
@@ -156,65 +115,65 @@
     "base_med_3m": 3.9,
     "base_med_dd": -2.7,
     "enough": false,
-    "since": "2023-10-27",
+    "since": "2023-10-30",
     "lag": 0
    }
   },
   {
-   "id": "vix",
-   "label": "VIX level",
-   "value": 18.39,
-   "display": "18.39",
-   "percentile": 72.2,
+   "id": "hy_oas_chg",
+   "label": "HY OAS, 20-day change",
+   "value": 0.28,
+   "display": "+0.28",
+   "percentile": 73.3,
    "weight": 8,
    "note": "",
-   "check": "Direction against price is what counts. VIX rising while the index also rises is rare and is worth stopping on.",
-   "family": "Volatility",
-   "plain": "The size of the swing the market expects over the next month. The fear gauge.",
-   "compare": "The index itself. Normally the two move in opposite directions.",
-   "worry": "It rises on a day the index ALSO rises. That pairing is rare and usually means someone is positioning for trouble.",
-   "ignore": "A spike during an obvious selloff. That is the market reacting, not warning.",
+   "check": "Positive while the index makes new highs is the single most reliable non-confirmation in this whole panel. Read on an absolute scale so that no change reads neutral -- ranked against its own history, a flat reading scored 60 purely because spreads have mostly been tightening.",
+   "family": "Credit",
+   "plain": "Whether that lending premium has widened or narrowed over the past month.",
+   "compare": "The index's own last month.",
+   "worry": "Positive — widening — while the index makes new highs. This is the single most reliable disagreement signal in the whole panel.",
+   "ignore": "Widening during a selloff. Everything widens then.",
    "as_of": "2026-10-26",
-   "basis": "ranked vs 756 sessions",
+   "basis": "absolute scale",
    "inverted": false,
    "clipped": false,
-   "scale_lo": null,
-   "scale_hi": null,
+   "scale_lo": -0.6,
+   "scale_hi": 0.6,
    "thin_history": false,
    "stale": false,
    "excluded": false,
    "history": {
     "bucket": "60–80",
     "bucket_index": 3,
-    "episodes": 56,
-    "episodes_done": 54,
-    "ep_lower_1m": 16,
+    "episodes": 16,
+    "episodes_done": 13,
+    "ep_lower_1m": 3,
     "lower_1m": 33.0,
-    "med_3m": 4.2,
-    "med_dd": -2.8,
-    "worst_dd": -33.8,
+    "med_3m": 4.8,
+    "med_dd": -4.3,
+    "worst_dd": -17.2,
     "base_lower_1m": 32.0,
     "base_med_3m": 3.9,
     "base_med_dd": -2.7,
     "enough": true,
-    "since": "2015-06-24",
+    "since": "2023-11-27",
     "lag": 0
    }
   },
   {
-   "id": "vvix",
-   "label": "VVIX (vol of vol)",
-   "value": 101.43,
-   "display": "101.4",
-   "percentile": 70.8,
+   "id": "concentration",
+   "label": "Cap-weight vs equal-weight, 63d",
+   "value": 3.4985,
+   "display": "+3.5%",
+   "percentile": 69.6,
    "weight": 8,
-   "note": "rises when people start paying up for tail protection",
-   "check": "Rising VVIX with a flat VIX means someone is buying protection before any move shows in price. This leads more often than VIX does.",
-   "family": "Volatility",
-   "plain": "How jumpy the price of insurance itself is — the volatility of volatility.",
-   "compare": "The VIX line just beside it.",
-   "worry": "This rises while VIX stays flat. Protection is being bought before anything shows up in price.",
-   "ignore": "Both rising together during a selloff. Entirely normal.",
+   "note": "rising = the index is being carried by fewer names",
+   "check": "Compare directly with the index. Both rising together means the gain is narrowing into a handful of names.",
+   "family": "Structure",
+   "plain": "How far the big-company index has outrun the equal-weighted version over three months.",
+   "compare": "The index itself.",
+   "worry": "Both rising together. The gain is coming from a handful of names rather than the market.",
+   "ignore": "Negative readings. Those mean the average stock is keeping up, which is healthy.",
    "as_of": "2026-10-26",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
@@ -227,59 +186,18 @@
    "history": {
     "bucket": "60–80",
     "bucket_index": 3,
-    "episodes": 44,
-    "episodes_done": 43,
-    "ep_lower_1m": 16,
-    "lower_1m": 29.0,
-    "med_3m": 4.5,
-    "med_dd": -2.7,
-    "worst_dd": -34.0,
+    "episodes": 39,
+    "episodes_done": 38,
+    "ep_lower_1m": 12,
+    "lower_1m": 35.0,
+    "med_3m": 3.3,
+    "med_dd": -2.5,
+    "worst_dd": -32.8,
     "base_lower_1m": 32.0,
     "base_med_3m": 3.9,
     "base_med_dd": -2.7,
     "enough": true,
-    "since": "2015-06-24",
-    "lag": 0
-   }
-  },
-  {
-   "id": "move",
-   "label": "MOVE (rates volatility)",
-   "value": 102.1914,
-   "display": "102.2",
-   "percentile": 69.2,
-   "weight": 8,
-   "note": "",
-   "check": "If this leads VIX higher, the shock is coming from bonds or policy rather than from equities -- a different playbook.",
-   "family": "Volatility",
-   "plain": "The VIX of the bond market: expected swings in US Treasuries.",
-   "compare": "VIX. Which of the two moves first tells you where the trouble is coming from.",
-   "worry": "This leads VIX higher. The shock is coming from rates or policy, which plays out differently from an equity scare.",
-   "ignore": "Small daily moves. Bonds are noisy.",
-   "as_of": "2026-10-26",
-   "basis": "ranked vs 756 sessions",
-   "inverted": false,
-   "clipped": false,
-   "scale_lo": null,
-   "scale_hi": null,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false,
-   "history": {
-    "bucket": "60–80",
-    "bucket_index": 3,
-    "episodes": 32,
-    "episodes_done": 31,
-    "ep_lower_1m": 5,
-    "lower_1m": 25.0,
-    "med_3m": 5.2,
-    "med_dd": -2.4,
-    "worst_dd": -34.0,
-    "base_lower_1m": 32.0,
-    "base_med_3m": 3.9,
-    "base_med_dd": -2.7,
-    "enough": true,
-    "since": "2015-06-25",
+    "since": "2015-09-23",
     "lag": 0
    }
   },
@@ -297,7 +215,7 @@
    "compare": "Built in.",
    "worry": "A rising count. This one led 2000, 2007, 2018 and 2021-22.",
    "ignore": "Very little. Of all the divergences here this has the best record, so treat a sustained rise seriously.",
-   "as_of": "2026-10-23",
+   "as_of": "2026-10-26",
    "basis": "absolute scale",
    "inverted": false,
    "clipped": false,
@@ -325,11 +243,134 @@
    }
   },
   {
+   "id": "vvix",
+   "label": "VVIX (vol of vol)",
+   "value": 99.45,
+   "display": "99.4",
+   "percentile": 65.4,
+   "weight": 8,
+   "note": "rises when people start paying up for tail protection",
+   "check": "Rising VVIX with a flat VIX means someone is buying protection before any move shows in price. This leads more often than VIX does.",
+   "family": "Volatility",
+   "plain": "How jumpy the price of insurance itself is — the volatility of volatility.",
+   "compare": "The VIX line just beside it.",
+   "worry": "This rises while VIX stays flat. Protection is being bought before anything shows up in price.",
+   "ignore": "Both rising together during a selloff. Entirely normal.",
+   "as_of": "2026-10-27",
+   "basis": "ranked vs 756 sessions",
+   "inverted": false,
+   "clipped": false,
+   "scale_lo": null,
+   "scale_hi": null,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false,
+   "history": {
+    "bucket": "60–80",
+    "bucket_index": 3,
+    "episodes": 45,
+    "episodes_done": 43,
+    "ep_lower_1m": 16,
+    "lower_1m": 29.0,
+    "med_3m": 4.5,
+    "med_dd": -2.7,
+    "worst_dd": -34.0,
+    "base_lower_1m": 32.0,
+    "base_med_3m": 3.9,
+    "base_med_dd": -2.7,
+    "enough": true,
+    "since": "2015-06-24",
+    "lag": 0
+   }
+  },
+  {
+   "id": "vix",
+   "label": "VIX level",
+   "value": 17.52,
+   "display": "17.52",
+   "percentile": 64.8,
+   "weight": 8,
+   "note": "",
+   "check": "Direction against price is what counts. VIX rising while the index also rises is rare and is worth stopping on.",
+   "family": "Volatility",
+   "plain": "The size of the swing the market expects over the next month. The fear gauge.",
+   "compare": "The index itself. Normally the two move in opposite directions.",
+   "worry": "It rises on a day the index ALSO rises. That pairing is rare and usually means someone is positioning for trouble.",
+   "ignore": "A spike during an obvious selloff. That is the market reacting, not warning.",
+   "as_of": "2026-10-27",
+   "basis": "ranked vs 756 sessions",
+   "inverted": false,
+   "clipped": false,
+   "scale_lo": null,
+   "scale_hi": null,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false,
+   "history": {
+    "bucket": "60–80",
+    "bucket_index": 3,
+    "episodes": 56,
+    "episodes_done": 54,
+    "ep_lower_1m": 16,
+    "lower_1m": 33.0,
+    "med_3m": 4.2,
+    "med_dd": -2.8,
+    "worst_dd": -33.8,
+    "base_lower_1m": 32.0,
+    "base_med_3m": 3.9,
+    "base_med_dd": -2.7,
+    "enough": true,
+    "since": "2015-06-24",
+    "lag": 0
+   }
+  },
+  {
+   "id": "ad_confirmation",
+   "label": "A/D confirmation gap, 252d",
+   "value": -11.5079,
+   "display": "-12",
+   "percentile": 64.4,
+   "weight": 12,
+   "note": "A/D line's rank minus the index's rank, same window",
+   "check": "Negative means the index is higher in its own range than participation is in its own -- the textbook non-confirmation. Around zero means breadth is keeping up. Positive means participation is running ahead of price, which is healthy.",
+   "family": "Divergence",
+   "plain": "Where the breadth line sits within its own year, minus where the index sits within its own. Are the two agreeing?",
+   "compare": "Built in — the comparison IS the gauge.",
+   "worry": "Clearly negative. The index is high in its range while participation is not: textbook non-confirmation.",
+   "ignore": "Readings near zero. Breadth is keeping up, which is exactly what you want.",
+   "as_of": "2026-10-26",
+   "basis": "absolute scale",
+   "inverted": true,
+   "clipped": false,
+   "scale_lo": -40,
+   "scale_hi": 40,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false,
+   "history": {
+    "bucket": "60–80",
+    "bucket_index": 3,
+    "episodes": 12,
+    "episodes_done": 10,
+    "ep_lower_1m": 3,
+    "lower_1m": 27.0,
+    "med_3m": 3.7,
+    "med_dd": -2.2,
+    "worst_dd": -18.6,
+    "base_lower_1m": 32.0,
+    "base_med_3m": 3.9,
+    "base_med_dd": -2.7,
+    "enough": true,
+    "since": "2016-12-30",
+    "lag": 0
+   }
+  },
+  {
    "id": "corr_spy_tlt",
    "label": "Stock/bond correlation, 63d",
-   "value": 0.2788,
+   "value": 0.2838,
    "display": "+0.28",
-   "percentile": 63.9,
+   "percentile": 64.2,
    "weight": 6,
    "note": "above zero means bonds stop cushioning equities",
    "check": "Check this before you need the hedge, not after. It says nothing about whether a drawdown is coming, only what it will cost you.",
@@ -338,7 +379,7 @@
    "compare": "Your own hedges — not the index.",
    "worry": "Above zero. Bonds are no longer cushioning equity losses, so a drawdown costs more than the standard models assume.",
    "ignore": "It as a timing signal. It tells you what a fall would cost you, never whether one is coming.",
-   "as_of": "2026-10-23",
+   "as_of": "2026-10-26",
    "basis": "absolute scale",
    "inverted": false,
    "clipped": false,
@@ -366,43 +407,43 @@
    }
   },
   {
-   "id": "ad_confirmation",
-   "label": "A/D confirmation gap, 252d",
-   "value": -7.1429,
-   "display": "-7",
-   "percentile": 58.9,
-   "weight": 12,
-   "note": "A/D line's rank minus the index's rank, same window",
-   "check": "Negative means the index is higher in its own range than participation is in its own -- the textbook non-confirmation. Around zero means breadth is keeping up. Positive means participation is running ahead of price, which is healthy.",
-   "family": "Divergence",
-   "plain": "Where the breadth line sits within its own year, minus where the index sits within its own. Are the two agreeing?",
-   "compare": "Built in — the comparison IS the gauge.",
-   "worry": "Clearly negative. The index is high in its range while participation is not: textbook non-confirmation.",
-   "ignore": "Readings near zero. Breadth is keeping up, which is exactly what you want.",
-   "as_of": "2026-10-23",
-   "basis": "absolute scale",
-   "inverted": true,
+   "id": "move",
+   "label": "MOVE (rates volatility)",
+   "value": 97.874,
+   "display": "97.9",
+   "percentile": 59.9,
+   "weight": 8,
+   "note": "",
+   "check": "If this leads VIX higher, the shock is coming from bonds or policy rather than from equities -- a different playbook.",
+   "family": "Volatility",
+   "plain": "The VIX of the bond market: expected swings in US Treasuries.",
+   "compare": "VIX. Which of the two moves first tells you where the trouble is coming from.",
+   "worry": "This leads VIX higher. The shock is coming from rates or policy, which plays out differently from an equity scare.",
+   "ignore": "Small daily moves. Bonds are noisy.",
+   "as_of": "2026-10-27",
+   "basis": "ranked vs 756 sessions",
+   "inverted": false,
    "clipped": false,
-   "scale_lo": -40,
-   "scale_hi": 40,
+   "scale_lo": null,
+   "scale_hi": null,
    "thin_history": false,
    "stale": false,
    "excluded": false,
    "history": {
     "bucket": "40–60",
     "bucket_index": 2,
-    "episodes": 24,
-    "episodes_done": 23,
-    "ep_lower_1m": 4,
-    "lower_1m": 30.0,
-    "med_3m": 3.9,
-    "med_dd": -2.4,
-    "worst_dd": -34.1,
+    "episodes": 34,
+    "episodes_done": 32,
+    "ep_lower_1m": 7,
+    "lower_1m": 17.0,
+    "med_3m": 5.4,
+    "med_dd": -2.0,
+    "worst_dd": -32.8,
     "base_lower_1m": 32.0,
     "base_med_3m": 3.9,
     "base_med_dd": -2.7,
     "enough": true,
-    "since": "2016-12-30",
+    "since": "2015-06-25",
     "lag": 0
    }
   },
@@ -448,129 +489,6 @@
    }
   },
   {
-   "id": "risk_appetite",
-   "label": "Cross-asset risk appetite, 63d",
-   "value": -1.0487,
-   "display": "-1.0%",
-   "percentile": 54.4,
-   "weight": 6,
-   "note": "equities and gold versus dollar, yen and Swiss franc",
-   "check": "Falling means money is moving to the dollar and funding currencies while equities may still look fine -- the one measure here that can see outside the stock market. Unproven: judge it on the turning-point section, not on the reasoning.",
-   "family": "Structure",
-   "plain": "Stocks and gold versus the dollar, the yen and the Swiss franc. The mood of money across asset classes.",
-   "compare": "The index.",
-   "worry": "Falling while stocks hold up. Capital is quietly moving into safe currencies — this is the only gauge here that can see outside the stock market.",
-   "ignore": "It for now. Newly added and untested. Judge it on the turning-point section before giving it weight.",
-   "as_of": "2026-10-23",
-   "basis": "absolute scale",
-   "inverted": true,
-   "clipped": false,
-   "scale_lo": -12,
-   "scale_hi": 12,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false,
-   "history": {
-    "bucket": "40–60",
-    "bucket_index": 2,
-    "episodes": 43,
-    "episodes_done": 42,
-    "ep_lower_1m": 14,
-    "lower_1m": 37.0,
-    "med_3m": 3.3,
-    "med_dd": -3.1,
-    "worst_dd": -27.9,
-    "base_lower_1m": 32.0,
-    "base_med_3m": 3.9,
-    "base_med_dd": -2.7,
-    "enough": true,
-    "since": "2015-04-06",
-    "lag": 0
-   }
-  },
-  {
-   "id": "breadth_ad_z",
-   "label": "Advance/decline line, 63d z-score",
-   "value": -0.1779,
-   "display": "-0.18",
-   "percentile": 53.6,
-   "weight": 5,
-   "note": "level of breadth momentum, not a divergence measure",
-   "check": "Read this as breadth strength only. For non-confirmation use the A/D confirmation gap above, which compares it against price -- this gauge does not know where price is.",
-   "family": "Breadth",
-   "plain": "How strong day-to-day participation has been recently, measured in standard deviations.",
-   "compare": "Nothing. Read it alone, as a strength reading.",
-   "worry": "Sustained negative. But for a genuine divergence use the confirmation gap instead — this gauge does not know where price is.",
-   "ignore": "Small swings. It is a noisy series.",
-   "as_of": "2026-10-23",
-   "basis": "absolute scale",
-   "inverted": true,
-   "clipped": false,
-   "scale_lo": -2.5,
-   "scale_hi": 2.5,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false,
-   "history": {
-    "bucket": "40–60",
-    "bucket_index": 2,
-    "episodes": 48,
-    "episodes_done": 46,
-    "ep_lower_1m": 11,
-    "lower_1m": 37.0,
-    "med_3m": 4.6,
-    "med_dd": -3.1,
-    "worst_dd": -28.7,
-    "base_lower_1m": 32.0,
-    "base_med_3m": 3.9,
-    "base_med_dd": -2.7,
-    "enough": true,
-    "since": "2016-04-04",
-    "lag": 0
-   }
-  },
-  {
-   "id": "concentration",
-   "label": "Cap-weight vs equal-weight, 63d",
-   "value": 2.1793,
-   "display": "+2.2%",
-   "percentile": 52.7,
-   "weight": 8,
-   "note": "rising = the index is being carried by fewer names",
-   "check": "Compare directly with the index. Both rising together means the gain is narrowing into a handful of names.",
-   "family": "Structure",
-   "plain": "How far the big-company index has outrun the equal-weighted version over three months.",
-   "compare": "The index itself.",
-   "worry": "Both rising together. The gain is coming from a handful of names rather than the market.",
-   "ignore": "Negative readings. Those mean the average stock is keeping up, which is healthy.",
-   "as_of": "2026-10-23",
-   "basis": "ranked vs 756 sessions",
-   "inverted": false,
-   "clipped": false,
-   "scale_lo": null,
-   "scale_hi": null,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false,
-   "history": {
-    "bucket": "40–60",
-    "bucket_index": 2,
-    "episodes": 57,
-    "episodes_done": 55,
-    "ep_lower_1m": 17,
-    "lower_1m": 26.0,
-    "med_3m": 4.2,
-    "med_dd": -2.2,
-    "worst_dd": -30.9,
-    "base_lower_1m": 32.0,
-    "base_med_3m": 3.9,
-    "base_med_dd": -2.7,
-    "enough": true,
-    "since": "2015-09-23",
-    "lag": 0
-   }
-  },
-  {
    "id": "breadth_divergence",
    "label": "Breadth non-confirmation, 63d count",
    "value": 13.0,
@@ -584,7 +502,7 @@
    "compare": "Built in.",
    "worry": "A count climbing off zero and staying there. That is the November 2021 shape.",
    "ignore": "One or two days. Zero is healthy, single digits are a flicker.",
-   "as_of": "2026-10-23",
+   "as_of": "2026-10-26",
    "basis": "absolute scale",
    "inverted": false,
    "clipped": false,
@@ -612,11 +530,93 @@
    }
   },
   {
+   "id": "breadth_ad_z",
+   "label": "Advance/decline line, 63d z-score",
+   "value": -0.0424,
+   "display": "-0.04",
+   "percentile": 50.8,
+   "weight": 5,
+   "note": "level of breadth momentum, not a divergence measure",
+   "check": "Read this as breadth strength only. For non-confirmation use the A/D confirmation gap above, which compares it against price -- this gauge does not know where price is.",
+   "family": "Breadth",
+   "plain": "How strong day-to-day participation has been recently, measured in standard deviations.",
+   "compare": "Nothing. Read it alone, as a strength reading.",
+   "worry": "Sustained negative. But for a genuine divergence use the confirmation gap instead — this gauge does not know where price is.",
+   "ignore": "Small swings. It is a noisy series.",
+   "as_of": "2026-10-26",
+   "basis": "absolute scale",
+   "inverted": true,
+   "clipped": false,
+   "scale_lo": -2.5,
+   "scale_hi": 2.5,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false,
+   "history": {
+    "bucket": "40–60",
+    "bucket_index": 2,
+    "episodes": 48,
+    "episodes_done": 46,
+    "ep_lower_1m": 11,
+    "lower_1m": 37.0,
+    "med_3m": 4.6,
+    "med_dd": -3.1,
+    "worst_dd": -28.7,
+    "base_lower_1m": 32.0,
+    "base_med_3m": 3.9,
+    "base_med_dd": -2.7,
+    "enough": true,
+    "since": "2016-04-04",
+    "lag": 0
+   }
+  },
+  {
+   "id": "risk_appetite",
+   "label": "Cross-asset risk appetite, 63d",
+   "value": 0.0892,
+   "display": "+0.1%",
+   "percentile": 49.6,
+   "weight": 6,
+   "note": "equities and gold versus dollar, yen and Swiss franc",
+   "check": "Falling means money is moving to the dollar and funding currencies while equities may still look fine -- the one measure here that can see outside the stock market. Unproven: judge it on the turning-point section, not on the reasoning.",
+   "family": "Structure",
+   "plain": "Stocks and gold versus the dollar, the yen and the Swiss franc. The mood of money across asset classes.",
+   "compare": "The index.",
+   "worry": "Falling while stocks hold up. Capital is quietly moving into safe currencies — this is the only gauge here that can see outside the stock market.",
+   "ignore": "It for now. Newly added and untested. Judge it on the turning-point section before giving it weight.",
+   "as_of": "2026-10-26",
+   "basis": "absolute scale",
+   "inverted": true,
+   "clipped": false,
+   "scale_lo": -12,
+   "scale_hi": 12,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false,
+   "history": {
+    "bucket": "40–60",
+    "bucket_index": 2,
+    "episodes": 43,
+    "episodes_done": 42,
+    "ep_lower_1m": 14,
+    "lower_1m": 37.0,
+    "med_3m": 3.3,
+    "med_dd": -3.1,
+    "worst_dd": -27.9,
+    "base_lower_1m": 32.0,
+    "base_med_3m": 3.9,
+    "base_med_dd": -2.7,
+    "enough": true,
+    "since": "2015-04-06",
+    "lag": 0
+   }
+  },
+  {
    "id": "nh_nl",
    "label": "New 52w highs minus new lows",
-   "value": 6.0,
-   "display": "+6",
-   "percentile": 48.0,
+   "value": 7.0,
+   "display": "+7",
+   "percentile": 47.7,
    "weight": 6,
    "note": "",
    "check": "Negative while the index is at a new high is the textbook non-confirmation. It was present at 1972, 2000, 2007 and 2021.",
@@ -625,7 +625,7 @@
    "compare": "The index when it is at a new high.",
    "worry": "Negative while the index prints a new high. This was present at 1972, 2000, 2007 and 2021.",
    "ignore": "Daily noise. The cumulative version below is the more reliable form of the same idea.",
-   "as_of": "2026-10-23",
+   "as_of": "2026-10-26",
    "basis": "absolute scale",
    "inverted": true,
    "clipped": false,
@@ -653,52 +653,11 @@
    }
   },
   {
-   "id": "ts_vix9d_vix",
-   "label": "VIX9D / VIX near-term stress",
-   "value": 0.9744,
-   "display": "0.974",
-   "percentile": 41.5,
-   "weight": 8,
-   "note": "",
-   "check": "Rising while price is flat means a dated event is being priced -- look for what is on the calendar rather than on the chart.",
-   "family": "Volatility",
-   "plain": "Nine-day fear versus one-month fear. Picks up specific dated events.",
-   "compare": "The calendar, not the chart.",
-   "worry": "Rising while price is flat — something specific is being priced in, like a Fed meeting or a big earnings date.",
-   "ignore": "Movement during a broad selloff. It is just following VIX.",
-   "as_of": "2026-10-26",
-   "basis": "absolute scale",
-   "inverted": false,
-   "clipped": false,
-   "scale_lo": 0.85,
-   "scale_hi": 1.15,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false,
-   "history": {
-    "bucket": "40–60",
-    "bucket_index": 2,
-    "episodes": 77,
-    "episodes_done": 75,
-    "ep_lower_1m": 26,
-    "lower_1m": 29.0,
-    "med_3m": 4.9,
-    "med_dd": -2.8,
-    "worst_dd": -32.2,
-    "base_lower_1m": 32.0,
-    "base_med_3m": 3.9,
-    "base_med_dd": -2.7,
-    "enough": true,
-    "since": "2015-01-02",
-    "lag": 0
-   }
-  },
-  {
    "id": "vvix_vix",
    "label": "VVIX / VIX",
-   "value": 5.5155,
-   "display": "5.52",
-   "percentile": 31.3,
+   "value": 5.6764,
+   "display": "5.68",
+   "percentile": 44.4,
    "weight": 6,
    "note": "",
    "check": "High ratio with a low VIX = complacent spot, expensive tails. Protection is cheapest to own exactly here.",
@@ -707,7 +666,7 @@
    "compare": "The VIX level, always. Never read this one on its own.",
    "worry": "A high ratio while VIX is low — a calm market where tails are being priced up. Historically a complacent setup.",
    "ignore": "The number by itself. It rises mechanically whenever VIX is very low, so a high reading can simply mean 'VIX is cheap'.",
-   "as_of": "2026-10-26",
+   "as_of": "2026-10-27",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
    "clipped": false,
@@ -717,15 +676,15 @@
    "stale": false,
    "excluded": false,
    "history": {
-    "bucket": "20–40",
-    "bucket_index": 1,
-    "episodes": 37,
-    "episodes_done": 36,
-    "ep_lower_1m": 9,
-    "lower_1m": 41.0,
-    "med_3m": 4.1,
-    "med_dd": -3.3,
-    "worst_dd": -33.8,
+    "bucket": "40–60",
+    "bucket_index": 2,
+    "episodes": 44,
+    "episodes_done": 44,
+    "ep_lower_1m": 12,
+    "lower_1m": 34.0,
+    "med_3m": 4.7,
+    "med_dd": -2.7,
+    "worst_dd": -34.1,
     "base_lower_1m": 32.0,
     "base_med_3m": 3.9,
     "base_med_dd": -2.7,
@@ -735,43 +694,43 @@
    }
   },
   {
-   "id": "pct_above_20",
-   "label": "% of S&P 500 above 20-day average",
-   "value": 69.7211,
-   "display": "70%",
-   "percentile": 30.3,
+   "id": "ts_vix9d_vix",
+   "label": "VIX9D / VIX near-term stress",
+   "value": 0.9503,
+   "display": "0.950",
+   "percentile": 33.4,
    "weight": 8,
    "note": "",
-   "check": "Short-horizon. Under 15% is washout territory -- check whether price has actually broken structure or merely dipped.",
-   "family": "Breadth",
-   "plain": "What share of the 500 companies are trading above their own 20-day average. Very short-horizon.",
-   "compare": "Whether the index has actually broken anything, or merely dipped.",
-   "worry": "Under 15%. Though that is usually washout near a LOW, not a warning of one.",
-   "ignore": "Anything between roughly 40 and 70. That is an ordinary market.",
-   "as_of": "2026-10-23",
+   "check": "Rising while price is flat means a dated event is being priced -- look for what is on the calendar rather than on the chart.",
+   "family": "Volatility",
+   "plain": "Nine-day fear versus one-month fear. Picks up specific dated events.",
+   "compare": "The calendar, not the chart.",
+   "worry": "Rising while price is flat — something specific is being priced in, like a Fed meeting or a big earnings date.",
+   "ignore": "Movement during a broad selloff. It is just following VIX.",
+   "as_of": "2026-10-27",
    "basis": "absolute scale",
-   "inverted": true,
+   "inverted": false,
    "clipped": false,
-   "scale_lo": 0,
-   "scale_hi": 100,
+   "scale_lo": 0.85,
+   "scale_hi": 1.15,
    "thin_history": false,
    "stale": false,
    "excluded": false,
    "history": {
     "bucket": "20–40",
     "bucket_index": 1,
-    "episodes": 57,
-    "episodes_done": 56,
-    "ep_lower_1m": 16,
-    "lower_1m": 31.0,
-    "med_3m": 3.8,
-    "med_dd": -2.4,
-    "worst_dd": -34.1,
+    "episodes": 71,
+    "episodes_done": 69,
+    "ep_lower_1m": 25,
+    "lower_1m": 33.0,
+    "med_3m": 3.6,
+    "med_dd": -2.5,
+    "worst_dd": -33.1,
     "base_lower_1m": 32.0,
     "base_med_3m": 3.9,
     "base_med_dd": -2.7,
     "enough": true,
-    "since": "2016-02-01",
+    "since": "2015-01-02",
     "lag": 0
    }
   },
@@ -817,91 +776,50 @@
    }
   },
   {
-   "id": "ts_vix_vix3m",
-   "label": "VIX / VIX3M term structure",
-   "value": 0.9223,
-   "display": "0.922",
-   "percentile": 28.9,
-   "weight": 12,
-   "note": "above 1.00 = backwardation, the classic risk-off trigger",
-   "check": "Crossing 1.00 while the index is still near its highs is the meaningful case. Above 1.00 during an active selloff is normal and usually marks the panic, not the start of one.",
-   "family": "Volatility",
-   "plain": "One-month fear divided by three-month fear. Below 1.00 is the normal state.",
-   "compare": "Where the index is trading — near a high, or already falling.",
-   "worry": "It crosses above 1.00 while the index is STILL near a high. Traders are paying more for protection now than for later.",
-   "ignore": "Above 1.00 during a selloff already underway. That is usually the panic, and often near the low.",
+   "id": "pct_above_20",
+   "label": "% of S&P 500 above 20-day average",
+   "value": 71.5139,
+   "display": "72%",
+   "percentile": 28.5,
+   "weight": 8,
+   "note": "",
+   "check": "Short-horizon. Under 15% is washout territory -- check whether price has actually broken structure or merely dipped.",
+   "family": "Breadth",
+   "plain": "What share of the 500 companies are trading above their own 20-day average. Very short-horizon.",
+   "compare": "Whether the index has actually broken anything, or merely dipped.",
+   "worry": "Under 15%. Though that is usually washout near a LOW, not a warning of one.",
+   "ignore": "Anything between roughly 40 and 70. That is an ordinary market.",
    "as_of": "2026-10-26",
    "basis": "absolute scale",
-   "inverted": false,
+   "inverted": true,
    "clipped": false,
-   "scale_lo": 0.85,
-   "scale_hi": 1.1,
+   "scale_lo": 0,
+   "scale_hi": 100,
    "thin_history": false,
    "stale": false,
    "excluded": false,
    "history": {
     "bucket": "20–40",
     "bucket_index": 1,
-    "episodes": 71,
-    "episodes_done": 69,
-    "ep_lower_1m": 22,
-    "lower_1m": 30.0,
-    "med_3m": 4.6,
-    "med_dd": -2.9,
+    "episodes": 57,
+    "episodes_done": 56,
+    "ep_lower_1m": 16,
+    "lower_1m": 31.0,
+    "med_3m": 3.8,
+    "med_dd": -2.4,
     "worst_dd": -34.1,
     "base_lower_1m": 32.0,
     "base_med_3m": 3.9,
     "base_med_dd": -2.7,
     "enough": true,
-    "since": "2015-01-02",
-    "lag": 0
-   }
-  },
-  {
-   "id": "defensive_rotation",
-   "label": "Defensives vs index, 63d",
-   "value": -4.6327,
-   "display": "-4.6%",
-   "percentile": 26.8,
-   "weight": 4,
-   "note": "utilities and staples relative to the index",
-   "check": "Rising while the index makes highs means money is moving to safety inside the rally. Confirms more often than it leads.",
-   "family": "Structure",
-   "plain": "Utilities and consumer staples measured against the whole index over three months.",
-   "compare": "The index.",
-   "worry": "Defensives outperforming while the index makes highs. Money is moving to safety inside the rally.",
-   "ignore": "It as an early warning. It confirms far more often than it leads.",
-   "as_of": "2026-10-23",
-   "basis": "absolute scale",
-   "inverted": false,
-   "clipped": false,
-   "scale_lo": -10,
-   "scale_hi": 10,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false,
-   "history": {
-    "bucket": "20–40",
-    "bucket_index": 1,
-    "episodes": 44,
-    "episodes_done": 43,
-    "ep_lower_1m": 13,
-    "lower_1m": 30.0,
-    "med_3m": 4.1,
-    "med_dd": -2.6,
-    "worst_dd": -32.8,
-    "base_lower_1m": 32.0,
-    "base_med_3m": 3.9,
-    "base_med_dd": -2.7,
-    "enough": true,
-    "since": "2015-04-06",
+    "since": "2016-02-01",
     "lag": 0
    }
   },
   {
    "id": "nhnl_cum_z",
    "label": "Cumulative NH-NL line, 252d z-score",
-   "value": 1.1925,
+   "value": 1.1912,
    "display": "+1.19",
    "percentile": 26.2,
    "weight": 10,
@@ -912,7 +830,7 @@
    "compare": "The index against its 200-day average.",
    "worry": "Below zero. That has marked the bear phases: 2001-03, 2008-09, 2015-16, 2022.",
    "ignore": "It as a top warning. It turned down well AFTER the 2000 and 2007 highs. It tells you whether dips are worth buying, not when to sell.",
-   "as_of": "2026-10-23",
+   "as_of": "2026-10-26",
    "basis": "absolute scale",
    "inverted": true,
    "clipped": false,
@@ -940,6 +858,88 @@
    }
   },
   {
+   "id": "defensive_rotation",
+   "label": "Defensives vs index, 63d",
+   "value": -5.9763,
+   "display": "-6.0%",
+   "percentile": 20.1,
+   "weight": 4,
+   "note": "utilities and staples relative to the index",
+   "check": "Rising while the index makes highs means money is moving to safety inside the rally. Confirms more often than it leads.",
+   "family": "Structure",
+   "plain": "Utilities and consumer staples measured against the whole index over three months.",
+   "compare": "The index.",
+   "worry": "Defensives outperforming while the index makes highs. Money is moving to safety inside the rally.",
+   "ignore": "It as an early warning. It confirms far more often than it leads.",
+   "as_of": "2026-10-26",
+   "basis": "absolute scale",
+   "inverted": false,
+   "clipped": false,
+   "scale_lo": -10,
+   "scale_hi": 10,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false,
+   "history": {
+    "bucket": "20–40",
+    "bucket_index": 1,
+    "episodes": 44,
+    "episodes_done": 43,
+    "ep_lower_1m": 13,
+    "lower_1m": 30.0,
+    "med_3m": 4.1,
+    "med_dd": -2.6,
+    "worst_dd": -32.8,
+    "base_lower_1m": 32.0,
+    "base_med_3m": 3.9,
+    "base_med_dd": -2.7,
+    "enough": true,
+    "since": "2015-04-06",
+    "lag": 0
+   }
+  },
+  {
+   "id": "ts_vix_vix3m",
+   "label": "VIX / VIX3M term structure",
+   "value": 0.8952,
+   "display": "0.895",
+   "percentile": 18.1,
+   "weight": 12,
+   "note": "above 1.00 = backwardation, the classic risk-off trigger",
+   "check": "Crossing 1.00 while the index is still near its highs is the meaningful case. Above 1.00 during an active selloff is normal and usually marks the panic, not the start of one.",
+   "family": "Volatility",
+   "plain": "One-month fear divided by three-month fear. Below 1.00 is the normal state.",
+   "compare": "Where the index is trading — near a high, or already falling.",
+   "worry": "It crosses above 1.00 while the index is STILL near a high. Traders are paying more for protection now than for later.",
+   "ignore": "Above 1.00 during a selloff already underway. That is usually the panic, and often near the low.",
+   "as_of": "2026-10-27",
+   "basis": "absolute scale",
+   "inverted": false,
+   "clipped": false,
+   "scale_lo": 0.85,
+   "scale_hi": 1.1,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false,
+   "history": {
+    "bucket": "0–20",
+    "bucket_index": 0,
+    "episodes": 30,
+    "episodes_done": 30,
+    "ep_lower_1m": 5,
+    "lower_1m": 34.0,
+    "med_3m": 3.4,
+    "med_dd": -2.5,
+    "worst_dd": -34.0,
+    "base_lower_1m": 32.0,
+    "base_med_3m": 3.9,
+    "base_med_dd": -2.7,
+    "enough": true,
+    "since": "2015-01-02",
+    "lag": 0
+   }
+  },
+  {
    "id": "vol_floor",
    "label": "Volatility floor, 126d change",
    "value": -2.13,
@@ -953,7 +953,7 @@
    "compare": "The index. Ideally the floor falls while price rises.",
    "worry": "The floor rising while the index makes new highs. The market can no longer get as quiet as it used to — a classic late-cycle tell.",
    "ignore": "A rising floor during a correction. That is simply what corrections do.",
-   "as_of": "2026-10-26",
+   "as_of": "2026-10-27",
    "basis": "ranked vs 756 sessions",
    "inverted": false,
    "clipped": false,
@@ -1014,8 +1014,8 @@
   }
  ],
  "spx_proxy": {
-  "last": 759.97,
-  "pct_from_high": -2.45
+  "last": 765.37,
+  "pct_from_high": -1.76
  },
  "history": [
   {
@@ -10785,8 +10785,8 @@
   },
   {
    "date": "2023-10-27",
-   "score": 61.1,
-   "n": 18
+   "score": 62.3,
+   "n": 17
   },
   {
    "date": "2023-10-30",
@@ -10880,8 +10880,8 @@
   },
   {
    "date": "2023-11-24",
-   "score": 33.6,
-   "n": 19
+   "score": 35.7,
+   "n": 18
   },
   {
    "date": "2023-11-27",
@@ -11355,8 +11355,8 @@
   },
   {
    "date": "2024-04-12",
-   "score": 47.1,
-   "n": 20
+   "score": 49.2,
+   "n": 19
   },
   {
    "date": "2024-04-15",
@@ -11515,7 +11515,7 @@
   },
   {
    "date": "2024-05-29",
-   "score": 40.8,
+   "score": 40.9,
    "n": 19
   },
   {
@@ -11585,7 +11585,7 @@
   },
   {
    "date": "2024-06-18",
-   "score": 38.6,
+   "score": 38.7,
    "n": 19
   },
   {
@@ -11635,7 +11635,7 @@
   },
   {
    "date": "2024-07-03",
-   "score": 38.9,
+   "score": 39.0,
    "n": 19
   },
   {
@@ -11650,7 +11650,7 @@
   },
   {
    "date": "2024-07-09",
-   "score": 38.7,
+   "score": 38.8,
    "n": 19
   },
   {
@@ -11720,7 +11720,7 @@
   },
   {
    "date": "2024-07-29",
-   "score": 41.1,
+   "score": 41.2,
    "n": 19
   },
   {
@@ -11740,7 +11740,7 @@
   },
   {
    "date": "2024-08-02",
-   "score": 58.3,
+   "score": 58.4,
    "n": 20
   },
   {
@@ -11790,7 +11790,7 @@
   },
   {
    "date": "2024-08-16",
-   "score": 40.7,
+   "score": 40.8,
    "n": 20
   },
   {
@@ -11825,7 +11825,7 @@
   },
   {
    "date": "2024-08-27",
-   "score": 33.8,
+   "score": 33.9,
    "n": 19
   },
   {
@@ -11865,17 +11865,17 @@
   },
   {
    "date": "2024-09-09",
-   "score": 43.7,
+   "score": 43.8,
    "n": 19
   },
   {
    "date": "2024-09-10",
-   "score": 45.8,
+   "score": 45.9,
    "n": 19
   },
   {
    "date": "2024-09-11",
-   "score": 44.4,
+   "score": 44.5,
    "n": 19
   },
   {
@@ -11890,7 +11890,7 @@
   },
   {
    "date": "2024-09-16",
-   "score": 38.3,
+   "score": 38.4,
    "n": 19
   },
   {
@@ -11910,7 +11910,7 @@
   },
   {
    "date": "2024-09-20",
-   "score": 31.0,
+   "score": 31.1,
    "n": 20
   },
   {
@@ -12480,7 +12480,7 @@
   },
   {
    "date": "2025-03-07",
-   "score": 51.5,
+   "score": 51.6,
    "n": 20
   },
   {
@@ -12490,7 +12490,7 @@
   },
   {
    "date": "2025-03-11",
-   "score": 60.8,
+   "score": 60.9,
    "n": 19
   },
   {
@@ -12500,7 +12500,7 @@
   },
   {
    "date": "2025-03-13",
-   "score": 60.6,
+   "score": 60.7,
    "n": 19
   },
   {
@@ -12535,7 +12535,7 @@
   },
   {
    "date": "2025-03-24",
-   "score": 38.3,
+   "score": 38.4,
    "n": 19
   },
   {
@@ -12595,7 +12595,7 @@
   },
   {
    "date": "2025-04-09",
-   "score": 71.5,
+   "score": 71.6,
    "n": 19
   },
   {
@@ -12695,7 +12695,7 @@
   },
   {
    "date": "2025-05-08",
-   "score": 41.2,
+   "score": 41.3,
    "n": 19
   },
   {
@@ -12740,7 +12740,7 @@
   },
   {
    "date": "2025-05-21",
-   "score": 43.7,
+   "score": 43.8,
    "n": 19
   },
   {
@@ -12775,7 +12775,7 @@
   },
   {
    "date": "2025-06-02",
-   "score": 40.4,
+   "score": 40.5,
    "n": 19
   },
   {
@@ -12790,7 +12790,7 @@
   },
   {
    "date": "2025-06-05",
-   "score": 39.6,
+   "score": 39.7,
    "n": 19
   },
   {
@@ -12890,7 +12890,7 @@
   },
   {
    "date": "2025-07-07",
-   "score": 34.4,
+   "score": 34.5,
    "n": 19
   },
   {
@@ -13145,7 +13145,7 @@
   },
   {
    "date": "2025-09-17",
-   "score": 34.6,
+   "score": 34.7,
    "n": 19
   },
   {
@@ -13200,7 +13200,7 @@
   },
   {
    "date": "2025-10-02",
-   "score": 30.9,
+   "score": 31.0,
    "n": 19
   },
   {
@@ -13235,7 +13235,7 @@
   },
   {
    "date": "2025-10-13",
-   "score": 46.7,
+   "score": 46.8,
    "n": 18
   },
   {
@@ -13270,7 +13270,7 @@
   },
   {
    "date": "2025-10-22",
-   "score": 39.4,
+   "score": 39.5,
    "n": 19
   },
   {
@@ -13335,7 +13335,7 @@
   },
   {
    "date": "2025-11-10",
-   "score": 34.0,
+   "score": 34.1,
    "n": 19
   },
   {
@@ -13380,7 +13380,7 @@
   },
   {
    "date": "2025-11-21",
-   "score": 46.1,
+   "score": 46.2,
    "n": 20
   },
   {
@@ -13455,7 +13455,7 @@
   },
   {
    "date": "2025-12-15",
-   "score": 27.5,
+   "score": 27.6,
    "n": 19
   },
   {
@@ -13505,7 +13505,7 @@
   },
   {
    "date": "2025-12-30",
-   "score": 24.1,
+   "score": 24.2,
    "n": 19
   },
   {
@@ -13545,7 +13545,7 @@
   },
   {
    "date": "2026-01-12",
-   "score": 23.1,
+   "score": 23.2,
    "n": 19
   },
   {
@@ -13695,7 +13695,7 @@
   },
   {
    "date": "2026-02-25",
-   "score": 33.7,
+   "score": 33.8,
    "n": 19
   },
   {
@@ -13800,7 +13800,7 @@
   },
   {
    "date": "2026-03-26",
-   "score": 55.8,
+   "score": 55.9,
    "n": 19
   },
   {
@@ -13815,7 +13815,7 @@
   },
   {
    "date": "2026-03-31",
-   "score": 52.2,
+   "score": 52.3,
    "n": 19
   },
   {
@@ -13880,7 +13880,7 @@
   },
   {
    "date": "2026-04-20",
-   "score": 33.1,
+   "score": 33.2,
    "n": 19
   },
   {
@@ -13950,7 +13950,7 @@
   },
   {
    "date": "2026-05-08",
-   "score": 38.7,
+   "score": 38.8,
    "n": 20
   },
   {
@@ -14175,7 +14175,7 @@
   },
   {
    "date": "2026-07-15",
-   "score": 33.5,
+   "score": 33.6,
    "n": 19
   },
   {
@@ -14534,14 +14534,19 @@
    "n": 18
   },
   {
-   "date": "2026-10-27",
-   "score": 52.8,
+   "date": "2026-10-26",
+   "score": 52.5,
+   "n": 18
+  },
+  {
+   "date": "2026-10-28",
+   "score": 50.0,
    "regime": "BULL"
   }
  ],
  "notes": [
-  "breadth data lagged by 1 thinly-covered date(s), latest good 2026-10-23",
-  "score history rebuilt from 2703 sessions"
+  "breadth data lagged by 1 thinly-covered date(s), latest good 2026-10-26",
+  "score history rebuilt from 2704 sessions"
  ],
  "errors": [],
  "thrusts": [
@@ -14582,26 +14587,26 @@
   }
  ],
  "topping": {
-  "score_raw": 11.9,
-  "surface": 61.3,
-  "internals": 68.7,
-  "calm_factor": 0.17,
+  "score_raw": 21.2,
+  "surface": 55.3,
+  "internals": 72.2,
+  "calm_factor": 0.29,
   "drivers": [
    {
     "label": "Quality spread (CCC minus BB)",
-    "percentile": 79.2
+    "percentile": 78.9
+   },
+   {
+    "label": "Cap-weight vs equal-weight, 63d",
+    "percentile": 69.6
    },
    {
     "label": "Credit non-confirmation, 63d count",
     "percentile": 68.0
-   },
-   {
-    "label": "A/D confirmation gap, 252d",
-    "percentile": 58.9
    }
   ],
-  "score": 34.2,
-  "percentile": 33.9
+  "score": 32.5,
+  "percentile": 29.8
  },
  "top_history": [
   {
@@ -23562,87 +23567,87 @@
   },
   {
    "date": "2023-11-24",
-   "top": 65.9
+   "top": 65.5
   },
   {
    "date": "2023-11-27",
-   "top": 66.9
+   "top": 66.5
   },
   {
    "date": "2023-11-28",
-   "top": 67.5
+   "top": 67.1
   },
   {
    "date": "2023-11-29",
-   "top": 67.4
+   "top": 67.1
   },
   {
    "date": "2023-11-30",
-   "top": 66.6
+   "top": 66.3
   },
   {
    "date": "2023-12-01",
-   "top": 65.0
+   "top": 64.7
   },
   {
    "date": "2023-12-04",
-   "top": 63.1
+   "top": 62.8
   },
   {
    "date": "2023-12-05",
-   "top": 61.6
+   "top": 61.4
   },
   {
    "date": "2023-12-06",
-   "top": 60.2
+   "top": 60.0
   },
   {
    "date": "2023-12-07",
-   "top": 59.1
+   "top": 58.9
   },
   {
    "date": "2023-12-08",
-   "top": 58.2
+   "top": 58.0
   },
   {
    "date": "2023-12-11",
-   "top": 57.5
+   "top": 57.4
   },
   {
    "date": "2023-12-12",
-   "top": 57.0
+   "top": 56.9
   },
   {
    "date": "2023-12-13",
-   "top": 56.3
-  },
-  {
-   "date": "2023-12-14",
-   "top": 56.4
-  },
-  {
-   "date": "2023-12-15",
-   "top": 56.0
-  },
-  {
-   "date": "2023-12-18",
-   "top": 55.8
-  },
-  {
-   "date": "2023-12-19",
    "top": 56.2
   },
   {
-   "date": "2023-12-20",
+   "date": "2023-12-14",
+   "top": 56.3
+  },
+  {
+   "date": "2023-12-15",
    "top": 55.9
+  },
+  {
+   "date": "2023-12-18",
+   "top": 55.7
+  },
+  {
+   "date": "2023-12-19",
+   "top": 56.1
+  },
+  {
+   "date": "2023-12-20",
+   "top": 55.8
   },
   {
    "date": "2023-12-21",
-   "top": 55.9
+   "top": 55.8
   },
   {
    "date": "2023-12-22",
-   "top": 55.8
+   "top": 55.7
   },
   {
    "date": "2023-12-26",
@@ -23658,7 +23663,7 @@
   },
   {
    "date": "2023-12-29",
-   "top": 56.1
+   "top": 56.0
   },
   {
    "date": "2024-01-02",
@@ -23678,7 +23683,7 @@
   },
   {
    "date": "2024-01-08",
-   "top": 53.0
+   "top": 52.9
   },
   {
    "date": "2024-01-09",
@@ -23686,11 +23691,11 @@
   },
   {
    "date": "2024-01-10",
-   "top": 54.2
+   "top": 54.1
   },
   {
    "date": "2024-01-11",
-   "top": 54.8
+   "top": 54.7
   },
   {
    "date": "2024-01-12",
@@ -23726,7 +23731,7 @@
   },
   {
    "date": "2024-01-25",
-   "top": 48.1
+   "top": 48.0
   },
   {
    "date": "2024-01-26",
@@ -23942,107 +23947,107 @@
   },
   {
    "date": "2024-04-12",
-   "top": 52.8
+   "top": 52.2
   },
   {
    "date": "2024-04-15",
-   "top": 49.8
+   "top": 49.2
   },
   {
    "date": "2024-04-16",
-   "top": 47.4
+   "top": 46.8
   },
   {
    "date": "2024-04-17",
-   "top": 45.6
+   "top": 45.1
   },
   {
    "date": "2024-04-18",
-   "top": 44.2
-  },
-  {
-   "date": "2024-04-19",
-   "top": 42.7
-  },
-  {
-   "date": "2024-04-22",
-   "top": 42.5
-  },
-  {
-   "date": "2024-04-23",
-   "top": 43.4
-  },
-  {
-   "date": "2024-04-24",
    "top": 43.7
   },
   {
+   "date": "2024-04-19",
+   "top": 42.3
+  },
+  {
+   "date": "2024-04-22",
+   "top": 42.1
+  },
+  {
+   "date": "2024-04-23",
+   "top": 43.0
+  },
+  {
+   "date": "2024-04-24",
+   "top": 43.4
+  },
+  {
    "date": "2024-04-25",
-   "top": 43.9
+   "top": 43.6
   },
   {
    "date": "2024-04-26",
-   "top": 44.4
+   "top": 44.1
   },
   {
    "date": "2024-04-29",
-   "top": 45.3
+   "top": 45.1
   },
   {
    "date": "2024-04-30",
-   "top": 45.5
+   "top": 45.2
   },
   {
    "date": "2024-05-01",
-   "top": 46.2
+   "top": 46.0
   },
   {
    "date": "2024-05-02",
-   "top": 47.4
+   "top": 47.2
   },
   {
    "date": "2024-05-03",
-   "top": 49.5
+   "top": 49.3
   },
   {
    "date": "2024-05-06",
-   "top": 51.5
+   "top": 51.3
   },
   {
    "date": "2024-05-07",
-   "top": 53.5
+   "top": 53.3
   },
   {
    "date": "2024-05-08",
-   "top": 55.0
+   "top": 54.9
   },
   {
    "date": "2024-05-09",
-   "top": 56.6
+   "top": 56.5
   },
   {
    "date": "2024-05-10",
-   "top": 57.9
+   "top": 57.8
   },
   {
    "date": "2024-05-13",
-   "top": 58.3
+   "top": 58.2
   },
   {
    "date": "2024-05-14",
-   "top": 58.6
+   "top": 58.5
   },
   {
    "date": "2024-05-15",
-   "top": 60.6
+   "top": 60.5
   },
   {
    "date": "2024-05-16",
-   "top": 62.4
+   "top": 62.3
   },
   {
    "date": "2024-05-17",
-   "top": 63.8
+   "top": 63.7
   },
   {
    "date": "2024-05-20",
@@ -24062,7 +24067,7 @@
   },
   {
    "date": "2024-05-24",
-   "top": 67.8
+   "top": 67.7
   },
   {
    "date": "2024-05-28",
@@ -24082,7 +24087,7 @@
   },
   {
    "date": "2024-06-03",
-   "top": 65.8
+   "top": 65.7
   },
   {
    "date": "2024-06-04",
@@ -24094,15 +24099,15 @@
   },
   {
    "date": "2024-06-06",
-   "top": 63.3
+   "top": 63.2
   },
   {
    "date": "2024-06-07",
-   "top": 63.1
+   "top": 63.0
   },
   {
    "date": "2024-06-10",
-   "top": 63.1
+   "top": 63.0
   },
   {
    "date": "2024-06-11",
@@ -24118,11 +24123,11 @@
   },
   {
    "date": "2024-06-14",
-   "top": 63.6
+   "top": 63.5
   },
   {
    "date": "2024-06-17",
-   "top": 63.0
+   "top": 62.9
   },
   {
    "date": "2024-06-18",
@@ -24130,7 +24135,7 @@
   },
   {
    "date": "2024-06-20",
-   "top": 62.3
+   "top": 62.2
   },
   {
    "date": "2024-06-21",
@@ -24138,11 +24143,11 @@
   },
   {
    "date": "2024-06-24",
-   "top": 61.6
+   "top": 61.5
   },
   {
    "date": "2024-06-25",
-   "top": 61.9
+   "top": 61.8
   },
   {
    "date": "2024-06-26",
@@ -24150,11 +24155,11 @@
   },
   {
    "date": "2024-06-27",
-   "top": 63.6
+   "top": 63.5
   },
   {
    "date": "2024-06-28",
-   "top": 64.0
+   "top": 63.9
   },
   {
    "date": "2024-07-01",
@@ -24162,19 +24167,19 @@
   },
   {
    "date": "2024-07-02",
-   "top": 65.2
+   "top": 65.1
   },
   {
    "date": "2024-07-03",
-   "top": 65.6
-  },
-  {
-   "date": "2024-07-05",
    "top": 65.5
   },
   {
+   "date": "2024-07-05",
+   "top": 65.4
+  },
+  {
    "date": "2024-07-08",
-   "top": 66.5
+   "top": 66.4
   },
   {
    "date": "2024-07-09",
@@ -24182,7 +24187,7 @@
   },
   {
    "date": "2024-07-10",
-   "top": 67.7
+   "top": 67.6
   },
   {
    "date": "2024-07-11",
@@ -24194,7 +24199,7 @@
   },
   {
    "date": "2024-07-15",
-   "top": 68.5
+   "top": 68.4
   },
   {
    "date": "2024-07-16",
@@ -24202,7 +24207,7 @@
   },
   {
    "date": "2024-07-17",
-   "top": 68.7
+   "top": 68.6
   },
   {
    "date": "2024-07-18",
@@ -24222,7 +24227,7 @@
   },
   {
    "date": "2024-07-24",
-   "top": 62.1
+   "top": 62.0
   },
   {
    "date": "2024-07-25",
@@ -24238,15 +24243,15 @@
   },
   {
    "date": "2024-07-30",
-   "top": 54.1
+   "top": 54.0
   },
   {
    "date": "2024-07-31",
-   "top": 52.3
+   "top": 52.2
   },
   {
    "date": "2024-08-01",
-   "top": 49.2
+   "top": 49.1
   },
   {
    "date": "2024-08-02",
@@ -24266,7 +24271,7 @@
   },
   {
    "date": "2024-08-08",
-   "top": 31.1
+   "top": 31.0
   },
   {
    "date": "2024-08-09",
@@ -24278,7 +24283,7 @@
   },
   {
    "date": "2024-08-13",
-   "top": 25.6
+   "top": 25.5
   },
   {
    "date": "2024-08-14",
@@ -24286,7 +24291,7 @@
   },
   {
    "date": "2024-08-15",
-   "top": 26.8
+   "top": 26.7
   },
   {
    "date": "2024-08-16",
@@ -24298,11 +24303,11 @@
   },
   {
    "date": "2024-08-20",
-   "top": 29.9
+   "top": 29.8
   },
   {
    "date": "2024-08-21",
-   "top": 30.3
+   "top": 30.2
   },
   {
    "date": "2024-08-22",
@@ -24310,7 +24315,7 @@
   },
   {
    "date": "2024-08-23",
-   "top": 32.0
+   "top": 31.9
   },
   {
    "date": "2024-08-26",
@@ -24334,7 +24339,7 @@
   },
   {
    "date": "2024-09-03",
-   "top": 37.6
+   "top": 37.5
   },
   {
    "date": "2024-09-04",
@@ -24342,7 +24347,7 @@
   },
   {
    "date": "2024-09-05",
-   "top": 34.9
+   "top": 34.8
   },
   {
    "date": "2024-09-06",
@@ -24350,11 +24355,11 @@
   },
   {
    "date": "2024-09-09",
-   "top": 33.0
+   "top": 32.9
   },
   {
    "date": "2024-09-10",
-   "top": 32.1
+   "top": 32.0
   },
   {
    "date": "2024-09-11",
@@ -24362,15 +24367,15 @@
   },
   {
    "date": "2024-09-12",
-   "top": 31.9
+   "top": 31.8
   },
   {
    "date": "2024-09-13",
-   "top": 32.2
+   "top": 32.1
   },
   {
    "date": "2024-09-16",
-   "top": 32.4
+   "top": 32.3
   },
   {
    "date": "2024-09-17",
@@ -24378,19 +24383,19 @@
   },
   {
    "date": "2024-09-18",
-   "top": 33.1
+   "top": 33.0
   },
   {
    "date": "2024-09-19",
-   "top": 34.8
+   "top": 34.7
   },
   {
    "date": "2024-09-20",
-   "top": 36.2
+   "top": 36.1
   },
   {
    "date": "2024-09-23",
-   "top": 37.5
+   "top": 37.4
   },
   {
    "date": "2024-09-24",
@@ -24454,11 +24459,11 @@
   },
   {
    "date": "2024-10-15",
-   "top": 41.6
+   "top": 41.5
   },
   {
    "date": "2024-10-16",
-   "top": 41.7
+   "top": 41.6
   },
   {
    "date": "2024-10-17",
@@ -24482,11 +24487,11 @@
   },
   {
    "date": "2024-10-24",
-   "top": 41.4
+   "top": 41.3
   },
   {
    "date": "2024-10-25",
-   "top": 40.4
+   "top": 40.3
   },
   {
    "date": "2024-10-28",
@@ -24582,7 +24587,7 @@
   },
   {
    "date": "2024-11-29",
-   "top": 51.7
+   "top": 51.6
   },
   {
    "date": "2024-12-02",
@@ -24714,7 +24719,7 @@
   },
   {
    "date": "2025-01-21",
-   "top": 50.8
+   "top": 50.7
   },
   {
    "date": "2025-01-22",
@@ -24794,7 +24799,7 @@
   },
   {
    "date": "2025-02-19",
-   "top": 52.9
+   "top": 52.8
   },
   {
    "date": "2025-02-20",
@@ -24818,11 +24823,11 @@
   },
   {
    "date": "2025-02-27",
-   "top": 43.8
+   "top": 43.7
   },
   {
    "date": "2025-02-28",
-   "top": 42.1
+   "top": 42.0
   },
   {
    "date": "2025-03-03",
@@ -24830,7 +24835,7 @@
   },
   {
    "date": "2025-03-04",
-   "top": 36.9
+   "top": 36.8
   },
   {
    "date": "2025-03-05",
@@ -24846,7 +24851,7 @@
   },
   {
    "date": "2025-03-10",
-   "top": 28.0
+   "top": 27.9
   },
   {
    "date": "2025-03-11",
@@ -24874,7 +24879,7 @@
   },
   {
    "date": "2025-03-19",
-   "top": 21.1
+   "top": 21.0
   },
   {
    "date": "2025-03-20",
@@ -24890,7 +24895,7 @@
   },
   {
    "date": "2025-03-25",
-   "top": 26.1
+   "top": 26.0
   },
   {
    "date": "2025-03-26",
@@ -24898,7 +24903,7 @@
   },
   {
    "date": "2025-03-27",
-   "top": 26.4
+   "top": 26.3
   },
   {
    "date": "2025-03-28",
@@ -24910,15 +24915,15 @@
   },
   {
    "date": "2025-04-01",
-   "top": 20.8
+   "top": 20.7
   },
   {
    "date": "2025-04-02",
-   "top": 18.9
+   "top": 18.8
   },
   {
    "date": "2025-04-03",
-   "top": 17.2
+   "top": 17.1
   },
   {
    "date": "2025-04-04",
@@ -24938,7 +24943,7 @@
   },
   {
    "date": "2025-04-10",
-   "top": 10.7
+   "top": 10.6
   },
   {
    "date": "2025-04-11",
@@ -24990,7 +24995,7 @@
   },
   {
    "date": "2025-04-30",
-   "top": 5.6
+   "top": 5.5
   },
   {
    "date": "2025-05-01",
@@ -25018,7 +25023,7 @@
   },
   {
    "date": "2025-05-09",
-   "top": 16.1
+   "top": 16.0
   },
   {
    "date": "2025-05-12",
@@ -25046,7 +25051,7 @@
   },
   {
    "date": "2025-05-20",
-   "top": 30.6
+   "top": 30.5
   },
   {
    "date": "2025-05-21",
@@ -25054,7 +25059,7 @@
   },
   {
    "date": "2025-05-22",
-   "top": 31.9
+   "top": 31.8
   },
   {
    "date": "2025-05-23",
@@ -25090,7 +25095,7 @@
   },
   {
    "date": "2025-06-05",
-   "top": 40.6
+   "top": 40.5
   },
   {
    "date": "2025-06-06",
@@ -25106,11 +25111,11 @@
   },
   {
    "date": "2025-06-11",
-   "top": 46.0
+   "top": 45.9
   },
   {
    "date": "2025-06-12",
-   "top": 46.1
+   "top": 46.0
   },
   {
    "date": "2025-06-13",
@@ -25126,7 +25131,7 @@
   },
   {
    "date": "2025-06-18",
-   "top": 43.6
+   "top": 43.5
   },
   {
    "date": "2025-06-20",
@@ -25134,7 +25139,7 @@
   },
   {
    "date": "2025-06-23",
-   "top": 43.9
+   "top": 43.8
   },
   {
    "date": "2025-06-24",
@@ -25154,7 +25159,7 @@
   },
   {
    "date": "2025-06-30",
-   "top": 53.3
+   "top": 53.2
   },
   {
    "date": "2025-07-01",
@@ -25234,7 +25239,7 @@
   },
   {
    "date": "2025-07-29",
-   "top": 64.0
+   "top": 63.9
   },
   {
    "date": "2025-07-30",
@@ -25254,7 +25259,7 @@
   },
   {
    "date": "2025-08-05",
-   "top": 57.9
+   "top": 57.8
   },
   {
    "date": "2025-08-06",
@@ -25306,7 +25311,7 @@
   },
   {
    "date": "2025-08-22",
-   "top": 54.7
+   "top": 54.6
   },
   {
    "date": "2025-08-25",
@@ -25346,15 +25351,15 @@
   },
   {
    "date": "2025-09-08",
-   "top": 54.0
+   "top": 53.9
   },
   {
    "date": "2025-09-09",
-   "top": 54.2
+   "top": 54.1
   },
   {
    "date": "2025-09-10",
-   "top": 54.1
+   "top": 54.0
   },
   {
    "date": "2025-09-11",
@@ -25414,7 +25419,7 @@
   },
   {
    "date": "2025-10-01",
-   "top": 53.7
+   "top": 53.6
   },
   {
    "date": "2025-10-02",
@@ -25422,7 +25427,7 @@
   },
   {
    "date": "2025-10-03",
-   "top": 52.5
+   "top": 52.4
   },
   {
    "date": "2025-10-06",
@@ -25478,7 +25483,7 @@
   },
   {
    "date": "2025-10-23",
-   "top": 35.8
+   "top": 35.7
   },
   {
    "date": "2025-10-24",
@@ -25490,7 +25495,7 @@
   },
   {
    "date": "2025-10-28",
-   "top": 38.2
+   "top": 38.1
   },
   {
    "date": "2025-10-29",
@@ -25518,7 +25523,7 @@
   },
   {
    "date": "2025-11-06",
-   "top": 41.1
+   "top": 41.0
   },
   {
    "date": "2025-11-07",
@@ -25534,7 +25539,7 @@
   },
   {
    "date": "2025-11-12",
-   "top": 39.8
+   "top": 39.7
   },
   {
    "date": "2025-11-13",
@@ -25542,11 +25547,11 @@
   },
   {
    "date": "2025-11-14",
-   "top": 37.7
+   "top": 37.6
   },
   {
    "date": "2025-11-17",
-   "top": 36.6
+   "top": 36.5
   },
   {
    "date": "2025-11-18",
@@ -25602,7 +25607,7 @@
   },
   {
    "date": "2025-12-08",
-   "top": 40.1
+   "top": 40.0
   },
   {
    "date": "2025-12-09",
@@ -25614,7 +25619,7 @@
   },
   {
    "date": "2025-12-11",
-   "top": 40.1
+   "top": 40.0
   },
   {
    "date": "2025-12-12",
@@ -25698,7 +25703,7 @@
   },
   {
    "date": "2026-01-13",
-   "top": 43.8
+   "top": 43.7
   },
   {
    "date": "2026-01-14",
@@ -25822,7 +25827,7 @@
   },
   {
    "date": "2026-02-27",
-   "top": 30.9
+   "top": 30.8
   },
   {
    "date": "2026-03-02",
@@ -25882,7 +25887,7 @@
   },
   {
    "date": "2026-03-20",
-   "top": 17.9
+   "top": 17.8
   },
   {
    "date": "2026-03-23",
@@ -25894,11 +25899,11 @@
   },
   {
    "date": "2026-03-25",
-   "top": 15.5
+   "top": 15.4
   },
   {
    "date": "2026-03-26",
-   "top": 14.6
+   "top": 14.5
   },
   {
    "date": "2026-03-27",
@@ -25922,19 +25927,19 @@
   },
   {
    "date": "2026-04-06",
-   "top": 15.7
+   "top": 15.6
   },
   {
    "date": "2026-04-07",
-   "top": 15.9
+   "top": 15.8
   },
   {
    "date": "2026-04-08",
-   "top": 18.3
+   "top": 18.2
   },
   {
    "date": "2026-04-09",
-   "top": 21.5
+   "top": 21.4
   },
   {
    "date": "2026-04-10",
@@ -26062,7 +26067,7 @@
   },
   {
    "date": "2026-05-26",
-   "top": 69.0
+   "top": 68.9
   },
   {
    "date": "2026-05-27",
@@ -26142,7 +26147,7 @@
   },
   {
    "date": "2026-06-24",
-   "top": 55.2
+   "top": 55.1
   },
   {
    "date": "2026-06-25",
@@ -26274,7 +26279,7 @@
   },
   {
    "date": "2026-08-11",
-   "top": 50.4
+   "top": 50.3
   },
   {
    "date": "2026-08-12",
@@ -26310,7 +26315,7 @@
   },
   {
    "date": "2026-08-24",
-   "top": 52.5
+   "top": 52.4
   },
   {
    "date": "2026-08-25",
@@ -26426,7 +26431,7 @@
   },
   {
    "date": "2026-10-05",
-   "top": 59.4
+   "top": 59.3
   },
   {
    "date": "2026-10-06",
@@ -26483,15 +26488,19 @@
   {
    "date": "2026-10-23",
    "top": 34.2
+  },
+  {
+   "date": "2026-10-26",
+   "top": 32.5
   }
  ],
  "price_state": {
   "state": "pause",
   "label": "PAUSING NEAR HIGHS",
   "say": "within 5% of the one-year high, a new high within the last month",
-  "pct_from_high": -2.45,
-  "days_since_high": 13,
-  "range_position": 87.0,
+  "pct_from_high": -1.76,
+  "days_since_high": 14,
+  "range_position": 91.0,
   "band_42d": 3.3,
   "history": {
    "table": [
@@ -26513,7 +26522,7 @@
      "share": 36.0
     },
     {
-     "days": 414,
+     "days": 415,
      "days_done": 391,
      "episodes": 51,
      "episodes_done": 49,
@@ -26531,7 +26540,7 @@
     },
     {
      "days": 521,
-     "days_done": 500,
+     "days_done": 501,
      "episodes": 30,
      "episodes_done": 29,
      "lower_1m": 20.0,
@@ -26599,8 +26608,8 @@
     }
    ],
    "baseline": {
-    "days": 2589,
-    "days_done": 2526,
+    "days": 2590,
+    "days_done": 2527,
     "episodes": 1,
     "episodes_done": 1,
     "lower_1m": 31.0,
@@ -26806,8 +26815,8 @@
     },
     {
      "start": "2026-10-14",
-     "end": "2026-10-23",
-     "sessions": 8,
+     "end": "2026-10-26",
+     "sessions": 9,
      "reading": null,
      "r21": null,
      "r63": null,
@@ -26825,9 +26834,9 @@
   "symbols_requested": 726,
   "coverage": {
    "avg": 90.2,
-   "worst": 66.4,
-   "worst_date": "2026-10-26",
-   "today": 66.4,
+   "worst": 0.0,
+   "worst_date": "2026-10-27",
+   "today": 0.0,
    "by_year": {
     "2016": 79.3,
     "2017": 82.4,
@@ -26839,358 +26848,9 @@
     "2023": 95.0,
     "2024": 96.0,
     "2025": 97.3,
-    "2026": 98.7
+    "2026": 98.4
    }
   }
- },
- "sectors": {
-  "as_of": "2026-10-26",
-  "total": {
-   "name": "All members",
-   "n": 334,
-   "above20": 74,
-   "above20_month_ago": 32,
-   "above200": 56,
-   "median_3m": -3.1,
-   "vs_index_3m": -5.9,
-   "new_highs_20d": 62,
-   "new_lows_20d": 51,
-   "share_of_weak": 100,
-   "share_of_index": 100
-  },
-  "index_3m": 2.8,
-  "sectors": [
-   {
-    "name": "Communication Services",
-    "n": 13,
-    "above20": 31,
-    "above20_month_ago": 23,
-    "above200": 23,
-    "median_3m": -8.0,
-    "vs_index_3m": -10.8,
-    "new_highs_20d": 0,
-    "new_lows_20d": 6,
-    "share_of_weak": 10,
-    "share_of_index": 4
-   },
-   {
-    "name": "Information Technology",
-    "n": 50,
-    "above20": 52,
-    "above20_month_ago": 66,
-    "above200": 66,
-    "median_3m": 9.1,
-    "vs_index_3m": 6.3,
-    "new_highs_20d": 13,
-    "new_lows_20d": 1,
-    "share_of_weak": 27,
-    "share_of_index": 15
-   },
-   {
-    "name": "Industrials",
-    "n": 54,
-    "above20": 65,
-    "above20_month_ago": 52,
-    "above200": 46,
-    "median_3m": -5.0,
-    "vs_index_3m": -7.8,
-    "new_highs_20d": 5,
-    "new_lows_20d": 9,
-    "share_of_weak": 22,
-    "share_of_index": 16
-   },
-   {
-    "name": "Consumer Discretionary",
-    "n": 35,
-    "above20": 71,
-    "above20_month_ago": 26,
-    "above200": 34,
-    "median_3m": -6.7,
-    "vs_index_3m": -9.6,
-    "new_highs_20d": 4,
-    "new_lows_20d": 12,
-    "share_of_weak": 11,
-    "share_of_index": 10
-   },
-   {
-    "name": "Financials",
-    "n": 48,
-    "above20": 79,
-    "above20_month_ago": 8,
-    "above200": 69,
-    "median_3m": -5.5,
-    "vs_index_3m": -8.3,
-    "new_highs_20d": 6,
-    "new_lows_20d": 2,
-    "share_of_weak": 11,
-    "share_of_index": 14
-   },
-   {
-    "name": "Real Estate",
-    "n": 20,
-    "above20": 80,
-    "above20_month_ago": 0,
-    "above200": 35,
-    "median_3m": -9.3,
-    "vs_index_3m": -12.1,
-    "new_highs_20d": 0,
-    "new_lows_20d": 8,
-    "share_of_weak": 5,
-    "share_of_index": 6
-   },
-   {
-    "name": "Materials",
-    "n": 14,
-    "above20": 86,
-    "above20_month_ago": 14,
-    "above200": 64,
-    "median_3m": -2.4,
-    "vs_index_3m": -5.2,
-    "new_highs_20d": 0,
-    "new_lows_20d": 2,
-    "share_of_weak": 2,
-    "share_of_index": 4
-   },
-   {
-    "name": "Consumer Staples",
-    "n": 23,
-    "above20": 87,
-    "above20_month_ago": 17,
-    "above200": 65,
-    "median_3m": 0.3,
-    "vs_index_3m": -2.5,
-    "new_highs_20d": 6,
-    "new_lows_20d": 5,
-    "share_of_weak": 3,
-    "share_of_index": 7
-   },
-   {
-    "name": "Energy",
-    "n": 17,
-    "above20": 88,
-    "above20_month_ago": 6,
-    "above200": 71,
-    "median_3m": 17.2,
-    "vs_index_3m": 14.4,
-    "new_highs_20d": 8,
-    "new_lows_20d": 2,
-    "share_of_weak": 2,
-    "share_of_index": 5
-   },
-   {
-    "name": "Health Care",
-    "n": 39,
-    "above20": 90,
-    "above20_month_ago": 54,
-    "above200": 85,
-    "median_3m": 6.7,
-    "vs_index_3m": 3.8,
-    "new_highs_20d": 20,
-    "new_lows_20d": 2,
-    "share_of_weak": 5,
-    "share_of_index": 12
-   },
-   {
-    "name": "Utilities",
-    "n": 21,
-    "above20": 95,
-    "above20_month_ago": 5,
-    "above200": 29,
-    "median_3m": -4.4,
-    "vs_index_3m": -7.2,
-    "new_highs_20d": 0,
-    "new_lows_20d": 2,
-    "share_of_weak": 1,
-    "share_of_index": 6
-   }
-  ],
-  "weakest_groups": [
-   {
-    "name": "Semiconductor Materials & Equipment",
-    "n": 5,
-    "above20": 0,
-    "above20_month_ago": 100,
-    "above200": 0,
-    "median_3m": -11.9,
-    "vs_index_3m": -14.7,
-    "new_highs_20d": 0,
-    "new_lows_20d": 0,
-    "share_of_weak": 6,
-    "share_of_index": 1,
-    "sector": "Information Technology"
-   },
-   {
-    "name": "Technology Hardware, Storage & Peripherals",
-    "n": 5,
-    "above20": 20,
-    "above20_month_ago": 80,
-    "above200": 60,
-    "median_3m": 20.5,
-    "vs_index_3m": 17.7,
-    "new_highs_20d": 2,
-    "new_lows_20d": 0,
-    "share_of_weak": 5,
-    "share_of_index": 1,
-    "sector": "Information Technology"
-   },
-   {
-    "name": "Movies & Entertainment",
-    "n": 4,
-    "above20": 25,
-    "above20_month_ago": 25,
-    "above200": 25,
-    "median_3m": -7.6,
-    "vs_index_3m": -10.4,
-    "new_highs_20d": 0,
-    "new_lows_20d": 3,
-    "share_of_weak": 3,
-    "share_of_index": 1,
-    "sector": "Communication Services"
-   },
-   {
-    "name": "Construction & Engineering",
-    "n": 4,
-    "above20": 25,
-    "above20_month_ago": 75,
-    "above200": 25,
-    "median_3m": -4.9,
-    "vs_index_3m": -7.7,
-    "new_highs_20d": 0,
-    "new_lows_20d": 0,
-    "share_of_weak": 3,
-    "share_of_index": 1,
-    "sector": "Industrials"
-   },
-   {
-    "name": "Semiconductors",
-    "n": 10,
-    "above20": 40,
-    "above20_month_ago": 90,
-    "above200": 60,
-    "median_3m": 8.6,
-    "vs_index_3m": 5.8,
-    "new_highs_20d": 2,
-    "new_lows_20d": 0,
-    "share_of_weak": 7,
-    "share_of_index": 3,
-    "sector": "Information Technology"
-   },
-   {
-    "name": "Industrial Machinery & Supplies & Components",
-    "n": 7,
-    "above20": 43,
-    "above20_month_ago": 71,
-    "above200": 29,
-    "median_3m": -8.7,
-    "vs_index_3m": -11.6,
-    "new_highs_20d": 0,
-    "new_lows_20d": 1,
-    "share_of_weak": 5,
-    "share_of_index": 2,
-    "sector": "Industrials"
-   },
-   {
-    "name": "Communications Equipment",
-    "n": 4,
-    "above20": 50,
-    "above20_month_ago": 75,
-    "above200": 75,
-    "median_3m": 7.4,
-    "vs_index_3m": 4.5,
-    "new_highs_20d": 2,
-    "new_lows_20d": 0,
-    "share_of_weak": 2,
-    "share_of_index": 1,
-    "sector": "Information Technology"
-   },
-   {
-    "name": "Asset Management & Custody Banks",
-    "n": 10,
-    "above20": 60,
-    "above20_month_ago": 0,
-    "above200": 60,
-    "median_3m": -7.0,
-    "vs_index_3m": -9.8,
-    "new_highs_20d": 0,
-    "new_lows_20d": 0,
-    "share_of_weak": 5,
-    "share_of_index": 3,
-    "sector": "Financials"
-   }
-  ],
-  "strongest_groups": [
-   {
-    "name": "Systems Software",
-    "n": 5,
-    "above20": 100,
-    "above20_month_ago": 60,
-    "above200": 100,
-    "median_3m": 22.4,
-    "vs_index_3m": 19.6,
-    "new_highs_20d": 3,
-    "new_lows_20d": 0,
-    "share_of_weak": 0,
-    "share_of_index": 1,
-    "sector": "Information Technology"
-   },
-   {
-    "name": "Insurance Brokers",
-    "n": 4,
-    "above20": 100,
-    "above20_month_ago": 0,
-    "above200": 100,
-    "median_3m": 2.0,
-    "vs_index_3m": -0.8,
-    "new_highs_20d": 1,
-    "new_lows_20d": 0,
-    "share_of_weak": 0,
-    "share_of_index": 1,
-    "sector": "Financials"
-   },
-   {
-    "name": "Property & Casualty Insurance",
-    "n": 6,
-    "above20": 100,
-    "above20_month_ago": 0,
-    "above200": 100,
-    "median_3m": -3.5,
-    "vs_index_3m": -6.3,
-    "new_highs_20d": 0,
-    "new_lows_20d": 1,
-    "share_of_weak": 0,
-    "share_of_index": 2,
-    "sector": "Financials"
-   },
-   {
-    "name": "Hotels, Resorts & Cruise Lines",
-    "n": 6,
-    "above20": 100,
-    "above20_month_ago": 33,
-    "above200": 50,
-    "median_3m": -4.4,
-    "vs_index_3m": -7.2,
-    "new_highs_20d": 2,
-    "new_lows_20d": 0,
-    "share_of_weak": 0,
-    "share_of_index": 2,
-    "sector": "Consumer Discretionary"
-   },
-   {
-    "name": "Multi-Utilities",
-    "n": 8,
-    "above20": 100,
-    "above20_month_ago": 0,
-    "above200": 12,
-    "median_3m": -5.7,
-    "vs_index_3m": -8.5,
-    "new_highs_20d": 0,
-    "new_lows_20d": 1,
-    "share_of_weak": 0,
-    "share_of_index": 2,
-    "sector": "Utilities"
-   }
-  ],
-  "classification": "GICS"
  },
  "quality": {
   "status": "OK",
@@ -27224,7 +26884,7 @@
    {
     "name": "Score change explainable",
     "status": "pass",
-    "detail": "score moved +0.0 overnight"
+    "detail": "score moved -2.8 overnight"
    },
    {
     "name": "Enough gauges reporting",
@@ -27234,7 +26894,7 @@
    {
     "name": "History intact",
     "status": "pass",
-    "detail": "2704 sessions, no gaps or duplicates"
+    "detail": "2705 sessions, no gaps or duplicates"
    }
   ],
   "n_failed": 0,
@@ -27245,8 +26905,8 @@
   "baseline_away_share": 0.79,
   "window_days": 10,
   "history_from": "2016-01-08",
-  "history_to": "2026-10-27",
-  "threshold_p80": 49.6,
+  "history_to": "2026-10-28",
+  "threshold_p80": 49.7,
   "threshold_p90": 56.2,
   "episodes_testable": 9,
   "episodes_flagged": 9,
@@ -27421,7 +27081,7 @@
     "kind": "top",
     "measure": "topping",
     "score": 35.9,
-    "percentile": 37.7,
+    "percentile": 37.8,
     "change_before": 3.6,
     "useful": false,
     "verdict": "asleep at the top"
@@ -27443,7 +27103,7 @@
     "kind": "top",
     "measure": "topping",
     "score": 50.8,
-    "percentile": 69.0,
+    "percentile": 68.7,
     "change_before": 0.7,
     "useful": true,
     "verdict": "elevated at the top"
@@ -27451,5 +27111,5 @@
   ],
   "note": "Lows are the easy test and should be near-perfect. Tops are the hard test — judge the tool on that column."
  },
- "score_percentile": 85.4
+ "score_percentile": 80.6
 }
