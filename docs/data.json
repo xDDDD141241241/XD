@@ -1,7 +1,7 @@
 {
- "updated": "2026-10-29T20:22:23+00:00",
+ "updated": "2026-10-30T02:03:05+00:00",
  "build": "214ace0c",
- "score": 42.7,
+ "score": 43.0,
  "band": "ELEVATED",
  "regime": {
   "name": "BULL",
@@ -161,6 +161,47 @@
    }
   },
   {
+   "id": "vix",
+   "label": "VIX level",
+   "value": 17.2,
+   "display": "17.20",
+   "percentile": 61.6,
+   "weight": 8,
+   "note": "",
+   "check": "Direction against price is what counts. VIX rising while the index also rises is rare and is worth stopping on.",
+   "family": "Volatility",
+   "plain": "The size of the swing the market expects over the next month. The fear gauge.",
+   "compare": "The index itself. Normally the two move in opposite directions.",
+   "worry": "It rises on a day the index ALSO rises. That pairing is rare and usually means someone is positioning for trouble.",
+   "ignore": "A spike during an obvious selloff. That is the market reacting, not warning.",
+   "as_of": "2026-10-29",
+   "basis": "ranked vs 756 sessions",
+   "inverted": false,
+   "clipped": false,
+   "scale_lo": null,
+   "scale_hi": null,
+   "thin_history": false,
+   "stale": false,
+   "excluded": false,
+   "history": {
+    "bucket": "60–80",
+    "bucket_index": 3,
+    "episodes": 56,
+    "episodes_done": 54,
+    "ep_lower_1m": 16,
+    "lower_1m": 33.0,
+    "med_3m": 4.2,
+    "med_dd": -2.8,
+    "worst_dd": -33.8,
+    "base_lower_1m": 32.0,
+    "base_med_3m": 3.9,
+    "base_med_dd": -2.6,
+    "enough": true,
+    "since": "2015-06-24",
+    "lag": 0
+   }
+  },
+  {
    "id": "corr_spy_tlt",
    "label": "Stock/bond correlation, 63d",
    "value": 0.2254,
@@ -243,52 +284,11 @@
    }
   },
   {
-   "id": "vix",
-   "label": "VIX level",
-   "value": 17.11,
-   "display": "17.11",
-   "percentile": 60.1,
-   "weight": 8,
-   "note": "",
-   "check": "Direction against price is what counts. VIX rising while the index also rises is rare and is worth stopping on.",
-   "family": "Volatility",
-   "plain": "The size of the swing the market expects over the next month. The fear gauge.",
-   "compare": "The index itself. Normally the two move in opposite directions.",
-   "worry": "It rises on a day the index ALSO rises. That pairing is rare and usually means someone is positioning for trouble.",
-   "ignore": "A spike during an obvious selloff. That is the market reacting, not warning.",
-   "as_of": "2026-10-29",
-   "basis": "ranked vs 756 sessions",
-   "inverted": false,
-   "clipped": false,
-   "scale_lo": null,
-   "scale_hi": null,
-   "thin_history": false,
-   "stale": false,
-   "excluded": false,
-   "history": {
-    "bucket": "60–80",
-    "bucket_index": 3,
-    "episodes": 56,
-    "episodes_done": 54,
-    "ep_lower_1m": 16,
-    "lower_1m": 33.0,
-    "med_3m": 4.2,
-    "med_dd": -2.8,
-    "worst_dd": -33.8,
-    "base_lower_1m": 32.0,
-    "base_med_3m": 3.9,
-    "base_med_dd": -2.6,
-    "enough": true,
-    "since": "2015-06-24",
-    "lag": 0
-   }
-  },
-  {
    "id": "vvix",
    "label": "VVIX (vol of vol)",
-   "value": 97.42,
-   "display": "97.4",
-   "percentile": 58.9,
+   "value": 98.01,
+   "display": "98.0",
+   "percentile": 60.0,
    "weight": 8,
    "note": "rises when people start paying up for tail protection",
    "check": "Rising VVIX with a flat VIX means someone is buying protection before any move shows in price. This leads more often than VIX does.",
@@ -307,15 +307,15 @@
    "stale": false,
    "excluded": false,
    "history": {
-    "bucket": "40–60",
-    "bucket_index": 2,
-    "episodes": 68,
-    "episodes_done": 66,
-    "ep_lower_1m": 18,
+    "bucket": "60–80",
+    "bucket_index": 3,
+    "episodes": 45,
+    "episodes_done": 43,
+    "ep_lower_1m": 16,
     "lower_1m": 29.0,
-    "med_3m": 4.0,
-    "med_dd": -2.1,
-    "worst_dd": -34.1,
+    "med_3m": 4.5,
+    "med_dd": -2.7,
+    "worst_dd": -34.0,
     "base_lower_1m": 32.0,
     "base_med_3m": 3.9,
     "base_med_dd": -2.6,
@@ -450,9 +450,9 @@
   {
    "id": "move",
    "label": "MOVE (rates volatility)",
-   "value": 93.5724,
-   "display": "93.6",
-   "percentile": 50.9,
+   "value": 93.5385,
+   "display": "93.5",
+   "percentile": 50.7,
    "weight": 8,
    "note": "",
    "check": "If this leads VIX higher, the shock is coming from bonds or policy rather than from equities -- a different playbook.",
@@ -532,9 +532,9 @@
   {
    "id": "vvix_vix",
    "label": "VVIX / VIX",
-   "value": 5.6937,
-   "display": "5.69",
-   "percentile": 45.4,
+   "value": 5.6983,
+   "display": "5.70",
+   "percentile": 45.7,
    "weight": 6,
    "note": "",
    "check": "High ratio with a low VIX = complacent spot, expensive tails. Protection is cheapest to own exactly here.",
@@ -573,9 +573,9 @@
   {
    "id": "breadth_ad_z",
    "label": "Advance/decline line, 63d z-score",
-   "value": 0.434,
+   "value": 0.4325,
    "display": "+0.43",
-   "percentile": 41.3,
+   "percentile": 41.4,
    "weight": 5,
    "note": "level of breadth momentum, not a divergence measure",
    "check": "Read this as breadth strength only. For non-confirmation use the A/D confirmation gap above, which compares it against price -- this gauge does not know where price is.",
@@ -737,9 +737,9 @@
   {
    "id": "net_liquidity",
    "label": "Fed net liquidity, 63d change",
-   "value": 0.1172,
-   "display": "+0.1%",
-   "percentile": 29.7,
+   "value": 0.218,
+   "display": "+0.2%",
+   "percentile": 26.9,
    "weight": 4,
    "note": "reserves less the Treasury account less reverse repo",
    "check": "Falling while the index makes highs means the advance is running on positioning rather than on new money. Short history and contested -- treat as supporting evidence, never as a trigger.",
@@ -748,7 +748,7 @@
    "compare": "The index.",
    "worry": "Falling while the index makes highs. The advance is running on positioning rather than on new money.",
    "ignore": "It as a standalone trigger. The relationship is contested and the history is short.",
-   "as_of": "2026-10-21",
+   "as_of": "2026-10-28",
    "basis": "ranked vs 756 sessions",
    "inverted": true,
    "clipped": false,
@@ -819,9 +819,9 @@
   {
    "id": "pct_above_20",
    "label": "% of S&P 500 above 20-day average",
-   "value": 74.9503,
+   "value": 75.0996,
    "display": "75%",
-   "percentile": 25.0,
+   "percentile": 24.9,
    "weight": 8,
    "note": "",
    "check": "Short-horizon. Under 15% is washout territory -- check whether price has actually broken structure or merely dipped.",
@@ -860,9 +860,9 @@
   {
    "id": "ts_vix9d_vix",
    "label": "VIX9D / VIX near-term stress",
-   "value": 0.9088,
-   "display": "0.909",
-   "percentile": 19.6,
+   "value": 0.9227,
+   "display": "0.923",
+   "percentile": 24.2,
    "weight": 8,
    "note": "",
    "check": "Rising while price is flat means a dated event is being priced -- look for what is on the calendar rather than on the chart.",
@@ -881,15 +881,15 @@
    "stale": false,
    "excluded": false,
    "history": {
-    "bucket": "0–20",
-    "bucket_index": 0,
-    "episodes": 49,
-    "episodes_done": 49,
-    "ep_lower_1m": 18,
+    "bucket": "20–40",
+    "bucket_index": 1,
+    "episodes": 71,
+    "episodes_done": 69,
+    "ep_lower_1m": 25,
     "lower_1m": 33.0,
     "med_3m": 3.6,
-    "med_dd": -2.4,
-    "worst_dd": -34.1,
+    "med_dd": -2.5,
+    "worst_dd": -33.1,
     "base_lower_1m": 32.0,
     "base_med_3m": 3.9,
     "base_med_dd": -2.6,
@@ -901,9 +901,9 @@
   {
    "id": "ts_vix_vix3m",
    "label": "VIX / VIX3M term structure",
-   "value": 0.8865,
-   "display": "0.887",
-   "percentile": 14.6,
+   "value": 0.888,
+   "display": "0.888",
+   "percentile": 15.2,
    "weight": 12,
    "note": "above 1.00 = backwardation, the classic risk-off trigger",
    "check": "Crossing 1.00 while the index is still near its highs is the meaningful case. Above 1.00 during an active selloff is normal and usually marks the panic, not the start of one.",
@@ -14525,32 +14525,37 @@
   },
   {
    "date": "2026-10-22",
-   "score": 55.6,
-   "n": 18
-  },
-  {
-   "date": "2026-10-23",
-   "score": 56.0,
+   "score": 54.9,
    "n": 19
   },
   {
+   "date": "2026-10-23",
+   "score": 55.3,
+   "n": 20
+  },
+  {
    "date": "2026-10-26",
-   "score": 52.5,
-   "n": 18
+   "score": 51.8,
+   "n": 19
   },
   {
    "date": "2026-10-27",
-   "score": 48.5,
-   "n": 18
+   "score": 48.0,
+   "n": 19
   },
   {
    "date": "2026-10-28",
-   "score": 44.5,
-   "n": 18
+   "score": 44.0,
+   "n": 19
   },
   {
    "date": "2026-10-29",
-   "score": 42.7,
+   "score": 37.3,
+   "n": 15
+  },
+  {
+   "date": "2026-10-30",
+   "score": 43.0,
    "regime": "BULL"
   }
  ],
@@ -14596,10 +14601,10 @@
   }
  ],
  "topping": {
-  "score_raw": 32.6,
-  "surface": 46.1,
+  "score_raw": 31.4,
+  "surface": 47.0,
   "internals": 68.3,
-  "calm_factor": 0.48,
+  "calm_factor": 0.46,
   "drivers": [
    {
     "label": "Quality spread (CCC minus BB)",
@@ -14614,8 +14619,8 @@
     "percentile": 56.0
    }
   ],
-  "score": 33.2,
-  "percentile": 31.5
+  "score": 33.1,
+  "percentile": 31.4
  },
  "top_history": [
   {
@@ -26512,7 +26517,7 @@
   },
   {
    "date": "2026-10-29",
-   "top": 33.2
+   "top": 33.1
   }
  ],
  "price_state": {
@@ -26857,7 +26862,7 @@
    "avg": 90.3,
    "worst": 77.4,
    "worst_date": "2016-01-04",
-   "today": 100.0,
+   "today": 99.8,
    "by_year": {
     "2016": 79.3,
     "2017": 82.4,
@@ -26877,7 +26882,7 @@
   "as_of": "2026-10-29",
   "total": {
    "name": "All members",
-   "n": 503,
+   "n": 502,
    "above20": 75,
    "above20_month_ago": 23,
    "above200": 63,
@@ -26918,16 +26923,16 @@
    },
    {
     "name": "Industrials",
-    "n": 83,
-    "above20": 70,
+    "n": 82,
+    "above20": 71,
     "above20_month_ago": 29,
-    "above200": 53,
-    "median_3m": 0.1,
-    "vs_index_3m": -2.9,
+    "above200": 54,
+    "median_3m": 0.3,
+    "vs_index_3m": -2.7,
     "new_highs_20d": 11,
     "new_lows_20d": 14,
-    "share_of_weak": 20,
-    "share_of_index": 17
+    "share_of_weak": 19,
+    "share_of_index": 16
    },
    {
     "name": "Energy",
@@ -27254,7 +27259,7 @@
    {
     "name": "Score change explainable",
     "status": "pass",
-    "detail": "score moved -2.9 overnight"
+    "detail": "score moved +0.3 overnight"
    },
    {
     "name": "Enough gauges reporting",
@@ -27264,7 +27269,7 @@
    {
     "name": "History intact",
     "status": "pass",
-    "detail": "2707 sessions, no gaps or duplicates"
+    "detail": "2708 sessions, no gaps or duplicates"
    }
   ],
   "n_failed": 0,
@@ -27275,7 +27280,7 @@
   "baseline_away_share": 0.79,
   "window_days": 10,
   "history_from": "2016-01-08",
-  "history_to": "2026-10-29",
+  "history_to": "2026-10-30",
   "threshold_p80": 49.6,
   "threshold_p90": 56.2,
   "episodes_testable": 9,
@@ -27481,5 +27486,5 @@
   ],
   "note": "Lows are the easy test and should be near-perfect. Tops are the hard test — judge the tool on that column."
  },
- "score_percentile": 64.9
+ "score_percentile": 65.9
 }
