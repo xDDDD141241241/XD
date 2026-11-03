@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03T02:47:36+00:00",
+ "updated": "2026-11-03T03:31:46+00:00",
  "build": "214ace0c",
  "score": 55.0,
  "band": "ELEVATED",
@@ -27277,7 +27277,7 @@
    {
     "name": "Score change explainable",
     "status": "pass",
-    "detail": "score moved +4.7 overnight"
+    "detail": "score moved +0.0 overnight"
    },
    {
     "name": "Enough gauges reporting",
