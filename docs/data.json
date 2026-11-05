@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T21:48:42+00:00",
+ "updated": "2026-11-05T02:37:20+00:00",
  "build": "214ace0c",
  "score": 43.4,
  "band": "ELEVATED",
@@ -14570,6 +14570,11 @@
   },
   {
    "date": "2026-11-04",
+   "score": 32.7,
+   "n": 15
+  },
+  {
+   "date": "2026-11-05",
    "score": 43.4,
    "regime": "BULL"
   }
@@ -27290,7 +27295,7 @@
    {
     "name": "Score change explainable",
     "status": "pass",
-    "detail": "score moved -11.6 overnight"
+    "detail": "score moved +0.0 overnight"
    },
    {
     "name": "Enough gauges reporting",
@@ -27300,7 +27305,7 @@
    {
     "name": "History intact",
     "status": "pass",
-    "detail": "2711 sessions, no gaps or duplicates"
+    "detail": "2712 sessions, no gaps or duplicates"
    }
   ],
   "n_failed": 0,
@@ -27311,7 +27316,7 @@
   "baseline_away_share": 0.79,
   "window_days": 10,
   "history_from": "2016-01-08",
-  "history_to": "2026-11-04",
+  "history_to": "2026-11-05",
   "threshold_p80": 49.7,
   "threshold_p90": 56.2,
   "episodes_testable": 9,
