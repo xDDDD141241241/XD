@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09T21:33:13+00:00",
+ "updated": "2026-11-10T04:12:31+00:00",
  "build": "214ace0c",
  "score": 50.1,
  "band": "ELEVATED",
@@ -245,7 +245,7 @@
   {
    "id": "risk_appetite",
    "label": "Cross-asset risk appetite, 63d",
-   "value": -4.7168,
+   "value": -4.7161,
    "display": "-4.7%",
    "percentile": 69.7,
    "weight": 6,
@@ -614,7 +614,7 @@
   {
    "id": "move",
    "label": "MOVE (rates volatility)",
-   "value": 85.9979,
+   "value": 85.98,
    "display": "86.0",
    "percentile": 39.0,
    "weight": 8,
@@ -14585,6 +14585,11 @@
   },
   {
    "date": "2026-11-09",
+   "score": 41.9,
+   "n": 15
+  },
+  {
+   "date": "2026-11-10",
    "score": 50.1,
    "regime": "BULL"
   }
@@ -27317,7 +27322,7 @@
    {
     "name": "Score change explainable",
     "status": "pass",
-    "detail": "score moved -8.7 overnight"
+    "detail": "score moved +0.0 overnight"
    },
    {
     "name": "Enough gauges reporting",
@@ -27327,7 +27332,7 @@
    {
     "name": "History intact",
     "status": "pass",
-    "detail": "2714 sessions, no gaps or duplicates"
+    "detail": "2715 sessions, no gaps or duplicates"
    }
   ],
   "n_failed": 0,
@@ -27338,7 +27343,7 @@
   "baseline_away_share": 0.79,
   "window_days": 10,
   "history_from": "2016-01-08",
-  "history_to": "2026-11-09",
+  "history_to": "2026-11-10",
   "threshold_p80": 49.7,
   "threshold_p90": 56.4,
   "episodes_testable": 9,
@@ -27544,5 +27549,5 @@
   ],
   "note": "Lows are the easy test and should be near-perfect. Tops are the hard test — judge the tool on that column."
  },
- "score_percentile": 80.5
+ "score_percentile": 80.6
 }
